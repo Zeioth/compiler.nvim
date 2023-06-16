@@ -7,8 +7,6 @@ Neovim compiler capable of compiling and running the next languages without the 
 * rust
 * python
 
-The purpose of NeoCompiler is making compiling an running the programs you write as stupidly simple as possible.
-
 ## How to install
 WIP 
 
