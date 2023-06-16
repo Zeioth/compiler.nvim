@@ -1,7 +1,7 @@
 # WIP: Please be patient, not ready for usage yet 
 
 ## Project here
-Neovim compiler capable of compiling the next lanzuages without the need of configuring anything
+Neovim compiler capable of compiling the next languages without the need of configuring anything
 
 * c
 * c++
