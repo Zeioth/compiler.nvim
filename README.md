@@ -21,7 +21,7 @@ lazy.nvim
 Press F6 on NeoVim. Yes that's all.
 
 ## Advanced
-You don't need to do any of this as the plugin works out of the box with all the supported languages. But if you want to implement custom behaviors, read this:
+You don't need to do any of this as the plugin works out of the box with all the supported languages. But if you want to implement custom behaviors, read this section
 
 #### Per project options
 This it not necessary. But if you want, you can set per project option with `:set option=""`
