@@ -11,7 +11,7 @@ Making compiling an running the program you are writing as painless as possible.
 
 ## FAQ
 
-* **How do NeoCompiler know how to compile?** It looks for the conventional entry point file of that lenguage. To achieve this, it searches upwads in the directory tree from the file you are currently editing. It will search for the next file names.
+* **How do NeoCompiler know how to compile?** It looks for the conventional entry point file for the current lenguage you are using. To achieve this, it searches upwads in the directory tree from the file you are currently editing. It will search for the next file names.
 
   * c: main.c
   * c++: main.cpp
