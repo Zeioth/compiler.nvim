@@ -12,7 +12,7 @@ lazy.nvim
 ```lua
 {
   "https://github.com/Zeioth/compiler.nvim",
-  dependenciens = {"stevearc/overseer.nvim"}
+  dependenciens = { "stevearc/overseer.nvim" }
   event="VeryLazy",
   config = function(_, opts) require("compiler").setup(opts) end,
 },
