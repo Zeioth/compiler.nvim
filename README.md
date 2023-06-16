@@ -39,7 +39,7 @@ You can override what hapens when an action is selected on the compiler. To do s
 
 ## FAQ
 
-* **How do the compiler know how to compile?** It looks for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory. The files it look for in every language:
+* **How do the compiler know what to compile?** It looks for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory. The files it look for in every language:
 
   * c: main.c
   * c++: main.cpp
