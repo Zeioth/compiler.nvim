@@ -1,4 +1,4 @@
-Most people (specially beginers) are familiarized with the way visual studio IDE compile stuff without making questions. This package gives you that for the languages that allow it (c, c++, c#, rust, python)
+Most people (specially beginers) are familiarized with the way visual studio IDE compiles your program without making questions. This package gives you that for the languages that allow it (c, c++, c#, rust, python)
 
 ## Purpose
 Making compiling an running the program you are writing as painless as possible.
