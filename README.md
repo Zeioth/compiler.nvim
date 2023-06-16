@@ -10,7 +10,7 @@ Most people (specially beginers) are familiarized with the way visual studio IDE
 Making compiling an running the program you are writing as painless as possible.
 
 ## Per project options
-99% of the time this it not necessary, but if you want you can define per project option with `:set option=""`
+This it not necessary. But if you want, you can set per project option with `:set option=""`
 
 * vim.g.compiler_project_root = "" → by default the project root is .git, but it can also be manually defined
 * vim.g.compiler_solution_run = "" → program to run after building a solution. None if unsetted
