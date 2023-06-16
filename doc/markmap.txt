@@ -1,0 +1,150 @@
+*markmap.txt*                                    a markmap generator for neovim.
+
+==============================================================================
+Table of Contents                                  *markmap-table-of-contents*
+
+1. markmap.nvim                                                      |markmap|
+  - Installation                                        |markmap-installation|
+  - Usage                                                      |markmap-usage|
+  - Options                                                  |markmap-options|
+  - Command                                                 |markmap-commands|
+  - FAQ                                                          |markmap-faq|
+
+==============================================================================
+1. nvim-markmap                                         *makmap*
+INSTALLATION                                            *markmap-installation*
+
+On lazy.nvim, markmap.nvim cam be installed like:
+>
+--  [markdown markmap]
+--  https://github.com/Zeioth/markmap.nvim
+{
+  "Zeioth/markmap.nvim",
+  build = "yarn global add markmap-cli",
+  cmd = {"MarkmapOpen", "MarkmapSave", "MarkmapWatch", "MarkmapWatchStop"},
+  opts = {
+    html_output = "/tmp/markmap.html",
+    hide_toolbar = false,
+    grace_period = 3600000
+  },
+  config = function(_, opts) require("markmap").setup(opts) end
+},
+
+USAGE                                                          *markmap-usage*
+
+The main way to use markmap.nvim are |Commands| (refer to that section).
+One can create keybindings to use those commands.
+
+OPTIONS                                                      *markmap-options*
+
+                                                                 *html_output*
+g:html_output
+                        String that represents a path.
+                        This is where the html markmap is generated.
+                        It is also where the command |:MarkmapSave| will save
+                        the markmap.
+
+                        By default:
+                        `Unix:    /tmp/markmap.html `
+                        `Windows: C:\Users\<username>\AppData\Local\Temp\markmap.html`
+
+
+                                                                 *hide_toolbar*
+g:hide_toolbar
+                        Boolean value true or false.
+                        When true, it will hide the +/-/maximize controls
+                        from the markmap.
+
+                        By default:
+                        false
+
+                                                                 *grace_period*
+g:grace_period
+                        Int number.
+                        Number of milliseconds that will pass before
+                        the markmap watch server is be killed.
+
+                        Setting 0 as value will disable the grace period.
+
+                        When doing this, the watch server can still be stopped
+                        when leaving vim, or with the command |:MarkmapWatchStop|.
+
+                        Note that this option only applies to the MarkmapWatch
+                        server. Running |MarkmapOpen| does not create a watch
+                        server.
+
+                        By default:
+                        3600000
+
+COMMANDS                                                       *markmap-comamnds*
+Note that all commands should be performed over .md markdown file.
+They work on other file types, but results may vary.
+
+                                                                 *:MarkmapOpen*
+:MarkmapOpen
+                        Renders and open a markmap from the current buffer,
+                        A html will be generated on |html_output|.
+
+                                                                 *:MarkmapSave*
+:MarkmapSave            Renders a markmap from the current buffer
+                        without actually opening the markmap.
+                        A html will be generated on |html_output|.
+
+                                                                 *:MarkmapWatch*
+:MarkmapWatch
+                        Renders and open a markmap from the current buffer.
+                        A html will be generated on |html_output|.
+
+                        Unlike |MarkmapOpen|, this command will update the
+                        markmap in real time when changes are made to
+                        the markdown file.
+
+                                                                 *:MarkmapStop*
+:MarkmapWatchStop
+                        Manually stops the watch server after running
+                        |:MarkmapWatch|. Note that this is not actually
+                        necessary if you are using |grace_period|, which comes
+                        enables by default.
+
+                        Also, the mapkmap watch server will be automatically
+                        killed if vim is closed.
+
+
+FAQ                                                            *markmap-faq*
+Run healthcheck markmap. This command will tell you the depencencies you are
+missing. If the command do not exist, it means you are using an async package
+manager, so double check the package is beign loaded. These are the most common
+issues you will find:
+
+    Run
+
+yarn global add markmap-cli
+
+    Now try to run
+
+markmap
+
+If the executable is not found, that means you need to add yarn to your `PATH`.
+This is normally done in your .profile, bashrc, or zshrc file like this:
+
+>
+# PATH Example
+export PATH="$HOME/.local/bin:\
+$HOME/.cargo/bin:\
+$HOME/.npm-global/bin:\
+$HOME/.yarn/bin:\
+$HOME/.config/yarn/global/node_modules/.bin:\
+$HOME/.local/share/gem/ruby/3.0.0/bin:\
+$HOME/.cargo/env\
+/root/.local/share/gem/ruby/3.0.0/bin:\
+/usr/local/bin:\
+/usr/share/nvm/init-nvm.sh \
+$PATH"
+<
+
+If you prefer using npm over yarn, you can, but double check that you have
+the user space correctly configured as in some systems this is not enabled
+by default (see here).
+
+If you are on windows, the process is the same. But the place to set PATH
+may change from one windows version to another.
