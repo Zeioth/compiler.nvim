@@ -1,6 +1,4 @@
 # WIP: Please be patient, not ready for usage yet 
-
-## Project here
 Neovim compiler capable of compiling the next languages without the need of configuring anything
 
 * c
