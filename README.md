@@ -18,7 +18,9 @@ lazy.nvim
 ``` 
 
 ## How to use
-Press F6 on NeoVim. Yes that's all.
+Press `F6` to open the compiler.
+
+Press `q` to close the terminal after you run the task.
 
 ## Advanced
 If you want to implement custom behaviors when compiling/running, then read this section
