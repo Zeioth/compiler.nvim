@@ -8,7 +8,7 @@ Neovim compiler capable of compiling and running the next languages without the 
 * python
 
 ## How to install
-lazy.nvim example
+lazy.nvim
 ```lua
 {
   "https://github.com/Zeioth/compiler.nvim",
