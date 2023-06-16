@@ -22,6 +22,9 @@ Press `F6` to open the compiler.
 
 Press `q` to close the terminal after you are done.
 
+## Dependencies
+If you are gonna compile C#, then you need to have `omnisharp` instaled in your system.
+
 ## Advanced
 If you want to implement custom behaviors when compiling/running, then read this section
 
