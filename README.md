@@ -57,6 +57,6 @@ You can override what hapens when an action is selected on the compiler. To do s
   
  > This package do not implement any of this directly due to the lack of convention in the way of transpiling/running those projects. If the situation changes and conventions are instaurated, we will implement this it the future.
 
-* **Why is x language not implemented?** We implement all that can be implemented. But if a certain language do not have a conventional entry point, of way of compiling, there is noghint we can do.
+* **Why is x language not implemented?** We implement all that can be implemented. But if a certain language do not have a conventional entry point, of way of compiling, there is nothing we can do.
 
 * **I know x language that has all of that and it is not supported by the compiler, can I send a PR?** Please, be my guest.
