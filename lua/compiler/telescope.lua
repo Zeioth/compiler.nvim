@@ -40,7 +40,7 @@ function M.show()
   local function open_telescope()
     pickers
       .new({}, {
-        prompt_title = "Neo Compiler",
+        prompt_title = "Compiler",
         finder = finders.new_table {
           results = options,
           entry_maker = function(entry)

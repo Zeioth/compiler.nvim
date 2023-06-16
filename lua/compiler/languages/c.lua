@@ -33,8 +33,8 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-            cmd = "rm -f " .. output ..                         -- clean
-              " && gcc " .. entry_point .. " -o " .. output     -- compile
+          cmd = "rm -f " .. output ..                                  -- clean
+                " && gcc " .. entry_point .. " -o " .. output " -Wall" -- compile
         },},},})
     task:start()
     overseer.run_action(task, "open " .. toggleterm_split)
@@ -48,12 +48,18 @@ function M.action(selected_option)
     task:start()
     overseer.run_action(task, "open " .. toggleterm_split)
   elseif selected_option == "option4" then -- If option 3
+    -- Search for all main.c files in the working directory, and compile them
+    -- TODO: Cuanto todo haya terminado. Abrimos progarma si tenemos su ruta
+    local entry_points = require("compiler.utils").find_files(vim.fn.getcwd(), "main.c")
+    local tasks = {}
+    for _ in ipairs(entry_points) do
+      tasks[_] = { "shell", name = "- Build progrm → " .. entry_points[_],
+            cmd = "rm -f " .. output ..                                     -- clean
+                  " && gcc " .. entry_points[_] .. " -o " .. output .. " -Wall" -- compile
+      }
+    end
     local task = overseer.new_task({
-      name = "- C compiler",
-      strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build solution → " .. entry_point,
-            cmd = "time " .. output,                           -- run
-        },},},})
+      name = "- C compiler", strategy = { "orchestrator", tasks = tasks ,},})
     task:start()
     overseer.run_action(task, "open " .. toggleterm_split)
   end
