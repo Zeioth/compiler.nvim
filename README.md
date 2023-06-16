@@ -9,9 +9,15 @@ Most people (specially beginers) are familiarized with the way visual studio IDE
 ## Purpose
 Making compiling an running the program you are writing as painless as possible.
 
+## Per project options
+99% of the time this it not necessary, but if you want you can define per project option with `:set option=""`
+
+* vim.g.compiler_project_root = "" → by default the project root is .git, but it can also be manually defined
+* vim.g.compiler_solution_run = "" → program to run after building a solution. None if unsetted
+
 ## FAQ
 
-* **How do NeoCompiler know how to compile?** It looks for the conventional entry point file for the current lenguage you are using. To achieve this, it searches in the directory tree from the file you are currently editing until finding an entry point, or reaching .git. It will search for the next file names.
+* **How do NeoCompiler know how to compile?** It looks for the conventional entry point file for the current lenguage you are using. To achieve this, it searches in the directory tree from the file you are currently editing until finding an entry point, or reaching the project root. It will search for the next file names.
 
   * c: main.c
   * c++: main.cpp
