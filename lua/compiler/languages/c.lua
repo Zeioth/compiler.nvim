@@ -21,7 +21,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell",
+        tasks = {{ "shell", name = "- Build & run progam → " .. entry_point,
             cmd = "rm -f " .. output ..                         -- clean
               " && gcc " .. entry_point .. " -o " .. output ..  -- compile
               " -Wall && time " .. output,                      -- run
@@ -32,7 +32,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build → " .. entry_point,
+        tasks = {{ "shell", name = "- Build program → " .. entry_point,
             cmd = "rm -f " .. output ..                         -- clean
               " && gcc " .. entry_point .. " -o " .. output     -- compile
         },},},})
@@ -42,7 +42,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run → " .. entry_point,
+        tasks = {{ "shell", name = "- Run progam → " .. entry_point,
             cmd = "time " .. output,                           -- run
         },},},})
     task:start()
