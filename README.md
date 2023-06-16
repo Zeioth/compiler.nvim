@@ -8,7 +8,14 @@ Neovim compiler capable of compiling and running the next languages without the 
 * python
 
 ## How to install
-WIP 
+lazy.nvim example
+```
+{
+  "https://github.com/Zeioth/compiler.nvim",
+  event="VeryLazy",
+  config = function(_, opts) require("compiler").setup(opts) end,
+},
+``` 
 
 ## How to use
 Press F6 on NeoVim. Yes that's all.
