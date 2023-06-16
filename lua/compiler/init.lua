@@ -35,7 +35,7 @@ M.setup = function(ctx)
 
   -- Setup commands -----------------------------------------------------------
   cmd("CompilerOpen", function()
-    require("neocompiler.compiler").CompilerOpen()
+    require("compiler.compiler").CompilerOpen()
   end, { desc = "Show a mental map of the current file" })
 
 end
