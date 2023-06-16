@@ -9,7 +9,7 @@ Neovim compiler capable of compiling and running the next languages without the 
 
 ## How to install
 lazy.nvim example
-```
+```lua
 {
   "https://github.com/Zeioth/compiler.nvim",
   event="VeryLazy",
