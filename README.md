@@ -1,7 +1,7 @@
 # WIP: Please be patient, not ready for usage yet 
 
 ## Project here
-Most people (specially beginers) are familiarized with the way visual studio IDE compiles your program without making questions. This package gives you that for all the languages that allow it.
+Neovim compiler capable of compiling the next lanzuages without the need of configuring anything
 
 * c
 * c++
