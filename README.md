@@ -7,15 +7,23 @@ Most people (specially beginers) are familiarized with the way visual studio IDE
 * python
 
 ## Purpose
-Making compiling an running the program you are writing as painless as possible.
+Making compiling an running the programs you write as stupidly simple as possible.
 
-## Per project options
+## How to install
+
+## How to use
+Press F6 on NeoVim. Yes that's all.
+
+## Advanced
+You don't need to do anything as the plugin works out of the box with all the supported languages. But if you want to implement custom behavior, read this:
+
+#### Per project options
 This it not necessary. But if you want, you can set per project option with `:set option=""`
 
 * vim.g.compiler_project_root = "" → by default the project root is .git, but it can also be manually defined
 * vim.g.compiler_solution_run = "" → program to run after building a solution. None if unsetted
 
-## Advanced: Overriding actions
+#### Overriding actions
 You can override what hapens when an action is selected on the compiler. To do so, fork this project, go to the 'compiler' directory, and edit the file of the language you want. It is actually very easy.
 
 ## FAQ
