@@ -21,7 +21,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "",
+        tasks = {{ "shell",
             cmd = "rm -f " .. output ..                         -- clean
               " && gcc " .. entry_point .. " -o " .. output ..  -- compile
               " -Wall && time " .. output,                      -- run
