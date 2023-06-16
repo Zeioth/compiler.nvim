@@ -35,7 +35,7 @@ M.setup = function(ctx)
 
   -- Setup commands -----------------------------------------------------------
   cmd("CompilerOpen", function()
-    require("compiler.compiler").CompilerOpen()
+    require("compiler.compiler").show()
   end, { desc = "Show a mental map of the current file" })
 
 end
