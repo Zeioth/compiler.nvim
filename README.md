@@ -1,4 +1,12 @@
-Most people (specially beginers) are familiarized with the way visual studio IDE compiles your program without making questions. This package gives you that for the languages that allow it (c, c++, c#, rust, python)
+Most people (specially beginers) are familiarized with the way visual studio IDE compiles your program without making questions. This package gives you that for all the languages that allow it.
+
+* c
+* c++
+* c#
+* rust
+* python
+
+Please don't try to compile/run web languages. For those cases, the solution you are looking for is most likely toggleterm + termux, which this package does not support due to the lack of convention about the way to compile/run those projects.
 
 ## Purpose
 Making compiling an running the program you are writing as painless as possible.
