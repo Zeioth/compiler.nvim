@@ -11,7 +11,7 @@ Making compiling an running the program you are writing as painless as possible.
 
 ## FAQ
 
-* **How to NeoCompiler know how to compile?** It looks for the conventional entry point file of that lenguage. To achieve this, it searches upwads in the directory tree from the file you are currently editing. It will search for the next file names.
+* **How do NeoCompiler know how to compile?** It looks for the conventional entry point file of that lenguage. To achieve this, it searches upwads in the directory tree from the file you are currently editing. It will search for the next file names.
 
   * c: main.c
   * c++: main.cpp
@@ -26,7 +26,7 @@ Making compiling an running the program you are writing as painless as possible.
   * A way to transpile: toggleterm + termux.
   * A way run the project: Just have the website opened it your browser.
   
-This package do not implement any of this directly due to the lack of convention in the way of transpiling/running those projects. If the situation changes and conventions are instaurated, we will implement this it the future.
+ > This package do not implement any of this directly due to the lack of convention in the way of transpiling/running those projects. If the situation changes and conventions are instaurated, we will implement this it the future.
 
 * **Why is x language not implemented?** We implement all that can be implemented. But if a certain language do not have a conventional entry point, of way of compiling, there is noghint we can do.
 
