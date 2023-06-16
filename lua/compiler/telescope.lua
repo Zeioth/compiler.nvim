@@ -14,7 +14,7 @@ function M.show()
   filetype = vim.api.nvim_buf_get_option(buffer, "filetype")
   options = {}
 
-  local c = require "base.utils.compiler.c"
+  local c = require "compiler.languages.c"
 
   -- We show different options on telescope depending the current language
   if filetype == "c" then options = c.options end
