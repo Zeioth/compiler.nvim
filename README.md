@@ -20,7 +20,7 @@ lazy.nvim
 ## How to use
 Press `F6` to open the compiler.
 
-Press `q` to close the terminal after you run the task.
+Press `q` to close the terminal after you are done.
 
 ## Advanced
 If you want to implement custom behaviors when compiling/running, then read this section
