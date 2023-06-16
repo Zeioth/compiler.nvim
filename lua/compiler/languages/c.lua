@@ -4,9 +4,9 @@ local M = {}
 
 -- Frontend  - options displayed on telescope
 M.options = {
-  { text = "1 - Build and run", value = "option1" },
-  { text = "2 - Build", value = "option2" },
-  { text = "3 - Run", value = "option3" },
+  { text = "1 - Build and run program", value = "option1" },
+  { text = "2 - Build progrm", value = "option2" },
+  { text = "3 - Run program", value = "option3" },
   { text = "4 - Build solution", value = "option4" }
 }
 
@@ -51,7 +51,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run → " .. entry_point,
+        tasks = {{ "shell", name = "- Build solution → " .. entry_point,
             cmd = "time " .. output,                           -- run
         },},},})
     task:start()
