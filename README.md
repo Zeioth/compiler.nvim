@@ -6,10 +6,10 @@ Most people (specially beginers) are familiarized with the way visual studio IDE
 * rust
 * python
 
-## Purpose
-Making compiling an running the programs you write as stupidly simple as possible.
+The purpose of NeoCompiler is making compiling an running the programs you write as stupidly simple as possible.
 
 ## How to install
+WIP 
 
 ## How to use
 Press F6 on NeoVim. Yes that's all.
