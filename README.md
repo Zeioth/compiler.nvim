@@ -48,7 +48,7 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("OverseerTogg
 ## How to use
 Press `F6` to open the compiler.
 
-Press `q` to close the terminal after you are done.
+Press `q` to close the results after you are done.
 
 > compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory for the next files
 
