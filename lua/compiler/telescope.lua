@@ -40,7 +40,7 @@ function M.show()
   local function open_telescope()
     pickers
       .new({}, {
-        prompt_title = "Search",
+        prompt_title = "Filter",
         results_title = "Compiler",
         finder = finders.new_table {
           results = options,
