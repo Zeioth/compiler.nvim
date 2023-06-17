@@ -33,7 +33,8 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                  -- clean
+          cmd = "rm -f " .. output ..                                     -- clean
+                "mkdir -p " .. output ..                                  -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" -- compile
         },},},})
     task:start()
