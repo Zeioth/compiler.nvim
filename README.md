@@ -52,7 +52,7 @@ You can override what hapens when an action is selected on the compiler. To do s
 * **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. For those cases, the solution you are looking for is most likely
 
   * A way to transpile: toggleterm + termux.
-  * A way run the project: Just have the website opened it your browser.
+  * A way run the project: Just keep the website opened it your browser.
   
  > This package do not implement any of this directly due to the lack of convention in the way of transpiling/running those projects. If the situation changes and conventions are instaurated, we will implement this it the future.
 
