@@ -16,16 +16,20 @@ function M.action(selected_option)
   local entry_point = vim.fn.getcwd() .. "/main.c"     -- working_directory/main.c
   local output_dir = vim.fn.getcwd() .. "/bin/"        -- working_directory/bin/
   local output = vim.fn.getcwd() .. "/bin/program"     -- working_directory/bin/program
-  local toggleterm_split = "hsplit"                    -- TODO: Move this to a config file
+  local final_message = "--compilation finished--"
+  local toggleterm_split = "hsplit"
 
   if selected_option == "option1" then  -- If option 1
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
+
         tasks = {{ "shell", name = "- Build & run progam → " .. entry_point,
-            cmd = "rm -f " .. output ..                         -- clean
-              " && gcc " .. entry_point .. " -o " .. output ..  -- compile
-              " -Wall && time " .. output,                      -- run
+          cmd = "rm -rf " .. output_dir ..                                   -- clean
+                " && mkdir -p " .. output_dir ..                             -- mkdir
+                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
+                " && time " .. output ..                                     -- run
+                " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
     overseer.run_action(task, "open " .. toggleterm_split)
@@ -34,10 +38,10 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell",
-          cmd = "rm -rf " .. output_dir ..                                 -- clean
-                " && mkdir -p " .. output_dir ..                          -- mkdir
+          cmd = "rm -rf " .. output_dir ..                                   -- clean
+                " && mkdir -p " .. output_dir ..                             -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
-                " && echo '-- compilation finished-- '"
+                " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
     -- overseer.run_action(task, "open " .. toggleterm_split)
