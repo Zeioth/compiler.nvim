@@ -7,8 +7,8 @@ Neovim compiler capable of building and running the next languages without the n
 * rust
 * python
 
-## How to install
-lazy.nvim
+## How to install (lazy.nvim)
+compiler.nvim
 ```lua
 {
   "https://github.com/Zeioth/compiler.nvim",
@@ -18,7 +18,7 @@ lazy.nvim
 },
 ```
 
-Overseer settings (optional)
+overseer (optional)
 ```lua
 {
   "stevearc/overseer.nvim",
@@ -40,7 +40,7 @@ Overseer settings (optional)
   config = function(_, opts) require("overseer").setup(opts) end,
 },
 ```
-Mappings (optional)
+mappings (optional)
 ```
 -- Open compiler
 vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() require "compiler.telescope".show() end, { noremap = true, silent = true })
