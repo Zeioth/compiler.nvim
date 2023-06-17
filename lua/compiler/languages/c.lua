@@ -8,7 +8,7 @@ M.options = {
   { text = "2 - Build progrm", value = "option2" },
   { text = "3 - Run program", value = "option3" },
   { text = "5 - Build solution", value = "option4" },
-  { text = "4 - Make", value = "option5" }
+  { text = "4 - Run Makefile", value = "option5" }
 }
 
 -- Backend - overseer tasks performed on option selected
@@ -73,10 +73,11 @@ function M.action(selected_option)
       }
     end
   elseif selected_option == "option5" then -- If option 3
+    local makefile = vim.fn.getcwd() .. "/Makefile"
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. entry_point,
+        tasks = {{ "shell", name = "- Run Makefile → " .. makefile,
             cmd = "time make Makefile" .. output ..                          -- run
                 " && echo '" .. final_message .. "'"                         -- echo
         },},},})
