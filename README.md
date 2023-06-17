@@ -18,7 +18,7 @@ lazy.nvim
 },
 ```
 
-Recommended overseer settings (optional)
+Overseer settings (optional)
 ```lua
 {
   "stevearc/overseer.nvim",
@@ -43,7 +43,7 @@ Recommended overseer settings (optional)
   end,
 },
 ```
-In your mappings file (optional)
+Mappings (optional)
 ```
 -- Open compiler
 vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() require "compiler.telescope".show() end, { noremap = true, silent = true })
