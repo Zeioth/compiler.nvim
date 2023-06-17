@@ -13,9 +13,10 @@ M.options = {
 -- Backend - overseer tasks performed on option selected
 function M.action(selected_option)
   local overseer = require("overseer")
-  local entry_point = vim.fn.getcwd() .. "/main.c" -- working_directory/main.c
-  local output = vim.fn.getcwd() .. "/bin/program" -- working_directory/bin/program
-  local toggleterm_split = "hsplit"                -- TODO: Move this to a config file
+  local entry_point = vim.fn.getcwd() .. "/main.c"     -- working_directory/main.c
+  local output_dir = vim.fn.getcwd() .. "/bin/program" -- working_directory/bin/
+  local output = vim.fn.getcwd() .. "/bin/program"     -- working_directory/bin/program
+  local toggleterm_split = "hsplit"                    -- TODO: Move this to a config file
 
   if selected_option == "option1" then  -- If option 1
     local task = overseer.new_task({
@@ -33,8 +34,8 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                     -- clean
-                " && mkdir -p " .. output ..                              -- mkdir
+          cmd = "rm -f " .. output_dir ..                                 -- clean
+                " && mkdir -p " .. output_dir ..                          -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" -- compile
         },},},})
     task:start()
