@@ -29,7 +29,7 @@ Press `q` to close the terminal after you are done.
   * c++: main.cpp
   * c#: Program.cs
   * rust: main.rs
-  * python: __main__.py or main.py (in this order)
+  * python: main.py or `__main__.py` (in this order)
 
 ## Dependencies
 If you are gonna compile C#, then you need to have `omnisharp` instaled in your system. All the other languages are shipped with their compiler already included.
