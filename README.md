@@ -19,29 +19,29 @@ lazy.nvim
 ```
 
 Recommended overseer settings (optional)
-```
-  {
-    "stevearc/overseer.nvim",
-    event="VeryLazy",
-    opts = {
-      -- Tasks are disposed 5 minutes after running to free resources.
-      --
-      -- If you need to close a task inmediatelly:
-      -- press ENTER in the outut menu on the task you wanna close.
-      task_list = { -- this refers to the window that shows the result
-        direction = "bottom",
-        min_height = 25,
-        max_height = 25,
-        default_detail = 1,
-        bindings = {
-          ["q"] = function() vim.cmd("OverseerClose") end ,
-        }
+```lua
+{
+  "stevearc/overseer.nvim",
+  event="VeryLazy",
+  opts = {
+    -- Tasks are disposed 5 minutes after running to free resources.
+    --
+    -- If you need to close a task inmediatelly:
+    -- press ENTER in the outut menu on the task you wanna close.
+    task_list = { -- this refers to the window that shows the result
+      direction = "bottom",
+      min_height = 25,
+      max_height = 25,
+      default_detail = 1,
+      bindings = {
+        ["q"] = function() vim.cmd("OverseerClose") end ,
       }
-    },
-    config = function(_, opts)
-      require("overseer").setup(opts)
-    end,
+    }
   },
+  config = function(_, opts)
+    require("overseer").setup(opts)
+  end,
+},
 ```
 In your mappings file (optional)
 ```
