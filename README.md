@@ -88,7 +88,7 @@ You can override what hapens when an action is selected on the compiler. To do s
 
 * **I know x language that has all of that and it is not supported by the compiler, can I send a PR?** Please, be my guest.
 
-## Languages support planned for the future
+## Language support planned for the future
 
 * java
 
