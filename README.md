@@ -27,8 +27,8 @@ Overseer settings (optional)
     -- Tasks are disposed 5 minutes after running to free resources.
     --
     -- If you need to close a task inmediatelly:
-    -- press ENTER in the outut menu on the task you wanna close.
-    task_list = { -- this refers to the window that shows the result
+    -- press ENTER in the menu you see after compiling on the task you wanna close.
+    task_list = {
       direction = "bottom",
       min_height = 25,
       max_height = 25,
