@@ -37,9 +37,7 @@ Overseer settings (optional)
       }
     }
   },
-  config = function(_, opts)
-    require("overseer").setup(opts)
-  end,
+  config = function(_, opts) require("overseer").setup(opts) end,
 },
 ```
 Mappings (optional)
