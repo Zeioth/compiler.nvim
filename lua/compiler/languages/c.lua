@@ -34,12 +34,13 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell",
-          cmd = "rm -f " .. output_dir ..                                 -- clean
+          cmd = "rm -rf " .. output_dir ..                                 -- clean
                 " && mkdir -p " .. output_dir ..                          -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" -- compile
         },},},})
     task:start()
-    overseer.run_action(task, "open " .. toggleterm_split)
+    -- overseer.run_action(task, "open " .. toggleterm_split)
+    vim.cmd("OverseerOpen")
   elseif selected_option == "option3" then -- If option 3
     local task = overseer.new_task({
       name = "- C compiler",
