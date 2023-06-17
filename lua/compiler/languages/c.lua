@@ -14,7 +14,7 @@ M.options = {
 function M.action(selected_option)
   local overseer = require("overseer")
   local entry_point = vim.fn.getcwd() .. "/main.c"     -- working_directory/main.c
-  local output_dir = vim.fn.getcwd() .. "/bin/program" -- working_directory/bin/
+  local output_dir = vim.fn.getcwd() .. "/bin/"        -- working_directory/bin/
   local output = vim.fn.getcwd() .. "/bin/program"     -- working_directory/bin/program
   local toggleterm_split = "hsplit"                    -- TODO: Move this to a config file
 
