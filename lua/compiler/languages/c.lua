@@ -34,7 +34,7 @@ function M.action(selected_option)
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                     -- clean
-                "mkdir -p " .. output ..                                  -- mkdir
+                " && mkdir -p " .. output ..                                  -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" -- compile
         },},},})
     task:start()
