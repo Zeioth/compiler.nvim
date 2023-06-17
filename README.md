@@ -87,3 +87,8 @@ You can override what hapens when an action is selected on the compiler. To do s
 * **Why is x language not implemented?** We implement all that can be implemented. But if a certain language do not have a conventional entry point, of way of compiling, there is nothing we can do.
 
 * **I know x language that has all of that and it is not supported by the compiler, can I send a PR?** Please, be my guest.
+
+## 🌟 Support the project
+If you want to help me, please star this repository to increase the visibility of the project.
+
+[![Stargazers over time](https://starchart.cc/Zeioth/markmap.nvim.svg)](https://starchart.cc/Zeioth/markmap.nvim)
