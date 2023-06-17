@@ -14,7 +14,6 @@ M.options = {
 function M.action(selected_option)
   local overseer = require("overseer")
   local entry_point = vim.fn.getcwd() .. "/main.c" -- working_directory/main.c
-  local output_dir = vim.fn.getcwd() .. "/bin/"
   local output = vim.fn.getcwd() .. "/bin/program" -- working_directory/bin/program
   local toggleterm_split = "hsplit"                -- TODO: Move this to a config file
 
@@ -35,7 +34,7 @@ function M.action(selected_option)
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                     -- clean
-                " && mkdir -p " .. output_dir ..                                  -- mkdir
+                " && mkdir -p " .. output ..                              -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" -- compile
         },},},})
     task:start()
