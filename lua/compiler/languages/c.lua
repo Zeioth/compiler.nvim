@@ -31,7 +31,7 @@ function M.action(selected_option)
     overseer.run_action(task, "open " .. toggleterm_split)
   elseif selected_option == "option2" then -- If option 2
     local task = overseer.new_task({
-      name = "- C compiler",
+      name = "",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output_dir ..                                 -- clean
