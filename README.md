@@ -78,7 +78,7 @@ You can override what hapens when an action is selected on the compiler. To do s
 
 ## FAQ
 
-* **How do I run a solution** In .NET languages you have the concept of "solution". Building a solution is just a way of saying "Build every program in this repository". To achieve this, the compiler will search in every directory of the repository for the entry point of every program and build it in parallel. It is also possible to run a program after building the solution by setting `set vim.g.compiler_solution_run="/entrypoint/file/path"`. It is recommended you manually set the option on neovim instead of in the config files, so it can be used per-project.
+* **How do I run a solution?** In .NET languages you have the concept of "solution". Building a solution is just a way of saying "Build every program in this repository". To achieve this, the compiler will search in every directory of the repository for the entry point of every program and build it in parallel. It is also possible to run a program after building the solution by setting `set vim.g.compiler_solution_run="/entrypoint/file/path"`. It is recommended you manually set the option on neovim instead of in the config files, so it can be used per-project.
 
 * **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. For those cases, the solution you are looking for is most likely
 
