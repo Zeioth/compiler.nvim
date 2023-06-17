@@ -88,7 +88,11 @@ You can override what hapens when an action is selected on the compiler. To do s
 
 * **I know x language that has all of that and it is not supported by the compiler, can I send a PR?** Please, be my guest.
 
+## Languages planned for the future
+
+* java
+
 ## 🌟 Support the project
 If you want to help me, please star this repository to increase the visibility of the project.
 
-[![Stargazers over time](https://starchart.cc/Zeioth/markmap.nvim.svg)](https://starchart.cc/Zeioth/markmap.nvim)
+[![Stargazers over time](https://starchart.cc/Zeioth/compiler.nvim.svg)](https://starchart.cc/Zeioth/compiler.nvim)
