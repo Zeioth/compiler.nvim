@@ -33,8 +33,8 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                  -- clean
-                " && gcc " .. entry_point .. " -o " .. output " -Wall" -- compile
+          cmd = "rm -f " .. "/pep/" ..                                  -- clean
+                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" -- compile
         },},},})
     task:start()
     overseer.run_action(task, "open " .. toggleterm_split)
