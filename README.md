@@ -23,7 +23,7 @@ Press `F6` to open the compiler.
 
 Press `q` to close the terminal after you are done.
 
-> compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory. The files it will look for in every language are:
+> compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory for the next files
 
   * c: `main.c`
   * c++: `main.cpp`
