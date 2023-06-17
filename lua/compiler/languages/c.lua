@@ -41,8 +41,7 @@ function M.action(selected_option)
         tasks = {{ "shell",
           cmd = "rm -rf " .. output_dir ..                                   -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
-                " && echo '" .. final_message .. "'"                         -- echo
+                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" -- compile
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
