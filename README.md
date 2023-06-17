@@ -37,6 +37,7 @@ lazy.nvim package manager
 },
 ```
 mappings (optional)
+TODO: Instead of giving mapings, make a table with the exposed commands
 ```
 -- Open compiler
 vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() require "compiler.telescope".show() end, { noremap = true, silent = true })
