@@ -23,6 +23,14 @@ Press `F6` to open the compiler.
 
 Press `q` to close the terminal after you are done.
 
+It looks for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory. The files it look for in every language:
+
+  * c: main.c
+  * c++: main.cpp
+  * c#: Program.cs
+  * rust: main.rs
+  * python: __main__.py or main.py (in this order)
+
 ## Dependencies
 If you are gonna compile C#, then you need to have `omnisharp` instaled in your system. All the other languages are shipped with their compiler already included.
 
@@ -39,14 +47,6 @@ This it not necessary. But if you want, you can set per project option with `:se
 You can override what hapens when an action is selected on the compiler. To do so, fork this project, go to the 'compiler' directory, and edit the file of the language you want. It is actually very easy.
 
 ## FAQ
-
-* **How do the compiler know what to compile?** It looks for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory. The files it look for in every language:
-
-  * c: main.c
-  * c++: main.cpp
-  * c#: Program.cs
-  * rust: main.rs
-  * python: __main__.py or main.py (in this order)
 
 * **How do build solution work?** In .NET languages you have the concept of "solution". Building a solution is just a way of saying "Build every program in this repository". To achieve this, the compiler will search in every directory of the repository for the entry point of every program and build it in parallel. It is also possible to run a program after building the solution by setting `set vim.g.compiler_solution_run="/entrypoint/file/path"`. It is recommended you manually set the option on neovim instead of in the config files, so it can be used per-project.
 
