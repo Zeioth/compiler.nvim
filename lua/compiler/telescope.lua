@@ -41,7 +41,7 @@ function M.show()
     pickers
       .new({}, {
         prompt_title = "Compiler",
-        preview_title = "Actions",
+        results_title = "Actions",
         finder = finders.new_table {
           results = options,
           entry_maker = function(entry)
