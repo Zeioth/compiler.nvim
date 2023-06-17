@@ -16,7 +16,7 @@ function M.action(selected_option)
   local entry_point = vim.fn.getcwd() .. "/main.c"     -- working_directory/main.c
   local output_dir = vim.fn.getcwd() .. "/bin/"        -- working_directory/bin/
   local output = vim.fn.getcwd() .. "/bin/program"     -- working_directory/bin/program
-  local final_message = "--compilation finished--"
+  local final_message = "--task finished--"
   local toggleterm_split = "hsplit"
 
   if selected_option == "option1" then  -- If option 1
@@ -28,7 +28,8 @@ function M.action(selected_option)
           cmd = "rm -rf " .. output_dir ..                                   -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
-                " && time " .. output                                      -- run
+                " && time " .. output ..                                     -- run
+                " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -50,7 +51,8 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd = "time " .. output,                           -- run
+            cmd = "time " .. output ..                                       -- run
+                " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -61,8 +63,10 @@ function M.action(selected_option)
     local tasks = {}
     for _ in ipairs(entry_points) do
       tasks[_] = { "shell", name = "- Build program → " .. entry_points[_],
-            cmd = "rm -f " .. output ..                                     -- clean
-                  " && gcc " .. entry_points[_] .. " -o " .. output .. " -Wall" -- compile
+        cmd = "rm -rf " .. output_dir ..                                       -- clean
+              " && mkdir -p " .. output_dir ..                                 -- mkdir
+              " && gcc " .. entry_points[_] .. " -o " .. output .. " -Wall" .. -- compile
+              " && echo '" .. final_message .. "'"                             -- echo
       }
     end
     local task = overseer.new_task({
