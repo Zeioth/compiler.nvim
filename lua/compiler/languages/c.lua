@@ -28,8 +28,7 @@ function M.action(selected_option)
           cmd = "rm -rf " .. output_dir ..                                   -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
-                " && time " .. output ..                                     -- run
-                " && echo '" .. final_message .. "'"                         -- echo
+                " && time " .. output                                      -- run
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -41,7 +40,8 @@ function M.action(selected_option)
         tasks = {{ "shell",
           cmd = "rm -rf " .. output_dir ..                                   -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" -- compile
+                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
+                " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
