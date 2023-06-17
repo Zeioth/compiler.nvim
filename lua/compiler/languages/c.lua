@@ -79,7 +79,7 @@ function M.action(selected_option)
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run Makefile → " .. makefile,
             cmd = "time make " .. makefile ..                                -- run
-                " && echo '" .. final_message .. "'"                         -- echo
+                " ; echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
