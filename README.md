@@ -69,6 +69,7 @@ If you want to implement custom behaviors when compiling/running, then read this
 This it not necessary. But if you want, you can set per project option with `:set option=""`
 
 * vim.g.compiler_solution_run = "" → program to run after building a solution. None if unsetted
+* vim.g.compiler_output = "" → name of the resulting binary file. Default: "program"
 
 #### Overriding actions
 You can override what hapens when an action is selected on the compiler. To do so, fork this project, go to the 'compiler/languages' directory, and edit the file of the language you want. It is actually very easy.
