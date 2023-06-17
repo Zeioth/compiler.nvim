@@ -32,7 +32,8 @@ function M.action(selected_option)
                 " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
-    overseer.run_action(task, "open " .. toggleterm_split)
+    vim.cmd("OverseerOpen")
+    -- overseer.run_action(task, "open " .. toggleterm_split) → Simplified summary
   elseif selected_option == "option2" then -- If option 2
     local task = overseer.new_task({
       name = "- C compiler",
@@ -44,7 +45,6 @@ function M.action(selected_option)
                 " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
-    -- overseer.run_action(task, "open " .. toggleterm_split)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option3" then -- If option 3
     local task = overseer.new_task({
@@ -54,7 +54,7 @@ function M.action(selected_option)
             cmd = "time " .. output,                           -- run
         },},},})
     task:start()
-    overseer.run_action(task, "open " .. toggleterm_split)
+    vim.cmd("OverseerOpen")
   elseif selected_option == "option4" then -- If option 3
     -- Search for all main.c files in the working directory, and compile them
     -- TODO: Cuanto todo haya terminado. Abrimos progarma si tenemos su ruta
@@ -69,7 +69,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C compiler", strategy = { "orchestrator", tasks = tasks ,},})
     task:start()
-    overseer.run_action(task, "open " .. toggleterm_split)
+    vim.cmd("OverseerOpen")
   end
 end
 
