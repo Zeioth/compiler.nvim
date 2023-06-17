@@ -16,10 +16,6 @@ compiler.nvim
   event="VeryLazy",
   config = function(_, opts) require("compiler").setup(opts) end,
 },
-```
-
-overseer (optional)
-```lua
 {
   "stevearc/overseer.nvim",
   event="VeryLazy",
