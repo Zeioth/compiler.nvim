@@ -37,7 +37,7 @@ function M.action(selected_option)
           cmd = "rm -rf " .. output_dir ..                                 -- clean
                 " && mkdir -p " .. output_dir ..                          -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
-                " echo '-- compilation finished-- '"
+                " && echo '-- compilation finished-- '"
         },},},})
     task:start()
     -- overseer.run_action(task, "open " .. toggleterm_split)
