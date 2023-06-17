@@ -55,7 +55,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option 4" then -- If option 3
+  elseif selected_option == "option4" then -- If option 3
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
