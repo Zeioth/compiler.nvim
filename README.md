@@ -25,7 +25,6 @@ Overseer settings (optional)
   event="VeryLazy",
   opts = {
     -- Tasks are disposed 5 minutes after running to free resources.
-    --
     -- If you need to close a task inmediatelly:
     -- press ENTER in the menu you see after compiling on the task you wanna close.
     task_list = {
