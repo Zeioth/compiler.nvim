@@ -40,7 +40,6 @@ If you want to implement custom behaviors when compiling/running, then read this
 #### Per project options
 This it not necessary. But if you want, you can set per project option with `:set option=""`
 
-* vim.g.compiler_project_root = "" → by default the project root is .git, but it can also be manually defined
 * vim.g.compiler_solution_run = "" → program to run after building a solution. None if unsetted
 
 #### Overriding actions
