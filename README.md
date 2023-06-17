@@ -7,8 +7,8 @@ Neovim compiler capable of building and running the next languages without the n
 * rust
 * python
 
-## How to install (lazy.nvim)
-compiler.nvim
+## How to install
+lazy.nvim package manager
 ```lua
 {
   "https://github.com/Zeioth/compiler.nvim",
