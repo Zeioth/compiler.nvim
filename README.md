@@ -25,11 +25,11 @@ Press `q` to close the terminal after you are done.
 
 > compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory. The files it will look for in every language are:
 
-  * c: main.c
-  * c++: main.cpp
-  * c#: Program.cs
-  * rust: main.rs
-  * python: main.py or `__main__.py` (in this order)
+  * c: `main.c`
+  * c++: `main.cpp`
+  * c#: `Program.cs`
+  * rust: `main.rs`
+  * python: `main.py` or `__main__.py` (in this order)
 
 ## Dependencies
 If you are gonna compile C#, then you need to have `omnisharp` instaled in your system. All the other languages are shipped with their compiler already included.
