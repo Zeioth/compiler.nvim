@@ -60,7 +60,7 @@ function M.action(selected_option)
     local entry_points = require("compiler.utils").find_files(vim.fn.getcwd(), "main.c")
     local tasks = {}
     for _ in ipairs(entry_points) do
-      tasks[_] = { "shell", name = "- Build progrm → " .. entry_points[_],
+      tasks[_] = { "shell", name = "- Build program → " .. entry_points[_],
             cmd = "rm -f " .. output ..                                     -- clean
                   " && gcc " .. entry_points[_] .. " -o " .. output .. " -Wall" -- compile
       }
