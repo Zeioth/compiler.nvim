@@ -59,7 +59,7 @@ function M.action(selected_option)
   elseif selected_option == "option4" then -- If option 3
     -- TODO: Cuanto todo haya terminado. Abrimos progarma si tenemos su ruta
 
-    -- List of all entry point files in the working directory
+    -- Create a list of all entry point files in the working directory
     local tasks = {}
     local task
     local entry_points = require("compiler.utils").find_files(vim.fn.getcwd(), "main.c")
@@ -72,9 +72,15 @@ function M.action(selected_option)
               " && gcc " .. ep .. " -o " .. output  .. " -Wall" ..           -- compile
               " && echo '" .. final_message .. "'"                           -- echo
       }
-      table.insert(tasks, task)
-      -- Now for every task, let's run it
+      table.insert(tasks, task) -- store all the tasks we've created
     end
+
+    task = overseer.new_task({ -- run all the tasks we've created at once in parallel
+      name = "- C compiler → Build solution", strategy = { "orchestrator", tasks = tasks }
+    })
+    task:start()
+    vim.cmd("OverseerOpen")
+    -- TODO: Run main program
   elseif selected_option == "option5" then -- If option 3
     local makefile = vim.fn.getcwd() .. "/Makefile"
     local task = overseer.new_task({
