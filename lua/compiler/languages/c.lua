@@ -57,20 +57,23 @@ function M.action(selected_option)
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option4" then -- If option 3
-    -- Search for all main.c files in the working directory, and compile them
     -- TODO: Cuanto todo haya terminado. Abrimos progarma si tenemos su ruta
-    local entry_points = require("compiler.utils").find_files(vim.fn.getcwd(), "main.c")
-    local output_dirs = vim.fn.getcwd() .. "/bin/"        -- working_directory/bin/
-    local outputs = vim.fn.getcwd() .. "/bin/program"     -- working_directory/bin/program
 
+    -- List of all entry point files in the working directory
     local tasks = {}
-    for _ in ipairs(entry_points) do
-      tasks[_] = { "shell", name = "- Build program → " .. entry_points[_],
-        cmd = "rm -rf " .. entry_point ..                                       -- clean
-              " && mkdir -p " .. output_dir ..                                 -- mkdir
-              " && gcc " .. entry_points[_] .. " -o " .. output .. " -Wall" .. -- compile
-              " && echo '" .. final_message .. "'"                             -- echo
+    local task
+    local entry_points = require("compiler.utils").find_files(vim.fn.getcwd(), "main.c")
+    for _, ep in ipairs(entry_points) do
+      output_dir = ep:match("^(.-[/\\])[^/\\]*$") .. "/bin"                  -- entry_point/bin
+      output = output_dir .. "/program"                                      -- entry_point/bin
+      task = { "shell", name = "- Build program → " .. ep,
+        cmd = "rm -rf " .. output_dir
+              " && mkdir -p " .. output_dir
+              " && gcc " .. ep .. " -o " .. output  .. " -Wall" ..           -- compile
+              " && echo '" .. final_message .. "'"                           -- echo
       }
+      table.insert(tasks, task)
+      -- Now for every task, let's run it
     end
   elseif selected_option == "option5" then -- If option 3
     local makefile = vim.fn.getcwd() .. "/Makefile"
