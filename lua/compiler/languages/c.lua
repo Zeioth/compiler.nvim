@@ -65,11 +65,11 @@ function M.action(selected_option)
     local entry_points = require("compiler.utils").find_files(vim.fn.getcwd(), "main.c")
     for _, ep in ipairs(entry_points) do
       output_dir = ep:match("^(.-[/\\])[^/\\]*$") .. "/bin"                  -- entry_point/bin
-      output = output_dir .. "/program"                                      -- entry_point/bin
+      output = output_dir .. "/program"                                      -- entry_point/bin/program
       task = { "shell", name = "- Build program → " .. ep,
-        cmd = "rm -rf " .. output_dir
-              " && mkdir -p " .. output_dir
-              " && gcc " .. ep .. " -o " .. output  .. " -Wall" ..           -- compile
+        cmd = "rm -rf " .. output_dir ..                                     -- clean
+              " && mkdir -p " .. output_dir ..                               -- mkdir
+              " && gcc " .. ep .. " -o " .. output .. " -Wall" ..            -- compile
               " && echo '" .. final_message .. "'"                           -- echo
       }
       table.insert(tasks, task) -- store all the tasks we've created
