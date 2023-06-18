@@ -66,7 +66,7 @@ function M.action(selected_option)
     for _, ep in ipairs(entry_points) do
       output_dir = ep:match("^(.-[/\\])[^/\\]*$") .. "/bin"                  -- entry_point/bin
       output = output_dir .. "/program"                                      -- entry_point/bin/program
-      task = { "shell", name = "| Build program → " .. ep,
+      task = { "shell", name = "- Build program → " .. ep,
         cmd = "rm -rf " .. output_dir ..                                     -- clean
               " && mkdir -p " .. output_dir ..                               -- mkdir
               " && gcc " .. ep .. " -o " .. output .. " -Wall" ..            -- compile
@@ -76,7 +76,7 @@ function M.action(selected_option)
     end
 
     task = overseer.new_task({ -- run all the tasks we've created at once in parallel
-      name = "| C compiler", strategy = { "orchestrator", tasks = tasks }
+      name = "- C compiler", strategy = { "orchestrator", tasks = tasks }
     })
     task:start()
     vim.cmd("OverseerOpen")
