@@ -7,8 +7,8 @@ M.options = {
   { text = "1 - Build and run program", value = "option1" },
   { text = "2 - Build progrm", value = "option2" },
   { text = "3 - Run program", value = "option3" },
-  { text = "5 - Build solution", value = "option4" },
-  { text = "4 - Run Makefile", value = "option5" }
+  { text = "4 - Build solution", value = "option4" },
+  { text = "5 - Run Makefile", value = "option5" }
 }
 
 -- Backend - overseer tasks performed on option selected
