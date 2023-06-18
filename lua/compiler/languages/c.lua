@@ -76,7 +76,7 @@ function M.action(selected_option)
     end
 
     task = overseer.new_task({ -- run all the tasks we've created at once in parallel
-      name = "- C compiler: Build solution", strategy = { "orchestrator", tasks = tasks }
+      name = "- C compiler", strategy = { "orchestrator", tasks = tasks }
     })
     task:start()
     vim.cmd("OverseerOpen")
