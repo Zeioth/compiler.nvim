@@ -76,11 +76,12 @@ function M.action(selected_option)
     end
 
     task = overseer.new_task({ -- run all the tasks we've created at once in parallel
-      name = "- C compiler → Build solution", strategy = { "orchestrator", tasks = tasks }
+      name = "- C compiler: Build solution", strategy = { "orchestrator", tasks = tasks }
     })
     task:start()
     vim.cmd("OverseerOpen")
-    -- TODO: Run main program
+    -- TODO: Parse compiler.lua
+    -- TODO: Run main program, if defined
   elseif selected_option == "option5" then -- If option 3
     local makefile = vim.fn.getcwd() .. "/Makefile"
     local task = overseer.new_task({
