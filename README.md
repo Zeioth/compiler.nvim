@@ -1,4 +1,4 @@
-Neovim compiler capable of building and running the progrms without the need of configuring anything
+Neovim compiler for building and running your code without having to configure anything
 
 
 
