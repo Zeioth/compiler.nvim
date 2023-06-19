@@ -66,11 +66,6 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() vim.cmd("CompilerOpen") e
 vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerResultsToggle" end, { noremap = true, silent = true })
 ```
 
-## How to open/close
-Press `F6` to open the compiler.
-
-Press `Shift+F6` or `q` to close the results after you are done.
-
 ## How to use (Basic)
 This is what hapen when you use `build and run`, `build`, or `run`
 
