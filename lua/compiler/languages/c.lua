@@ -62,9 +62,9 @@ function M.action(selected_option)
     local tasks = {}
     local task
 
-    -- if .compiler file exists in working dir
-    if utils.fileExists(".compiler") then
-      local config = utils.parseConfigFile(vim.fn.getcwd() .. "/.compiler")
+    -- if .solution file exists in working dir
+    if utils.fileExists(".solution") then
+      local config = utils.parseConfigFile(vim.fn.getcwd() .. "/.solution")
       local executable
 
       for entry, variables in pairs(config) do
@@ -83,6 +83,7 @@ function M.action(selected_option)
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
       end
+
       if executable then
         task = { "shell", name = "- Run program → " .. executable,
           cmd = "time " .. executable ..                                     -- run
@@ -91,13 +92,13 @@ function M.action(selected_option)
         table.insert(tasks, task)
        end
 
-      task = overseer.new_task({ -- run all the tasks we've created at once in parallel
+      task = overseer.new_task({ -- run all tasks we've created secuentially
         name = "- C compiler", strategy = { "orchestrator", tasks = tasks }
       })
       task:start()
       vim.cmd("OverseerOpen")
 
-    else -- If no .compiler file
+    else -- If no .solution file
       -- Create a list of all entry point files in the working directory
       entry_points = require("compiler.utils").find_files(vim.fn.getcwd(), "main.c")
 
@@ -113,13 +114,13 @@ function M.action(selected_option)
         table.insert(tasks, task) -- store all the tasks we've created
       end
 
-      task = overseer.new_task({ -- run all the tasks we've created at once in parallel
+      task = overseer.new_task({ -- run all tasks we've created secuentially
         name = "- C compiler", strategy = { "orchestrator", tasks = tasks }
       })
       task:start()
       vim.cmd("OverseerOpen")
     end
-  elseif selected_option == "option5" then -- If option 3
+  elseif selected_option == "option5" then
     local makefile = vim.fn.getcwd() .. "/Makefile"
     local task = overseer.new_task({
       name = "- C compiler",
