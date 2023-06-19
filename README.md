@@ -72,7 +72,7 @@ This is what hapen when you select any of the options `build and run`, `build`, 
 
 > compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory for the next files
 
-| Language | Entry point | Output | 
+| Language | Default entry point | Default output | 
 |--|--|--|
 | c | main.c | working_dir/bin/program |
 | c++ | main.cpp | working_dir/bin/program |
