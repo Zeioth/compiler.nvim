@@ -66,7 +66,7 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() vim.cmd("CompilerOpen") e
 vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerResultsToggle" end, { noremap = true, silent = true })
 ```
 
-## How to use (Basic)
+## How to use (Basic usage)
 This is what hapen when you use `build and run`, `build`, or `run`
 
 > compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory for the next files
