@@ -71,12 +71,11 @@ function M.action(selected_option)
       for entry, variables in pairs(config) do
         executable = variables.executable
         if executable then goto continue end
-
         entry_point = variables.entry_point
         output = variables.output
         output_dir = entry_point:match("^(.-[/\\])[^/\\]*$")
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -rf " .. output ..                                         -- clean
+          cmd = "rm -f " .. output ..                                         -- clean
                 " && mkdir -p " .. output_dir ..                               -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" ..            -- compile
                 " && echo '" .. final_message .. "'"                           -- echo
@@ -84,9 +83,10 @@ function M.action(selected_option)
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
       end
-      -- if executable then
-      --   task = { "shell", name = "- Run program → " .. output, cmd = "time " .. output } -- run
-      -- end
+      if executable then
+        task = { "shell", name = "- Run program → " .. executable, cmd = "time " .. executable } -- run
+        table.insert(tasks, task)
+       end
 
       task = overseer.new_task({ -- run all the tasks we've created at once in parallel
         name = "- C compiler", strategy = { "orchestrator", tasks = tasks }
