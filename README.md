@@ -50,7 +50,7 @@ lazy.nvim package manager
 },
 ```
 
-## Commands
+## Available commands
 
 | Command | Description|
 |--|--|
