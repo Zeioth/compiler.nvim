@@ -1,11 +1,13 @@
-# WIP: Please be patient, not ready for usage yet 
 Neovim compiler capable of building and running the next languages without the need of configuring anything
 
-* c
-* c++
-* c#
-* rust
-* python
+* [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
+* c++ (COMING SOON)
+* c# (COMMING SOON)
+* rust (COMMING SOON)
+* python (COMMING SOON)
+
+## Dependencies
+If you are gonna compile C#, then you need to have `omnisharp` instaled in your system. All the other languages are shipped with their compiler already included so you don't have to worry.
 
 ## How to install
 lazy.nvim package manager
@@ -54,12 +56,12 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() vim.cmd("CompilerOpen") e
 vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerResultsToggle" end, { noremap = true, silent = true })
 ```
 
-## How to use
+## How to open/close
 Press `F6` to open the compiler.
 
 Press `Shift+F6` or `q` to close the results after you are done.
 
-## Default behavior
+## How to use
 This is what hapen when you use `build and run`, `build`, or `run`
 
 > compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory for the next files
@@ -72,8 +74,8 @@ This is what hapen when you use `build and run`, `build`, or `run`
 
 For Make, the compiler will search for Makefile in the working directory and run it.
 
-## Solutions
-By creating a solution you have more control about what hapen when you compile. Create a file `.solution` in your working directory. Then use this template 
+## How to create a solution
+If you want to have more control, you can create a `.solution` file in your working directory and use this template 
 
 ```
 [HELLO_WORLD]
@@ -86,24 +88,16 @@ executable = /program/to/execute/after/the/solution/has/compiled/this_is_my_prog
 
 Where:
 
-* You create an entry like this per program in the solution
+* Every [ENTRY] represents a program to compile
+* [SOLUTION] represents the executable to run after the compilations. This section is optional and can be deleted.
+* Anything inside of the brackets will be ignored, it is just for you to identify your program easily.
 
-```
-[HELLO_WORLD]
-entry_point = /path/to/my/entry_point_file/main.c
-output = /path/where/the/program/will/be/written/hello_world
-```
-* The solution executable is optional. You can delete the whole section if you want. 
-* Anything between brackets will be ignored, it is just for you to identify it easily.
-
-Please, respect the syntax of the config file, as we intentionally do not parse errors in order to maintain the compiler code simple.
-
+Please, respect the syntax of the config file, as we intentionally do not parse errors in order to keep the compiler code simple.
 
 ## Make
 Some times you already have a Makefile that builds the project. This option will look for a Makefile in the working directory. If your Makefile is somewhere else, just create a simbolic link to it (and add it to .gitignore).
 
-## Dependencies
-If you are gonna compile C#, then you need to have `omnisharp` instaled in your system. All the other languages are shipped with their compiler already included.
+
 
 ## Advanced
 
