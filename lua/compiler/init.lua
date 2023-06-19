@@ -6,37 +6,14 @@ local autocmd = vim.api.nvim_create_autocmd
 local M = {}
 
 M.setup = function(ctx)
-  -- Setup options
-  -- html_output = ctx.html_output
-  -- hide_toolbar = ctx.hide_toolbar
-  -- grace_period = ctx.hide_toolbar
-  --
-  -- -- Set default options
-  -- if html_output == nil then
-  --   local is_windows = vim.loop.os_uname().sysname == "Windows"
-  --   if is_windows then -- windows
-  --     html_output = "C:\\Users\\<username>\\AppData\\Local\\Temp\\markmap.html"
-  --   else               -- unix
-  --     html_output = "/tmp/markmap.html"
-  --   end
-  -- end
-  --
-  -- if hide_toolbar == true then
-  --   hide_toolbar = "--no-toolbar"
-  -- else
-  --   hide_toolbar = nil
-  -- end
-  --
-  -- if grace_period == nil then
-  --   grace_period = 3600000 -- 60min
-  -- end
 
-
-
-  -- Setup commands -----------------------------------------------------------
   cmd("CompilerOpen", function()
     require("compiler.telescope").show()
-  end, { desc = "Show a mental map of the current file" })
+  end, { desc = "Open the compiler" })
+
+  cmd("CompilerResultsToggle", function()
+    vim.cmd("OverseerToggle")
+  end, { desc = "Toggle the compiler results" })
 
 end
 
