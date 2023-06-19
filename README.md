@@ -24,7 +24,7 @@ If you are gonna compile C#, then you need to have `omnisharp` instaled in your 
 lazy.nvim package manager
 ```lua
 { -- This plugin
-  "https://github.com/Zeioth/compiler.nvim",
+  "zeioth/compiler.nvim",
   dependenciens = { "stevearc/overseer.nvim" }
   event="VeryLazy",
   config = function(_, opts) require("compiler").setup(opts) end,
