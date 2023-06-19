@@ -2,6 +2,9 @@ Neovim compiler capable of building and running the next languages without the n
 
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 
+![screenshot_2023-06-19_13-59-07_947251291](https://github.com/Zeioth/compiler.nvim/assets/3357792/7c31d02c-2e8d-4562-bcec-323d8a468f67)
+
+
 Planned & coming soon:
 
 * c++
@@ -75,7 +78,7 @@ This is what hapen when you use `build and run`, `build`, or `run`
   * rust: `main.rs`
   * python: `main.py` or `__main__.py` (in this order)
 
-For Make, the compiler will search for Makefile in the working directory and run it.
+![screenshot_2023-06-19_13-59-37_766847673](https://github.com/Zeioth/compiler.nvim/assets/3357792/42c4ec0d-4446-4ac6-9c4a-478a32d23ca7)
 
 ## How to create a solution (Advanced)
 If you want to have more control, you can create a `.solution` file in your working directory and use this template 
