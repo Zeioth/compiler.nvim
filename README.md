@@ -96,9 +96,7 @@ parameters = ""
 executable = "/program/to/execute/after/the/solution/has/compiled/this_is_my_program"
 ```
 
-Where:
-
-* Every [ENTRY] represents a program to compile
+Where every [ENTRY] represents a program to compile
 
 | option | Description |
 |--|--|
@@ -107,7 +105,7 @@ Where:
 | output | Path where the compiled program will be written. | 
 | parameters | Are optional parameters to pass to the compiler. If you don't need them. You can delete this option or leave it as emtpy string if you want  |
 
-* [SOLUTION] represents the executable to run after the compilations. This section is optional and can be deleted.
+[SOLUTION] represents the executable to run after the compilations. This section is optional and can be deleted safely.
 
 | Option | Description |
 |--|--|
