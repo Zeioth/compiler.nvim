@@ -68,7 +68,7 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerTogg
 ```
 
 ## How to use (Basic usage)
-This is what hapen when you select any of the options `build and run`, `build`, or `run` in the compiler
+This is what hapen when you select `build and run`, `build`, or `run` in the compiler
 
 > compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory for the next files
 
