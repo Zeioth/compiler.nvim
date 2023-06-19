@@ -26,7 +26,7 @@ function M.action(selected_option)
       strategy = { "orchestrator",
 
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
-          cmd = "rm -rf " .. output_dir ..                                   -- clean
+          cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
                 " && time " .. output ..                                     -- run
@@ -40,7 +40,7 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -rf " .. output_dir ..                                   -- clean
+          cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
                 " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
                 " && echo '" .. final_message .. "'"                         -- echo
@@ -84,7 +84,10 @@ function M.action(selected_option)
         ::continue::
       end
       if executable then
-        task = { "shell", name = "- Run program → " .. executable, cmd = "time " .. executable } -- run
+        task = { "shell", name = "- Run program → " .. executable,
+          cmd = "time " .. executable ..                                     -- run
+                " && echo '" .. final_message .. "'"                         -- echo
+        }
         table.insert(tasks, task)
        end
 
@@ -102,7 +105,7 @@ function M.action(selected_option)
         output_dir = ep:match("^(.-[/\\])[^/\\]*$") .. "/bin"                -- entry_point/bin
         output = output_dir .. "/program"                                    -- entry_point/bin/program
         task = { "shell", name = "- Build program → " .. ep,
-          cmd = "rm -rf " .. output_dir ..                                   -- clean
+          cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
                 " && gcc " .. ep .. " -o " .. output .. " -Wall" ..          -- compile
                 " && echo '" .. final_message .. "'"                         -- echo
