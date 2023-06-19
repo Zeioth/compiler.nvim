@@ -106,7 +106,7 @@ Where every [entry] represents a program to compile
 | output | Path where the compiled program will be written. | 
 | parameters | Are optional parameters to pass to the compiler. If you don't need them you can delete this option or leave it as emtpy string if you want. | 
 
-[SOLUTION] represents the executable to run after all programs have compiled. This section is optional and can be deleted safely.
+[SOLUTION] represents the executable to run after all programs in the solution have compiled. This section is optional and can be deleted safely.
 
 | Option | Description |
 |--|--|
