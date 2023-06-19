@@ -73,8 +73,7 @@ function M.action(selected_option)
         if executable then goto continue end
         entry_point = variables.entry_point
         output = variables.output
-        output_dir = entry_point:match("^(.-[/\\])[^/\\]*$")
-        print("CREA DIRECTORIO".. output_dir)
+        output_dir = output:match("^(.-[/\\])[^/\\]*$")
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
