@@ -67,20 +67,30 @@ function M.action(selected_option)
     if utils.fileExists(".compiler") then
       local config = utils.parseConfigFile(".compiler")
       local executable
+  print("Entry:", entry)
+  local entryPoint = variables.entry_point
+  local output = variables.output
+  if entryPoint then
+    print("Entry Point:", entryPoint)
+  end
+  if output then
+    print("Output:", output)
+  end
+  print("--------------------")
       for entry, variables in pairs(config) do
-        executable = variables.executable
-        entry_point = variables.entry_point
-        output = variables.output
-        output_dir = entry_point:match("^(.-[/\\])[^/\\]*$")
-        if executable then goto continue end
-        task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -rf " .. output ..                                         -- clean
-                " && mkdir -p " .. output_dir ..                               -- mkdir
-                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" ..            -- compile
-                " && echo '" .. final_message .. "'"                           -- echo
-        }
-        table.insert(tasks, task) -- store all the tasks we've created
-        ::continue::
+        -- executable = variables.executable
+        -- entry_point = variables.entry_point
+        -- output = variables.output
+        -- output_dir = entry_point:match("^(.-[/\\])[^/\\]*$")
+        -- if executable then goto continue end
+        -- task = { "shell", name = "- Build program → " .. entry_point,
+        --   cmd = "rm -rf " .. output ..                                         -- clean
+        --         " && mkdir -p " .. output_dir ..                               -- mkdir
+        --         " && gcc " .. entry_point .. " -o " .. output .. " -Wall" ..            -- compile
+        --         " && echo '" .. final_message .. "'"                           -- echo
+        -- }
+        -- table.insert(tasks, task) -- store all the tasks we've created
+        -- ::continue::
       end
       if executable then
         task = { "shell", name = "- Run program → " .. output, cmd = "time " .. output } -- run
