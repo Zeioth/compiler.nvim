@@ -69,11 +69,12 @@ function M.action(selected_option)
       local executable
 
       for entry, variables in pairs(config) do
-        --executable = variables.executable
+        executable = variables.executable
+        if executable then goto continue end
+
         entry_point = variables.entry_point
         output = variables.output
         if entry_point then output_dir = entry_point:match("^(.-[/\\])[^/\\]*$") end
-        --if executable then goto continue end
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -rf " .. output ..                                         -- clean
                 " && mkdir -p " .. output_dir ..                               -- mkdir
