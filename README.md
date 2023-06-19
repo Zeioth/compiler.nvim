@@ -59,7 +59,7 @@ lazy.nvim package manager
 
 ## Recommended mappings
 
-```
+```lua
 -- Open compiler
 vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() vim.cmd("CompilerOpen") end, { noremap = true, silent = true })
 
