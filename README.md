@@ -1,3 +1,4 @@
+# Compiler.nvim
 Neovim compiler for building and running your code without having to configure anything
 
 
