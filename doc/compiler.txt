@@ -1,0 +1,19 @@
+*compier.txt*                                           A compiler for neovim.
+
+==============================================================================
+Table of Contents                                  *markmap-table-of-contents*
+
+1. compiler.nvim                                                     |compiler|
+  - Installation                                        |compiler-installation|
+  - Dependencies                                        |compiler-dependencies|
+  - How to install                                    |compiler-how-to-install|
+  - Commands                                                |compiler-commands|
+  - Mappings                                                |compiler-mappings|
+  - How to use                                            |compiler-how-to-use|
+  - How to create a solution                                |compiler-commands|
+  - FAQ                                                          |compiler-faq|
+
+==============================================================================
+1. compiler.nvim                                                    *compiler*
+
+WIP - Help needed to convert README.md to .txt
