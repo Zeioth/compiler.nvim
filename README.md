@@ -2,7 +2,7 @@ Neovim compiler capable of building and running the next languages without the n
 
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 
-Planned and coming soon:
+Planned and coming soon
 
 * c++
 * c#
