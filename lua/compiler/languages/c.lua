@@ -20,7 +20,7 @@ function M.action(selected_option)
   local output = vim.fn.getcwd() .. "/bin/program"     -- working_directory/bin/program
   local final_message = "--task finished--"
 
-  if selected_option == "option1" then  -- If option 1
+  if selected_option == "option1" then
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
@@ -34,8 +34,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-    -- overseer.run_action(task, "open hsplit") → Simplified summary
-  elseif selected_option == "option2" then -- If option 2
+  elseif selected_option == "option2" then
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
@@ -47,7 +46,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option3" then -- If option 3
+  elseif selected_option == "option3" then
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
@@ -57,7 +56,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option4" then -- If option 3
+  elseif selected_option == "option4" then
     utils = require("compiler.utils")
     local entry_points
     local tasks = {}
@@ -74,11 +73,12 @@ function M.action(selected_option)
         entry_point = variables.entry_point
         output = variables.output
         output_dir = output:match("^(.-[/\\])[^/\\]*$")
+        local parameters = variables.parameters or "-Wall" -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                        -- clean
-                " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
-                " && echo '" .. final_message .. "'"                         -- echo
+          cmd = "rm -f " .. output ..                                                 -- clean
+                " && mkdir -p " .. output_dir ..                                      -- mkdir
+                " && gcc " .. entry_point .. " -o " .. output .. " " .. parameters .. -- compile + parameters
+                " && echo '" .. final_message .. "'"                                  -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
