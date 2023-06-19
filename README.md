@@ -81,7 +81,7 @@ This is what hapen when you select any of the options `build and run`, `build`, 
 | python | main.c | working_dir/bin/program |
 | java | main.java | working_dir/bin/program |
 
-This is how the compilation results look after choosig `Build and run` in c
+This is how the compilation results look after choosig `Build & run program` in c
 ![screenshot_2023-06-19_13-59-37_766847673](https://github.com/Zeioth/compiler.nvim/assets/3357792/42c4ec0d-4446-4ac6-9c4a-478a32d23ca7)
 
 ## How to create a solution (Advanced)
