@@ -11,7 +11,7 @@ M.setup = function(ctx)
     require("compiler.telescope").show()
   end, { desc = "Open the compiler" })
 
-  cmd("CompilerResultsToggle", function()
+  cmd("CompilerToggleResults", function()
     vim.cmd("OverseerToggle")
   end, { desc = "Toggle the compiler results" })
 
