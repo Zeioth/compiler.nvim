@@ -74,11 +74,12 @@ function M.action(selected_option)
         entry_point = variables.entry_point
         output = variables.output
         output_dir = entry_point:match("^(.-[/\\])[^/\\]*$")
+        print("CREA DIRECTORIO".. output_dir)
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                         -- clean
-                " && mkdir -p " .. output_dir ..                               -- mkdir
-                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" ..            -- compile
-                " && echo '" .. final_message .. "'"                           -- echo
+          cmd = "rm -f " .. output ..                                        -- clean
+                " && mkdir -p " .. output_dir ..                             -- mkdir
+                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
+                " && echo '" .. final_message .. "'"                         -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
