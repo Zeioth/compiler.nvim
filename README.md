@@ -122,7 +122,7 @@ Some times you already have a Makefile that builds the project. This option will
 
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
 * **How can I change the way the compiler works?** Same as the previous one.
-* **Where are the global options?** There are not. Creating a `.solution` file of your project is the way to configure stuff. This way we can keep to code extra simple.
+* **Where are the global options?** There are not. Creating a `.solution` file of your project is the way to configure stuff. This way we can keep the code extra simple.
 * **But I don't want to create a .solution file! I already have a .sln file!:** I understand your pain but .sln is a closed format of a private company.
 * **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. For those cases, I recommend you this strategy:
   
