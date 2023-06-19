@@ -1,10 +1,13 @@
 Neovim compiler capable of building and running the next languages without the need of configuring anything
 
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
-* c++ (COMING SOON)
-* c# (COMMING SOON)
-* rust (COMMING SOON)
-* python (COMMING SOON)
+
+Planned and coming soon:
+
+* c++
+* c#
+* rust
+* python
 
 ## Dependencies
 If you are gonna compile C#, then you need to have `omnisharp` instaled in your system. All the other languages are shipped with their compiler already included so you don't have to worry.
