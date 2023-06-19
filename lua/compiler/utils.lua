@@ -21,7 +21,7 @@ function M.find_files(start_dir, target_name)
 end
 
 -- Function to parse the config file and extract variables
-local function parseConfigFile(filePath)
+function M.parseConfigFile(filePath)
   local file = assert(io.open(filePath, "r"))  -- Open the file in read mode
   local collection = {}  -- Initialize an empty Lua table to store the variables
   local currentEntry = nil  -- Variable to track the current entry being processed
