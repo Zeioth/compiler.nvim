@@ -65,7 +65,7 @@ function M.action(selected_option)
 
     -- if .compiler file exists in working dir
     if utils.fileExists(".compiler") then
-      local config = utils.parseConfigFile(vim.fn.getcwd() .. ".compiler")
+      local config = utils.parseConfigFile(vim.fn.getcwd() .. "/.compiler")
       local executable
   print("Entry:", entry)
   local entryPoint = variables.entry_point
