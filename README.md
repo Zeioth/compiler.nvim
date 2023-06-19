@@ -54,8 +54,8 @@ lazy.nvim package manager
 
 | Command | Description|
 |--|--|
-| :CompilerOpen | Display the adecuated compiler for the filetype you have currently opened |
-| :CompilerResultsToggle | Open or close the compiler results. |
+| `:CompilerOpen` | Display the adecuated compiler for the filetype you have currently opened |
+| `:CompilerResultsToggle` | Open or close the compiler results. |
 
 ## Recommended mappings
 
