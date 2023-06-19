@@ -55,7 +55,7 @@ lazy.nvim package manager
 | Command | Description|
 |--|--|
 | `:CompilerOpen` | Display the adecuated compiler for the filetype you have currently opened |
-| `:CompilerResultsToggle` | Open or close the compiler results. |
+| `:CompilerToggleResults` | Open or close the compiler results. |
 
 ## Recommended mappings
 
@@ -64,7 +64,7 @@ lazy.nvim package manager
 vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() vim.cmd("CompilerOpen") end, { noremap = true, silent = true })
 
 -- Toggle output resume
-vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerResultsToggle" end, { noremap = true, silent = true })
+vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerToggleResults" end, { noremap = true, silent = true })
 ```
 
 ## How to use (Basic usage)
