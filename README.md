@@ -110,7 +110,7 @@ Where every [entry] represents a program to compile
 
 | Option | Description |
 |--|--|
-| [SOLUTION] | Anything inside the brackts will be ignored. But keeping the the default name [SOLUTION] is recommended. |
+| [SOLUTION] | Anything inside the brackets will be ignored. But keeping the the default name [SOLUTION] is recommended. |
 | executable | Path to a program to execute after the compilation finishes. | 
 
 Please, respect the syntax of the config file, as we intentionally do not parse errors in order to keep the compiler code simple.
