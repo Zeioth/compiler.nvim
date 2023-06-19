@@ -10,7 +10,7 @@ Planned & coming soon:
 * python
 
 ## Dependencies
-If you are gonna compile C#, then you need to have `omnisharp` instaled in your system. All the other languages are shipped with their compiler already included so you don't have to worry.
+If you are gonna compile C#, then you need to have `omnisharp` instaled in your system. All the other languages are shipped with their compiler already included and you don't have to worry.
 
 ## How to install
 lazy.nvim package manager
