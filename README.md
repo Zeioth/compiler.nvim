@@ -104,7 +104,7 @@ Where every [entry] represents a program to compile
 | [entry] | Anything inside the brackets will be ignored. Write anything you want inside. You can use it to identify for program easily.  |
 | entry_point | Path of the file containint the entry point of the program.  | 
 | output | Path where the compiled program will be written. | 
-| parameters | Are optional parameters to pass to the compiler. If you don't need them. You can delete this option or leave it as emtpy string if you want  |
+| parameters | Are optional parameters to pass to the compiler. If you don't need them you can delete this option or leave it as emtpy string if you want  |
 
 [SOLUTION] represents the executable to run after the compilations. This section is optional and can be deleted safely.
 
