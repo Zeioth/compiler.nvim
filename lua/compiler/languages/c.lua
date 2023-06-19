@@ -69,21 +69,21 @@ function M.action(selected_option)
       local executable
       for entry, variables in pairs(config) do
         executable = variables.executable
-        up = variables.entry_point
+        entry_point = variables.entry_point
         output = variables.output
-        output_dir = ep:match("^(.-[/\\])[^/\\]*$")
+        output_dir = entry_point:match("^(.-[/\\])[^/\\]*$")
         if executable then goto continue end
-        task = { "shell", name = "- Build program → " .. ep,
+        task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -rf " .. output ..                                         -- clean
                 " && mkdir -p " .. output_dir ..                               -- mkdir
-                " && gcc " .. ep .. " -o " .. output .. " -Wall" ..            -- compile
+                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" ..            -- compile
                 " && echo '" .. final_message .. "'"                           -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
       end
       if executable then
-        task = { "shell", name = "- Run program → " .. ep, cmd = "time " .. output } -- run
+        task = { "shell", name = "- Run program → " .. output, cmd = "time " .. output } -- run
       end
 
       task = overseer.new_task({ -- run all the tasks we've created at once in parallel
