@@ -74,7 +74,7 @@ function M.action(selected_option)
 
         entry_point = variables.entry_point
         output = variables.output
-        if entry_point then output_dir = entry_point:match("^(.-[/\\])[^/\\]*$") end
+        output_dir = entry_point:match("^(.-[/\\])[^/\\]*$")
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -rf " .. output ..                                         -- clean
                 " && mkdir -p " .. output_dir ..                               -- mkdir
