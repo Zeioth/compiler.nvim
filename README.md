@@ -1,9 +1,12 @@
-Neovim compiler capable of building and running the next languages without the need of configuring anything:
+Neovim compiler capable of building and running the progrms without the need of configuring anything
 
-* [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
+
 
 ![screenshot_2023-06-19_13-59-07_947251291](https://github.com/Zeioth/compiler.nvim/assets/3357792/7c31d02c-2e8d-4562-bcec-323d8a468f67)
 
+Supported languages:
+
+* [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 
 Planned & coming soon:
 
