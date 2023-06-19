@@ -21,7 +21,7 @@ function M.find_files(start_dir, target_name)
 end
 
 -- Function to parse the config file and extract variables
-function M.parseConfigFile(filePath)
+local function parseConfigFile(filePath)
   local file = assert(io.open(filePath, "r"))  -- Open the file in read mode
   local collection = {}  -- Initialize an empty Lua table to store the variables
   local currentEntry = nil  -- Variable to track the current entry being processed
@@ -34,7 +34,7 @@ function M.parseConfigFile(filePath)
     else
       local key, value = line:match("([^=]+)%s-=%s-(.+)")  -- Extract key-value pairs
       if key and value and currentEntry then
-        collection[currentEntry][key:trim()] = value:trim()  -- Store the variable in the collection
+        collection[currentEntry][vim.trim(key)] = vim.trim(value)  -- Store the variable in the collection
       end
     end
   end
