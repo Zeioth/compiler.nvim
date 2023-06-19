@@ -36,14 +36,22 @@ lazy.nvim package manager
   config = function(_, opts) require("overseer").setup(opts) end,
 },
 ```
-mappings (optional)
-TODO: Instead of giving mapings, make a table with the exposed commands
+
+## Commands
+
+| Command | Description|
+|--|--|
+| CompilerOpen | Display the adecuated compiler for the filetype you have currently opened |
+| CompilerResultsToggle | Open or close the compiler results. |
+
+## Recommended mappings
+
 ```
 -- Open compiler
-vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() require "compiler.telescope".show() end, { noremap = true, silent = true })
+vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() vim.cmd("CompilerOpen") end, { noremap = true, silent = true })
 
 -- Toggle output resume
-vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("OverseerToggle") end, { noremap = true, silent = true })
+vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerResultsToggle" end, { noremap = true, silent = true })
 ```
 
 ## How to use
