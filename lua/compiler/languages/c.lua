@@ -72,7 +72,7 @@ function M.action(selected_option)
         --executable = variables.executable
         entry_point = variables.entry_point
         output = variables.output
-        output_dir = entry_point:match("^(.-[/\\])[^/\\]*$")
+        if entry_point then output_dir = entry_point:match("^(.-[/\\])[^/\\]*$") end
         --if executable then goto continue end
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -rf " .. output ..                                         -- clean
