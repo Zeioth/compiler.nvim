@@ -74,7 +74,7 @@ This is what hapen when you select any of the options `build and run`, `build`, 
 
 | Language | Default entry point | Default output | 
 |--|--|--|
-| c | main.c | ./bin/program |
+| c | ./main.c | ./bin/program |
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/program.exe |
 | rust | ./main.rs | ./bin/program |
