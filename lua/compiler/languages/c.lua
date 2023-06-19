@@ -13,6 +13,7 @@ M.options = {
 
 -- Backend - overseer tasks performed on option selected
 function M.action(selected_option)
+  local utils = require("compiler.utils")
   local overseer = require("overseer")
   local entry_point = vim.fn.getcwd() .. "/main.c"     -- working_directory/main.c
   local output_dir = vim.fn.getcwd() .. "/bin/"        -- working_directory/bin/
@@ -57,31 +58,62 @@ function M.action(selected_option)
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option4" then -- If option 3
-    -- TODO: Cuanto todo haya terminado. Abrimos progarma si tenemos su ruta
-
-    -- Create a list of all entry point files in the working directory
+    utils = require("compiler.utils")
+    local entry_points
     local tasks = {}
     local task
-    local entry_points = require("compiler.utils").find_files(vim.fn.getcwd(), "main.c")
-    for _, ep in ipairs(entry_points) do
-      output_dir = ep:match("^(.-[/\\])[^/\\]*$") .. "/bin"                  -- entry_point/bin
-      output = output_dir .. "/program"                                      -- entry_point/bin/program
-      task = { "shell", name = "- Build program → " .. ep,
-        cmd = "rm -rf " .. output_dir ..                                     -- clean
-              " && mkdir -p " .. output_dir ..                               -- mkdir
-              " && gcc " .. ep .. " -o " .. output .. " -Wall" ..            -- compile
-              " && echo '" .. final_message .. "'"                           -- echo
-      }
-      table.insert(tasks, task) -- store all the tasks we've created
-    end
 
-    task = overseer.new_task({ -- run all the tasks we've created at once in parallel
-      name = "- C compiler", strategy = { "orchestrator", tasks = tasks }
-    })
-    task:start()
-    vim.cmd("OverseerOpen")
-    -- TODO: Parse compiler.lua
-    -- TODO: Run main program, if defined
+    -- if .compiler file exists in working dir
+    if utils.fileExists(".compiler") then
+      local config = utils.parseConfigFile(".compiler")
+      local executable
+      for entry, variables in pairs(config) do
+        executable = variables.executable
+        up = variables.entry_point
+        output = variables.output
+        output_dir = ep:match("^(.-[/\\])[^/\\]*$")
+        if executable then goto continue end
+        task = { "shell", name = "- Build program → " .. ep,
+          cmd = "rm -rf " .. output ..                                         -- clean
+                " && mkdir -p " .. output_dir ..                               -- mkdir
+                " && gcc " .. ep .. " -o " .. output .. " -Wall" ..            -- compile
+                " && echo '" .. final_message .. "'"                           -- echo
+        }
+        table.insert(tasks, task) -- store all the tasks we've created
+        ::continue::
+      end
+      if executable then
+        task = { "shell", name = "- Run program → " .. ep, cmd = "time " .. output } -- run
+      end
+
+      task = overseer.new_task({ -- run all the tasks we've created at once in parallel
+        name = "- C compiler", strategy = { "orchestrator", tasks = tasks }
+      })
+      task:start()
+      vim.cmd("OverseerOpen")
+
+    else -- If no .compiler file
+      -- Create a list of all entry point files in the working directory
+      entry_points = require("compiler.utils").find_files(vim.fn.getcwd(), "main.c")
+
+      for _, ep in ipairs(entry_points) do
+        output_dir = ep:match("^(.-[/\\])[^/\\]*$") .. "/bin"                -- entry_point/bin
+        output = output_dir .. "/program"                                    -- entry_point/bin/program
+        task = { "shell", name = "- Build program → " .. ep,
+          cmd = "rm -rf " .. output_dir ..                                   -- clean
+                " && mkdir -p " .. output_dir ..                             -- mkdir
+                " && gcc " .. ep .. " -o " .. output .. " -Wall" ..          -- compile
+                " && echo '" .. final_message .. "'"                         -- echo
+        }
+        table.insert(tasks, task) -- store all the tasks we've created
+      end
+
+      task = overseer.new_task({ -- run all the tasks we've created at once in parallel
+        name = "- C compiler", strategy = { "orchestrator", tasks = tasks }
+      })
+      task:start()
+      vim.cmd("OverseerOpen")
+    end
   elseif selected_option == "option5" then -- If option 3
     local makefile = vim.fn.getcwd() .. "/Makefile"
     local task = overseer.new_task({
@@ -89,7 +121,7 @@ function M.action(selected_option)
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run Makefile → " .. makefile,
             cmd = "time make " .. makefile ..                                -- run
-                " ; echo '" .. final_message .. "'"                         -- echo
+                " ; echo '" .. final_message .. "'"                          -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")

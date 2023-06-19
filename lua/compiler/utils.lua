@@ -20,4 +20,33 @@ function M.find_files(start_dir, target_name)
   return files
 end
 
+-- Function to parse the config file and extract variables
+function M.parseConfigFile(filePath)
+  local file = assert(io.open(filePath, "r"))  -- Open the file in read mode
+  local collection = {}  -- Initialize an empty Lua table to store the variables
+  local currentEntry = nil  -- Variable to track the current entry being processed
+
+  for line in file:lines() do
+    local entry = line:match("%[([^%]]+)%]")  -- Check if the line represents a new entry
+    if entry then
+      currentEntry = entry  -- Update the current entry being processed
+      collection[currentEntry] = {}  -- Initialize a sub-table for the current entry
+    else
+      local key, value = line:match("([^=]+)%s-=%s-(.+)")  -- Extract key-value pairs
+      if key and value and currentEntry then
+        collection[currentEntry][key:trim()] = value:trim()  -- Store the variable in the collection
+      end
+    end
+  end
+
+  file:close()  -- Close the file
+  return collection  -- Return the parsed collection
+end
+
+-- Function that returns true if a file exists in physical storage
+function M.fileExists(filename)
+  local stat = vim.loop.fs_stat(filename)
+  return stat and stat.type == "file"
+end
+
 return M

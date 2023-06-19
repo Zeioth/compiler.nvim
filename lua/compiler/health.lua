@@ -1,6 +1,6 @@
 -- On neovim you can run
--- :checkhealth markmap
--- To know possible causes in case markmap.nvim is nor working correctly.
+-- :checkhealth compiler
+-- To know possible causes in case compiler.nvim is nor working correctly.
 
 local M = {}
 
@@ -14,7 +14,7 @@ local health = {
 }
 
 function M.check()
-  health.start "markmap.nvim"
+  health.start "compiler.nvim"
 
   health.info(
     "Neovim Version: v"
@@ -33,22 +33,7 @@ function M.check()
     {
       cmd = "git",
       type = "error",
-      msg = "Used for core functionality such as cloning markmap.nvim",
-    },
-    {
-      cmd = { "node" },
-      type = "error",
-      msg = "Used for core functionality such as running markmap-cli",
-    },
-    {
-      cmd = { "yarn" },
-      type = "warn",
-      msg = "Used to install markmap-cli. This operation can also be performed using npm instead, or even manually. See README.md for more info:/nhttps://github.com/Zeioth/markmap.nvim",
-    },
-    {
-      cmd = "markmap",
-      type = "error",
-      msg = "Used to for the main functionality of the plugin. markmap-cli must be executable in a terminal.",
+      msg = "Used for core functionality such as cloning compiler.nvim",
     },
   }
 
