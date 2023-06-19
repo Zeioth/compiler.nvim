@@ -116,7 +116,7 @@ Where every [entry] represents a program to compile
 Please, respect the syntax of the config file, as we intentionally do not parse errors in order to keep the compiler code simple.
 
 ## Make (Advanced)
-Some times you already have a Makefile that builds the project. This option will look for a Makefile in the working directory and execute it with `make Makefile`. If your Makefile is not in the working directory, you can create a simbolic link to it (and add it to .gitignore).
+Some times you already have a Makefile that builds the project. This option will look for a Makefile in the working directory and execute it with `make Makefile`. If your Makefile is not in the working directory, you can create a symbolic link to it (and add it to .gitignore).
 
 ## FAQ
 
