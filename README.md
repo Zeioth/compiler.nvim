@@ -64,7 +64,7 @@ Press `F6` to open the compiler.
 
 Press `Shift+F6` or `q` to close the results after you are done.
 
-## How to use
+## How to use (Basic)
 This is what hapen when you use `build and run`, `build`, or `run`
 
 > compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory for the next files
@@ -77,7 +77,7 @@ This is what hapen when you use `build and run`, `build`, or `run`
 
 For Make, the compiler will search for Makefile in the working directory and run it.
 
-## How to create a solution
+## How to create a solution (Advanced)
 If you want to have more control, you can create a `.solution` file in your working directory and use this template 
 
 ```
@@ -97,15 +97,8 @@ Where:
 
 Please, respect the syntax of the config file, as we intentionally do not parse errors in order to keep the compiler code simple.
 
-## Make
+## Make (Advanced)
 Some times you already have a Makefile that builds the project. This option will look for a Makefile in the working directory. If your Makefile is somewhere else, just create a simbolic link to it (and add it to .gitignore).
-
-
-
-## Advanced
-
-
-#### Overriding actions
 
 
 ## FAQ
