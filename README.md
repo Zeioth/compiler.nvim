@@ -55,7 +55,7 @@ lazy.nvim package manager
 | Command | Description|
 |--|--|
 | `:CompilerOpen` | Display the adecuated compiler for the filetype you have currently opened |
-| `:CompilerResultsToggle` | Open or close the compiler results. |
+| `:CompilerToggleResults` | Open or close the compiler results. |
 
 ## Recommended mappings
 
@@ -64,7 +64,7 @@ lazy.nvim package manager
 vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() vim.cmd("CompilerOpen") end, { noremap = true, silent = true })
 
 -- Toggle output resume
-vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerResultsToggle" end, { noremap = true, silent = true })
+vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerToggleResults" end, { noremap = true, silent = true })
 ```
 
 ## How to use (Basic usage)
@@ -72,15 +72,16 @@ This is what hapen when you select any of the options `build and run`, `build`, 
 
 > compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory for the next files
 
-| Language | Entry point | Output | 
+| Language | Default entry point | Default output | 
 |--|--|--|
-| c | main.c | working_dir/bin/program |
-| c++ | main.cpp | working_dir/bin/program |
-| c# | Program.cs | working_dir/bin/program.exe |
-| rust | main.rs | working_dir/bin/program |
-| python | main.c | working_dir/bin/program |
-| java | main.java | working_dir/bin/program |
+| c | main.c | ./bin/program |
+| c++ | main.cpp | ./bin/program |
+| c# | Program.cs | ./bin/program.exe |
+| rust | main.rs | ./bin/program |
+| python | main.c | ./bin/program |
+| java | main.java | ./bin/program |
 
+This is how the compilation results look after choosig `Build & run program` in c
 ![screenshot_2023-06-19_13-59-37_766847673](https://github.com/Zeioth/compiler.nvim/assets/3357792/42c4ec0d-4446-4ac6-9c4a-478a32d23ca7)
 
 ## How to create a solution (Advanced)
@@ -96,18 +97,16 @@ parameters = ""
 executable = "/program/to/execute/after/the/solution/has/compiled/this_is_my_program"
 ```
 
-Where:
-
-* Every [ENTRY] represents a program to compile
+Where every [entry] represents a program to compile
 
 | option | Description |
 |--|--|
-| [ENTRY] | Anything inside the brackts will be ignored. Write anything you want inside. You can use it to identify for program easily.  |
+| [entry] | Anything inside the brackets will be ignored. Write anything you want inside. You can use it to identify for program easily.  |
 | entry_point | Path of the file containint the entry point of the program.  | 
 | output | Path where the compiled program will be written. | 
 | parameters | Are optional parameters to pass to the compiler. If you don't need them. You can delete this option or leave it as emtpy string if you want  |
 
-* [SOLUTION] represents the executable to run after the compilations. This section is optional and can be deleted.
+[SOLUTION] represents the executable to run after the compilations. This section is optional and can be deleted safely.
 
 | Option | Description |
 |--|--|
