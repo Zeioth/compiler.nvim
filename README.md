@@ -67,15 +67,17 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerResu
 ```
 
 ## How to use (Basic usage)
-This is what hapen when you use `build and run`, `build`, or `run`
+This is what hapen when you select any of the options `build and run`, `build`, or `run` in the compiler
 
 > compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory for the next files
 
-  * c: `main.c`
-  * c++: `main.cpp`
-  * c#: `Program.cs`
-  * rust: `main.rs`
-  * python: `main.py` or `__main__.py` (in this order)
+| Language | Default entry point | Default output | 
+|--|--|--|
+| c | main.c | working_dir/bin/program |
+| c++ | main.cpp | working_dir/bin/program |
+| c# | Program.cs | working_dir/bin/program.exe |
+| rust | main.rs | working_dir/bin/program |
+| python | main.c | working_dir/bin/program |
 
 ![screenshot_2023-06-19_13-59-37_766847673](https://github.com/Zeioth/compiler.nvim/assets/3357792/42c4ec0d-4446-4ac6-9c4a-478a32d23ca7)
 
