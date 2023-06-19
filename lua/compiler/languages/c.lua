@@ -67,6 +67,8 @@ function M.action(selected_option)
     if utils.fileExists(".compiler") then
       local config = utils.parseConfigFile(vim.fn.getcwd() .. "/.compiler")
       local executable
+
+      for entry, variables in pairs(config) do
   print("Entry:", entry)
   local entryPoint = variables.entry_point
   local output = variables.output
@@ -77,7 +79,6 @@ function M.action(selected_option)
     print("Output:", output)
   end
   print("--------------------")
-      for entry, variables in pairs(config) do
         -- executable = variables.executable
         -- entry_point = variables.entry_point
         -- output = variables.output
