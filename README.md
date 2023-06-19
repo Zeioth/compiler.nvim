@@ -88,7 +88,7 @@ This is how the compilation results look after choosig `Build & run program` in 
 If you want to have more control, you can create a `.solution` file in your working directory using this template 
 
 ```
-[HELLO_WORLD]
+[HELLO WORLD]
 entry_point = "/path/to/my/entry_point_file/main.c"
 output = "/path/where/the/program/will/be/written/hello_world"
 parameters = ""
