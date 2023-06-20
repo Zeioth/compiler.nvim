@@ -14,7 +14,7 @@ function M.action(selected_option)
   local overseer = require("overseer")
   local final_message = "--task finished--"
 
-  if selected_option == "option5" then
+  if selected_option == "option1" then
     local makefile = vim.fn.getcwd() .. "/Makefile"
     local task = overseer.new_task({
       name = "- C compiler",
