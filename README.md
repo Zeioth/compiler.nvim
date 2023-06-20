@@ -73,14 +73,14 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 
 > compiler.nvim will look for the conventional entry point file for the current lenguage you are using. To achieve this, it searches it in your current working directory for the next files
 
-| Language | Default entry point | Default output | Compiler |
+| Language | Compiler | Default entry point | Default output |
 |--|--|--|--|
-| c | ./main.c | ./bin/program | gcc |
-| c++ | ./main.cpp | ./bin/program | g++ |
-| c# | ./Program.cs | ./bin/program.exe | |
-| rust | ./main.rs | ./bin/program | |
-| python | ./main.c | ./bin/program | |
-| java | ./main.java | ./bin/program | |
+| c | gcc | ./main.c | ./bin/program |
+| c++ | g++ |./main.cpp | ./bin/program |
+| c# | | ./Program.cs | ./bin/program.exe |
+| rust | | ./main.rs | ./bin/program |
+| python | | ./main.c | ./bin/program |
+| java | | ./main.java | ./bin/program |
 
 This is how the compilation results look after selecting `Build & run program` in c
 ![screenshot_2023-06-19_13-59-37_766847673](https://github.com/Zeioth/compiler.nvim/assets/3357792/42c4ec0d-4446-4ac6-9c4a-478a32d23ca7)
