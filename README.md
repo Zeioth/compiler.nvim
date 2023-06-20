@@ -26,12 +26,12 @@ lazy.nvim package manager
 { -- This plugin
   "zeioth/compiler.nvim",
   dependenciens = { "stevearc/overseer.nvim" }
-  event="VeryLazy",
+  cmd = {"CompilerOpen", "CompilerToggleResults"},
   config = function(_, opts) require("compiler").setup(opts) end,
 },
 { -- The framework we use to run tasks
   "stevearc/overseer.nvim",
-  event="VeryLazy",
+  cmd = {"CompilerOpen", "CompilerToggleResults"},
   opts = {
     -- Tasks are disposed 5 minutes after running to free resources.
     -- If you need to close a task inmediatelly:
