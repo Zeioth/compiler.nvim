@@ -15,8 +15,9 @@ function M.show()
   local filetype = vim.api.nvim_buf_get_option(buffer, "filetype")
 
   -- programatically require the backend for the current language
+  -- On unsupported languages, allow "Run Makefile"
   language = utils.requireLanguage(filetype)
-  if not language then require("compiler.languages.make") end -- if we don't support the language, exit
+  if not language then language = require("compiler.languages.make") end
 
   --- On option selected → Run action depending of the language
   local function on_option_selected(prompt_bufnr)
