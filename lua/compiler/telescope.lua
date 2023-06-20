@@ -1,4 +1,4 @@
---- ### Nvim compiler/runner
+--- ### Frontend for compiler.nvim
 
 local M = {}
 
@@ -9,31 +9,20 @@ function M.show()
   pickers = require "telescope.pickers"
   finders = require "telescope.finders"
   sorters = require "telescope.sorters"
+  utils = require("compiler.utils")
 
-  buffer = vim.api.nvim_get_current_buf()
-  filetype = vim.api.nvim_buf_get_option(buffer, "filetype")
-  options = {}
+  local buffer = vim.api.nvim_get_current_buf()
+  local filetype = vim.api.nvim_buf_get_option(buffer, "filetype")
 
-  local c = require "compiler.languages.c"
-
-  -- We show different options on telescope depending the current language
-  if filetype == "c" then options = c.options end
-  if filetype == "cpp" then options = c.options end
-  if filetype == "cs" then options = c.options end
-  if filetype == "rust" then options = c.options end
+  -- programatically require the backend for the current language
+  language = utils.requireLanguage(filetype)
+  if not language then return end -- if we don't support the language, exit
 
   --- On option selected → Run action depending of the language
   local function on_option_selected(prompt_bufnr)
-    local selection = state.get_selected_entry()
     actions.close(prompt_bufnr) -- Close Telescope on selection
-
-    if selection then
-      local selected_action = selection.value
-      if filetype == "c" then c.action(selected_action) end
-      if filetype == "cpp" then c.action(selected_action) end
-      if filetype == "cs" then c.action(selected_action) end
-      if filetype == "rust" then c.action(selected_action) end
-    end
+    local selection = state.get_selected_entry()
+    if selection then language.action(selection.value) end
   end
 
   --- Show telescope
@@ -43,7 +32,7 @@ function M.show()
         prompt_title = "Compiler",
         results_title = "Options",
         finder = finders.new_table {
-          results = options,
+          results = language.options,
           entry_maker = function(entry)
             return {
               display = entry.text,
