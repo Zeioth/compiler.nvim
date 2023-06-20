@@ -43,8 +43,8 @@ lazy.nvim package manager
       default_detail = 1,
       bindings = {
         ["q"] = function() vim.cmd("OverseerClose") end ,
-      }
-    }
+      },
+    },
   },
   config = function(_, opts) require("overseer").setup(opts) end,
 },
