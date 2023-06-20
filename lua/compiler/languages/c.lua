@@ -24,7 +24,6 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
-
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
@@ -89,12 +88,16 @@ function M.action(selected_option)
           cmd = "time " .. executable ..                                     -- run
                 " && echo '" .. final_message .. "'"                         -- echo
         }
-        table.insert(tasks, task)
-       end
+      else
+        task = {}
+      end
 
-      task = overseer.new_task({ -- run all tasks we've created secuentially
-        name = "- C compiler", strategy = { "orchestrator", tasks = tasks }
-      })
+      task = overseer.new_task({
+        name = "- C compiler", strategy = { "orchestrator",
+          tasks = {
+            tasks, -- Build all the programs of the solution in parallel
+            task   -- Then run the solution executable
+          }}})
       task:start()
       vim.cmd("OverseerOpen")
 
