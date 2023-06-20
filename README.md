@@ -8,10 +8,10 @@ Neovim compiler for building and running your code without having to configure a
 Supported languages:
 
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
+* [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
 
 Planned & coming soon:
 
-* c++
 * c#
 * rust
 * python
