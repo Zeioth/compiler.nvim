@@ -137,7 +137,3 @@ For building systems not directly supported by Compiler.nvim: Create a Makefile 
 If you want to help me, please star this repository to increase the visibility of the project.
 
 [![Stargazers over time](https://starchart.cc/Zeioth/Compiler.nvim.svg)](https://starchart.cc/Zeioth/Compiler.nvim)
-
-## Features coming soon
-
-* global to set a `compiler/languages` directory. This way the user don't need to fork the project to modify it's behavior.
