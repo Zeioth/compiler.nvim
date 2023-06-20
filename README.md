@@ -50,13 +50,6 @@ lazy.nvim package manager
 },
 ```
 
-## Available commands
-
-| Command | Description|
-|--|--|
-| `:CompilerOpen` | Display the adecuated compiler for the filetype you have currently opened. |
-| `:CompilerToggleResults` | Open or close the compiler results. |
-
 ## Recommended mappings
 
 ```lua
@@ -66,6 +59,13 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() vim.cmd("CompilerOpen") e
 -- Toggle output resume
 vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerToggleResults" end, { noremap = true, silent = true })
 ```
+
+## Available commands
+
+| Command | Description|
+|--|--|
+| `:CompilerOpen` | Display the adecuated compiler for the filetype you have currently opened. |
+| `:CompilerToggleResults` | Open or close the compiler results. |
 
 ## How to use (Basic usage)
 This is what hapen when you select `build & run`, `build`, or `run` in the compiler:
