@@ -118,7 +118,7 @@ Please, respect the syntax of the config file, as we intentionally do not parse 
 ## Make (Advanced)
 Some times you already have a Makefile that builds the project. This option will look for a Makefile in the working directory and execute it with `make Makefile`. If your Makefile is not in the working directory, you can either change your current working directory, or create a symbolic link to the Makefile (and if you do, add it to .gitignore).
 
-For building systems not directly supported by Compiler.nvim: By creating a Makefie you can call cmake, clang or any other build system you want to use from there.
+For building systems not directly supported by Compiler.nvim: Create a Makefile and use it to call cmake, clang, or any other build system you want to use from there.
 
 ## FAQ
 
