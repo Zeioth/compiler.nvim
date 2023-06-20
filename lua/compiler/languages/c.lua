@@ -76,7 +76,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && gcc " .. entry_point .. " -o " .. output .. " " .. parameters .. -- compile + parameters
+                " && gcc " .. entry_point .. " -o " .. output .. " " .. parameters .. -- compile
                 " && echo '" .. final_message .. "'"                                  -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
@@ -129,7 +129,7 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run Makefile → " .. makefile,
-            cmd = "time make " .. makefile ..                                -- run
+            cmd = "time make -f " .. makefile ..                                -- run
                 " ; echo '" .. final_message .. "'"                          -- echo
         },},},})
     task:start()
