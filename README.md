@@ -59,7 +59,7 @@ lazy.nvim package manager
 vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() vim.cmd("CompilerOpen") end, { noremap = true, silent = true })
 
 -- Toggle output resume
-vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerToggleResults" end, { noremap = true, silent = true })
+vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>', function() vim.cmd("CompilerToggleResults" end, { noremap = true, silent = true })
 ```
 
 ## Available commands
