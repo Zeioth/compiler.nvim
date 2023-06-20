@@ -118,6 +118,8 @@ Please, respect the syntax of the config file, as we intentionally do not parse 
 ## Make (Advanced)
 Some times you already have a Makefile that builds the project. This option will look for a Makefile in the working directory and execute it with `make Makefile`. If your Makefile is not in the working directory, you can either change your current working directory, or create a symbolic link to the Makefile (and if you do, add it to .gitignore).
 
+We also recommend using this option if you need to use a building system not directly supported by Compiler.nvim: By creating a Makefie you can call cmake, clang or any other build system you want to use from there.
+
 ## FAQ
 
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
