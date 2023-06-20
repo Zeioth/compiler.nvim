@@ -56,8 +56,8 @@ function M.requireLanguage(filetype)
 
   if success then return language
   else
-    local error = "Filetype \"" .. filetype .. "\" not supported by the compiler."
-    vim.notify(error, vim.log.levels.ERROR, { title = "Language unsupported" })
+    -- local error = "Filetype \"" .. filetype .. "\" not supported by the compiler."
+    -- vim.notify(error, vim.log.levels.INFO, { title = "Language unsupported" })
     return nil
   end
 end
