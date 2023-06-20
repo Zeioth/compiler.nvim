@@ -16,7 +16,7 @@ function M.show()
 
   -- programatically require the backend for the current language
   language = utils.requireLanguage(filetype)
-  if not language then utils.requireLanguage("make") end -- if we don't support the language, exit
+  if not language then require("compiler.languages.make") end -- if we don't support the language, exit
 
   --- On option selected → Run action depending of the language
   local function on_option_selected(prompt_bufnr)
