@@ -56,7 +56,6 @@ function M.action(selected_option)
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option4" then
-    utils = require("compiler.utils")
     local entry_points
     local tasks = {}
     local task
@@ -103,7 +102,7 @@ function M.action(selected_option)
 
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
-      entry_points = require("compiler.utils").find_files(vim.fn.getcwd(), "main.c")
+      entry_points = utils.find_files(vim.fn.getcwd(), "main.c")
 
       for _, ep in ipairs(entry_points) do
         output_dir = ep:match("^(.-[/\\])[^/\\]*$") .. "/bin"                -- entry_point/bin
