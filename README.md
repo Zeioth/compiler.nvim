@@ -56,10 +56,10 @@ lazy.nvim package manager
 
 ```lua
 -- Open compiler
-vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', function() vim.cmd("CompilerOpen") end, { noremap = true, silent = true })
+vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', "<cmd>CompilerOpen<cr>"), { noremap = true, silent = true })
 
 -- Toggle output resume
-vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>',   function() vim.cmd("CompilerToggleResults" end, { noremap = true, silent = true })
+vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>', "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
 ```
 
 ## Available commands
@@ -82,9 +82,11 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | rust | ./main.rs | ./bin/program |
 | python | ./main.c | ./bin/program |
 | java | ./main.java | ./bin/program |
+| make | ./Makefile | |
 
 This is how the compilation results look after selecting `Build & run program` in c
 ![screenshot_2023-06-19_13-59-37_766847673](https://github.com/Zeioth/compiler.nvim/assets/3357792/42c4ec0d-4446-4ac6-9c4a-478a32d23ca7)
+[For more info see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solving-the-most-common-issues).
 
 ## How to create a solution (Advanced)
 If you want to have more control, you can create a `.solution` file in your working directory by using this template:
@@ -115,12 +117,12 @@ Where every [entry] represents a program to compile
 | [SOLUTION] | Anything inside the brackets will be ignored. But keeping the the default name [SOLUTION] is recommended. |
 | executable | Path to a program to execute after the compilation finishes. | 
 
-Please, respect the syntax of the config file, as we intentionally do not parse errors in order to keep the compiler code simple.
+Please, respect the syntax of the config file, as we intentionally do not parse errors in order to keep the compiler code simple. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solution-examples).
 
 ## Make (Advanced)
-Some times you already have a Makefile that builds the project. This option will look for a Makefile in the working directory and execute it with `make Makefile`. If your Makefile is not in the working directory, you can either change your current working directory, or create a symbolic link to the Makefile (and if you do, add it to .gitignore).
+This option will look for a Makefile in the working directory and execute it with `make Makefile`. If your Makefile is not in the working directory, you can either change your current working directory, or create a symbolic link to the Makefile (and if you do, add it to .gitignore).
 
-For building systems not directly supported by Compiler.nvim: Create a Makefile and use it to call cmake, clang, or any other build system you want to use from there.
+For building systems not directly supported by Compiler.nvim: Create a Makefile and use it to call cmake, clang, or any other build system you want to use from there. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## FAQ
 
