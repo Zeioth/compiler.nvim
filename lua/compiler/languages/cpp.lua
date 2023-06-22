@@ -15,7 +15,7 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local entry_point = vim.fn.getcwd() .. "/main.c"     -- working_directory/main.c
+  local entry_point = vim.fn.getcwd() .. "/main.cpp"   -- working_directory/main.cpp
   local output_dir = vim.fn.getcwd() .. "/bin/"        -- working_directory/bin/
   local output = vim.fn.getcwd() .. "/bin/program"     -- working_directory/bin/program
   local final_message = "--task finished--"
@@ -102,7 +102,7 @@ function M.action(selected_option)
 
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
-      entry_points = utils.find_files(vim.fn.getcwd(), "main.c")
+      entry_points = utils.find_files(vim.fn.getcwd(), "main.cpp")
 
       for _, ep in ipairs(entry_points) do
         output_dir = ep:match("^(.-[/\\])[^/\\]*$") .. "/bin"                -- entry_point/bin
@@ -128,7 +128,7 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run Makefile → " .. makefile,
-            cmd = "time make -f " .. makefile ..                                -- run
+            cmd = "time make -f " .. makefile ..                             -- run
                 " ; echo '" .. final_message .. "'"                          -- echo
         },},},})
     task:start()
