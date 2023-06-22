@@ -21,6 +21,17 @@ Planned & coming soon:
 * c#
 * python
 * java
+* go
+* swift
+* kotlin
+* objetive C
+* ruby
+* elixir
+* visual basic
+* F
+* delphy
+* pascal
+* cobol
 
 ## Dependencies
 If you are gonna compile C#, then you need to have `omnisharp` instaled in your system. All the other languages are shipped with their compiler already included and you don't have to worry.
