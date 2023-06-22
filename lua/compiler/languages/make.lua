@@ -1,4 +1,4 @@
---- make language actions
+--- Make language actions
 -- Supporting this filetype  allow the user
 -- to run the compiler while editing a Makefile.
 
