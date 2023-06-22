@@ -20,7 +20,7 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run Makefile → " .. makefile,
-            cmd = "time make -f " .. makefile ..                                -- run
+            cmd = "time make -f " .. makefile ..                             -- run
                 " ; echo '" .. final_message .. "'"                          -- echo
         },},},})
     task:start()
