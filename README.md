@@ -13,14 +13,25 @@ Supported languages:
 
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
+* [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 
 Planned & coming soon:
 
 * c#
-* rust
 * python
 * java
+* go
+* swift
+* kotlin
+* objetive C
+* ruby
+* elixir
+* visual basic
+* F
+* delphy
+* pascal
+* cobol
 
 ## Dependencies
 If you are gonna compile C#, then you need to have `omnisharp` instaled in your system. All the other languages are shipped with their compiler already included and you don't have to worry.
