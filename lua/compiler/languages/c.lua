@@ -1,4 +1,4 @@
---- c language actions
+--- C language actions
 
 local M = {}
 

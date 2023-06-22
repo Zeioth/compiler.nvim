@@ -1,4 +1,4 @@
---- c language actions
+--- Rust language actions
 
 local M = {}
 
