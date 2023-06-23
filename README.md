@@ -96,7 +96,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c# | ./Program.cs | ./bin/program.exe |
 | java | ./Main.java | ./bin/Main |
 | rust | ./main.rs | ./bin/program |
-| python | ./main.c | ./bin/program |
+| python | ./main.py |  |
 | make | ./Makefile | |
 
 This is how the compilation results look after selecting `Build & run program` in c
