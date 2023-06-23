@@ -36,7 +36,6 @@ These languages can be interpreted OR compiled. Becaue of this, they will show s
 * perl
 * swift
 * kotlin
-* ruby
 * elixir
 * visual basic
 * F
