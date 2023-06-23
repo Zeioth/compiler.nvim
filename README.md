@@ -14,13 +14,13 @@ Supported languages:
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
 * [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua)
+* [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua)
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 
 Planned & coming soon:
 
 * python
-* java
 * go
 * swift
 * kotlin
@@ -94,9 +94,9 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c | ./main.c | ./bin/program |
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/program.exe |
+| java | ./Main.java | ./bin/Main |
 | rust | ./main.rs | ./bin/program |
-| python | ./main.c | ./bin/program |
-| java | ./main.java | ./bin/program |
+| python | ./main.py |  |
 | make | ./Makefile | |
 
 This is how the compilation results look after selecting `Build & run program` in c
@@ -156,3 +156,9 @@ For building systems not directly supported by Compiler.nvim: Create a Makefile 
 If you want to help me, please star this repository to increase the visibility of the project.
 
 [![Stargazers over time](https://starchart.cc/Zeioth/Compiler.nvim.svg)](https://starchart.cc/Zeioth/Compiler.nvim)
+
+
+## Roadmap
+
+* More manual testing for C#/rust/java/python
+* Unit tests for all languages. This project is suitable for TDD. The main barrier is we cannot really run overseer tasks directly from the terminal, so any test we implement, would actually be a mock, which is not really useful for our case. We might be able to do e2e tests by using vim script to run overseer tasks and parse if the output is successful, but this is a massive amount of work. Maybe even big enough to create a package for it. Let's keep it as a task for the future for now (contributions on this ground will be welcome).
