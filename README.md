@@ -22,9 +22,9 @@ Planned & coming soon:
 
 * python
 * go
+* objetive C
 * swift
 * kotlin
-* objetive C
 * ruby
 * elixir
 * visual basic
