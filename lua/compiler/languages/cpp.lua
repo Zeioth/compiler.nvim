@@ -23,7 +23,7 @@ function M.action(selected_option)
 
   if selected_option == "option1" then
     local task = overseer.new_task({
-      name = "- C compiler",
+      name = "- C++ compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
@@ -36,7 +36,7 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option2" then
     local task = overseer.new_task({
-      name = "- C compiler",
+      name = "- C++ compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
@@ -48,7 +48,7 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option3" then
     local task = overseer.new_task({
-      name = "- C compiler",
+      name = "- C++ compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
             cmd = "time " .. output ..                                       -- run
@@ -93,7 +93,7 @@ function M.action(selected_option)
       end
 
       task = overseer.new_task({
-        name = "- C compiler", strategy = { "orchestrator",
+        name = "- C++ compiler", strategy = { "orchestrator",
           tasks = {
             tasks, -- Build all the programs of the solution in parallel
             task   -- Then run the solution executable
@@ -118,7 +118,7 @@ function M.action(selected_option)
       end
 
       task = overseer.new_task({ -- run all tasks we've created secuentially
-        name = "- C compiler", strategy = { "orchestrator", tasks = tasks }
+        name = "- C++ compiler", strategy = { "orchestrator", tasks = tasks }
       })
       task:start()
       vim.cmd("OverseerOpen")

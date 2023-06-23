@@ -18,7 +18,7 @@ function M.run_makefile()
   local final_message = "--task finished--"
   local makefile = vim.fn.getcwd() .. "/Makefile"
   local task = overseer.new_task({
-    name = "- C compiler",
+    name = "- Make interpreteer",
     strategy = { "orchestrator",
       tasks = {{ "shell", name = "- Run Makefile → " .. makefile,
           cmd = "time make -f " .. makefile ..                               -- run
