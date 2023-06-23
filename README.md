@@ -30,7 +30,6 @@ These languages can be interpreted OR compiled. Becaue of this, they will show s
 #### Planned & coming soon:
 * go
 * objetive C
-* python
 * ruby
 * lua
 * javascript
