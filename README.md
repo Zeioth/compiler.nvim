@@ -158,7 +158,7 @@ For building systems not directly supported by Compiler.nvim: Create a Makefile 
   
   * A way to transpile: toggleterm + termux.
   * A way run the project: Just keep the website opened it your browser.
-* **This a compiler, how come it can run scripts?** Normally, users will prefer to run their scripts directly on the terminal. But some users may prefer to use the compiler runner directly for convenience. Note that while interpreted languages have some support, they are not the main focus of this project: If your script receive parameters, we recommend you to just use the terminal instead, as creating a `.solution` for a single script file just to be able to pass parameters, can be very incovenient.
+* **This a compiler, how come it can run scripts?** Normally, users will prefer to run their scripts directly on the terminal. But some users may prefer to use the compiler runner directly for convenience. Note that while interpreted languages have some support, they are not the main focus of this project: If your script receive parameters, we recommend you to just use the terminal instead, as creating a `.solution` just to be able to pass parameters to a simple shell script, can be very incovenient.
     
 ## 🌟 Support the project
 If you want to help me, please star this repository to increase the visibility of the project.
