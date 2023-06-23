@@ -23,14 +23,13 @@ Limited support:
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua)
 
 Planned & coming soon:
-
+* go
+* objetive C
 * python
+* ruby
 * lua
 * javascript
 * perl
-* ruby
-* go
-* objetive C
 * swift
 * kotlin
 * ruby
