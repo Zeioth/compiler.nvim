@@ -2,7 +2,7 @@
 
 local M = {}
 
--- Frontend  - options displayed on telescope
+--- Frontend  - options displayed on telescope
 M.options = {
   { text = "1 - Build and run program", value = "option1" },
   { text = "2 - Build progrm", value = "option2" },
@@ -11,13 +11,14 @@ M.options = {
   { text = "5 - Run Makefile", value = "option5" }
 }
 
--- Backend - overseer tasks performed on option selected
+--- Backend - overseer tasks performed on option selected
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
   local entry_point = vim.fn.getcwd() .. "/main.c"     -- working_directory/main.c
   local output_dir = vim.fn.getcwd() .. "/bin/"        -- working_directory/bin/
   local output = vim.fn.getcwd() .. "/bin/program"     -- working_directory/bin/program
+  local parameters = "-Wall"                           -- parameters can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -25,11 +26,11 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                        -- clean
-                " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
-                " && time " .. output ..                                     -- run
-                " && echo '" .. final_message .. "'"                         -- echo
+          cmd = "rm -f " .. output ..                                                 -- clean
+                " && mkdir -p " .. output_dir ..                                      -- mkdir
+                " && gcc " .. entry_point .. " -o " .. output .. " " .. parameters .. -- compile
+                " && time " .. output ..                                              -- run
+                " && echo '" .. final_message .. "'"                                  -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -38,10 +39,10 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                        -- clean
-                " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && gcc " .. entry_point .. " -o " .. output .. " -Wall" .. -- compile
-                " && echo '" .. final_message .. "'"                         -- echo
+          cmd = "rm -f " .. output ..                                                 -- clean
+                " && mkdir -p " .. output_dir ..                                      -- mkdir
+                " && gcc " .. entry_point .. " -o " .. output .. " " .. parameters .. -- compile
+                " && echo '" .. final_message .. "'"                                  -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -71,7 +72,7 @@ function M.action(selected_option)
         entry_point = variables.entry_point
         output = variables.output
         output_dir = output:match("^(.-[/\\])[^/\\]*$")
-        local parameters = variables.parameters or "-Wall" -- optional
+        parameters = variables.parameters or parameters -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
@@ -110,7 +111,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. ep,
           cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && gcc " .. ep .. " -o " .. output .. " -Wall" ..          -- compile
+                " && gcc " .. ep .. " -o " .. output .. " " .. parameters .. -- compile
                 " && echo '" .. final_message .. "'"                         -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
@@ -123,17 +124,7 @@ function M.action(selected_option)
       vim.cmd("OverseerOpen")
     end
   elseif selected_option == "option5" then
-    local makefile = vim.fn.getcwd() .. "/Makefile"
-    local task = overseer.new_task({
-      name = "- C compiler",
-      strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run Makefile → " .. makefile,
-            cmd = "time make -f " .. makefile ..                                -- run
-                " ; echo '" .. final_message .. "'"                          -- echo
-        },},},})
-    task:start()
-    vim.cmd("OverseerOpen")
-
+    require("compiler.languages.make").run_makefile()                        -- run
   end
 end
 
