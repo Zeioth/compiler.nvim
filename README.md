@@ -20,7 +20,7 @@ Supported languages:
 
 Limited support:
 
-* [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua)
+* [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) → Experimental
 
 Planned & coming soon:
 
