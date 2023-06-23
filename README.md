@@ -156,7 +156,7 @@ For building systems not directly supported by Compiler.nvim: Create a Makefile 
 * **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. There is no real way to run a web project based on the filetype of the buffer, which is what this plugins does. Even worse: Different projects will use different ports. But if you have this case of use, I recommend you this strategy:
   
   * A way to transpile: toggleterm + termux.
-  * A way run the project: Just keep the website opened it your browser.
+  * A way run the project: Just keep the website opened in your browser.
     
 ## 🌟 Support the project
 If you want to help me, please star this repository to increase the visibility of the project.
