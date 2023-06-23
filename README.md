@@ -9,7 +9,7 @@ Neovim compiler for building and running your code without having to configure a
     </a>
 </div>
 
-Supported languages:
+#### Supported languages:
 
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
@@ -18,11 +18,16 @@ Supported languages:
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 
-Limited support:
+#### Special support:
+These languages can be interpreted OR compiled. Becaue of this, they will show some extra options in the compiler.
+
+* Python (wip)
+
+#### Limited support:
 
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua)
 
-Planned & coming soon:
+#### Planned & coming soon:
 * go
 * objetive C
 * python
