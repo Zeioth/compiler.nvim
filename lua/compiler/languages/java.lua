@@ -85,7 +85,7 @@ function M.action(selected_option)
 
       if executable then
         task = { "shell", name = "- Run program → " .. executable,
-          cmd = "time " .. executable ..                                     -- run
+          cmd = "time java " .. executable ..                                -- run
                 " && echo '" .. final_message .. "'"                         -- echo
         }
       else
