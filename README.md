@@ -20,7 +20,12 @@ Supported languages:
 
 Planned & coming soon:
 
+* shell
 * python
+* lua
+* javascript
+* perl
+* ruby
 * go
 * objetive C
 * swift
