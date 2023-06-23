@@ -18,9 +18,12 @@ Supported languages:
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 
+Limited support:
+
+* [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua)
+
 Planned & coming soon:
 
-* shell
 * python
 * lua
 * javascript
@@ -155,7 +158,7 @@ For building systems not directly supported by Compiler.nvim: Create a Makefile 
   
   * A way to transpile: toggleterm + termux.
   * A way run the project: Just keep the website opened it your browser.
-
+* **Do this support interpreted languages?** No. We've tested it carefuly, and it's not worth it. It is just more convenient to just run the script you are working on on the terminal. Plus, this is a compiler, not a runner. It scapes the aim of the project. If you REALLY want this, you can use compiler.nvim to run a Makefile with anything you want.
     
 ## 🌟 Support the project
 If you want to help me, please star this repository to increase the visibility of the project.
