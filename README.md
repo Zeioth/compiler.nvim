@@ -158,6 +158,8 @@ For building systems not directly supported by Compiler.nvim: Create a Makefile 
   * A way to transpile: toggleterm + termux.
   * A way run the project: Just keep the website opened it your browser.
 
+There is no real way to successfuly run a web project based on the filetype of the buffer, which is what this plugins does.
+
     
 ## 🌟 Support the project
 If you want to help me, please star this repository to increase the visibility of the project.
