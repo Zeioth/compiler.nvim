@@ -14,8 +14,8 @@ Supported languages:
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
 * [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua)
-* [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua)
+* [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 
 Planned & coming soon:
@@ -94,9 +94,9 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c | ./main.c | ./bin/program |
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/program.exe |
+| java | ./Main.java | ./bin/Main |
 | rust | ./main.rs | ./bin/program |
 | python | ./main.c | ./bin/program |
-| java | ./main.java | ./bin/program |
 | make | ./Makefile | |
 
 This is how the compilation results look after selecting `Build & run program` in c
