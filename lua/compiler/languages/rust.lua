@@ -18,7 +18,7 @@ function M.action(selected_option)
   local entry_point = vim.fn.getcwd() .. "/main.rs"    -- working_directory/main.rs
   local output_dir = vim.fn.getcwd() .. "/bin/"        -- working_directory/bin/
   local output = vim.fn.getcwd() .. "/bin/program"     -- working_directory/bin/program
-  local parameters = "-Wall"                           -- parameters can be overriden in .solution
+  local parameters = "-D warnings"                     -- parameters can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -72,7 +72,7 @@ function M.action(selected_option)
         entry_point = variables.entry_point
         output = variables.output
         output_dir = output:match("^(.-[/\\])[^/\\]*$")
-        parameters = variables.parameters or "-D warnings" -- optional
+        parameters = variables.parameters or parameters --roptional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
