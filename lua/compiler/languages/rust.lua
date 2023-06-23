@@ -95,7 +95,7 @@ function M.action(selected_option)
       task = overseer.new_task({
         name = "- Rust compiler", strategy = { "orchestrator",
           tasks = {
-            tasks, -- Build all the programs of the solution in parallel
+            tasks, -- Build all the programs in the solution in parallel
             task   -- Then run the solution executable
           }}})
       task:start()
