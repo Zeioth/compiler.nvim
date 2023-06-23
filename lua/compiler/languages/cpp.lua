@@ -72,7 +72,7 @@ function M.action(selected_option)
         entry_point = variables.entry_point
         output = variables.output
         output_dir = output:match("^(.-[/\\])[^/\\]*$")
-        parameters = variables.parameters or "-Wall" -- optional
+        parameters = variables.parameters or parameters -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
