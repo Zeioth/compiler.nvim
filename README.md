@@ -153,12 +153,12 @@ For building systems not directly supported by Compiler.nvim: Create a Makefile 
 * **I'm a windows user, do I need to do something special?** In theory no. Check the [dependencies section of this README.md](https://github.com/Zeioth/compiler.nvim/blob/main/README.md#dependencies) and make sure you have them. If for some wild reason a required dependency don't exist on windows, or you don't know how to get it, the easy way is to enable the Windows Linux Subsystem and run neovim from there. Then you can just `sudo apt install some_package` for anything you may need.
 * **Where are the global options?** There are not. Creating a `.solution` file of your project is the way to configure stuff. This way we can keep the code extra simple.
 * **But I don't want to create a .solution file! I already have a .sln file!:** I understand your pain but .sln is a closed format of a private company.
-* **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. For those cases, I recommend you this strategy:
+* **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. There is no real way to run a web project based on the filetype of the buffer, which is what this plugins does. Even worse: Different projects will use different ports. For those cases, I recommend you this strategy:
   
   * A way to transpile: toggleterm + termux.
   * A way run the project: Just keep the website opened it your browser.
 
-There is no real way to successfuly run a web project based on the filetype of the buffer, which is what this plugins does.
+
 
     
 ## 🌟 Support the project
