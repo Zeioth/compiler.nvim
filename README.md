@@ -20,11 +20,16 @@ Supported languages:
 
 Planned & coming soon:
 
+* shell
 * python
+* lua
+* javascript
+* perl
+* ruby
 * go
+* objetive C
 * swift
 * kotlin
-* objetive C
 * ruby
 * elixir
 * visual basic
@@ -125,7 +130,7 @@ Where every [entry] represents a program to compile
 | output | Path where the compiled program will be written. | 
 | parameters | Are optional parameters to pass to the compiler. If you don't need them you can delete this option or leave it as emtpy string if you want. | 
 
-[SOLUTION] represents the executable to run after all programs in the solution have compiled. This section is optional and can be deleted safely.
+[SOLUTION] represents the executable to run after all programs in the solution has compiled. This section is optional and can be deleted safely.
 
 | Option | Description |
 |--|--|
@@ -161,4 +166,5 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 
 * More manual testing for C#/rust/java/python
-* Unit tests for all languages. This project is suitable for TDD. The main barrier is we cannot really run overseer tasks directly from the terminal, so any test we implement, would actually be a mock, which is not really useful for our case. We might be able to do e2e tests by using vim script to run overseer tasks and parse if the output is successful, but this is a massive amount of work. Maybe even big enough to create a package for it. Let's keep it as a task for the future for now (contributions on this ground will be welcome).
+* Unit tests for all languages. This project is suitable for TDD. Probably the best way would be to create a `tests.lua` file that call all the other tests. That way we could just do `lua tests.lua` inside nvim to check all languages are compiling correctly.
+* We might be able to do e2e tests by using vim script to run overseer tasks and parse if the output is successful, but this is a massive amount of work. Maybe even big enough to create a package for it. Let's keep it as a task for the future for now (contributions on this ground will be welcome).
