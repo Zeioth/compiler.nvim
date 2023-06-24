@@ -37,8 +37,11 @@ Neovim compiler for building and running your code without having to configure a
 * cobol
 
 ## Dependencies
-If you are gonna compile C#, then you need to have `mono-mcs` instaled in your system. All the other languages are shipped with their compiler already included and you don't have to worry.
+Some languages require you manually install their compilers in your machine (so we are able to call it):
 
+* C#: `mono-mcs`
+* python: for the compiled versions of python you need to have `pip install pyinstaller nuitka`
+  
 ## How to install
 lazy.nvim package manager
 ```lua
