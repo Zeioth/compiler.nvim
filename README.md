@@ -103,6 +103,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | java | ./Main.java | ./bin/Main |
 | rust | ./main.rs | ./bin/program |
 | python | ./main.py | ./bin/program |
+| ruby | ./main.rb | ./bin/program |
 | shell | [current buffer] |  |
 | make | ./Makefile | |
 
@@ -168,3 +169,5 @@ If you want to help me, please star this repository to increase the visibility o
 
 * More manual testing for C#/rust/java/python
 * Unit tests for all languages. This project is suitable for TDD. Probably the best way would be to create a `tests.lua` file that call all the other tests. That way we could just do `lua tests.lua` inside nvim to check all languages are compiling correctly.
+
+If you find any issue while using the compiler, please open an issue and I will look into it, just be aware until all languages are implemented and the unit tests have been finished, the compiler won't be considered a final product.
