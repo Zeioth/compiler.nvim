@@ -103,7 +103,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | java | ./Main.java | ./bin/Main |
 | rust | ./main.rs | ./bin/program |
 | python | ./main.py | ./bin/program |
-| shell | [current buffer] | no |
+| shell | [current buffer] |  |
 | make | ./Makefile | |
 
 This is how the compilation results look after selecting `Build & run program` in c
