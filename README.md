@@ -21,9 +21,10 @@ Neovim compiler for building and running your code without having to configure a
 #### Special support:
 These languages can be interpreted OR compiled. Becaue of this, they will show some extra options in the compiler.
 
-* [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua)
+* [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler))
 
 #### Limited support:
+Running these languages on the compiler is not ideal, but you can do it with some caveats.
 
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua)
 
