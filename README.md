@@ -16,21 +16,14 @@ Neovim compiler for building and running your code without having to configure a
 * [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua)
 * [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua)
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
+* [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler))
+* ruby (wip)
+* [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
-
-#### Special support:
-These languages can be interpreted OR compiled. Becaue of this, they will show some extra options in the compiler.
-
-* Python (wip)
-
-#### Limited support:
-
-* [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua)
 
 #### Planned & coming soon:
 * go
 * objetive C
-* ruby
 * lua
 * javascript
 * perl
@@ -44,8 +37,11 @@ These languages can be interpreted OR compiled. Becaue of this, they will show s
 * cobol
 
 ## Dependencies
-If you are gonna compile C#, then you need to have `mono-mcs` instaled in your system. All the other languages are shipped with their compiler already included and you don't have to worry.
+Some languages require you manually install their compilers in your machine, so we are able to call them:
 
+* C#: `mono-mcs`
+* python: for the compiled versions of python you need to have `pip install pyinstaller nuitka`
+  
 ## How to install
 lazy.nvim package manager
 ```lua
@@ -106,7 +102,8 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c# | ./Program.cs | ./bin/program.exe |
 | java | ./Main.java | ./bin/Main |
 | rust | ./main.rs | ./bin/program |
-| python | ./main.py |  |
+| python | ./main.py | ./bin/program |
+| shell | [current buffer] |  |
 | make | ./Makefile | |
 
 This is how the compilation results look after selecting `Build & run program` in c
