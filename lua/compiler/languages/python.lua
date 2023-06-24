@@ -210,7 +210,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. ep,
           cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && nuitka " .. entry_point .. " --output-dir " .. output .. " " .. parameters .. -- compile to machine code
+                " && nuitka " .. ep .. " --output-dir " .. output .. " " .. parameters .. -- compile to machine code
                 " && echo '" .. final_message .. "'"                         -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
