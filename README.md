@@ -42,7 +42,7 @@ Some languages require you manually install their compilers in your machine, so 
 
 * C#: `mono-mcs`
 * python: for the compiled versions of python you need to have `pip install pyinstaller nuitka`
-* python: for the compiled versions of ruby you need to have `gem install ruby-compiler`
+* ruby: for the compiled versions of ruby you need to have `gem install ruby-compiler`
   
 ## How to install
 lazy.nvim package manager
