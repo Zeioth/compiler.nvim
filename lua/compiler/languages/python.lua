@@ -118,6 +118,7 @@ function M.action(selected_option)
 
   --========================== MACHINE CODE =================================--
   elseif selected_option == "option4" then
+    local parameters = "--warn-early" --optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
@@ -131,6 +132,7 @@ function M.action(selected_option)
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option5" then
+    local parameters = "--warn-early" --optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
