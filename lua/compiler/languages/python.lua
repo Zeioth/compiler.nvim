@@ -44,7 +44,7 @@ function M.action(selected_option)
       name = "- Python interpreteer",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run this file → " .. current_file,
-          cmd =  "time python" .. current_file ..                            -- run (interpreted)
+          cmd =  "time python " .. current_file ..                            -- run (interpreted)
                  " && echo '" .. final_message .. "'"                        -- echo
         },},},})
     task:start()
@@ -54,7 +54,7 @@ function M.action(selected_option)
       name = "- Python interpreteer",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd = "time python" .. output ..                                 -- run (interpreted)
+            cmd = "time python " .. output ..                                 -- run (interpreted)
                 " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
