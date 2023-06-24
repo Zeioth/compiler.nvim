@@ -103,6 +103,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | java | ./Main.java | ./bin/Main |
 | rust | ./main.rs | ./bin/program |
 | python | ./main.py | ./bin/program |
+| ruby | ./main.rb | ./bin/program |
 | shell | [current buffer] |  |
 | make | ./Makefile | |
 
