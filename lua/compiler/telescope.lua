@@ -23,6 +23,7 @@ function M.show()
   local function on_option_selected(prompt_bufnr)
     actions.close(prompt_bufnr) -- Close Telescope on selection
     local selection = state.get_selected_entry()
+    if selection.value == "" then return end -- Ignore separators
     if selection then language.action(selection.value) end
   end
 
