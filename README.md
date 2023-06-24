@@ -9,7 +9,7 @@ Neovim compiler for building and running your code without having to configure a
     </a>
 </div>
 
-Supported languages:
+#### Supported languages:
 
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
@@ -18,19 +18,24 @@ Supported languages:
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 
-Planned & coming soon:
+#### Special support:
+These languages can be interpreted OR compiled. Becaue of this, they will show some extra options in the compiler.
 
-* shell
-* python
+* Python (wip)
+
+#### Limited support:
+
+* [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua)
+
+#### Planned & coming soon:
+* go
+* objetive C
+* ruby
 * lua
 * javascript
 * perl
-* ruby
-* go
-* objetive C
 * swift
 * kotlin
-* ruby
 * elixir
 * visual basic
 * F
@@ -145,17 +150,16 @@ This option will look for a Makefile in the working directory and execute it wit
 For building systems not directly supported by Compiler.nvim: Create a Makefile and use it to call cmake, clang, or any other build system you want to use from there. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## FAQ
-
+* **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive parameters, we recommend you to use the terminal instead, because creating a `.solution` file just to be able to pass parameters to your simple shell scripts is probably and overkill, and not the right tool.
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
 * **How can I change the way the compiler works?** Same as the previous one.
 * **I'm a windows user, do I need to do something special?** In theory no. Check the [dependencies section of this README.md](https://github.com/Zeioth/compiler.nvim/blob/main/README.md#dependencies) and make sure you have them. If for some wild reason a required dependency don't exist on windows, or you don't know how to get it, the easy way is to enable the Windows Linux Subsystem and run neovim from there. Then you can just `sudo apt install some_package` for anything you may need.
 * **Where are the global options?** There are not. Creating a `.solution` file of your project is the way to configure stuff. This way we can keep the code extra simple.
 * **But I don't want to create a .solution file! I already have a .sln file!:** I understand your pain but .sln is a closed format of a private company.
-* **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. For those cases, I recommend you this strategy:
+* **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. I recommend you this strategy instead:
   
   * A way to transpile: toggleterm + termux.
-  * A way run the project: Just keep the website opened it your browser.
-
+  * A way run the project: Just keep the website opened in your browser.
     
 ## 🌟 Support the project
 If you want to help me, please star this repository to increase the visibility of the project.
@@ -167,4 +171,3 @@ If you want to help me, please star this repository to increase the visibility o
 
 * More manual testing for C#/rust/java/python
 * Unit tests for all languages. This project is suitable for TDD. Probably the best way would be to create a `tests.lua` file that call all the other tests. That way we could just do `lua tests.lua` inside nvim to check all languages are compiling correctly.
-* We might be able to do e2e tests by using vim script to run overseer tasks and parse if the output is successful, but this is a massive amount of work. Maybe even big enough to create a package for it. Let's keep it as a task for the future for now (contributions on this ground will be welcome).
