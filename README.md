@@ -20,13 +20,14 @@ Neovim compiler for building and running your code without having to configure a
 * [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/ruby-compiler))
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
+* perl (wip)
+* lua (wip)
+* javascript (wip)
+* typescript (wip)
 
 #### Planned & coming soon:
 * go
 * objetive C
-* lua
-* javascript
-* perl
 * swift
 * kotlin
 * elixir
@@ -41,6 +42,7 @@ Some languages require you manually install their compilers in your machine, so 
 
 * C#: `mono-mcs`
 * python: for the compiled versions of python you need to have `pip install pyinstaller nuitka`
+* python: for the compiled versions of ruby you need to have `gem install ruby-compiler`
   
 ## How to install
 lazy.nvim package manager
