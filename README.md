@@ -150,7 +150,7 @@ This option will look for a Makefile in the working directory and execute it wit
 For building systems not directly supported by Compiler.nvim: Create a Makefile and use it to call cmake, clang, or any other build system you want to use from there. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## FAQ
-* **I'm willing to spend the time to setup everything** In that case you can try [NormalNvim](https://github.com/NormalNvim/NormalNvim) which comes with the compiler pre-installed.
+* **I don't have time to setup everything** If you prefer you can try [NormalNvim](https://github.com/NormalNvim/NormalNvim) which comes with the compiler pre-installed.
 * **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive parameters, we recommend you to use the terminal instead, because creating a `.solution` file just to be able to pass parameters to your simple shell scripts is probably and overkill, and not the right tool.
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
 * **How can I change the way the compiler works?** Same as the previous one.
