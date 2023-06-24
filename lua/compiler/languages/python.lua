@@ -243,7 +243,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && pyinstaller " .. entry_point .. " --onefile --addopts '-W' --distpath " .. output .. " " .. parameters .. -- compile to bytecode
+                " && pyinstaller " .. entry_point .. " --onefile --distpath " .. output .. " " .. parameters .. -- compile to bytecode
                 " && time " .. output ..                                              -- run
                 " && echo '" .. final_message .. "'"                                  -- echo
         },},},})
