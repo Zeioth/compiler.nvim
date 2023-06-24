@@ -170,7 +170,7 @@ If you want to help me, please star this repository to increase the visibility o
 
 ## Roadmap
 
-* Command `CompilerRedo` to re-run the last selected action. This comes handy for languages with many options like python and ruby.
+* Command `CompilerRedo` to re-run the last selected action. This comes handy for languages with many options like python or ruby.
 * Unit tests for all languages. This project is suitable for TDD. Probably the best way would be to create a `tests.lua` file that call all the other tests. That way we could just do `lua tests.lua` inside nvim to check all languages are compiling correctly.
 
 If you find any issue while using the compiler, please open an issue and I will look into it, just be aware until all languages are implemented and the unit tests have been finished, the compiler won't be considered a final product.
