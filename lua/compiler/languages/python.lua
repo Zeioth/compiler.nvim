@@ -88,7 +88,7 @@ function M.action(selected_option)
 
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
-      entry_points = utils.find_files(vim.fn.getcwd(), "Program.cs")
+      entry_points = utils.find_files(vim.fn.getcwd(), "main.py")
       parameters = variables.parameters or parameters -- optional
       for _, ep in ipairs(entry_points) do
         task = { "shell", name = "- Build program → " .. ep,
