@@ -11,7 +11,6 @@ Neovim compiler for building and running your code without having to configure a
 
 #### Supported languages:
 
-* [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
 * [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua)
@@ -20,6 +19,7 @@ Neovim compiler for building and running your code without having to configure a
 * [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler))
 * [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/ruby-compiler))
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
+* [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 * perl (wip)
 * lua (wip)
