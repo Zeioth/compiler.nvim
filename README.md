@@ -169,6 +169,12 @@ If you want to help me, please star this repository to increase the visibility o
 [![Stargazers over time](https://starchart.cc/Zeioth/Compiler.nvim.svg)](https://starchart.cc/Zeioth/Compiler.nvim)
 
 
+## Thanks to all contributors
+
+<a href="https://github.com/zeioth/compiler.nvim/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=zeioth/compiler.nvim" />
+</a>
+
 ## Roadmap
 
 * Command `CompilerRedo` to re-run the last selected action. This comes handy for languages with many options like python or ruby.
