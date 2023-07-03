@@ -49,9 +49,9 @@ Some languages require you manually install their compilers in your machine, so 
 lazy.nvim package manager
 ```lua
 { -- This plugin
-  "zeioth/compiler.nvim",
-  dependenciens = { "stevearc/overseer.nvim" }
+  "Zeioth/compiler.nvim",
   cmd = {"CompilerOpen", "CompilerToggleResults"},
+  dependencies = { "stevearc/overseer.nvim" },
   config = function(_, opts) require("compiler").setup(opts) end,
 },
 { -- The framework we use to run tasks
