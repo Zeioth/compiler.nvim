@@ -13,9 +13,11 @@ M.options = {
 --- Backend - overseer tasks performed on option selected
 function M.action(selected_option)
   local utils = require("compiler.utils")
-  local entry_point = utils.osPath(vim.fn.getcwd() .. "/main")       -- working_directory/main.asm
+  local overseer = require("overseer")
+  local entry_point = utils.osPath(vim.fn.getcwd() .. "/main.asm")   -- working_directory/main.asm
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")        -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")     -- working_directory/bin/program
+  local parameters = ""                                              -- parameters can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -26,7 +28,7 @@ function M.action(selected_option)
           cmd = "rm -f " .. output .. ".o && rm -f " .. output ..                     -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
                 " && nasm -f elf64 " .. entry_point .. " -o " .. output .. ".o " .. parameters .. -- compile
-                " && ld " .. entry_point .. ".o -o " .. output .. " " ..              -- link
+                " && ld " .. output .. ".o -o " .. output .. " " ..                   -- link
                 " && time " .. output ..                                              -- run
                 " && echo '" .. final_message .. "'"                                  -- echo
         },},},})
@@ -40,7 +42,7 @@ function M.action(selected_option)
           cmd = "rm -f " .. output .. ".o && rm -f " .. output ..                     -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
                 " && nasm -f elf64 " .. entry_point .. " -o " .. output .. ".o " .. parameters .. -- compile
-                " && ld " .. entry_point .. ".o -o " .. output .. " " ..              -- linkYa lo dijo mariano:
+                " && ld " .. output .. ".o -o " .. output .. " " ..                   -- link
                 " && echo '" .. final_message .. "'"                                  -- echo
         },},},})
     task:start()
@@ -77,7 +79,7 @@ function M.action(selected_option)
           cmd = "rm -f " .. output .. ".o && rm -f " .. output ..                     -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
                 " && nasm -f elf64 " .. entry_point .. " -o " .. output .. ".o " .. parameters .. -- compile
-                " && ld " .. entry_point .. ".o -o " .. output .. " " ..              -- link
+                " && ld " .. output .. ".o -o " .. output .. " " ..                   -- link
                 " && echo '" .. final_message .. "'"                                  -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
@@ -113,8 +115,8 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. ep,
           cmd = "rm -f " .. output .. ".o && rm -f " .. output ..            -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && nasm -f elf64 " .. ip .. " -o " .. output .. ".o " .. parameters .. -- compile
-                " && ld " .. ip .. ".o -o " .. output .. " " ..              -- link
+                " && nasm -f elf64 " .. ep .. " -o " .. output .. ".o " .. parameters .. -- compile
+                " && ld " .. output .. ".o -o " .. output .. " " ..          -- link
                 " && echo '" .. final_message .. "'"                         -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
