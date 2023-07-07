@@ -23,7 +23,7 @@ function M.action(selected_option)
 
   if selected_option == "option1" then
     local task = overseer.new_task({
-      name = "- Shell interpreteer",
+      name = "- Shell interpreter",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
             cmd =                 " && time " .. entry_point ..              -- run
@@ -49,7 +49,7 @@ function M.action(selected_option)
       end
 
       task = overseer.new_task({
-        name = "- Shell interpreteer", strategy = { "orchestrator",
+        name = "- Shell interpreter", strategy = { "orchestrator",
           tasks = {
             tasks, -- Run all the programs in the solution in parallel
           }}})
@@ -60,7 +60,7 @@ function M.action(selected_option)
     -- Do the same as in run program, as there are no
     -- conventional entry point for shell scripts.
     local task = overseer.new_task({
-      name = "- Shell interpreteer",
+      name = "- Shell interpreter",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
             cmd =                 " && time " .. entry_point ..              -- run

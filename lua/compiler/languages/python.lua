@@ -41,7 +41,7 @@ function M.action(selected_option)
   --=========================== INTERPRETED =================================--
   if selected_option == "option1" then
     local task = overseer.new_task({
-      name = "- Python interpreteer",
+      name = "- Python interpreter",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run this file → " .. current_file,
           cmd =  "time python " .. current_file ..                            -- run (interpreted)
@@ -51,7 +51,7 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option2" then
     local task = overseer.new_task({
-      name = "- Python interpreteer",
+      name = "- Python interpreter",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
             cmd = "time python " .. output ..                                 -- run (interpreted)
@@ -79,7 +79,7 @@ function M.action(selected_option)
       end
 
       task = overseer.new_task({
-        name = "- Python interpreteer", strategy = { "orchestrator",
+        name = "- Python interpreter", strategy = { "orchestrator",
           tasks = {
             tasks, -- Run all the programs in the solution in parallel
           }}})
@@ -99,7 +99,7 @@ function M.action(selected_option)
       end
 
       task = overseer.new_task({ -- run all tasks we've created secuentially
-        name = "- Python interpreteer", strategy = { "orchestrator", tasks = tasks }
+        name = "- Python interpreter", strategy = { "orchestrator", tasks = tasks }
       })
       task:start()
       vim.cmd("OverseerOpen")

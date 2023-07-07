@@ -17,7 +17,8 @@ function M.action(selected_option)
   local overseer = require("overseer")
   local entry_point = vim.fn.getcwd() .. "/Main.java" -- working_directory/Main.java
   local output_dir = vim.fn.getcwd() .. "/bin/"       -- working_directory/bin/
-  local output = vim.fn.getcwd() .. "/bin/Main"       -- working_directory/bin/auto_generated_name
+  local output = vim.fn.getcwd() .. "/bin/Main"       -- working_directory/bin/Main.class
+  local output_filename = "Main"                      -- working_directory/bin/Main
   local parameters = "-Xlint:all"                     -- parameters can be overriden in .solution
   local final_message = "--task finished--"
 
@@ -29,7 +30,7 @@ function M.action(selected_option)
           cmd = "rm -f " .. output ..                                                               -- clean
                 " && mkdir -p " .. output_dir ..                                                    -- mkdir
                 " && javac " .. " -d " .. output_dir .. " " .. parameters .. " "  .. entry_point .. -- compile bytecode
-                " && time java " .. output ..                                                       -- run
+                " && time java -cp " .. output_dir .. " " .. output_filename ..                     -- run
                 " && echo '" .. final_message .. "'"                                                -- echo
         },},},})
     task:start()

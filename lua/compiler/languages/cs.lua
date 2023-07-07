@@ -17,7 +17,7 @@ function M.action(selected_option)
   local overseer = require("overseer")
   local entry_point = vim.fn.getcwd() .. "/Program.cs" -- working_directory/Program.cs
   local output_dir = vim.fn.getcwd() .. "/bin/"        -- working_directory/bin/
-  local output = vim.fn.getcwd() .. "/bin/program"     -- working_directory/bin/program
+  local output = vim.fn.getcwd() .. "/bin/Program.exe" -- working_directory/bin/program
   local parameters = "-warn:4"                         -- parameters can be overriden in .solution
   local final_message = "--task finished--"
 
@@ -29,7 +29,7 @@ function M.action(selected_option)
           cmd = "rm -f " .. output ..                                                   -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
                 " && csc " .. entry_point .. " -out:" .. output .. " " .. parameters .. -- compile bytecode
-                " && time " .. output ..                                                -- run
+                " && time mono " .. output ..                                           -- run
                 " && echo '" .. final_message .. "'"                                    -- echo
         },},},})
     task:start()
