@@ -51,8 +51,8 @@ function M.action(selected_option)
       name = "- C# compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd = "time " .. output ..                                       -- run
-                " && echo '" .. final_message .. "'"                         -- echo
+            cmd = "time mono " .. output ..                                  -- run
+                  " && echo '" .. final_message .. "'"                       -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
