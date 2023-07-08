@@ -39,11 +39,7 @@ Neovim compiler for building and running your code without having to configure a
 * cobol
 
 ## Dependencies
-Some languages require you manually install their compilers in your machine, so we are able to call them:
-
-* C#: `mono-mcs`
-* python: for the compiled versions of python you need to have `pip install pyinstaller nuitka`
-* ruby: for the compiled versions of ruby you need to have `gem install ruby-compiler`
+Some languages require you manually install their compilers in your machine, so we are able to call them. Please [check here](https://github.com/Zeioth/Compiler.nvim/wiki/table-of-compilers#how-to-install-the-dependencies), as the packages will be different depending your operative system.
   
 ## How to install
 lazy.nvim package manager
@@ -102,8 +98,8 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 |--|--|--|
 | c | ./main.c | ./bin/program |
 | c++ | ./main.cpp | ./bin/program |
-| c# | ./Program.cs | ./bin/program.exe |
-| java | ./Main.java | ./bin/Main |
+| c# | ./Program.cs | ./bin/Program.exe |
+| java | ./Main.java | ./bin/Main.class |
 | rust | ./main.rs | ./bin/program |
 | python | ./main.py | ./bin/program |
 | ruby | ./main.rb | ./bin/program |
@@ -148,7 +144,7 @@ Please, respect the syntax of the config file, as we intentionally do not parse 
 ## Make (Advanced)
 This option will look for a Makefile in the working directory and execute it with `make Makefile`. If your Makefile is not in the working directory, you can either change your current working directory, or create a symbolic link to the Makefile (and if you do, add it to .gitignore).
 
-For building systems not directly supported by Compiler.nvim: Create a Makefile and use it to call cmake, clang, or any other build system you want to use from there. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
+For building systems not directly supported by Compiler.nvim: Create a Makefile and use it to call cmake, maven, or any other build system you want to use from there. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## FAQ
 * **I don't have time to read:** If you prefer you can try [NormalNvim](https://github.com/NormalNvim/NormalNvim) which comes with the compiler pre-installed. Just open some code and hit F6!
