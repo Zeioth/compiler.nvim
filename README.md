@@ -39,11 +39,7 @@ Neovim compiler for building and running your code without having to configure a
 * cobol
 
 ## Dependencies
-Some languages require you manually install their compilers in your machine, so we are able to call them:
-
-* C#: `mono-mcs`
-* python: for the compiled versions of python you need to have `pip install pyinstaller nuitka`
-* ruby: for the compiled versions of ruby you need to have `gem install ruby-compiler`
+Some languages require you manually install their compilers in your machine, so we are able to call them. Please [check here](https://github.com/Zeioth/Compiler.nvim/wiki/table-of-compilers#how-to-install-the-dependencies), as the packages will be different depending your operative system.
   
 ## How to install
 lazy.nvim package manager
