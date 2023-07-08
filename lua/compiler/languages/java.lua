@@ -52,8 +52,8 @@ function M.action(selected_option)
       name = "- Java compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd =                 " && time java " .. output ..              -- run
-                " && echo '" .. final_message .. "'"                         -- echo
+            cmd = "time java -cp " .. output_dir .. " " .. output_filename ..                       -- run
+                  " && echo '" .. final_message .. "'"                                              -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
