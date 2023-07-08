@@ -89,7 +89,7 @@ function M.action(selected_option)
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.py")
-      parameters = variables.parameters or parameters -- optional
+      parameters = "" -- optional
       for _, ep in ipairs(entry_points) do
         task = { "shell", name = "- Build program → " .. ep,
           cmd = "time python " .. ep .. " " .. parameters  ..                -- run (interpreted)
@@ -125,7 +125,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && nuitka " .. entry_point .. " --output-dir " .. output .. " " .. parameters .. -- compile to machine code
+                " && nuitka3 " .. entry_point .. " --output-dir=" .. output .. " " .. parameters .. -- compile to machine code
                 " && time " .. output ..                                              -- run
                 " && echo '" .. final_message .. "'"                                  -- echo
         },},},})
@@ -139,7 +139,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && nuitka " .. entry_point .. " --output-dir " .. output .. " " .. parameters .. -- compile to machine code
+                " && nuitka3 " .. entry_point .. " --output-dir=" .. output .. " " .. parameters .. -- compile to machine code
                 " && echo '" .. final_message .. "'"                                  -- echo
         },},},})
     task:start()
@@ -174,7 +174,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && nuitka " .. entry_point .. " --output-dir " .. output .. " " .. parameters .. -- compile to machine code
+                " && nuitka3 " .. entry_point .. " --output-dir=" .. output .. " " .. parameters .. -- compile to machine code
                 " && echo '" .. final_message .. "'"                                  -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
@@ -210,7 +210,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. ep,
           cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && nuitka " .. ep .. " --output-dir " .. output .. " " .. parameters .. -- compile to machine code
+                " && nuitka3 " .. ep .. " --output-dir=" .. output .. " " .. parameters .. -- compile to machine code
                 " && echo '" .. final_message .. "'"                         -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
