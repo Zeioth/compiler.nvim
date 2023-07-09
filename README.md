@@ -17,7 +17,7 @@ Neovim compiler for building and running your code without having to configure a
 * [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua)
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler))
-* [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/ruby-compiler))
+* [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua)
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
@@ -101,8 +101,10 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c# | ./Program.cs | ./bin/Program.exe |
 | java | ./Main.java | ./bin/Main.class |
 | rust | ./main.rs | ./bin/program |
-| python | ./main.py | ./bin/program |
-| ruby | ./main.rb | ./bin/program |
+| python (interpreted) | ./main.py | ./bin/program |
+| python (machine code) | ./main.py | ./bin/program.bin |
+| python (bytecode) | ./main.py | ./bin/program |
+| ruby | ./main.rb |  |
 | shell | [current buffer] |  |
 | make | ./Makefile | |
 
