@@ -245,6 +245,7 @@ function M.action(selected_option)
 
   --============================ BYTECODE ===================================--
   elseif selected_option == "option8" then
+    local cache_dir = vim.fn.stdpath "cache" .. "/compiler/pyinstall/"
     local parameters = "--addopts '-W'" -- optional
     local task = overseer.new_task({
       name = "- Python bytecode compiler",
@@ -252,8 +253,11 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
+                " && mkdir -p " .. cache_dir ..
                 " && pyinstaller " .. entry_point ..                                  -- compile to bytecode
                   " --name " .. output_filename ..
+                  " --workpath " .. cache_dir ..
+                  " --specpath " .. cache_dir ..
                   " --onefile --distpath " .. output_dir .. " " .. parameters ..
                 " && time " .. output ..                                              -- run
                 " && echo '" .. final_message .. "'"                                  -- echo
@@ -261,6 +265,7 @@ function M.action(selected_option)
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option9" then
+    local cache_dir = vim.fn.stdpath "cache" .. "/compiler/pyinstall/"
     local parameters = "--addopts '-W'" -- optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
@@ -268,8 +273,11 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
+                " && mkdir -p " .. cache_dir ..
                 " && pyinstaller " .. entry_point ..                                  -- compile to bytecode
                   " --name " .. output_filename ..
+                  " --workpath " .. cache_dir ..
+                  " --specpath " .. cache_dir ..
                   " --onefile --distpath " .. output_dir .. " " .. parameters ..
                 " && echo '" .. final_message .. "'"                                  -- echo
         },},},})
