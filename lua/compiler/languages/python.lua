@@ -252,7 +252,9 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && pyinstaller " .. entry_point .. " --onefile --distpath " .. output .. " " .. parameters .. -- compile to bytecode
+                " && pyinstaller " .. entry_point ..                                  -- compile to bytecode
+                  " --name " .. output_filename ..
+                  " --onefile --distpath " .. output_dir .. " " .. parameters ..
                 " && time " .. output ..                                              -- run
                 " && echo '" .. final_message .. "'"                                  -- echo
         },},},})
@@ -266,7 +268,9 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && pyinstaller " .. entry_point .. " --onefile --distpath " .. output .. " " .. parameters .. -- compile to bytecode
+                " && pyinstaller " .. entry_point ..                                  -- compile to bytecode
+                  " --name " .. output_filename ..
+                  " --onefile --distpath " .. output_dir .. " " .. parameters ..
                 " && echo '" .. final_message .. "'"                                  -- echo
         },},},})
     task:start()
