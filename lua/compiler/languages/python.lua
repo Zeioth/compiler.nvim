@@ -33,7 +33,6 @@ function M.action(selected_option)
   local entry_point = vim.fn.getcwd() .. "/main.py"    -- working_directory/main.py
   local output_dir = vim.fn.getcwd() .. "/bin/"        -- working_directory/bin/
   local output = vim.fn.getcwd() .. "/bin/program"     -- working_directory/bin/program
-  local output_filename = "program.bin"                -- working_directory/bin/program.bin
   local final_message = "--task finished--"
   -- For python, parameters are not globally defined,
   -- as we have 3 different ways to run the code.
@@ -119,6 +118,7 @@ function M.action(selected_option)
 
   --========================== MACHINE CODE =================================--
   elseif selected_option == "option4" then
+    local output_filename = "program.bin"
     local parameters = "--warn-early" --optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
@@ -135,6 +135,7 @@ function M.action(selected_option)
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option5" then
+    local output_filename = "program.bin"
     local parameters = "--warn-early" --optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
@@ -150,11 +151,12 @@ function M.action(selected_option)
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option6" then
+    local output_filename = "program.bin"
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd = "time " .. output ..                                       -- run
+            cmd = "time " .. output_dir .. output_filename ..                -- run
                 " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
@@ -179,9 +181,9 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && nuitka3 --output-dir=" .. output_dir ..                 -- compile to machine code
-                  " --output-filename=" .. output_filename  ..
-                  " --remove-output " .. parameters .. " " .. entry_point ..
+                " && nuitka3 --no-pyi-file --remove-output"  ..              -- compile to bytecode
+                  " --output-filename=" .. output_dir .. output_filename  ..
+                  parameters .. " " .. entry_point ..
                 " && echo '" .. final_message .. "'"                         -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
@@ -217,9 +219,9 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. ep,
           cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && nuitka3 --output-dir=" .. output_dir ..                 -- compile to machine code
-                  " --output-filename=" .. output_filename  ..
-                  " --remove-output " .. parameters .. " " .. entry_point ..
+                " && nuitka3 --no-pyi-file --remove-output"  ..              -- compile to bytecode
+                  " --output-filename=" .. output_dir .. output_filename  ..
+                  parameters .. " " .. entry_point ..
                 " && echo '" .. final_message .. "'"                         -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
