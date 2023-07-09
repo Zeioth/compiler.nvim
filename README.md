@@ -102,7 +102,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | java | ./Main.java | ./bin/Main.class |
 | rust | ./main.rs | ./bin/program |
 | python (interpreted) | ./main.py | ./bin/program |
-| python (machine code) | ./main.py | ./bin/program.bin |
+| python (machine code) | ./main.py | ./bin/program |
 | python (bytecode) | ./main.py | ./bin/program |
 | ruby | ./main.rb |  |
 | shell | [current buffer] |  |
