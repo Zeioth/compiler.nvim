@@ -44,8 +44,8 @@ function M.action(selected_option)
       name = "- Python interpreter",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run this file → " .. current_file,
-          cmd =  "time python " .. current_file ..                            -- run (interpreted)
-                 " && echo '" .. final_message .. "'"                        -- echo
+          cmd = "time python " .. current_file ..                            -- run (interpreted)
+                " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -54,8 +54,8 @@ function M.action(selected_option)
       name = "- Python interpreter",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd = "time python " .. output ..                                 -- run (interpreted)
-                " && echo '" .. final_message .. "'"                         -- echo
+            cmd = "time python " .. output ..                                -- run (interpreted)
+                  " && echo '" .. final_message .. "'"                       -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -118,7 +118,6 @@ function M.action(selected_option)
 
   --========================== MACHINE CODE =================================--
   elseif selected_option == "option4" then
-    local output_filename = "program.bin"
     local parameters = "--warn-early" --optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
@@ -126,16 +125,15 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && nuitka3 --output-dir=" .. output_dir ..                 -- compile to machine code
-                  " --output-filename=" .. output_filename  ..
-                  " --remove-output " .. parameters .. " " .. entry_point ..
+                " && nuitka3 --no-pyi-file --remove-output"  ..              -- compile to bytecode
+                  " --output-filename=" .. output  ..
+                  " " .. parameters .. " " .. entry_point ..
                 " && time " .. output ..                                     -- run
                 " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option5" then
-    local output_filename = "program.bin"
     local parameters = "--warn-early" --optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
@@ -143,20 +141,19 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && nuitka3 --output-dir=" .. output_dir ..                 -- compile to machine code
-                  " --output-filename=" .. output_filename  ..
-                  " --remove-output " .. parameters .. " " .. entry_point ..
+                " && nuitka3 --no-pyi-file --remove-output"  ..              -- compile to bytecode
+                  " --output-filename=" .. output  ..
+                  " " .. parameters .. " " .. entry_point ..
                 " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option6" then
-    local output_filename = "program.bin"
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd = "time " .. output_dir .. output_filename ..                -- run
+            cmd = "time " .. output ..                                       -- run
                 " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
@@ -182,7 +179,7 @@ function M.action(selected_option)
           cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
                 " && nuitka3 --no-pyi-file --remove-output"  ..              -- compile to bytecode
-                  " --output-filename=" .. output_dir .. output_filename  ..
+                  " --output-filename=" .. output ..
                   parameters .. " " .. entry_point ..
                 " && echo '" .. final_message .. "'"                         -- echo
         }
@@ -220,7 +217,7 @@ function M.action(selected_option)
           cmd = "rm -f " .. output ..                                        -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
                 " && nuitka3 --no-pyi-file --remove-output"  ..              -- compile to bytecode
-                  " --output-filename=" .. output_dir .. output_filename  ..
+                  " --output-filename=" .. output ..
                   parameters .. " " .. entry_point ..
                 " && echo '" .. final_message .. "'"                         -- echo
         }
@@ -248,6 +245,7 @@ function M.action(selected_option)
   --============================ BYTECODE ===================================--
   elseif selected_option == "option8" then
     local cache_dir = vim.fn.stdpath "cache" .. "/compiler/pyinstall/"
+    local output_filename = vim.fn.fnamemodify(output, ":t")
     local parameters = "--addopts '-W'" -- optional
     local task = overseer.new_task({
       name = "- Python bytecode compiler",
@@ -268,6 +266,7 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option9" then
     local cache_dir = vim.fn.stdpath "cache" .. "/compiler/pyinstall/"
+    local output_filename = vim.fn.fnamemodify(output, ":t")
     local parameters = "--addopts '-W'" -- optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
