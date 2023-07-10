@@ -178,3 +178,6 @@ If you want to help me, please star this repository to increase the visibility o
 * Unit tests for all languages. This project is suitable for TDD. Probably the best way would be to create a `tests.lua` file that call all the other tests. That way we could just do `lua tests.lua` inside nvim to check all languages are compiling correctly.
 
 If you find any issue while using the compiler, please open an issue and I will look into it, just be aware until all languages are implemented and the unit tests have been finished, the compiler won't be considered a final product.
+
+## UPDATE ON THE ROADMAP
+I've already written 90% of the tests and they are passing correctly. I haven't pushed them yet, so expect a big deal of fixes without breaking changes during in the next days. The big update will also include windows support, but we still advice using WLS for a better user experience when installing the packages required by [compiler.nvim](https://github.com/Zeioth/compiler.nvim).
