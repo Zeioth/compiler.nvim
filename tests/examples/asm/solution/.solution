@@ -1,0 +1,6 @@
+[HELLO WORLD]
+entry_point = ./my_main.asm
+output = ./bin/hello_world
+
+[SOLUTION]
+executable = ./bin/hello_world

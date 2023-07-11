@@ -4,25 +4,36 @@ local M = {}
 
 --- Recursively searches for files with the given name
 --  in all directories under start_dir.
---  @return A collection of files. Emply collection if no files found.
+---@param start_dir string
+---@param file_name string
+---@return A collection of files. Emply collection if no files found.
 function M.find_files(start_dir, file_name)
   local files = {}
-  local current_files = vim.fn.readdir(start_dir)
-  for _, file in ipairs(current_files) do
-    local file_path = start_dir .. '/' .. file
-    local file_type = vim.fn.getftype(file_path)
-    if file_type == 'file' and file == file_name then
+
+  -- Create the find command with appropriate flags for recursive searching
+  local find_command
+  if package.config:sub(1, 1) == "\\" then -- Windows
+    find_command = string.format('dir /s /b /a:-D "%s\\%s"', start_dir, file_name)
+  else -- UNIX-like systems
+    find_command = string.format('find "%s" -type f -name "%s"', start_dir, file_name)
+  end
+
+  -- Execute the find command and capture the output
+  local pipe = io.popen(find_command, "r")
+  if pipe then
+    for file_path in pipe:lines() do
       table.insert(files, file_path)
-    elseif file_type == 'directory' and file ~= '.' and file ~= '..' then
-      find_files(file_path, file_name, files)
+      --print("Found file:", file_path)
     end
+    pipe:close()
   end
 
   return files
 end
 
 -- Parse the config file and extract variables
--- @return A collection like { {entry_point, ouptput, ..} .. }
+---@param string
+---@return A collection like { {entry_point, ouptput, ..} .. }
 function M.parseConfigFile(filePath)
   local file = assert(io.open(filePath, "r"))  -- Open the file in read mode
   local collection = {}  -- Initialize an empty Lua table to store the variables
@@ -36,6 +47,7 @@ function M.parseConfigFile(filePath)
     else
       local key, value = line:match("([^=]+)%s-=%s-(.+)")  -- Extract key-value pairs
       if key and value and currentEntry then
+        value = value:gsub("^%s*[\"'](.+)[\"']%s*$", "%1")  -- Remove surrounding quotes if present
         collection[currentEntry][vim.trim(key)] = vim.trim(value)  -- Store the variable in the collection
       end
     end
@@ -46,7 +58,7 @@ function M.parseConfigFile(filePath)
 end
 
 --- Programatically require the backend for the current language.
--- @return If languages/<filetype>.lua doesn't exist,
+---@return a module. If languages/<filetype>.lua doesn't exist,
 --         send a notification and return nil.
 function M.requireLanguage(filetype)
   local localPath = debug.getinfo(1, "S").source:sub(2)
@@ -62,10 +74,22 @@ function M.requireLanguage(filetype)
   end
 end
 
--- Function that returns true if a file exists in physical storage
+--- Function that returns true if a file exists in physical storage
+---@return bool
 function M.fileExists(filename)
   local stat = vim.loop.fs_stat(filename)
   return stat and stat.type == "file"
+end
+
+--- Given a string, convert 'slash' to 'inverted slash' if on windows, and vice versa on UNIX.
+-- Then return the resulting string.
+---@param path string
+---@return string
+function M.osPath(path)
+  if path == nil then return nil end
+  -- Get the platform-specific path separator
+  local separator = package.config:sub(1,1)
+  return string.gsub(path, '[/\\]', separator)
 end
 
 return M

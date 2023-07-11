@@ -1,0 +1,6 @@
+[HELLO WORLD]
+entry_point = ./my_main.java
+output = ./bin/my_main.class
+
+[SOLUTION]
+executable = ./bin/my_main.class

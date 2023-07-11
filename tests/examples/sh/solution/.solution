@@ -1,0 +1,7 @@
+[MY SCRIPT]
+entry_point="./my_main.sh"
+parameters=""
+
+[MY OTHER COOL SCRIPT]
+entry_point="./my_main2.sh"
+parameters=""

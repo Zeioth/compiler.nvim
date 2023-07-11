@@ -14,18 +14,18 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local current_file = vim.fn.expand('%:p')            -- current file
-  local entry_point = vim.fn.getcwd() .. "/main.rb"    -- working_directory/main.rb
+  local current_file = vim.fn.expand('%:p')                                  -- current file
+  local entry_point = utils.osPath(vim.fn.getcwd() .. "/main.rb")            -- working_directory/main.rb
   local final_message = "--task finished--"
-
 
   if selected_option == "option1" then
     local task = overseer.new_task({
       name = "- Ruby interpreter",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run this file → " .. current_file,
-          cmd =  "time ruby " .. current_file ..                             -- run (interpreted)
-                 " && echo '" .. final_message .. "'"                        -- echo
+          cmd =  "ruby " .. current_file ..                                  -- run (interpreted)
+                " && echo " .. current_file ..                               -- echo
+                " && echo '" .. final_message .. "'"
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -34,8 +34,9 @@ function M.action(selected_option)
       name = "- Ruby interpreter",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd = "time ruby " .. entry_point ..                             -- run (interpreted)
-                " && echo '" .. final_message .. "'"                         -- echo
+            cmd = "ruby " .. entry_point ..                                  -- run (interpreted)
+                " && echo " .. entry_point ..                                -- echo
+                " && echo '" .. final_message .. "'"
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -46,14 +47,15 @@ function M.action(selected_option)
 
     -- if .solution file exists in working dir
     if utils.fileExists(".solution") then
-      local config = utils.parseConfigFile(vim.fn.getcwd() .. "/.solution")
+      local config = utils.parseConfigFile(utils.osPath(vim.fn.getcwd() .. "/.solution"))
 
       for entry, variables in pairs(config) do
-        entry_point = variables.entry_point
-        parameters = variables.parameters or parameters -- optional
+        entry_point = utils.osPath(variables.entry_point)
+        parameters = variables.parameters or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
-          cmd = "time ruby " .. entry_point .. " " .. parameters  ..         -- run (interpreted)
-                " && echo '" .. final_message .. "'"                         -- echo
+          cmd = "ruby " .. entry_point .. " " .. parameters  ..              -- run (interpreted)
+                " && echo " .. entry_point ..                                -- echo
+                " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
       end
@@ -69,22 +71,24 @@ function M.action(selected_option)
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.rb")
-      parameters = variables.parameters or parameters -- optional
+      parameters = "" -- optional
       for _, ep in ipairs(entry_points) do
+        ep = utils.osPath(ep)
         task = { "shell", name = "- Build program → " .. ep,
-          cmd = "time ruby " .. ep .. " " .. parameters  ..                  -- run (interpreted)
-                " && echo '" .. final_message .. "'"                         -- echo
+          cmd = "ruby " .. ep .. " " .. parameters  ..                       -- run (interpreted)
+                " && echo " .. ep ..                                         -- echo
+                " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
       end
 
-      task = overseer.new_task({ -- run all tasks we've created secuentially
+      task = overseer.new_task({ -- run all tasks we've created in parallel
         name = "- Ruby interpreter", strategy = { "orchestrator", tasks = tasks }
       })
       task:start()
       vim.cmd("OverseerOpen")
     end
-  elseif selected_option == "option12" then
+  elseif selected_option == "option4" then
     require("compiler.languages.make").run_makefile()                        -- run
   end
 

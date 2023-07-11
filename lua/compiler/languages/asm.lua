@@ -7,7 +7,8 @@ M.options = {
   { text = "1 - Build and run program", value = "option1" },
   { text = "2 - Build program",         value = "option2" },
   { text = "3 - Run program",           value = "option3" },
-  { text = "4 - Run Makefile",          value = "option4" }
+  { text = "4 - Build solution",        value = "option4" },
+  { text = "5 - Run Makefile",          value = "option5" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -29,8 +30,10 @@ function M.action(selected_option)
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
                 " && nasm -f elf64 " .. entry_point .. " -o " .. output .. ".o " .. parameters .. -- compile
                 " && ld " .. output .. ".o -o " .. output .. " " ..                   -- link
-                " && time " .. output ..                                              -- run
-                " && echo '" .. final_message .. "'"                                  -- echo
+                " && rm -f " .. output .. ".o" ..                                     -- clean
+                " && " .. output ..                                                   -- run
+                " && echo && echo " .. entry_point ..                                 -- echo
+                " && echo '" .. final_message .. "'"
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -43,7 +46,9 @@ function M.action(selected_option)
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
                 " && nasm -f elf64 " .. entry_point .. " -o " .. output .. ".o " .. parameters .. -- compile
                 " && ld " .. output .. ".o -o " .. output .. " " ..                   -- link
-                " && echo '" .. final_message .. "'"                                  -- echo
+                " && rm -f " .. output .. ".o" ..                                     -- clean
+                " && echo " .. entry_point ..                                         -- echo
+                " && echo '" .. final_message .. "'"
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -52,8 +57,9 @@ function M.action(selected_option)
       name = "- Assembly compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-          cmd = "time " .. output ..                                                  -- run
-                " && echo '" .. final_message .. "'"                                  -- echo
+          cmd = output ..                                                    -- run
+                " && echo && echo " .. output ..                             -- echo
+                " && echo '" .. final_message .. "'"
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -65,12 +71,14 @@ function M.action(selected_option)
     -- if .solution file exists in working dir
     if utils.fileExists(".solution") then
       local config = utils.parseConfigFile(
-        os_path(vim.fn.getcwd() .. "/.solution"))
+        utils.osPath(vim.fn.getcwd() .. "/.solution"))
       local executable
 
       for entry, variables in pairs(config) do
-        executable = utils.osPath(variables.executable)
-        if executable then goto continue end
+        if variables.executable then
+          executable = utils.osPath(variables.executable)
+          goto continue
+        end
         entry_point = utils.osPath(variables.entry_point)
         output = utils.osPath(variables.output)
         output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
@@ -80,7 +88,9 @@ function M.action(selected_option)
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
                 " && nasm -f elf64 " .. entry_point .. " -o " .. output .. ".o " .. parameters .. -- compile
                 " && ld " .. output .. ".o -o " .. output .. " " ..                   -- link
-                " && echo '" .. final_message .. "'"                                  -- echo
+                " && rm -f " .. output .. ".o" ..                                     -- clean
+                " && echo " .. entry_point ..                                         -- echo
+                " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
@@ -88,8 +98,9 @@ function M.action(selected_option)
 
       if executable then
         task = { "shell", name = "- Run program → " .. executable,
-          cmd = "time " .. executable ..                                     -- run
-                " && echo '" .. final_message .. "'"                         -- echo
+          cmd = executable ..                                                -- run
+                " && echo && echo " .. executable ..                         -- echo
+                " && echo '" .. final_message .. "'"
         }
       else
         task = {}
@@ -106,23 +117,25 @@ function M.action(selected_option)
 
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
-      entry_points = utils.find_files(vim.fn.getcwd(), "main.c")
+      entry_points = utils.find_files(vim.fn.getcwd(), "main.asm")
 
       for _, ep in ipairs(entry_points) do
         ep = utils.osPath(ep)
-        output_dir = utils.osPath(ep:match("^(.-[/\\])[^/\\]*$") .. "/bin") -- entry_point/bin
-        output = utils.osPath(output_dir .. "/program")                     -- entry_point/bin/program
+        output_dir = utils.osPath(ep:match("^(.-[/\\])[^/\\]*$") .. "/bin")  -- entry_point/bin
+        output = utils.osPath(output_dir .. "/program")                      -- entry_point/bin/program
         task = { "shell", name = "- Build program → " .. ep,
           cmd = "rm -f " .. output .. ".o && rm -f " .. output ..            -- clean
                 " && mkdir -p " .. output_dir ..                             -- mkdir
                 " && nasm -f elf64 " .. ep .. " -o " .. output .. ".o " .. parameters .. -- compile
                 " && ld " .. output .. ".o -o " .. output .. " " ..          -- link
-                " && echo '" .. final_message .. "'"                         -- echo
+                " && rm -f " .. output .. ".o" ..                            -- clean
+                " && echo " .. ep ..                                         -- echo
+                " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
       end
 
-      task = overseer.new_task({ -- run all tasks we've created secuentially
+      task = overseer.new_task({ -- run all tasks we've created in parallel
         name = "- Assembly compiler", strategy = { "orchestrator", tasks = tasks }
       })
       task:start()
