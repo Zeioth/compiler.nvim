@@ -68,7 +68,6 @@ lazy.nvim package manager
       },
     },
   },
-  config = function(_, opts) require("overseer").setup(opts) end,
 },
 ```
 
