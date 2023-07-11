@@ -16,10 +16,10 @@ Neovim compiler for building and running your code without having to configure a
 * [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua)
 * [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua)
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
+* [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
 * [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler))
 * [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua)
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
-* [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 * perl (wip)
 * lua (wip)
@@ -101,9 +101,8 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c# | ./Program.cs | ./bin/Program.exe |
 | java | ./Main.java | ./bin/Main.class |
 | rust | ./main.rs | ./bin/program |
-| python (interpreted) | ./main.py | ./bin/program |
-| python (machine code) | ./main.py | ./bin/program.bin |
-| python (bytecode) | ./main.py | ./bin/program |
+| asm x86-64 | ./main.asm | ./bin/program |
+| python | ./main.py | ./bin/program |
 | ruby | ./main.rb |  |
 | shell | [current buffer] |  |
 | make | ./Makefile | |
@@ -150,9 +149,9 @@ For building systems not directly supported by Compiler.nvim: Create a Makefile 
 
 ## FAQ
 * **I don't have time to read:** If you prefer you can try [NormalNvim](https://github.com/NormalNvim/NormalNvim) which comes with the compiler pre-installed. Just open some code and hit F6!
-* **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive parameters, we recommend you to use the terminal instead, because creating a `.solution` file just to be able to pass parameters to your simple shell script is probably a overkill, and not the right tool.
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
 * **How can I change the way the compiler works?** Same as the previous one.
+* **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive parameters, we recommend you to use the terminal instead, because creating a `.solution` file just to be able to pass parameters to your simple shell script is probably a overkill, and not the right tool.
 * **I'm a windows user, do I need to do something special?** In theory no. Check the [dependencies section of this README.md](https://github.com/Zeioth/compiler.nvim/blob/main/README.md#dependencies) and make sure you have them. If for some wild reason a required dependency don't exist on windows, or you don't know how to get it, the easy way is to enable the Windows Linux Subsystem and run neovim from there. Then you can just `sudo apt install some_package` for anything you may need.
 * **Where are the global options?** There are not. Creating a `.solution` file of your project is the way to configure stuff. This way we can keep the code extra simple.
 * **But I don't want to create a .solution file! I already have a .sln file!:** I understand your pain but .sln is a closed format of a private company.
@@ -179,3 +178,6 @@ If you want to help me, please star this repository to increase the visibility o
 * Unit tests for all languages. This project is suitable for TDD. Probably the best way would be to create a `tests.lua` file that call all the other tests. That way we could just do `lua tests.lua` inside nvim to check all languages are compiling correctly.
 
 If you find any issue while using the compiler, please open an issue and I will look into it, just be aware until all languages are implemented and the unit tests have been finished, the compiler won't be considered a final product.
+
+## UPDATE ON THE ROADMAP (10 of july 2023)
+I've already written 90% of the tests and they are passing correctly. I haven't pushed them yet, so expect a big deal of fixes without breaking changes during in the next days. The big update will also include windows support, but we still advice using WLS for a better user experience when installing the packages required by [compiler.nvim](https://github.com/Zeioth/compiler.nvim).
