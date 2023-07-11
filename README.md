@@ -153,7 +153,7 @@ For building systems not directly supported by Compiler.nvim: Create a Makefile 
 * **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive parameters, we recommend you to use the terminal instead, because creating a `.solution` file just to be able to pass parameters to your simple shell script is probably a overkill, and not the right tool.
 * **I'm a windows user, do I need to do something special?** In theory no. Check the [dependencies section of this README.md](https://github.com/Zeioth/compiler.nvim/blob/main/README.md#dependencies) and make sure you have them. If for some wild reason a required dependency don't exist on windows, or you don't know how to get it, the easy way is to enable the Windows Linux Subsystem and run neovim from there. Then you can just `sudo apt install some_package` for anything you may need.
 * **Where are the global options?** There are not. Creating a `.solution` file of your project is the way to configure stuff. This way we can keep the code extra simple.
-*  **How can I disable notifications for the compiler?** Check [here](https://github.com/stevearc/overseer.nvim/issues/158#issuecomment-1631542247).
+*  **How can I disable notifications when compiling?** Check [here](https://github.com/stevearc/overseer.nvim/issues/158#issuecomment-1631542247).
 * **But I don't want to create a .solution file! I already have a .sln file!:** I understand your pain but .sln is a closed format of a private company.
 * **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. I recommend you this strategy instead:
   
