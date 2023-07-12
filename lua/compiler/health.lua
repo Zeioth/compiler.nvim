@@ -35,6 +35,61 @@ function M.check()
       type = "error",
       msg = "Used for core functionality such as cloning compiler.nvim",
     },
+    {
+      cmd = "gcc",
+      type = "warn",
+      msg = "Used to call the C compiler.",
+    },
+    {
+      cmd = "g++",
+      type = "warn",
+      msg = "Used to call the C++ compiler.",
+    },
+    {
+      cmd = "csc",
+      type = "warn",
+      msg = "Used to call the C# compiler.",
+    },
+    {
+      cmd = "javac",
+      type = "warn",
+      msg = "Used to call the java compiler.",
+    },
+    {
+      cmd = "asm",
+      type = "warn",
+      msg = "Used to call the assembly compiler.",
+    },
+    {
+      cmd = "rustc",
+      type = "warn",
+      msg = "Used to call the rust compiler.",
+    },
+    {
+      cmd = "python",
+      type = "warn",
+      msg = "Used to call the python interpreter.",
+    },
+    {
+      cmd = "nuitka3",
+      type = "warn",
+      msg = "Used to call the python machine code compiler.",
+    },
+    {
+      cmd = "pyinstaller",
+      type = "warn",
+      msg = "Used to call the python bytecode compiler.",
+    },
+    {
+      cmd = "ruby",
+      type = "warn",
+      msg = "Used to call the ruby interpreter.",
+    },
+    {
+      cmd = "make",
+      type = "warn",
+      msg = "Used to call the make interpreter.",
+    },
   }
 
   for _, program in ipairs(programs) do
