@@ -40,7 +40,13 @@ Neovim compiler for building and running your code without having to configure a
 
 ## Dependencies
 Some languages require you manually install their compilers in your machine, so we are able to call them. Please [check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
-  
+
+```sh 
+# You can check the depencies you are missing with:
+:lua require("compiler")
+:checkhealth compiler
+```
+
 ## How to install
 lazy.nvim package manager
 ```lua
