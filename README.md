@@ -96,7 +96,7 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>', "<cmd>CompilerToggleResults<cr>", 
 
 | Command | Description|
 |--|--|
-| `:CompilerOpen` | Display the adecuated compiler for the filetype you have currently opened. |
+| `:CompilerOpen` | Shows the adecuated compiler for your buffer's filetype. |
 | `:CompilerToggleResults` | Open or close the compiler results. |
 
 ## How to use (Basic usage)
