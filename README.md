@@ -12,7 +12,7 @@ Neovim compiler for building and running your code without having to configure a
 ## Table of contents
 
 - [Supported languages](#supported-languages)
-- [Dependencies](#dependencies)
+- [Required system dependencies](#required-system-dependencies)
 - [How to install](#how-to-install)
 - [Recommended mappings](#recommended-mappings)
 - [Available commands](#available-commands)
@@ -50,7 +50,7 @@ Neovim compiler for building and running your code without having to configure a
 * pascal
 * cobol
 
-## Dependencies
+## Required system dependencies
 Some languages require you manually install their compilers in your machine, so we are able to call them. Please [check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
 
 ## How to install
