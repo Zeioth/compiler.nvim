@@ -20,7 +20,7 @@ Neovim compiler for building and running your code without having to configure a
 - [Make (advanced)](#make-advanced)
 - [FAQ](#faq)
 
-## Supported languages:
+## Supported languages
 
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
