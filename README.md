@@ -37,7 +37,7 @@ Neovim compiler for building and running your code without having to configure a
 * javascript (wip)
 * typescript (wip)
 
-#### Planned & coming soon:
+### Planned & coming soon:
 * go
 * objetive C
 * swift
@@ -82,7 +82,7 @@ lazy.nvim package manager
 },
 ```
 
-#### Recommended mappings
+### Recommended mappings
 
 ```lua
 -- Open compiler
