@@ -9,6 +9,8 @@ Neovim compiler for building and running your code without having to configure a
     </a>
 </div>
 
+## Table of contents
+
 - [Supported languages](#supported-languages)
 - [Dependencies](#dependencies)
 - [How to install](#how-to-install)
@@ -18,7 +20,8 @@ Neovim compiler for building and running your code without having to configure a
 - [How to create a solution (advanced)](#how-to-create-a-solution-advanced)
 - [Make (advanced)](#make-advanced)
 - [FAQ](#faq)
-#### Supported languages:
+
+## Supported languages:
 
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
