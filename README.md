@@ -14,7 +14,6 @@ Neovim compiler for building and running your code without having to configure a
 - [Supported languages](#supported-languages)
 - [Required system dependencies](#required-system-dependencies)
 - [How to install](#how-to-install)
-- [Recommended mappings](#recommended-mappings)
 - [Available commands](#available-commands)
 - [Basic usage](#how-to-use-basic-usage)
 - [How to create a solution (advanced)](#how-to-create-a-solution-advanced)
@@ -83,7 +82,7 @@ lazy.nvim package manager
 },
 ```
 
-## Recommended mappings
+#### Recommended mappings
 
 ```lua
 -- Open compiler
