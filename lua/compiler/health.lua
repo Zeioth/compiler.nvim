@@ -56,7 +56,7 @@ function M.check()
       msg = "Used to call the java compiler.",
     },
     {
-      cmd = "asm",
+      cmd = "nasm",
       type = "warn",
       msg = "Used to call the assembly compiler.",
     },
