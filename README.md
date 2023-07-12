@@ -15,7 +15,7 @@ Neovim compiler for building and running your code without having to configure a
 - [Required system dependencies](#required-system-dependencies)
 - [How to install](#how-to-install)
 - [Available commands](#available-commands)
-- [Basic usage](#how-to-use-basic-usage)
+- [How to use (basic usage)](#how-to-use-basic-usage)
 - [How to create a solution (advanced)](#how-to-create-a-solution-advanced)
 - [Make (advanced)](#make-advanced)
 - [FAQ](#faq)
