@@ -168,7 +168,7 @@ For building systems not directly supported by Compiler.nvim: Create a Makefile 
 * **But I don't want to create a .solution file! I already have a .sln file!:** I understand your pain but .sln is a closed format of a private company.
 * **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. I recommend you this strategy instead:
   
-  * A way to transpile: toggleterm + termux.
+  * A way to transpile: toggleterm + tmux.
   * A way run the project: Just keep the website opened in your browser.
     
 ## 🌟 Support the project
