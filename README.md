@@ -186,3 +186,5 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 
 * Command `CompilerRedo` to re-run the last selected action. This comes handy for languages with many options like python or ruby.
+* BUGFIX: Support for projects/languages that need to pass multible files to the compiler.
+* Advanced test cases for multi file projects.
