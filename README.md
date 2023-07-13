@@ -186,5 +186,5 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 
 * Command `CompilerRedo` to re-run the last selected action. This comes handy for languages with many options like python or ruby.
-* Feature: Support for multi-file projects. This will make compiler.nvim suitable for real world projects.
+* Support for multi-file projects. This will make compiler.nvim suitable for real world projects.
 * Advanced test cases for multi file projects.
