@@ -188,3 +188,8 @@ If you want to help me, please star this repository to increase the visibility o
 * Command `CompilerRedo` to re-run the last selected action. This comes handy for languages with many options like python or ruby.
 * Support for multi-file projects. This will make compiler.nvim suitable for real world projects.
 * Advanced test cases for multi file projects.
+* Research the viability of supporting building system for languages which have an standard (c, cpp, rust, java)
+
+## UPDATE (15 jul 2023): 
+
+* Support for multi-file projects. I've researched this bug and its only affecting C, C++, C#, ASM, python machine code, and python bytecode. I've already implemented the fix. Tests ready 50%. → Expect patch during the next days.
