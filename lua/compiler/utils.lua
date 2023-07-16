@@ -31,6 +31,19 @@ function M.find_files(start_dir, file_name)
   return files
 end
 
+--- Return Files matching the pattern in entry_point's directory, recursively searched.
+---@param entry_point string Entry point file of the program.
+---@param pattern string File extension to search.
+---@return A string Files separated by a space.
+---@usage find_files_as_string(entry_point, "*.c")
+function M.find_files_to_compile(entry_point, pattern)
+  local entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
+  local files = M.find_files(entry_point_dir, pattern)
+  local files_as_string = table.concat(files ," ")
+
+  return files_as_string
+end
+
 -- Parse the config file and extract variables
 ---@param string
 ---@return A collection like { {entry_point, ouptput, ..} .. }
