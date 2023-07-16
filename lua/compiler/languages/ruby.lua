@@ -72,11 +72,11 @@ function M.action(selected_option)
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.rb")
       parameters = "" -- optional
-      for _, ep in ipairs(entry_points) do
-        ep = utils.osPath(ep)
-        task = { "shell", name = "- Build program → " .. ep,
-          cmd = "ruby " .. ep .. " " .. parameters  ..                       -- run (interpreted)
-                " && echo " .. ep ..                                         -- echo
+      for _, entry_point in ipairs(entry_points) do
+        entry_point = utils.osPath(entry_point)
+        task = { "shell", name = "- Build program → " .. entry_point,
+          cmd = "ruby " .. entry_point .. " " .. parameters  ..              -- run (interpreted)
+                " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
