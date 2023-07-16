@@ -112,15 +112,15 @@ function M.action(selected_option)
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.rs")
 
-      for _, ep in ipairs(entry_points) do
-        ep = utils.osPath(ep)
-        output_dir = utils.osPath(ep:match("^(.-[/\\])[^/\\]*$") .. "/bin")     -- entry_point/bin
+      for _, entry_point in ipairs(entry_points) do
+        entry_point = utils.osPath(entry_point)
+        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "/bin")     -- entry_point/bin
         output = utils.osPath(output_dir .. "/program")                         -- entry_point/bin/program
-        task = { "shell", name = "- Build program → " .. ep,
+        task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                           -- clean
                 " && mkdir -p " .. output_dir ..                                -- mkdir
-                " && rustc " .. ep .. " -o " .. output .. " " .. parameters ..  -- compile
-                " && echo " .. ep ..                                            -- echo
+                " && rustc " .. entry_point .. " -o " .. output .. " " .. parameters ..  -- compile
+                " && echo " .. entry_point ..                                            -- echo
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
