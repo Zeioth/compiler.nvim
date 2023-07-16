@@ -1,6 +1,10 @@
 [HELLO WORLD]
-entry_point = ./my_main.java
-output = ./bin/my_main.class
+entry_point = ./project1/Main.java
+output = ./bin/hello_world1
+
+[HELLO WORLD 2]
+entry_point = ./project2/Helper.java
+output = ./bin/hello_world2
 
 [SOLUTION]
-executable = ./bin/my_main.class
+executable = ./bin/Main.class

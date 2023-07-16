@@ -1,2 +1,5 @@
 [HELLO WORLD]
-entry_point = "./my_main.py"
+entry_point = "./main.py"
+
+[MY OTHER COOL SCRIPT]
+entry_point = "./extra.py"

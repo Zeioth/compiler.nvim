@@ -1,7 +1,7 @@
 [MY SCRIPT]
-entry_point="./my_main.sh"
+entry_point="./main.sh"
 parameters=""
 
 [MY OTHER COOL SCRIPT]
-entry_point="./my_main2.sh"
+entry_point="./extra.sh"
 parameters=""
