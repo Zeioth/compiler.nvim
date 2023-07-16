@@ -16,21 +16,23 @@ function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
   local entry_point = utils.osPath(vim.fn.getcwd() .. "/main.c")     -- working_directory/main.c
+  local files = utils.find_files_to_compile(entry_point, "*.c")      -- *.c files under entry_point_dir (recursively)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")        -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")     -- working_directory/bin/program
-  local parameters = "-Wall"                                           -- parameters can be overriden in .solution
+  local parameters = "-Wall"                                         -- parameters can be overriden in .solution
   local final_message = "--task finished--"
+
 
   if selected_option == "option1" then
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                 -- clean
-                " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && gcc " .. entry_point .. " -o " .. output .. " " .. parameters .. -- compile
-                " && " .. output ..                                                   -- run
-                " && echo " .. entry_point ..                                         -- echo
+          cmd = "rm -f " .. output ..                                                -- clean
+                " && mkdir -p " .. output_dir ..                                     -- mkdir
+                " && gcc " .. files .. " -o " .. output .. " " .. parameters ..      -- compile
+                " && " .. output ..                                                  -- run
+                " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -40,10 +42,10 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                 -- clean
-                " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && gcc " .. entry_point .. " -o " .. output .. " " .. parameters .. -- compile
-                " && echo " .. entry_point ..                                         -- echo
+          cmd = "rm -f " .. output ..                                                -- clean
+                " && mkdir -p " .. output_dir ..                                     -- mkdir
+                " && gcc " .. files .. " -o " .. output .. " " .. parameters ..      -- compile
+                " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -76,14 +78,15 @@ function M.action(selected_option)
           goto continue
         end
         entry_point = utils.osPath(variables.entry_point)
+        files = utils.find_files_to_compile(entry_point, "*.c")
         output = utils.osPath(variables.output)
         output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
         parameters = variables.parameters or parameters -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                 -- clean
-                " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && gcc " .. entry_point .. " -o " .. output .. " " .. parameters .. -- compile
-                " && echo " .. entry_point ..                                         -- echo
+          cmd = "rm -f " .. output ..                                                -- clean
+                " && mkdir -p " .. output_dir ..                                     -- mkdir
+                " && gcc " .. files .. " -o " .. output .. " " .. parameters ..      -- compile
+                " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
@@ -113,15 +116,16 @@ function M.action(selected_option)
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.c")
 
-      for _, ep in ipairs(entry_points) do
-        ep = utils.osPath(ep)
-        output_dir = utils.osPath(ep:match("^(.-[/\\])[^/\\]*$") .. "/bin") -- entry_point/bin
-        output = utils.osPath(output_dir .. "/program")                     -- entry_point/bin/program
-        task = { "shell", name = "- Build program → " .. ep,
-          cmd = "rm -f " .. output ..                                        -- clean
-                " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && gcc " .. ep .. " -o " .. output .. " " .. parameters .. -- compile
-                " && echo " .. ep ..                                         -- echo
+      for _, entry_point in ipairs(entry_points) do
+        entry_point = utils.osPath(entry_point)
+        files = utils.find_files_to_compile(entry_point, "*.c")
+        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "/bin") -- entry_point/bin
+        output = utils.osPath(output_dir .. "/program")                              -- entry_point/bin/program
+        task = { "shell", name = "- Build program → " .. entry_point,
+          cmd = "rm -f " .. output ..                                                -- clean
+                " && mkdir -p " .. output_dir ..                                     -- mkdir
+                " && gcc " .. files .. " -o " .. output .. " " .. parameters ..      -- compile
+                " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
