@@ -31,6 +31,7 @@ function M.action(selected_option)
   local overseer = require("overseer")
   local current_file = vim.fn.expand('%:p')                                  -- current file
   local entry_point = utils.osPath(vim.fn.getcwd() .. "/main.py")            -- working_directory/main.py
+  local files = utils.find_files_to_compile(entry_point, "*.py")             -- *.py files under entry_point_dir (recursively)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
   local final_message = "--task finished--"
@@ -93,11 +94,11 @@ function M.action(selected_option)
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.py")
       local parameters = ""
-      for _, ep in ipairs(entry_points) do
-        ep = utils.osPath(ep)
-        task = { "shell", name = "- Build program → " .. ep,
-          cmd = "python " .. ep .. " " .. parameters  ..                     -- run (interpreted)
-                " && echo " .. ep ..                                         -- echo
+      for _, entry_point in ipairs(entry_points) do
+        entry_point = utils.osPath(entry_point)
+        task = { "shell", name = "- Build program → " .. entry_point,
+          cmd = "python " .. entry_point .. " " .. parameters  ..            -- run (interpreted)
+                " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
@@ -123,34 +124,34 @@ function M.action(selected_option)
 
   --========================== MACHINE CODE =================================--
   elseif selected_option == "option4" then
-    local parameters = "--warn-implicit-exceptions --warn-unusual-code" --optional
+    local parameters = "--warn-implicit-exceptions --warn-unusual-code"                -- optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                        -- clean
-            " && mkdir -p " .. output_dir ..                                 -- mkdir
-            " && nuitka3 --no-pyi-file --remove-output"  ..                  -- compile to machine code
+          cmd = "rm -f " .. output ..                                                  -- clean
+            " && mkdir -p " .. output_dir ..                                           -- mkdir
+            " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..           -- compile to machine code
               " --output-filename=" .. output  ..
               " " .. parameters .. " " .. entry_point ..
-            " && " .. output ..                                              -- run
-            " && echo " .. entry_point ..                                    -- echo
+            " && " .. output ..                                                        -- run
+            " && echo " .. entry_point ..                                              -- echo
             " && echo '" .. final_message .. "'"
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option5" then
-    local parameters = "--warn-implicit-exceptions --warn-unusual-code" --optional
+    local parameters = "--warn-implicit-exceptions --warn-unusual-code"                 --optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                        -- clean
-                " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && nuitka3 --no-pyi-file --remove-output"  ..              -- compile to machine code
+          cmd = "rm -f " .. output ..                                                   -- clean
+                " && mkdir -p " .. output_dir ..                                        -- mkdir
+                " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=" .. output  ..
                   " " .. parameters .. " " .. entry_point ..
-                " && echo " .. entry_point ..                                -- echo
+                " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -160,8 +161,8 @@ function M.action(selected_option)
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd = output ..                                                  -- run
-                  " && echo " .. output ..                                   -- echo
+            cmd = output ..                                                             -- run
+                  " && echo " .. output ..                                              -- echo
                   " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -186,12 +187,12 @@ function M.action(selected_option)
         output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
         local parameters = variables.parameters or "--warn-implicit-exceptions --warn-unusual-code" -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                        -- clean
-                " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && nuitka3 --output-dir=" .. output_dir ..                 -- compile to machine code
+          cmd = "rm -f " .. output ..                                                   -- clean
+                " && mkdir -p " .. output_dir ..                                        -- mkdir
+                " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=" .. output  ..
-                  " --remove-output " .. parameters .. " " .. entry_point ..
-                " && echo " .. entry_point ..                                -- echo
+                  " " .. parameters .. " " .. entry_point ..
+                " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
@@ -200,8 +201,8 @@ function M.action(selected_option)
 
       if executable then
         task = { "shell", name = "- Python machine code compiler",
-          cmd = executable ..                                                -- run
-                " && echo " .. executable ..                                 -- echo
+          cmd = executable ..                                                           -- run
+                " && echo " .. executable ..                                            -- echo
                 " && echo '" .. final_message .. "'"
         }
       else
@@ -221,18 +222,18 @@ function M.action(selected_option)
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.py")
 
-      for _, ep in ipairs(entry_points) do
-        ep = utils.osPath(ep)
-        output_dir = utils.osPath(ep:match("^(.-[/\\])[^/\\]*$") .. "/bin") -- entry_point/bin
-        output = utils.osPath(output_dir .. "/program")                     -- entry_point/bin/program
-        local parameters = "--warn-implicit-exceptions --warn-unusual-code" -- optional
-        task = { "shell", name = "- Build program → " .. ep,
-          cmd = "rm -f " .. output ..                                        -- clean
-                " && mkdir -p " .. output_dir ..                             -- mkdir
-                " && nuitka3 --output-dir=" .. output_dir ..                 -- compile to machine code
+      for _, entry_point in ipairs(entry_points) do
+        entry_point = utils.osPath(entry_point)
+        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "/bin")    -- entry_point/bin
+        output = utils.osPath(output_dir .. "/program")                                 -- entry_point/bin/program
+        local parameters = "--warn-implicit-exceptions --warn-unusual-code"             -- optional
+        task = { "shell", name = "- Build program → " .. entry_point,
+          cmd = "rm -f " .. output ..                                                   -- clean
+                " && mkdir -p " .. output_dir ..                                        -- mkdir
+                " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=" .. output  ..
-                  " --remove-output " .. parameters .. " " .. entry_point ..
-                " && echo " .. ep ..                                         -- echo
+                  " " .. parameters .. " " .. entry_point ..
+                " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
@@ -265,16 +266,16 @@ function M.action(selected_option)
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                 -- clean
-                " && mkdir -p " .. output_dir ..                                      -- mkdir
+          cmd = "rm -f " .. output ..                                                   -- clean
+                " && mkdir -p " .. output_dir ..                                        -- mkdir
                 " && mkdir -p " .. cache_dir ..
-                " && pyinstaller " .. entry_point ..                                  -- compile to bytecode
+                " && pyinstaller " .. files ..                                          -- compile to bytecode
                   " --name " .. output_filename ..
                   " --workpath " .. cache_dir ..
                   " --specpath " .. cache_dir ..
                   " --onefile --distpath " .. output_dir .. " " .. parameters ..
-                " && " .. output ..                                                   -- run
-                " && echo " .. entry_point ..                                         -- echo
+                " && " .. output ..                                                     -- run
+                " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -287,15 +288,15 @@ function M.action(selected_option)
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                 -- clean
-                " && mkdir -p " .. output_dir ..                                      -- mkdir
+          cmd = "rm -f " .. output ..                                                   -- clean
+                " && mkdir -p " .. output_dir ..                                        -- mkdir
                 " && mkdir -p " .. cache_dir ..
-                " && pyinstaller " .. entry_point ..                                  -- compile to bytecode
+                " && pyinstaller " .. files ..                                          -- compile to bytecode
                   " --name " .. output_filename ..
                   " --workpath " .. cache_dir ..
                   " --specpath " .. cache_dir ..
                   " --onefile --distpath " .. output_dir .. " " .. parameters ..
-                " && echo " .. entry_point ..                                         -- echo
+                " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -305,8 +306,8 @@ function M.action(selected_option)
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd = output ..                                                           -- run
-                " && echo " .. output ..                                              -- echo
+            cmd = output ..                                                             -- run
+                " && echo " .. output ..                                                -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -328,20 +329,21 @@ function M.action(selected_option)
         end
         local cache_dir = utils.osPath(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
         entry_point = utils.osPath(variables.entry_point)
+        files = utils.find_files_to_compile(entry_point, "*.py")
         output = utils.osPath(variables.output)
         local output_filename = vim.fn.fnamemodify(output, ":t")
         output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
         local parameters = variables.parameters or "--log-level WARN --python-option W" -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                 -- clean
-                " && mkdir -p " .. output_dir ..                                      -- mkdir
+          cmd = "rm -f " .. output ..                                                   -- clean
+                " && mkdir -p " .. output_dir ..                                        -- mkdir
                 " && mkdir -p " .. cache_dir ..
-                " && pyinstaller " .. entry_point ..                                  -- compile to bytecode
+                " && pyinstaller " .. files ..                                          -- compile to bytecode
                   " --name " .. output_filename ..
                   " --workpath " .. cache_dir ..
                   " --specpath " .. cache_dir ..
                   " --onefile --distpath " .. output_dir .. " " .. parameters ..
-                " && echo " .. entry_point ..                                         -- echo
+                " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
@@ -350,8 +352,8 @@ function M.action(selected_option)
 
       if executable then
         task = { "shell", name = "- Python bytecode compiler",
-          cmd = executable ..                                                         -- run
-                " && echo " .. executable ..                                          -- echo
+          cmd = executable ..                                                           -- run
+                " && echo " .. executable ..                                            -- echo
                 " && echo '" .. final_message .. "'"
         }
       else
@@ -371,22 +373,23 @@ function M.action(selected_option)
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.py")
 
-      for _, ep in ipairs(entry_points) do
-        ep = utils.osPath(ep)
-        output_dir = utils.osPath(ep:match("^(.-[/\\])[^/\\]*$") .. "/bin") -- entry_point/bin
-        output = utils.osPath(output_dir .. "/program")                     -- entry_point/bin/program
+      for _, entry_point in ipairs(entry_points) do
+        entry_point = utils.osPath(entry_point)
+        files = utils.find_files_to_compile(entry_point, "*.py")
+        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "/bin")    -- entry_point/bin
+        output = utils.osPath(output_dir .. "/program")                                 -- entry_point/bin/program
         local cache_dir = utils.osPath(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
         local output_filename = vim.fn.fnamemodify(output, ":t")
-        local parameters = "--log-level WARN --python-option W" -- optional
-        task = { "shell", name = "- Build program → " .. ep,
-          cmd = "rm -f " .. output ..                                        -- clean
-                " && mkdir -p " .. cache_dir ..                              -- mkdir
-                " && pyinstaller " .. entry_point ..                         -- compile to bytecode
+        local parameters = "--log-level WARN --python-option W"                         -- optional
+        task = { "shell", name = "- Build program → " .. entry_point,
+          cmd = "rm -f " .. output ..                                                   -- clean
+                " && mkdir -p " .. cache_dir ..                                         -- mkdir
+                " && pyinstaller " .. files ..                                          -- compile to bytecode
                   " --name " .. output_filename ..
                   " --workpath " .. cache_dir ..
                   " --specpath " .. cache_dir ..
                   " --onefile --distpath " .. output_dir .. " " .. parameters ..
-                " && echo " .. ep ..                                         -- echo
+                " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
