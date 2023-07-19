@@ -114,11 +114,11 @@ function M.action(selected_option)
 
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.osPath(entry_point)
-        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "/bin")     -- entry_point/bin
-        output = utils.osPath(output_dir .. "/program")                         -- entry_point/bin/program
+        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")      -- entry_point/bin
+        output = utils.osPath(output_dir .. "/program")                                  -- entry_point/bin/program
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                           -- clean
-                " && mkdir -p " .. output_dir ..                                -- mkdir
+          cmd = "rm -f " .. output ..                                                    -- clean
+                " && mkdir -p " .. output_dir ..                                         -- mkdir
                 " && rustc " .. entry_point .. " -o " .. output .. " " .. parameters ..  -- compile
                 " && echo " .. entry_point ..                                            -- echo
                 " && echo '" .. final_message .. "'"
@@ -133,7 +133,7 @@ function M.action(selected_option)
       vim.cmd("OverseerOpen")
     end
   elseif selected_option == "option5" then
-    require("compiler.languages.make").run_makefile()                           -- run
+    require("compiler.languages.make").run_makefile()                        -- run
   end
 end
 

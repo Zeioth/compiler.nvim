@@ -224,7 +224,7 @@ function M.action(selected_option)
 
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.osPath(entry_point)
-        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "/bin")    -- entry_point/bin
+        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")     -- entry_point/bin
         output = utils.osPath(output_dir .. "/program")                                 -- entry_point/bin/program
         local parameters = "--warn-implicit-exceptions --warn-unusual-code"             -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
@@ -376,7 +376,7 @@ function M.action(selected_option)
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.osPath(entry_point)
         files = utils.find_files_to_compile(entry_point, "*.py")
-        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "/bin")    -- entry_point/bin
+        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")     -- entry_point/bin
         output = utils.osPath(output_dir .. "/program")                                 -- entry_point/bin/program
         local cache_dir = utils.osPath(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
         local output_filename = vim.fn.fnamemodify(output, ":t")

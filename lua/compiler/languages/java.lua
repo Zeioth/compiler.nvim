@@ -120,7 +120,7 @@ function M.action(selected_option)
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.osPath(entry_point)
         files = utils.find_files_to_compile(entry_point, "*.java")
-        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "/bin")          -- entry_point/bin
+        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")           -- entry_point/bin
         output = utils.osPath(output_dir .. "/program")                                       -- entry_point/bin/program
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                         -- clean
