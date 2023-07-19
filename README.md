@@ -34,11 +34,12 @@ Neovim compiler for building and running your code without having to configure a
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 * perl (wip)
 * lua (wip)
+* go
 * javascript (wip)
 * typescript (wip)
 
 ### Planned & coming soon:
-* go
+
 * objetive C
 * swift
 * kotlin
