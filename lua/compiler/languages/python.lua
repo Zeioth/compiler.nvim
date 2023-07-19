@@ -20,7 +20,7 @@ M.options = {
   { text = "8  - Build and run program (bytecode)", value = "option8" },
   { text = "9  - Build program (bytecode)", value = "option9" },
   { text = "10 - Run program (bytecode)", value = "option10" },
-  { text = "11 - Run solution (bytecode)", value = "option11" },
+  { text = "11 - Build solution (bytecode)", value = "option11" },
   { text = "", value = "separator" },
   { text = "12 - Run Makefile", value = "option12" }
 }
