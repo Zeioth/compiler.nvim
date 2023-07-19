@@ -1,17 +1,16 @@
-section .text
-    global helper_function
+section .data
+    hello db 'Hello, World!',0
 
-helper_function:
-    ; Print "This is a helper function."
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, helper_message
-    mov edx, helper_message_len
-    int 0x80
+section .text
+    global print_hello
+
+print_hello:
+    ; Write the message to stdout
+    mov eax, 1                  ; Syscall number for write
+    mov edi, 1                  ; File descriptor 1: stdout
+    mov rsi, hello              ; Address of the string
+    mov edx, 13                 ; Length of the string
+    syscall
 
     ret
-
-section .data
-    helper_message db "This is a helper function.", 0x0A
-    helper_message_len equ $ - helper_message
 

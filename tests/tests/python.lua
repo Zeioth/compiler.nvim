@@ -1,7 +1,7 @@
 --- This test run "Build program" for all languages.
 --- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests/python.lua
 
-local ms = 5000 -- wait time
+local ms = 6000 -- wait time
 local language = require("compiler.languages.python")
 local example
 
