@@ -6,7 +6,7 @@ local M = {}
 --  in all directories under start_dir.
 ---@param start_dir string
 ---@param file_name string
----@return A collection of files. Emply collection if no files found.
+---@return table files Empty table if no files found.
 function M.find_files(start_dir, file_name)
   local files = {}
 
@@ -31,11 +31,12 @@ function M.find_files(start_dir, file_name)
   return files
 end
 
---- Return Files matching the pattern in entry_point's directory, recursively searched.
+--- Search recursively, starting by the directory
+--- of the entry_point file. Return files matching the pattern.
 ---@param entry_point string Entry point file of the program.
 ---@param pattern string File extension to search.
----@return A string Files separated by a space.
----@usage find_files_as_string(entry_point, "*.c")
+---@return string files_as_string Files separated by a space.
+---@usage find_files_to_compile("/path/to/main.c", "*.c")
 function M.find_files_to_compile(entry_point, pattern)
   local entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
   local files = M.find_files(entry_point_dir, pattern)
@@ -46,32 +47,32 @@ end
 
 -- Parse the config file and extract variables
 ---@param string
----@return A collection like { {entry_point, ouptput, ..} .. }
+---@return table config A table like { {entry_point, ouptput, ..} .. }
 function M.parseConfigFile(filePath)
   local file = assert(io.open(filePath, "r"))  -- Open the file in read mode
-  local collection = {}  -- Initialize an empty Lua table to store the variables
+  local config = {}  -- Initialize an empty Lua table to store the variables
   local currentEntry = nil  -- Variable to track the current entry being processed
 
   for line in file:lines() do
     local entry = line:match("%[([^%]]+)%]")  -- Check if the line represents a new entry
     if entry then
       currentEntry = entry  -- Update the current entry being processed
-      collection[currentEntry] = {}  -- Initialize a sub-table for the current entry
+      config[currentEntry] = {}  -- Initialize a sub-table for the current entry
     else
       local key, value = line:match("([^=]+)%s-=%s-(.+)")  -- Extract key-value pairs
       if key and value and currentEntry then
         value = value:gsub("^%s*[\"'](.+)[\"']%s*$", "%1")  -- Remove surrounding quotes if present
-        collection[currentEntry][vim.trim(key)] = vim.trim(value)  -- Store the variable in the collection
+        config[currentEntry][vim.trim(key)] = vim.trim(value)  -- Store the variable in the table
       end
     end
   end
 
   file:close()  -- Close the file
-  return collection  -- Return the parsed collection
+  return config  -- Return the parsed config
 end
 
 --- Programatically require the backend for the current language.
----@return a module. If languages/<filetype>.lua doesn't exist,
+---@return module language If languages/<filetype>.lua doesn't exist,
 --         send a notification and return nil.
 function M.requireLanguage(filetype)
   local localPath = debug.getinfo(1, "S").source:sub(2)
