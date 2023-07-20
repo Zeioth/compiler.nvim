@@ -188,5 +188,4 @@ If you want to help me, please star this repository to increase the visibility o
 
 ## Roadmap
 
-* Command `CompilerRedo` to re-run the last selected action. This comes handy for languages with many options like python or ruby.
 * Research the viability of supporting building system for languages which have an standard (c, cpp, rust, java)
