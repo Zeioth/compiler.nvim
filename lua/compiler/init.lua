@@ -24,7 +24,7 @@ M.setup = function(ctx)
     -- If filetype is not the same as when the option was selected, send a notification.
     local current_filetype = vim.bo.filetype
     if _G.compiler_redo_filetype ~= current_filetype then
-      vim.notify("You are on a different language now. Select a compiler option before doing redo.", "info")
+      vim.notify("You are on a different language now. Open the compiler and select an option before doing redo.", "info")
       return
     end
     -- Redo
