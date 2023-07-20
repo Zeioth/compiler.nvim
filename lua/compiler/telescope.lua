@@ -24,6 +24,8 @@ function M.show()
     actions.close(prompt_bufnr) -- Close Telescope on selection
     local selection = state.get_selected_entry()
     if selection.value == "" then return end -- Ignore separators
+    _G.compiler_redo = selection.value       -- Save redo
+    _G.compiler_redo_filetype = filetype     -- Save redo
     if selection then language.action(selection.value) end
   end
 
