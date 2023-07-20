@@ -16,9 +16,18 @@ M.setup = function(ctx)
   end, { desc = "Toggle the compiler results" })
 
   cmd("CompilerRedo", function()
-    -- Only allow redo if filetype is the same as when the option was selected.
+    -- If the user didn't select an option yet, send a notification.
+    if _G.compiler_redo == nil then
+      vim.notify("Open the compiler and select an option before doing redo.", "info")
+      return
+    end
+    -- If filetype is not the same as when the option was selected, send a notification.
     local current_filetype = vim.bo.filetype
-    if _G.compiler_redo_filetype ~= current_filetype then return end
+    if _G.compiler_redo_filetype ~= current_filetype then
+      vim.notify("You are on a different language now. Select a compiler option before doing redo.", "info")
+      return
+    end
+    -- Redo
     local language = utils.requireLanguage(current_filetype)
     if not language then language = require("compiler.languages.make") end
     language.action(_G.compiler_redo)
