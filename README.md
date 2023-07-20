@@ -99,6 +99,8 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>', "<cmd>CompilerToggleResults<cr>", 
 |--|--|
 | `:CompilerOpen` | Shows the adecuated compiler for your buffer's filetype. |
 | `:CompilerToggleResults` | Open or close the compiler results. |
+| `:CompilerRedo` | Redo the lastest selected option. |
+
 
 ## How to use (Basic usage)
 This is what hapen when you select `build & run`, `build`, or `run` in the compiler:
