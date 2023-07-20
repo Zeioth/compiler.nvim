@@ -34,7 +34,7 @@ Neovim compiler for building and running your code without having to configure a
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 * perl (wip)
 * lua (wip)
-* go
+* go (wip)
 * javascript (wip)
 * typescript (wip)
 
@@ -99,6 +99,8 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>', "<cmd>CompilerToggleResults<cr>", 
 |--|--|
 | `:CompilerOpen` | Shows the adecuated compiler for your buffer's filetype. |
 | `:CompilerToggleResults` | Open or close the compiler results. |
+| `:CompilerRedo` | Redo the last selected option. |
+
 
 ## How to use (Basic usage)
 This is what hapen when you select `build & run`, `build`, or `run` in the compiler:
@@ -186,5 +188,4 @@ If you want to help me, please star this repository to increase the visibility o
 
 ## Roadmap
 
-* Command `CompilerRedo` to re-run the last selected action. This comes handy for languages with many options like python or ruby.
 * Research the viability of supporting building system for languages which have an standard (c, cpp, rust, java)
