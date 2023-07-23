@@ -1,4 +1,4 @@
---- C language actions
+--- Go language actions
 
 local M = {}
 
