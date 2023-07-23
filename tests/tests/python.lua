@@ -1,4 +1,4 @@
---- This test run "Build program" for all languages.
+--- This test file run all supported cases of use.
 --- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests/python.lua
 
 local ms = 6000 -- wait time

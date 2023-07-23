@@ -1,4 +1,4 @@
---- This test run "Run Makefile" (which is the same for all languages).
+--- This test file run all supported cases of use.
 --- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests/makefile.lua
 
 local ms = 1000 -- wait time
