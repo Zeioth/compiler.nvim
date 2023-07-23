@@ -1,5 +1,5 @@
 --- This test file run all supported cases of use.
---- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests/python.lua
+--- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests/ruby.lua
 
 local ms = 1000 -- wait time
 local language = require("compiler.languages.ruby")
