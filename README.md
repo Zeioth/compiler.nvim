@@ -27,6 +27,7 @@ Neovim compiler for building and running your code without having to configure a
 * [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua)
 * [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua)
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
+* [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua)
 * [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
 * [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler))
 * [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua)
@@ -34,7 +35,7 @@ Neovim compiler for building and running your code without having to configure a
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 * perl (wip)
 * lua (wip)
-* go (wip)
+
 * javascript (wip)
 * typescript (wip)
 
