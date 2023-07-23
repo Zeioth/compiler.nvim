@@ -49,7 +49,7 @@ function M.action(selected_option)
     }
     -- Run program
     local task_run = { "shell", name = "- Run program → " .. output,
-      cmd = " && " .. output ..                                                    -- run
+      cmd = output ..                                                              -- run
             " && echo " .. output ..                                               -- echo
             " && echo '" .. final_message .. "'"
     }
@@ -210,7 +210,7 @@ function M.action(selected_option)
         }
         -- Run program
         local task_run = { "shell", name = "- Run program → " .. output,
-          cmd = " && " .. output ..                                              -- run
+          cmd = output ..                                                       -- run
                 " && echo " .. output ..                                         -- echo
                 " && echo '" .. final_message .. "'"
         }
