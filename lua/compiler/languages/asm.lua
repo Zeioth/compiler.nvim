@@ -31,28 +31,35 @@ function M.action(selected_option)
       local output_o = output_dir .. filename .. ".o"
       local task = { "shell", name = "- Build program → " .. file,
         cmd = "mkdir -p " .. output_dir ..
-              " && nasm -f elf64 " .. file .. " -o " .. output_o .. parameters ..  -- compile
-              " && echo " .. file ..                                               -- echo
+              " && nasm -f elf64 " .. file .. " -o " .. output_o .. parameters ..   -- compile
+              " && echo " .. file ..                                                -- echo
               " && echo '" .. final_message .. "'"
       }
       files[_] = output_dir .. filename .. ".o" -- prepare for linker
       table.insert(tasks_compile, task)
     end
-    -- Then link and run
+    -- Link .o files
     files = table.concat(files ," ") -- table to string
     local task_link = { "shell", name = "- Link program → " .. entry_point,
-      cmd = "ld " .. files .. " -o " .. output .. " " .. parameters ..          -- link
-           " && rm -f " .. files ..                                             -- clean
-           " && " .. output ..                                                  -- run
-           " && echo " .. output ..                                             -- echo
-           " && echo '" .. final_message .. "'"
+      cmd = "ld " .. files .. " -o " .. output .. " " .. parameters ..             -- link
+            " && rm -f " .. files ..                                               -- clean
+            " && " .. output ..                                                    -- run
+            " && echo " .. output ..                                               -- echo
+            " && echo '" .. final_message .. "'"
+    }
+    -- Run program
+    local task_run = { "shell", name = "- Run program → " .. output,
+      cmd = " && " .. output ..                                                    -- run
+            " && echo " .. output ..                                               -- echo
+            " && echo '" .. final_message .. "'"
     }
     -- Runs tasks in order
     task = overseer.new_task({
       name = "- Assembly compiler", strategy = { "orchestrator",
         tasks = {
           tasks_compile, -- Build .asm files in parallel
-          task_link,     -- Then link and run
+          task_link,     -- Link .o files
+          task_run       -- Run program
         }}})
     task:start()
     vim.cmd("OverseerOpen")
@@ -72,12 +79,12 @@ function M.action(selected_option)
       files[_] = output_dir .. filename .. ".o" -- prepare for linker
       table.insert(tasks_compile, task)
     end
-    -- Then link
+    -- Link .o files
     files = table.concat(files ," ") -- table to string
     local task_link = { "shell", name = "- Link program → " .. entry_point,
-      cmd = "ld " .. files .. " -o " .. output .. " " .. parameters ..          -- link
-           " && rm -f " .. files ..                                             -- clean
-           " && echo " .. output ..                                             -- echo
+      cmd = "ld " .. files .. " -o " .. output .. " " .. parameters ..             -- link
+           " && rm -f " .. files ..                                                -- clean
+           " && echo " .. output ..                                                -- echo
            " && echo '" .. final_message .. "'"
     }
     -- Runs tasks in order
@@ -85,7 +92,7 @@ function M.action(selected_option)
       name = "- Assembly compiler", strategy = { "orchestrator",
         tasks = {
           tasks_compile, -- Build .asm files in parallel
-          task_link,     -- Then link and run
+          task_link,     -- Link .o files
         }}})
     task:start()
     vim.cmd("OverseerOpen")
@@ -94,8 +101,8 @@ function M.action(selected_option)
       name = "- Assembly compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-          cmd = output ..                                                    -- run
-                " && echo && echo " .. output ..                             -- echo
+          cmd = output ..                                                          -- run
+                " && echo && echo " .. output ..                                   -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -137,7 +144,7 @@ function M.action(selected_option)
           files[_] = output_dir .. filename .. ".o" -- prepare for linker
           table.insert(tasks_compile, task)
         end
-        -- Then link
+        -- Link .o files
         files = table.concat(files ," ") -- table to string
         local task_link = { "shell", name = "- Link program → " .. entry_point,
           cmd = "ld " .. files .. " -o " .. output .. " " .. parameters ..       -- link
@@ -194,16 +201,22 @@ function M.action(selected_option)
           files[_] = output_dir .. filename .. ".o" -- prepare for linker
           table.insert(tasks_compile, task)
         end
-        -- Then link
+        -- Link .o files
         files = table.concat(files ," ") -- table to string
         local task_link = { "shell", name = "- Link program → " .. entry_point,
           cmd = "ld " .. files .. " -o " .. output .. " " .. parameters ..       -- link
                " && rm -f " .. files ..                                          -- clean
-               " && echo " .. output ..                                          -- echo
                " && echo '" .. final_message .. "'"
+        }
+        -- Run program
+        local task_run = { "shell", name = "- Run program → " .. output,
+          cmd = " && " .. output ..                                              -- run
+                " && echo " .. output ..                                         -- echo
+                " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, tasks_compile) -- store all the tasks we've created
         table.insert(tasks, task_link)
+        table.insert(tasks, task_run)
       end
 
       task = overseer.new_task({
