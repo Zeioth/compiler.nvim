@@ -1,0 +1,5 @@
+[HELLO WORLD]
+entry_point = ./main.pl
+
+[MY OTHER COOL SCRIPT]
+entry_point = ./extra.pl
