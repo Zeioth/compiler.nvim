@@ -45,7 +45,7 @@ function M.action(selected_option)
         entry_point = utils.osPath(variables.entry_point)
         parameters = variables.parameters or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
-          cmd = parameters .. " " .. entry_point ..                          -- run
+          cmd = parameters .. parameters == "" or " " .. entry_point ..      -- run
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"                         -- echo
         }
