@@ -208,15 +208,8 @@ function M.action(selected_option)
                " && rm -f " .. files ..                                          -- clean
                " && echo '" .. final_message .. "'"
         }
-        -- Run program
-        local task_run = { "shell", name = "- Run program → " .. output,
-          cmd = output ..                                                       -- run
-                " && echo " .. output ..                                         -- echo
-                " && echo '" .. final_message .. "'"
-        }
         table.insert(tasks, tasks_compile) -- store all the tasks we've created
         table.insert(tasks, task_link)
-        table.insert(tasks, task_run)
       end
 
       task = overseer.new_task({
