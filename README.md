@@ -35,15 +35,15 @@ Neovim compiler for building and running your code without having to configure a
 * [perl](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/perl.lua)
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
-* perl (wip)
+* objetive C
+* swift
+* kotlin
 * javascript (wip)
 * typescript (wip)
 
 ### Planned & coming soon:
 
-* objetive C
-* swift
-* kotlin
+
 * elixir
 * visual basic
 * F
