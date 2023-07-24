@@ -31,8 +31,8 @@ function M.action(selected_option)
       local output_o = output_dir .. filename .. ".o"
       local task = { "shell", name = "- Build program → " .. file,
         cmd = "mkdir -p " .. output_dir ..
-              " && nasm -f elf64 " .. file .. " -o " .. output_o .. parameters ..   -- compile
-              " && echo " .. file ..                                                -- echo
+              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " ".. parameters ..     -- compile
+              " && echo " .. file ..                                               -- echo
               " && echo '" .. final_message .. "'"
       }
       files[_] = output_dir .. filename .. ".o" -- prepare for linker
@@ -41,7 +41,7 @@ function M.action(selected_option)
     -- Link .o files
     files = table.concat(files ," ") -- table to string
     local task_link = { "shell", name = "- Link program → " .. entry_point,
-      cmd = "ld " .. files .. " -o " .. output .. " " .. parameters ..             -- link
+      cmd = "ld " .. files .. " -o " .. output ..                                  -- link
             " && rm -f " .. files ..                                               -- clean
             " && " .. output ..                                                    -- run
             " && echo " .. output ..                                               -- echo
@@ -72,7 +72,7 @@ function M.action(selected_option)
       local output_o = output_dir .. filename .. ".o"
       local task = { "shell", name = "- Build program → " .. file,
         cmd = "mkdir -p " .. output_dir ..
-              " && nasm -f elf64 " .. file .. " -o " .. output_o .. parameters  .. -- compile
+              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. parameters  ..   -- compile
               " && echo " .. file ..                                               -- echo
               " && echo '" .. final_message .. "'"
       }
@@ -82,7 +82,7 @@ function M.action(selected_option)
     -- Link .o files
     files = table.concat(files ," ") -- table to string
     local task_link = { "shell", name = "- Link program → " .. entry_point,
-      cmd = "ld " .. files .. " -o " .. output .. " " .. parameters ..             -- link
+      cmd = "ld " .. files .. " -o " .. output ..                                  -- link
            " && rm -f " .. files ..                                                -- clean
            " && echo " .. output ..                                                -- echo
            " && echo '" .. final_message .. "'"
@@ -137,7 +137,7 @@ function M.action(selected_option)
           local output_o = output_dir .. filename .. ".o"
           local task = { "shell", name = "- Build program → " .. file,
             cmd = "mkdir -p " .. output_dir ..
-                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. parameters ..  -- compile
+                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. parameters ..    -- compile
                   " && echo " .. file ..                                               -- echo
                   " && echo '" .. final_message .. "'"
           }
@@ -147,7 +147,7 @@ function M.action(selected_option)
         -- Link .o files
         files = table.concat(files ," ") -- table to string
         local task_link = { "shell", name = "- Link program → " .. entry_point,
-          cmd = "ld " .. files .. " -o " .. output .. " " .. parameters ..       -- link
+          cmd = "ld " .. files .. " -o " .. output ..                            -- link
                " && rm -f " .. files ..                                          -- clean
                " && echo " .. output ..                                          -- echo
                " && echo '" .. final_message .. "'"
@@ -194,8 +194,8 @@ function M.action(selected_option)
           local output_o = output_dir .. filename .. ".o"
           local task = { "shell", name = "- Build program → " .. file,
             cmd = "mkdir -p " .. output_dir ..
-                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. parameters ..  -- compile
-                  " && echo " .. file ..                                               -- echo
+                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. parameters ..  -- compile
+                  " && echo " .. file ..                                             -- echo
                   " && echo '" .. final_message .. "'"
           }
           files[_] = output_dir .. filename .. ".o" -- prepare for linker
@@ -204,7 +204,7 @@ function M.action(selected_option)
         -- Link .o files
         files = table.concat(files ," ") -- table to string
         local task_link = { "shell", name = "- Link program → " .. entry_point,
-          cmd = "ld " .. files .. " -o " .. output .. " " .. parameters ..       -- link
+          cmd = "ld " .. files .. " -o " .. output ..                            -- link
                " && rm -f " .. files ..                                          -- clean
                " && echo '" .. final_message .. "'"
         }
