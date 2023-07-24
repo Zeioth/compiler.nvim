@@ -122,7 +122,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | ruby | ./main.rb |  |
 | lua | ./main.lua |  |
 | perl | ./main.pl |  |
-| shell | [current buffer] |  |
+| shell | ./main.sh |  |
 | make | ./Makefile | |
 
 This is how the compilation results look after selecting `Build & run program` in c
