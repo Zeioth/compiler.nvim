@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-. helper.sh
+. "./helper.sh"
 
 print_hello
 
