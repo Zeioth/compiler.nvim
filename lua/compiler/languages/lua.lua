@@ -20,7 +20,7 @@ function M.action(selected_option)
 
   if selected_option == "option1" then
     local task = overseer.new_task({
-      name = "- Ruby interpreter",
+      name = "- Lua interpreter",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run this file → " .. current_file,
           cmd =  "lua " .. current_file ..                                   -- run (interpreted)
@@ -31,7 +31,7 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option2" then
     local task = overseer.new_task({
-      name = "- Ruby interpreter",
+      name = "- Lua interpreter",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
             cmd = "lua " .. entry_point ..                                   -- run (interpreted)
@@ -61,7 +61,7 @@ function M.action(selected_option)
       end
 
       task = overseer.new_task({
-        name = "- Ruby interpreter", strategy = { "orchestrator",
+        name = "- Lua interpreter", strategy = { "orchestrator",
           tasks = {
             tasks, -- Run all the programs in the solution in parallel
           }}})
@@ -83,7 +83,7 @@ function M.action(selected_option)
       end
 
       task = overseer.new_task({ -- run all tasks we've created in parallel
-        name = "- Ruby interpreter", strategy = { "orchestrator", tasks = tasks }
+        name = "- Lua interpreter", strategy = { "orchestrator", tasks = tasks }
       })
       task:start()
       vim.cmd("OverseerOpen")
