@@ -32,6 +32,7 @@ Neovim compiler for building and running your code without having to configure a
 * [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler))
 * [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/ruby.lua)
 * [lua](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/lua.lua)
+* [perl](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/perl.lua)
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 * perl (wip)
@@ -119,6 +120,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | python | ./main.py | ./bin/program |
 | ruby | ./main.rb |  |
 | lua | ./main.lua |  |
+| perl | ./main.pl |  |
 | shell | [current buffer] |  |
 | make | ./Makefile | |
 
