@@ -53,7 +53,7 @@ function M.action(selected_option)
         entry_point = utils.osPath(variables.entry_point)
         parameters = variables.parameters or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
-          cmd = "lua " .. entry_point .. " " .. parameters  ..               -- run (interpreted)
+          cmd = "lua " .. parameters .. " " .. entry_point ..                -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -75,7 +75,7 @@ function M.action(selected_option)
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.osPath(entry_point)
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "lua " .. entry_point .. " " .. parameters  ..               -- run (interpreted)
+          cmd = "lua " .. parameters .. " " .. entry_point ..                -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"
         }
