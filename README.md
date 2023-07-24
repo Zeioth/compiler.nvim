@@ -30,12 +30,11 @@ Neovim compiler for building and running your code without having to configure a
 * [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua)
 * [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
 * [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler))
-* [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua)
+* [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/ruby.lua)
+* [lua](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/lua.lua)
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 * perl (wip)
-* lua (wip)
-
 * javascript (wip)
 * typescript (wip)
 
@@ -115,9 +114,11 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c# | ./Program.cs | ./bin/Program.exe |
 | java | ./Main.java | ./bin/Main.class |
 | rust | ./main.rs | ./bin/program |
+| go | ./main.go | ./bin/program |
 | asm x86-64 | ./main.asm | ./bin/program |
 | python | ./main.py | ./bin/program |
 | ruby | ./main.rb |  |
+| lua | ./main.lua |  |
 | shell | [current buffer] |  |
 | make | ./Makefile | |
 
