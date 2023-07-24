@@ -43,7 +43,8 @@ Neovim compiler for building and running your code without having to configure a
 
 ### Planned & coming soon:
 
-
+* scala
+* r
 * elixir
 * visual basic
 * F
