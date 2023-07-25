@@ -167,7 +167,7 @@ This option will look for a Makefile in the working directory and execute it wit
 For building systems not directly supported by Compiler.nvim: Create a Makefile and use it to call cmake, maven, or any other build system you want to use from there. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## Quick start
-Starting to use [Compiler.nvim](https://github.com/Zeioth/compiler.nvim) is very easy. Create `./c_example/main.c` and run `:cd ./c_example/` inside neovim. Then paste this code:
+Starting to use [Compiler.nvim](https://github.com/Zeioth/compiler.nvim) is very easy. Create `./c_example/main.c` and paste this code. Then do `:cd ./c_example/` to change the working directory to the project.
 
 ```c
 #include <stdio.h>
