@@ -169,7 +169,7 @@ For building systems not directly supported by Compiler.nvim: Create a Makefile 
 ## Quick start
 Ready to try the compiler? Create the folder `/c_example` in your home directory and make sure you `:cd ./c_example`. Then paste this into `./c_example/main.c`
 
-```
+```c
 #include <stdio.h>
 
 int main() {
