@@ -167,9 +167,8 @@ This option will look for a Makefile in the working directory and execute it wit
 For building systems not directly supported by Compiler.nvim: Create a Makefile and use it to call cmake, maven, or any other build system you want to use from there. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## Quick start
-Ready to try the compiler? Create the folder `/c_example` in your home directory and make sure you `:cd ./c_example`. Then paste this
+Ready to try the compiler? Create the folder `/c_example` in your home directory and make sure you `:cd ./c_example`. Then paste this into `./c_example/main.c`
 
-`main.c`
 ```
 #include <stdio.h>
 
