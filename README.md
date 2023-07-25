@@ -18,6 +18,7 @@ Neovim compiler for building and running your code without having to configure a
 - [Basic usage](#how-to-use-basic-usage)
 - [How to create a solution (advanced)](#how-to-create-a-solution-advanced)
 - [Make (advanced)](#make-advanced)
+- [Quick start](#quick-start)
 - [FAQ](#faq)
 
 ## Supported languages
@@ -164,6 +165,23 @@ Please, respect the syntax of the `.solution` file, as we intentionally do not p
 This option will look for a Makefile in the working directory and execute it with `make Makefile`. If your Makefile is not in the working directory, you can either change your current working directory, or create a symbolic link to the Makefile (and if you do, add it to .gitignore).
 
 For building systems not directly supported by Compiler.nvim: Create a Makefile and use it to call cmake, maven, or any other build system you want to use from there. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
+
+## Quick start
+Ready to try the compiler? Create the folder `/c_example` in your home directory and make sure you `:cd ./c_example`. Then paste this
+
+`main.c`
+```
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+```
+
+All you have to do now is opening the compiler and selecting `Build and run` and you will see
+
+![screenshot_2023-07-25_23-56-57_069109256](https://github.com/Zeioth/compiler.nvim/assets/3357792/fd102350-ca44-4501-9cb0-db2ea0093264)
 
 ## FAQ
 * **I don't have time to read:** If you prefer you can try [NormalNvim](https://github.com/NormalNvim/NormalNvim) which comes with the compiler pre-installed. Just open some code and hit F6!
