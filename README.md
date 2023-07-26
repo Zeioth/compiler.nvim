@@ -208,6 +208,6 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* Make compiler.nvim 100% async (WIP).
+* Make compiler.nvim 100% async (WIP: proof of concept ready on C, migrating other languages).
 * Research the viability of supporting building system for languages which have an standard (c, cpp, rust, java) directly without a Makefile.
 
