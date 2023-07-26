@@ -3,6 +3,13 @@
 local M = {}
 
 function M.show()
+  -- If working directory is home, don't open telescope.
+  if vim.loop.os_homedir() == vim.loop.cwd() then
+     vim.notify("You must :cd your project dir first.\nHome is not allowed as working dir.", vim.log.levels.WARN, {
+       title = "Compiler.nvim",})
+     return
+  end
+
   -- dependencies
   actions = require "telescope.actions"
   state = require "telescope.actions.state"
@@ -14,8 +21,8 @@ function M.show()
   local buffer = vim.api.nvim_get_current_buf()
   local filetype = vim.api.nvim_buf_get_option(buffer, "filetype")
 
-  -- programatically require the backend for the current language
-  -- On unsupported languages, allow "Run Makefile"
+  -- programatically require the backend for the current language.
+  -- On unsupported languages, allow "Run Makefile".
   language = utils.requireLanguage(filetype)
   if not language then language = require("compiler.languages.make") end
 
