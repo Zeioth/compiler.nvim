@@ -208,6 +208,6 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-
+* Make compiler.nvim 100% async, so if a user run the compiler in it's home directory, it doesn't get stuck for a while due to the binary search (WIP).
 * Research the viability of supporting building system for languages which have an standard (c, cpp, rust, java) directly without a Makefile.
-* Run tasks as defered, so if a user run the compiler in it's home directory, it doesn't get stuck for a while due to the binary search.
+
