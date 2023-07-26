@@ -13,9 +13,9 @@ function M.find_files(start_dir, file_name)
   -- Create the find command with appropriate flags for recursive searching
   local find_command
   if package.config:sub(1, 1) == "\\" then -- Windows
-    find_command = string.format('dir /s /b /a:-D "%s\\%s"', start_dir, file_name)
+    find_command = string.format('dir /s /b /a:-D "%s\\%s" 2>NUL', start_dir, file_name)
   else -- UNIX-like systems
-    find_command = string.format('find "%s" -type f -name "%s"', start_dir, file_name)
+    find_command = string.format('find "%s" -type f -name "%s" 2>/dev/null', start_dir, file_name)
   end
 
   -- Execute the find command and capture the output
