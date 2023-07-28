@@ -36,14 +36,16 @@ Neovim compiler for building and running your code without having to configure a
 * [perl](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/perl.lua)
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
-* objetive C (wip)
-* swift (wip)
-* kotlin (wip)
-* javascript (wip)
-* typescript (wip)
+
 
 ### Planned & coming soon:
+Pull requests are welcome. See [FAQ](#faq).
 
+* objetive C
+* swift
+* kotlin
+* javascript
+* typescript
 * scala
 * R
 * elixir
@@ -208,6 +210,7 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-
+* Make compiler.nvim 100% async (WIP: proof of concept ready on C, migrating other languages).
+* Make tests 100% async, so we can test faster and more reliably.
 * Research the viability of supporting building system for languages which have an standard (c, cpp, rust, java) directly without a Makefile.
-* Run tasks as defered, so if a user run the compiler in it's home directory, it doesn't get stuck for a while due to the binary search.
+
