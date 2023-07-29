@@ -159,7 +159,7 @@ Where every [entry] represents a program to compile
 Please, respect the syntax of the `.solution` file, as we intentionally do not parse errors in order to keep the compiler code simple. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solution-examples).
 
 ## Make (Advanced)
-This option look for a Makefile in the working directory and execute it with `make Makefile`. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
+This option will look for a `Makefile` in the working directory and execute it with `make Makefile`. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## Quick start
 Create `./c_example/main.c` and paste this code. Then do `:cd ./c_example/` to change the working directory to the project.
