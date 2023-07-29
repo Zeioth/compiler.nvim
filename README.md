@@ -69,7 +69,7 @@ lazy.nvim package manager
 },
 { -- The task runner we use
   "stevearc/overseer.nvim",
-  commit = "3047ede61cc1308069ad1184c0d447ebee92d749", -- Recommended to to avoid breaking changes
+  commit = "3047ede61cc1308069ad1184c0d447ebee92d749",
   cmd = { "CompilerOpen", "CompilerToggleResults" },
   opts = {
     task_list = {
