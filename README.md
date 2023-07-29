@@ -173,7 +173,7 @@ int main() {
 }
 ```
 
-All you have to do now is to open the compiler and select `Build and run`. You will see the results.
+Open the compiler and select `Build and run`. You will see the compilation results.
 
 ![screenshot_2023-07-25_23-56-57_069109256](https://github.com/Zeioth/compiler.nvim/assets/3357792/fd102350-ca44-4501-9cb0-db2ea0093264)
 
