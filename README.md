@@ -149,7 +149,7 @@ Where every [entry] represents a program to compile
 
 | option | Description |
 |--|--|
-| [entry] | Anything inside the brackets will be ignored. Write anything you want inside to easily identify your program.  |
+| [entry] | Anything inside the brackets will be ignored. Write anything you want to easily identify your program.  |
 | entry_point | Path of the file containing the entry point of the program.  | 
 | output | Path where the compiled program will be written. | 
 | parameters | Are optional parameters to pass to the compiler. If you don't need them you can delete this option or leave it as empty string if you want. | 
