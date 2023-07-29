@@ -166,7 +166,9 @@ Please, respect the syntax of the `.solution` file, as we intentionally do not p
 ## Make (Advanced)
 This option look for a Makefile in the working directory and execute it with `make Makefile`.
 
-For building systems not directly supported by Compiler.nvim: Create a Makefile and use it to call cmake, maven, or any other build system you want to use from there. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
+Other building systems are not directly supported. If your workflow relies heavily on building systems, please consider installing an specific neovim plugin for this purpuse. 
+
+[For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## Quick start
 Create `./c_example/main.c` and paste this code. Then do `:cd ./c_example/` to change the working directory to the project.
