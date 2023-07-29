@@ -56,7 +56,7 @@ Pull requests are welcome. See [FAQ](#faq).
 * cobol
 
 ## Required system dependencies
-Some languages require you manually install their compilers in your machine, so compiler.nvim is able to call them. Please [check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
+Some languages require you manually install their compilers in your machine, so compiler.nvim is able to call them. [Please check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
 
 ## How to install
 lazy.nvim package manager
