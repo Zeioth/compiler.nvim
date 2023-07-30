@@ -202,3 +202,7 @@ If you want to help me, please star this repository to increase the visibility o
 <a href="https://github.com/zeioth/compiler.nvim/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=zeioth/compiler.nvim" />
 </a>
+
+## Roadmap
+
+* Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we shoud run the equivalent command when Windows is detected.
