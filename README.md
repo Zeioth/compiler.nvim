@@ -206,4 +206,4 @@ If you want to help me, please star this repository to increase the visibility o
 
 ## Roadmap
 
-* Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we shoud run the equivalent command when Windows is detected.
+* Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
