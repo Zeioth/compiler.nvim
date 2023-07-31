@@ -15,7 +15,7 @@ Neovim compiler for building and running your code without having to configure a
 - [Supported languages](#supported-languages)
 - [Required system dependencies](#required-system-dependencies)
 - [How to install](#how-to-install)
-- [Available commands](#available-commands)
+- [Commands](#available-commands)
 - [Basic usage](#how-to-use-basic-usage)
 - [How to create a solution (advanced)](#how-to-create-a-solution-advanced)
 - [Make (advanced)](#make-advanced)
@@ -97,7 +97,7 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', "<cmd>CompilerOpen<cr>", { noremap =
 vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>', "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
 ```
 
-## Available commands
+## Commands
 
 | Command | Description|
 |--|--|
