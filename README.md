@@ -208,4 +208,4 @@ If you want to help me, please star this repository to increase the visibility o
 
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
 * `C#`: Consider adding the new options `build solution (dotnet)`, `build solution and run (dotnet)`, and `run solution (dotnet)` so users can use `DAP` with `netcorebdg`.
-* In fact we should add this option to `C` and `C++` too. Most people will prefer using their visual studio project file available.
+* In fact we should add this option to `C` and `C++` too. Most people will prefer using their visual studio project file when available.
