@@ -131,7 +131,7 @@ This is how the compilation results look after selecting `Build & run program` i
 ![screenshot_2023-06-19_13-59-37_766847673](https://github.com/Zeioth/compiler.nvim/assets/3357792/42c4ec0d-4446-4ac6-9c4a-478a32d23ca7)
 [For more info see wiki - when to use every option](https://github.com/Zeioth/compiler.nvim/wiki/When-to-use-every-option)
 
-## How to create a solution (Advanced)
+## Creating a solution (optional)
 If you want to have more control, you can create a `.solution` file in your working directory by using this template:
 
 ```
@@ -162,7 +162,7 @@ Where every [entry] represents a program to compile
 
 Please, respect the syntax of the `.solution` file, as we intentionally do not parse errors in order to keep the compiler code simple. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solution-examples).
 
-## Make (Advanced)
+## Make
 This option will look for a `Makefile` in the working directory and execute it with `make Makefile`. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## Quick start
