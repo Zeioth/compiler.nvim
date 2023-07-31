@@ -18,7 +18,7 @@ Neovim compiler for building and running your code without having to configure a
 - [Commands](#available-commands)
 - [Basic usage](#how-to-use-basic-usage)
 - [Creating a solution (optional)](#creating-a-solution-optional)
-- [Make](#make-advanced)
+- [Make](#make)
 - [Quick start](#quick-start)
 - [FAQ](#faq)
 
