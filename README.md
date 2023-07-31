@@ -207,4 +207,4 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
-* `C`, `C++`, `C#`: Consider adding the new options `build solution (dotnet)`, `build solution and run (dotnet)`, and `run solution (dotnet)`. Most people will prefer using their visual studio project file when available.
+* `C`, `C++`, `C#`: Consider adding the new options `build solution (dotnet)`, `build solution and run (dotnet)`, and `run solution (dotnet)`. Most people will prefer using their visual studio project file when available. → Since the dotnet command is the same for all languages, we just need to implement this once.
