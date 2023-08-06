@@ -18,7 +18,7 @@ Neovim compiler for building and running your code without having to configure a
 - [Commands](#commands)
 - [Basic usage](#how-to-use-basic-usage)
 - [Creating a solution (optional)](#creating-a-solution-optional)
-- [Make](#make)
+- [Make](#make-optional)
 - [Quick start](#quick-start)
 - [FAQ](#faq)
 
@@ -162,7 +162,7 @@ Where every [entry] represents a program to compile
 
 Please, respect the syntax of the `.solution` file, as we intentionally do not parse errors in order to keep the compiler code simple. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solution-examples).
 
-## Make
+## Make (optional)
 This option will look for a `Makefile` in the working directory and execute it with `make Makefile`. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## Quick start
