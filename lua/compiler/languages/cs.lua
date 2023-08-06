@@ -8,7 +8,11 @@ M.options = {
   { text = "2 - Build program", value = "option2" },
   { text = "3 - Run program", value = "option3" },
   { text = "4 - Build solution", value = "option4" },
-  { text = "5 - Run Makefile", value = "option5" }
+  { text = "", value = "separator" },
+  { text = "5 - Build and run dotnet", value = "option5" },
+  { text = "6 - Build dotnet", value = "option6" },
+  { text = "", value = "separator" },
+  { text = "7 - Run Makefile", value = "option7" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -136,6 +140,28 @@ function M.action(selected_option)
       vim.cmd("OverseerOpen")
     end
   elseif selected_option == "option5" then
+    local task = overseer.new_task({
+      name = "- C compiler",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Build & run .net project → .cproj",
+          cmd = "dotnet run" ..                                                      -- compile and run
+                " && echo " .. entry_point ..                                        -- echo
+                " && echo '" .. final_message .. "'"
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option6" then
+    local task = overseer.new_task({
+      name = "- C compiler",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Build .net project → .csproj",
+          cmd = "dotnet build" ..                                                    -- compile
+                " && echo " .. entry_point ..                                        -- echo
+                " && echo '" .. final_message .. "'"
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option7" then
     require("compiler.languages.make").run_makefile()                        -- run
   end
 end
