@@ -29,7 +29,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
-* [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua)
+* [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/cs-compiler))
 * [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua)
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua)
