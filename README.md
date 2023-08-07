@@ -45,16 +45,17 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 ### Planned & coming soon:
 Pull requests are welcome. See [FAQ](#faq).
 
-* objetive C
-* swift
+* dart
 * kotlin
+* swift
 * javascript
 * typescript
-* scala
-* R
-* elixir
 * visual basic
 * F
+* R
+* objetive C
+* scala
+* elixir
 * delphy
 * pascal
 * cobol
