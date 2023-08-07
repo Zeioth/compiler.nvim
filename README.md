@@ -146,21 +146,7 @@ executable = "/program/to/execute/after/the/solution/has/compiled/this_is_my_pro
 
 Where every [entry] represents a program to compile
 
-| option | Description |
-|--|--|
-| [entry] | Anything inside the brackets will be ignored. Write anything you want to easily identify your program.  |
-| entry_point | Path of the file containing the entry point of the program.  | 
-| output | Path where the compiled program will be written. | 
-| parameters | Are optional parameters to pass to the compiler. If you don't need them you can delete this option or leave it as empty string if you want. | 
-
-[SOLUTION] represents the executable to run after all programs in the solution have compiled. This section is optional and can be deleted safely.
-
-| Option | Description |
-|--|--|
-| [SOLUTION] | Anything inside the brackets will be ignored. But keeping the the default name [SOLUTION] is recommended. |
-| executable | Path to a program to execute after the compilation finishes. | 
-
-Please, respect the syntax of the `.solution` file, as we intentionally do not parse errors in order to keep the compiler code simple. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solution-examples).
+[For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solution-examples).
 
 ## Make (optional)
 This option will look for a `Makefile` in the working directory and execute it with `make Makefile`. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
