@@ -151,7 +151,7 @@ executable = "/program/to/execute/after/the/solution/has/compiled/this_is_my_pro
 This option will look for a `Makefile` in the working directory and execute it with `make Makefile`. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## Quick start
-Create `./c-example/main.c` and paste this code. Then do `:cd ./c_example/` to change the working directory to the project.
+Create `./c-example/main.c` and paste this code. Then do `:cd ./c-example/` to change the working directory to the project.
 
 ```c
 #include <stdio.h>
