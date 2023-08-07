@@ -69,7 +69,7 @@ lazy.nvim package manager
   "Zeioth/compiler.nvim",
   cmd = {"CompilerOpen", "CompilerToggleResults", "CompilerRedo"},
   dependencies = { "stevearc/overseer.nvim" },
-  config = function(_, opts) require("compiler").setup(opts) end,
+  opts = {},
 },
 { -- The task runner we use
   "stevearc/overseer.nvim",
