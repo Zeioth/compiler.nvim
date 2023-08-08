@@ -196,3 +196,4 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
+* Proposal: Always compile in debug mode by default, so people don't have to create a `.solution` file just to set the debug argument.
