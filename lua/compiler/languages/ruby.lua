@@ -51,9 +51,9 @@ function M.action(selected_option)
 
       for entry, variables in pairs(config) do
         entry_point = utils.osPath(variables.entry_point)
-        parameters = variables.parameters or "" -- optional
+        arguments = variables.arguments or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
-          cmd = "ruby " .. parameters .. " " .. entry_point ..               -- run (interpreted)
+          cmd = "ruby " .. arguments .. " " .. entry_point ..               -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -71,11 +71,11 @@ function M.action(selected_option)
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.rb")
-      parameters = "" -- optional
+      arguments = "" -- optional
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.osPath(entry_point)
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "ruby " .. parameters .. " " .. entry_point ..               -- run (interpreted)
+          cmd = "ruby " .. arguments .. " " .. entry_point ..               -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"
         }

@@ -23,7 +23,7 @@ function M.action(selected_option)
   local files = utils.find_files_to_compile(entry_point, "*.cs")            -- *.cs files under entry_point_dir (recursively)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/Program.exe")        -- working_directory/bin/program
-  local parameters = "-warn:4 /debug"                                       -- parameters can be overriden in .solution
+  local arguments = "-warn:4 /debug"                                       -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -33,7 +33,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                             -- clean
                 " && mkdir -p " .. output_dir ..                                  -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. parameters .. -- compile bytecode
+                " && csc " .. files .. " -out:" .. output .. " " .. arguments .. -- compile bytecode
                 " && mono " .. output ..                                          -- run
                 " ; echo " .. entry_point ..                                      -- echo
                 " ; echo '" .. final_message .. "'"
@@ -47,7 +47,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                              -- clean
                 " && mkdir -p " .. output_dir ..                                   -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. parameters  .. -- compile bytecode
+                " && csc " .. files .. " -out:" .. output .. " " .. arguments  .. -- compile bytecode
                 " ; echo " .. entry_point ..                                       -- echo
                 " ; echo '" .. final_message .. "'"
         },},},})
@@ -83,11 +83,11 @@ function M.action(selected_option)
         files = utils.find_files_to_compile(entry_point, "*.cs")
         output = utils.osPath(variables.output)
         output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
-        parameters = variables.parameters or parameters -- optional
+        arguments = variables.arguments or arguments -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                              -- clean
                 " && mkdir -p " .. output_dir ..                                   -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. parameters  .. -- compile bytecode
+                " && csc " .. files .. " -out:" .. output .. " " .. arguments  .. -- compile bytecode
                 " && echo " .. entry_point ..                                      -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -126,7 +126,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                -- clean
                 " && mkdir -p " .. output_dir ..                                     -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. parameters  ..   -- compile bytecode
+                " && csc " .. files .. " -out:" .. output .. " " .. arguments  ..   -- compile bytecode
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
         }

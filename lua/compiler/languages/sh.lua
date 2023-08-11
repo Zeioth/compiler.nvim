@@ -1,6 +1,6 @@
 --- Shell language actions
 -- This runner is only useful for simple stuff.
--- If you need to pass parameters to your shell script, just run it on the terminal.
+-- If you need to pass arguments to your shell script, just run it on the terminal.
 -- You can always create a .solution file, but this would be an overkill in most cases.
 
 local M = {}
@@ -17,7 +17,7 @@ function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
   local entry_point = vim.fn.expand('%:p')            -- current buffer
-  local parameters = ""                               -- parameters can be overriden in .solution
+  local arguments = ""                               -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
 
@@ -43,9 +43,9 @@ function M.action(selected_option)
 
       for entry, variables in pairs(config) do
         entry_point = utils.osPath(variables.entry_point)
-        parameters = variables.parameters or "" -- optional
+        arguments = variables.arguments or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
-          cmd = parameters .. parameters == "" or " " .. entry_point ..      -- run
+          cmd = arguments .. arguments == "" or " " .. entry_point ..      -- run
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"                         -- echo
         }

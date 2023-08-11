@@ -20,7 +20,7 @@ function M.action(selected_option)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/Main")                -- working_directory/bin/Main.class
   local output_filename = "Main"                                             -- working_directory/bin/Main
-  local parameters = "-Xlint:all"                                            -- parameters can be overriden in .solution
+  local arguments = "-Xlint:all"                                            -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -30,7 +30,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                         -- clean
                 " && mkdir -p " .. output_dir ..                                              -- mkdir
-                " && javac " .. " -d " .. output_dir .. " " .. parameters .. " "  .. files .. -- compile bytecode
+                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files .. -- compile bytecode
                 " && java -cp " .. output_dir .. " " .. output_filename ..                    -- run
                 " && echo " .. entry_point ..                                                 -- echo
                 " && echo '" .. final_message .. "'"
@@ -44,7 +44,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                               -- clean
                 " && mkdir -p " .. output_dir ..                                                    -- mkdir
-                " && javac " .. " -d " .. output_dir .. " " .. parameters .. " "  .. files ..       -- compile bytecode
+                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files ..       -- compile bytecode
                 " && echo " .. entry_point ..                                                       -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
@@ -80,11 +80,11 @@ function M.action(selected_option)
         files = utils.find_files_to_compile(entry_point, "*.java")
         output = utils.osPath(variables.output)
         output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
-        parameters = variables.parameters or parameters -- optional
+        arguments = variables.arguments or arguments -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                         -- clean
                 " && mkdir -p " .. output_dir ..                                              -- mkdir
-                " && javac " .. " -d " .. output_dir .. " " .. parameters .. " "  .. files .. -- compile bytecode
+                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files .. -- compile bytecode
                 " && echo " .. entry_point ..                                                 -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -125,7 +125,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                         -- clean
                 " && mkdir -p " .. output_dir ..                                              -- mkdir
-                " && javac " .. " -d " .. output_dir .. " " .. parameters .. " "  .. files .. -- compile bytecode
+                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files .. -- compile bytecode
                 " && echo " .. entry_point ..                                                 -- echo
                 " && echo '" .. final_message .. "'"
         }

@@ -18,7 +18,7 @@ function M.action(selected_option)
   local entry_point = utils.osPath(vim.fn.getcwd() .. "/main.rs")            -- working_directory/main.rs
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
-  local parameters = "-D warnings -g"                                        -- parameters can be overriden in .solution
+  local arguments = "-D warnings -g"                                        -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -28,7 +28,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
-                " && rustc " .. entry_point .. " -o " .. output .. " " .. parameters .. -- compile
+                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments .. -- compile
                 " && " .. output ..                                                     -- run
                 " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
@@ -42,7 +42,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
-                " && rustc " .. entry_point .. " -o " .. output .. " " .. parameters .. -- compile
+                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments .. -- compile
                 " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
@@ -77,11 +77,11 @@ function M.action(selected_option)
         entry_point = utils.osPath(variables.entry_point)
         output = utils.osPath(variables.output)
         output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
-        parameters = variables.parameters or parameters --roptional
+        arguments = variables.arguments or arguments --roptional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
-                " && rustc " .. entry_point .. " -o " .. output .. " " .. parameters .. -- compile
+                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments .. -- compile
                 " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -119,7 +119,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                    -- clean
                 " && mkdir -p " .. output_dir ..                                         -- mkdir
-                " && rustc " .. entry_point .. " -o " .. output .. " " .. parameters ..  -- compile
+                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments ..  -- compile
                 " && echo " .. entry_point ..                                            -- echo
                 " && echo '" .. final_message .. "'"
         }

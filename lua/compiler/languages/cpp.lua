@@ -19,7 +19,7 @@ function M.action(selected_option)
   local files = utils.find_files_to_compile(entry_point, "*.cpp")           -- *.cpp files under entry_point_dir (recursively)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
-  local parameters = "-Wall -g"                                             -- parameters can be overriden in .solution
+  local arguments = "-Wall -g"                                             -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -29,7 +29,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && g++ " .. files .. " -o " .. output .. " " .. parameters ..       -- compile
+                " && g++ " .. files .. " -o " .. output .. " " .. arguments ..       -- compile
                 " && " .. output ..                                                   -- run
                 " && echo " .. entry_point ..                                         -- echo
                 " && echo '" .. final_message .. "'"
@@ -43,7 +43,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && g++ " .. files .. " -o " .. output .. " " .. parameters ..       -- compile
+                " && g++ " .. files .. " -o " .. output .. " " .. arguments ..       -- compile
                 " && echo " .. entry_point ..                                         -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
@@ -80,11 +80,11 @@ function M.action(selected_option)
         files = utils.find_files_to_compile(entry_point, "*.cpp")
         output = utils.osPath(variables.output)
         output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
-        parameters = variables.parameters or parameters -- optional
+        arguments = variables.arguments or arguments -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
-                " && g++ " .. files .. " -o " .. output .. " " .. parameters ..       -- compile
+                " && g++ " .. files .. " -o " .. output .. " " .. arguments ..       -- compile
                 " && echo " .. entry_point ..                                         -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -123,7 +123,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                -- clean
                 " && mkdir -p " .. output_dir ..                                     -- mkdir
-                " && g++ " .. files .. " -o " .. output .. " " .. parameters ..      -- compile
+                " && g++ " .. files .. " -o " .. output .. " " .. arguments ..      -- compile
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
         }

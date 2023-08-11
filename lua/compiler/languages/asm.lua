@@ -20,7 +20,7 @@ function M.action(selected_option)
   local files = utils.find_files(entry_point_dir, "*.asm")                   -- *.asm files under entry_point_dir (recursively)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
-  local parameters = "-g"                                                    -- parameters can be overriden in .solution
+  local arguments = "-g"                                                    -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -31,7 +31,7 @@ function M.action(selected_option)
       local output_o = output_dir .. filename .. ".o"
       local task = { "shell", name = "- Build program → " .. file,
         cmd = "mkdir -p " .. output_dir ..
-              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " ".. parameters ..     -- compile
+              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " ".. arguments ..     -- compile
               " && echo " .. file ..                                               -- echo
               " && echo '" .. final_message .. "'"
       }
@@ -72,7 +72,7 @@ function M.action(selected_option)
       local output_o = output_dir .. filename .. ".o"
       local task = { "shell", name = "- Build program → " .. file,
         cmd = "mkdir -p " .. output_dir ..
-              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. parameters  ..   -- compile
+              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. arguments  ..   -- compile
               " && echo " .. file ..                                               -- echo
               " && echo '" .. final_message .. "'"
       }
@@ -128,7 +128,7 @@ function M.action(selected_option)
         files = utils.find_files(entry_point_dir, "*.asm")
         output = utils.osPath(variables.output)                              -- entry_point/bin/program
         output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))        -- entry_point/bin
-        parameters = variables.parameters or parameters -- optional
+        arguments = variables.arguments or arguments -- optional
 
         -- Build .asm files in parallel
         local tasks_compile = {}
@@ -137,7 +137,7 @@ function M.action(selected_option)
           local output_o = output_dir .. filename .. ".o"
           local task = { "shell", name = "- Build program → " .. file,
             cmd = "mkdir -p " .. output_dir ..
-                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. parameters ..    -- compile
+                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. arguments ..    -- compile
                   " && echo " .. file ..                                               -- echo
                   " && echo '" .. final_message .. "'"
           }
@@ -194,7 +194,7 @@ function M.action(selected_option)
           local output_o = output_dir .. filename .. ".o"
           local task = { "shell", name = "- Build program → " .. file,
             cmd = "mkdir -p " .. output_dir ..
-                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. parameters ..  -- compile
+                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. arguments ..  -- compile
                   " && echo " .. file ..                                             -- echo
                   " && echo '" .. final_message .. "'"
           }
