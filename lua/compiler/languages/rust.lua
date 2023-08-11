@@ -18,7 +18,7 @@ function M.action(selected_option)
   local entry_point = utils.osPath(vim.fn.getcwd() .. "/main.rs")            -- working_directory/main.rs
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
-  local parameters = "-D warnings"                                           -- parameters can be overriden in .solution
+  local parameters = "-D warnings -g"                                        -- parameters can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
