@@ -19,7 +19,7 @@ function M.action(selected_option)
   local files = utils.find_files_to_compile(entry_point, "*.go")     -- *.go files under entry_point_dir (recursively)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")        -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")     -- working_directory/bin/program
-  local parameters = "-a"                                            -- parameters can be overriden in .solution
+  local parameters = "-a -gcflags='-N -l'"                           -- parameters can be overriden in .solution
   local final_message = "--task finished--"
 
 

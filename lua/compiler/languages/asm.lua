@@ -20,7 +20,7 @@ function M.action(selected_option)
   local files = utils.find_files(entry_point_dir, "*.asm")                   -- *.asm files under entry_point_dir (recursively)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
-  local parameters = ""                                                      -- parameters can be overriden in .solution
+  local parameters = "-g"                                                    -- parameters can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -31,8 +31,8 @@ function M.action(selected_option)
       local output_o = output_dir .. filename .. ".o"
       local task = { "shell", name = "- Build program → " .. file,
         cmd = "mkdir -p " .. output_dir ..
-              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " ".. parameters ..  -- compile
-              " && echo " .. file ..                                                     -- echo
+              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " ".. parameters ..     -- compile
+              " && echo " .. file ..                                               -- echo
               " && echo '" .. final_message .. "'"
       }
       files[_] = output_dir .. filename .. ".o" -- prepare for linker
@@ -72,8 +72,8 @@ function M.action(selected_option)
       local output_o = output_dir .. filename .. ".o"
       local task = { "shell", name = "- Build program → " .. file,
         cmd = "mkdir -p " .. output_dir ..
-              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. parameters  ..  -- compile
-              " && echo " .. file ..                                                       -- echo
+              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. parameters  ..   -- compile
+              " && echo " .. file ..                                               -- echo
               " && echo '" .. final_message .. "'"
       }
       files[_] = output_dir .. filename .. ".o" -- prepare for linker
@@ -137,8 +137,8 @@ function M.action(selected_option)
           local output_o = output_dir .. filename .. ".o"
           local task = { "shell", name = "- Build program → " .. file,
             cmd = "mkdir -p " .. output_dir ..
-                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. parameters .. -- compile
-                  " && echo " .. file ..                                                     -- echo
+                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. parameters ..    -- compile
+                  " && echo " .. file ..                                               -- echo
                   " && echo '" .. final_message .. "'"
           }
           files[_] = output_dir .. filename .. ".o" -- prepare for linker
@@ -195,7 +195,7 @@ function M.action(selected_option)
           local task = { "shell", name = "- Build program → " .. file,
             cmd = "mkdir -p " .. output_dir ..
                   " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. parameters ..  -- compile
-                  " && echo " .. file ..                                                      -- echo
+                  " && echo " .. file ..                                             -- echo
                   " && echo '" .. final_message .. "'"
           }
           files[_] = output_dir .. filename .. ".o" -- prepare for linker

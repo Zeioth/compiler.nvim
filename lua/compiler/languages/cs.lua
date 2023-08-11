@@ -23,7 +23,7 @@ function M.action(selected_option)
   local files = utils.find_files_to_compile(entry_point, "*.cs")            -- *.cs files under entry_point_dir (recursively)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/Program.exe")        -- working_directory/bin/program
-  local parameters = "-warn:4"                                              -- parameters can be overriden in .solution
+  local parameters = "-warn:4 /debug"                                       -- parameters can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
