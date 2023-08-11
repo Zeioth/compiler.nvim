@@ -139,7 +139,7 @@ If you want to have more control, you can create a `.solution` file in your work
 [HELLO WORLD]
 entry_point = "/path/to/my/entry_point_file/main.c"
 output = "/path/where/the/program/will/be/written/hello_world"
-parameters = ""
+arguments = ""
 
 [SOLUTION]
 executable = "/program/to/execute/after/the/solution/has/compiled/this_is_my_program"
@@ -170,7 +170,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
 * **I don't have time to read:** If you prefer you can try [NormalNvim](https://github.com/NormalNvim/NormalNvim) which comes with the compiler pre-installed. Just open some code and hit F6!
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
 * **How can I change the way the compiler works?** Same as the previous one.
-* **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive parameters, we recommend you to use the terminal instead, because creating a `.solution` file just to be able to pass parameters to your simple shell script is probably a overkill, and not the right tool.
+* **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive arguments, we recommend you to use the terminal instead, because creating a `.solution` file just to be able to pass arguments to your simple shell script is probably a overkill, and not the right tool.
 * **Is this plugin also a building system manager?** No, it is not. For convenience, we provide the option `Run Makefile`, which should cover some cases of use. But if your workflow relies heavily on building systems, please consider installing an specific neovim plugin for this purpose. [See wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples#building-systems-support).
 * **I'm a windows user, do I need to do something special?** You have to enable WLS, and run nvim inside. Otherwise it would be impossible for you to install the [required dependencies](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies).
 * **Where are the global options?** There are not. Creating a `.solution` file of your project is the way to configure stuff. This way we can keep the code extra simple.
@@ -196,4 +196,5 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
-* Proposal: Always compile in debug mode by default, so people don't have to create a `.solution` file just to set the debug argument to debug their programs on DAP.
+* ~~Proposal: Always compile in debug mode by default, so people don't have to create a `.solution` file just to set the debug argument to debug their programs on DAP.~~
+* Fix: We are erroneous refering to "compiler arguments" as "compiler arguments"
