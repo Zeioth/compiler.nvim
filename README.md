@@ -196,5 +196,7 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
+* Rust: Support for `Build and run (cargo)`, `Build (cargo)`, and `Run (cargo)`.
+* Go: Support for `Build and run (cli)`, `Build (cli)`, and `Run (cli)`.
 * ~~Proposal: Always compile in debug mode by default, so people don't have to create a `.solution` file just to set the debug argument to debug their programs on DAP.~~
-* Fix: We are erroneous refering to "compiler arguments" as "compiler arguments"
+* ~~Fix: We are erroneous refering to "compiler arguments" as "compiler parameters"~~
