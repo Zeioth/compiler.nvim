@@ -1,6 +1,0 @@
-[HELLO WORLD]
-entry_point = ./main.py
-output = ./bin/hello_world
-
-[SOLUTION]
-executable = ./bin/hello_world

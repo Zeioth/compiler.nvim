@@ -1,5 +1,0 @@
-[HELLO WORLD]
-entry_point = ./main.lua
-
-[MY OTHER COOL SCRIPT]
-entry_point = ./extra.lua

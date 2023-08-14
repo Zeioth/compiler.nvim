@@ -1,0 +1,5 @@
+[HelloWorld]
+entry_point = "./main.lua"
+
+[MyOtherCoolScript]
+entry_point = "./extra.lua"

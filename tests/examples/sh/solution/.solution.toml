@@ -1,0 +1,7 @@
+[MyScript]
+entry_point = "./main.sh"
+parameters = ""
+
+[MyOtherCoolScript]
+entry_point = "./extra.sh"
+parameters = ""

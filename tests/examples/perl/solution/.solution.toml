@@ -1,0 +1,5 @@
+[HelloWorld]
+entry_point = "./main.pl"
+
+[MyOtherCoolScript]
+entry_point = "./extra.pl"

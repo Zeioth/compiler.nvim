@@ -1,5 +1,5 @@
-[HELLO WORLD]
+[HelloWorld]
 entry_point = "./main.py"
 
-[MY OTHER COOL SCRIPT]
+[MyOtherCoolScript]
 entry_point = "./extra.py"
