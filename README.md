@@ -135,7 +135,7 @@ This is how the compilation results look after selecting `Build & run program` i
 ## Creating a solution (optional)
 If you want to have more control, you can create a `.solution` file in your working directory by using this template where every [entry] represents a program to compile
 
-```
+```toml
 [HELLO WORLD]
 entry_point = "/path/to/my/entry_point_file/main.c"
 output = "/path/where/the/program/will/be/written/hello_world"
