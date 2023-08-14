@@ -133,7 +133,7 @@ This is how the compilation results look after selecting `Build & run program` i
 [For more info see wiki - when to use every option](https://github.com/Zeioth/compiler.nvim/wiki/When-to-use-every-option)
 
 ## Creating a solution (optional)
-If you want to have more control, you can create a `.solution` file in your working directory by using this template where every [entry] represents a program to compile
+If you want to have more control, you can create a `.solution.toml` file in your working directory by using this template where every [entry] represents a program to compile
 
 ```toml
 [HelloWorld]
