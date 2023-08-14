@@ -54,15 +54,17 @@ function M.parseConfigFile(filePath)
   local currentEntry = nil  -- Variable to track the current entry being processed
 
   for line in file:lines() do
-    local entry = line:match("%[([^%]]+)%]")  -- Check if the line represents a new entry
-    if entry then
-      currentEntry = entry  -- Update the current entry being processed
-      config[currentEntry] = {}  -- Initialize a sub-table for the current entry
-    else
-      local key, value = line:match("([^=]+)%s-=%s-(.+)")  -- Extract key-value pairs
-      if key and value and currentEntry then
-        value = value:gsub("^%s*[\"'](.+)[\"']%s*$", "%1")  -- Remove surrounding quotes if present
-        config[currentEntry][vim.trim(key)] = vim.trim(value)  -- Store the variable in the table
+    if not (line:match("^%s*#") or line:match("^%s*$")) then -- ignore comments and empty lines
+      local entry = line:match("%[([^%]]+)%]")  -- Check if the line represents a new entry
+      if entry then
+        currentEntry = entry  -- Update the current entry being processed
+        config[currentEntry] = {}  -- Initialize a sub-table for the current entry
+      else
+        local key, value = line:match("([^=]+)%s-=%s-(.+)")  -- Extract key-value pairs
+        if key and value and currentEntry then
+          value = value:gsub("^%s*[\"'](.+)[\"']%s*$", "%1")  -- Remove surrounding quotes if present
+          config[currentEntry][key:trim()] = value:trim()  -- Store the variable in the table
+        end
       end
     end
   end
