@@ -142,7 +142,7 @@ output = "/path/where/the/program/will/be/written/hello_world"
 arguments = ""
 
 [Solution]
-executable = "/program/to/execute/after/the/solution/has/compiled/this_is_my_program"
+executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 ```
 
 [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solution-examples).
