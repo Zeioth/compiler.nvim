@@ -67,9 +67,9 @@ function M.action(selected_option)
     local task
 
     -- if .solution file exists in working dir
-    if utils.fileExists(".solution") then
+    if utils.fileExists(".solution.toml") then
       local config = utils.parseConfigFile(
-        utils.osPath(vim.fn.getcwd() .. "/.solution"))
+        utils.osPath(vim.fn.getcwd() .. "/.solution.toml"))
       local executable
 
       for entry, variables in pairs(config) do
@@ -85,7 +85,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                -- clean
                 " && mkdir -p " .. output_dir ..                                     -- mkdir
-                " && gcc " .. files .. " -o " .. output .. " " .. arguments ..      -- compile
+                " && gcc " .. files .. " -o " .. output .. " " .. arguments ..       -- compile
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
         }

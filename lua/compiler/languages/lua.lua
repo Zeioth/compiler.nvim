@@ -46,8 +46,8 @@ function M.action(selected_option)
     local task
 
     -- if .solution file exists in working dir
-    if utils.fileExists(".solution") then
-      local config = utils.parseConfigFile(utils.osPath(vim.fn.getcwd() .. "/.solution"))
+    if utils.fileExists(".solution.toml") then
+      local config = utils.parseConfigFile(utils.osPath(vim.fn.getcwd() .. "/.solution.toml"))
 
       for entry, variables in pairs(config) do
         entry_point = utils.osPath(variables.entry_point)
