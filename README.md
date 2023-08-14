@@ -136,12 +136,12 @@ This is how the compilation results look after selecting `Build & run program` i
 If you want to have more control, you can create a `.solution` file in your working directory by using this template where every [entry] represents a program to compile
 
 ```toml
-[HELLO WORLD]
+[HelloWorld]
 entry_point = "/path/to/my/entry_point_file/main.c"
 output = "/path/where/the/program/will/be/written/hello_world"
 arguments = ""
 
-[SOLUTION]
+[Solution]
 executable = "/program/to/execute/after/the/solution/has/compiled/this_is_my_program"
 ```
 
