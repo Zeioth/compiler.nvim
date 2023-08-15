@@ -141,7 +141,7 @@ function M.action(selected_option)
     end
   elseif selected_option == "option5" then
     local task = overseer.new_task({
-      name = "- C compiler",
+      name = "- C# compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Dotnet build & run → .cproj",
           cmd = "dotnet run" ..                                                      -- compile and run
@@ -151,7 +151,7 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option6" then
     local task = overseer.new_task({
-      name = "- C compiler",
+      name = "- C# compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Dotnet build → .csproj",
           cmd = "dotnet build" ..                                                    -- compile
