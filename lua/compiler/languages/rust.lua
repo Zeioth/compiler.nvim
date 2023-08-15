@@ -8,7 +8,12 @@ M.options = {
   { text = "2 - Build program", value = "option2" },
   { text = "3 - Run program", value = "option3" },
   { text = "4 - Build solution", value = "option4" },
-  { text = "5 - Run Makefile", value = "option5" }
+  { text = "", value = "separator" },
+  { text = "5 - Cargo build and run", value = "option5" },
+  { text = "6 - Cargo build", value = "option6" },
+  { text = "7 - Cargo run", value = "option7" },
+  { text = "", value = "separator" },
+  { text = "8 - Run Makefile", value = "option8" }
 }
 
 -- Backend - overseer tasks performed on option selected
@@ -18,7 +23,7 @@ function M.action(selected_option)
   local entry_point = utils.osPath(vim.fn.getcwd() .. "/main.rs")            -- working_directory/main.rs
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
-  local arguments = "-D warnings -g"                                        -- arguments can be overriden in .solution
+  local arguments = "-D warnings -g"                                         -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -28,7 +33,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
-                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments .. -- compile
+                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments ..  -- compile
                 " && " .. output ..                                                     -- run
                 " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
@@ -42,7 +47,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
-                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments .. -- compile
+                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments ..  -- compile
                 " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
@@ -81,7 +86,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
-                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments .. -- compile
+                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments ..  -- compile
                 " && echo " .. entry_point ..                                           -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -119,7 +124,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                    -- clean
                 " && mkdir -p " .. output_dir ..                                         -- mkdir
-                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments ..  -- compile
+                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments ..   -- compile
                 " && echo " .. entry_point ..                                            -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -133,6 +138,36 @@ function M.action(selected_option)
       vim.cmd("OverseerOpen")
     end
   elseif selected_option == "option5" then
+    local task = overseer.new_task({
+      name = "- Cargo",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Cargo build & run → " .. "Cargo.toml",
+          cmd = "cargo build " ..                                                       -- compile
+                " && echo '" .. final_message .. "'"                                    -- echo
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option6" then
+    local task = overseer.new_task({
+      name = "- Cargo",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Cargo build → " .. "Cargo.toml",
+          cmd = "cargo build " ..                                                       -- compile
+                " && echo '" .. final_message .. "'"                                    -- echo
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option7" then
+    local task = overseer.new_task({
+      name = "- Cargo",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Cargo run → " .. "Cargo.toml",
+          cmd = "cargo run " ..                                                        -- compile
+                " && echo '" .. final_message .. "'"                                   -- echo
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option8" then
     require("compiler.languages.make").run_makefile()                        -- run
   end
 end

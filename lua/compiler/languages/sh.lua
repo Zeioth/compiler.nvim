@@ -16,7 +16,7 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local entry_point = vim.fn.expand('%:p')            -- current buffer
+  local entry_point = vim.fn.expand('%:p')           -- current buffer
   local arguments = ""                               -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
@@ -45,7 +45,7 @@ function M.action(selected_option)
         entry_point = utils.osPath(variables.entry_point)
         arguments = variables.arguments or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
-          cmd = arguments .. arguments == "" or " " .. entry_point ..      -- run
+          cmd = arguments .. arguments == "" or " " .. entry_point ..        -- run
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"                         -- echo
         }

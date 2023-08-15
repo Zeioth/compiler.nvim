@@ -19,7 +19,7 @@ function M.action(selected_option)
   local files = utils.find_files_to_compile(entry_point, "*.c")      -- *.c files under entry_point_dir (recursively)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")        -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")     -- working_directory/bin/program
-  local arguments = "-Wall -g"                                      -- arguments can be overriden in .solution
+  local arguments = "-Wall -g"                                       -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
 
@@ -30,7 +30,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                -- clean
                 " && mkdir -p " .. output_dir ..                                     -- mkdir
-                " && gcc " .. files .. " -o " .. output .. " " .. arguments ..      -- compile
+                " && gcc " .. files .. " -o " .. output .. " " .. arguments ..       -- compile
                 " && " .. output ..                                                  -- run
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
@@ -44,7 +44,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                -- clean
                 " && mkdir -p " .. output_dir ..                                     -- mkdir
-                " && gcc " .. files .. " -o " .. output .. " " .. arguments ..      -- compile
+                " && gcc " .. files .. " -o " .. output .. " " .. arguments ..       -- compile
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
@@ -124,7 +124,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                -- clean
                 " && mkdir -p " .. output_dir ..                                     -- mkdir
-                " && gcc " .. files .. " -o " .. output .. " " .. arguments ..      -- compile
+                " && gcc " .. files .. " -o " .. output .. " " .. arguments ..       -- compile
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
         }

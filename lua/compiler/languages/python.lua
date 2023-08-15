@@ -75,7 +75,7 @@ function M.action(selected_option)
         local entry_point = utils.osPath(variables.entry_point)
         local arguments = variables.arguments or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
-          cmd = "python " .. arguments .. " " .. entry_point ..             -- run (interpreted)
+          cmd = "python " .. arguments .. " " .. entry_point ..              -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -97,7 +97,7 @@ function M.action(selected_option)
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.osPath(entry_point)
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "python " .. arguments .. " " .. entry_point ..             -- run (interpreted)
+          cmd = "python " .. arguments .. " " .. entry_point ..              -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -124,7 +124,7 @@ function M.action(selected_option)
 
   --========================== MACHINE CODE =================================--
   elseif selected_option == "option4" then
-    local arguments = "--warn-implicit-exceptions --warn-unusual-code"                -- optional
+    local arguments = "--warn-implicit-exceptions --warn-unusual-code"                 -- optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
@@ -226,7 +226,7 @@ function M.action(selected_option)
         entry_point = utils.osPath(entry_point)
         output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")     -- entry_point/bin
         output = utils.osPath(output_dir .. "/program")                                 -- entry_point/bin/program
-        local arguments = "--warn-implicit-exceptions --warn-unusual-code"             -- optional
+        local arguments = "--warn-implicit-exceptions --warn-unusual-code"              -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
@@ -333,7 +333,7 @@ function M.action(selected_option)
         output = utils.osPath(variables.output)
         local output_filename = vim.fn.fnamemodify(output, ":t")
         output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
-        local arguments = variables.arguments or "--log-level WARN --python-option W" -- optional
+        local arguments = variables.arguments or "--log-level WARN --python-option W"   -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
@@ -380,7 +380,7 @@ function M.action(selected_option)
         output = utils.osPath(output_dir .. "/program")                                 -- entry_point/bin/program
         local cache_dir = utils.osPath(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
         local output_filename = vim.fn.fnamemodify(output, ":t")
-        local arguments = "--log-level WARN --python-option W"                         -- optional
+        local arguments = "--log-level WARN --python-option W"                          -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
                 " && mkdir -p " .. cache_dir ..                                         -- mkdir

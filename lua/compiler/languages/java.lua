@@ -16,11 +16,11 @@ function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
   local entry_point = utils.osPath(vim.fn.getcwd() .. "/Main.java")          -- working_directory/Main.java
-  local files = utils.find_files_to_compile(entry_point, "*.java")            -- *.java files under entry_point_dir (recursively)
+  local files = utils.find_files_to_compile(entry_point, "*.java")           -- *.java files under entry_point_dir (recursively)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/Main")                -- working_directory/bin/Main.class
   local output_filename = "Main"                                             -- working_directory/bin/Main
-  local arguments = "-Xlint:all"                                            -- arguments can be overriden in .solution
+  local arguments = "-Xlint:all"                                             -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -30,7 +30,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                         -- clean
                 " && mkdir -p " .. output_dir ..                                              -- mkdir
-                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files .. -- compile bytecode
+                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files ..  -- compile bytecode
                 " && java -cp " .. output_dir .. " " .. output_filename ..                    -- run
                 " && echo " .. entry_point ..                                                 -- echo
                 " && echo '" .. final_message .. "'"
@@ -44,7 +44,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                               -- clean
                 " && mkdir -p " .. output_dir ..                                                    -- mkdir
-                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files ..       -- compile bytecode
+                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files ..        -- compile bytecode
                 " && echo " .. entry_point ..                                                       -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
@@ -84,7 +84,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                         -- clean
                 " && mkdir -p " .. output_dir ..                                              -- mkdir
-                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files .. -- compile bytecode
+                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files ..  -- compile bytecode
                 " && echo " .. entry_point ..                                                 -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -125,7 +125,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                         -- clean
                 " && mkdir -p " .. output_dir ..                                              -- mkdir
-                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files .. -- compile bytecode
+                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files ..  -- compile bytecode
                 " && echo " .. entry_point ..                                                 -- echo
                 " && echo '" .. final_message .. "'"
         }
