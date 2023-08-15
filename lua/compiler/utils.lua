@@ -63,7 +63,7 @@ function M.parseConfigFile(filePath)
         local key, value = line:match("([^=]+)%s-=%s-(.+)")  -- Extract key-value pairs
         if key and value and currentEntry then
           value = value:gsub("^%s*[\"'](.+)[\"']%s*$", "%1")  -- Remove surrounding quotes if present
-          config[currentEntry][key:trim()] = value:trim()  -- Store the variable in the table
+          config[currentEntry][vim.trim(key)] = vim.trim(value)  -- Store the variable in the table
         end
       end
     end
