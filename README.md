@@ -199,6 +199,6 @@ If you want to help me, please star this repository to increase the visibility o
 * Rust: Support for `Build and run (cargo)`, `Build (cargo)`, and `Run (cargo)`.
 * Go: Support for `Build and run (cli)`, `Build (cli)`, and `Run (cli)`.
 * ~~Allow `# comments` in `.solution.toml` files.~~
-* ~~Use `.solution.toml` instead of `.solution` files. This allow code editors to highlight possible errors in the config file.~~
+* ~~BREAKING CHANGE: Use `.solution.toml` instead of `.solution` files. This allow code editors to highlight possible errors in the config file.~~
 * ~~Proposal: Always compile in debug mode by default, so people don't have to create a `.solution` file just to set the debug argument to debug their programs on DAP.~~
 * ~~Fix: We are erroneous refering to "compiler arguments" as "compiler parameters"~~
