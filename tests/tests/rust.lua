@@ -28,3 +28,18 @@ vim.wait(ms)
 vim.api.nvim_set_current_dir(example .. "solution/")
 language.action("option4")
 vim.wait(ms)
+
+-- Cargo build and run
+vim.api.nvim_set_current_dir(example .. "cargo-build-and-run/")
+language.action("option5")
+vim.wait(ms)
+
+-- Cargo build
+vim.api.nvim_set_current_dir(example .. "cargo-build/")
+language.action("option6")
+vim.wait(ms)
+
+-- Cargo run
+vim.api.nvim_set_current_dir(example .. "cargo-run/")
+language.action("option7")
+vim.wait(ms)
