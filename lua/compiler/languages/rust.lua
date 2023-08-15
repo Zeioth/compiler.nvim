@@ -139,7 +139,7 @@ function M.action(selected_option)
     end
   elseif selected_option == "option5" then
     local task = overseer.new_task({
-      name = "- Cargo",
+      name = "- Rust compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Cargo build & run → " .. "Cargo.toml",
           cmd = "cargo build " ..                                                       -- compile
@@ -149,7 +149,7 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option6" then
     local task = overseer.new_task({
-      name = "- Cargo",
+      name = "- Rust compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Cargo build → " .. "Cargo.toml",
           cmd = "cargo build " ..                                                       -- compile
@@ -159,7 +159,7 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option7" then
     local task = overseer.new_task({
-      name = "- Cargo",
+      name = "- Rust compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Cargo run → " .. "Cargo.toml",
           cmd = "cargo run " ..                                                        -- compile
