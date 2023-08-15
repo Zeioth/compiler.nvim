@@ -11,11 +11,11 @@ function M.show()
   end
 
   -- dependencies
+  conf = require("telescope.config").values
   actions = require "telescope.actions"
   state = require "telescope.actions.state"
   pickers = require "telescope.pickers"
   finders = require "telescope.finders"
-  sorters = require "telescope.sorters"
   utils = require("compiler.utils")
 
   local buffer = vim.api.nvim_get_current_buf()
@@ -52,7 +52,7 @@ function M.show()
             }
           end,
         },
-        sorter = sorters.get_generic_fuzzy_sorter(),
+        sorter = conf.generic_sorter(),
         attach_mappings = function(_, map)
           map(
             "i",
