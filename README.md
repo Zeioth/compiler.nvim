@@ -196,8 +196,7 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
-* Rust: Support for `Build and run (cargo)`, `Build (cargo)`, and `Run (cargo)`.
-* Go: Support for `Build and run (cli)`, `Build (cli)`, and `Run (cli)`.
+* ~~Rust: Support for `Cargo build and run`, `Cargo build`, and `Cargo run`.~~
 * ~~Allow `# comments` in `.solution.toml` files.~~
 * ~~BREAKING CHANGE: Use `.solution.toml` instead of `.solution` files. This allow code editors to highlight possible errors in the config file.~~
 * ~~Proposal: Always compile in debug mode by default, so people don't have to create a `.solution` file just to set the debug argument to debug their programs on DAP.~~
