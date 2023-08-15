@@ -9,8 +9,8 @@ M.options = {
   { text = "3 - Run program", value = "option3" },
   { text = "4 - Build solution", value = "option4" },
   { text = "", value = "separator" },
-  { text = "5 - Build and run dotnet", value = "option5" },
-  { text = "6 - Build dotnet", value = "option6" },
+  { text = "5 - Dotnet build and run", value = "option5" },
+  { text = "6 - Dotnet run", value = "option6" },
   { text = "", value = "separator" },
   { text = "7 - Run Makefile", value = "option7" }
 }
@@ -23,7 +23,7 @@ function M.action(selected_option)
   local files = utils.find_files_to_compile(entry_point, "*.cs")            -- *.cs files under entry_point_dir (recursively)
   local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
   local output = utils.osPath(vim.fn.getcwd() .. "/bin/Program.exe")        -- working_directory/bin/program
-  local arguments = "-warn:4 /debug"                                       -- arguments can be overriden in .solution
+  local arguments = "-warn:4 /debug"                                        -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -33,7 +33,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                             -- clean
                 " && mkdir -p " .. output_dir ..                                  -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. arguments .. -- compile bytecode
+                " && csc " .. files .. " -out:" .. output .. " " .. arguments ..  -- compile bytecode
                 " && mono " .. output ..                                          -- run
                 " ; echo " .. entry_point ..                                      -- echo
                 " ; echo '" .. final_message .. "'"
@@ -47,7 +47,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                              -- clean
                 " && mkdir -p " .. output_dir ..                                   -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. arguments  .. -- compile bytecode
+                " && csc " .. files .. " -out:" .. output .. " " .. arguments  ..  -- compile bytecode
                 " ; echo " .. entry_point ..                                       -- echo
                 " ; echo '" .. final_message .. "'"
         },},},})
@@ -87,7 +87,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                              -- clean
                 " && mkdir -p " .. output_dir ..                                   -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. arguments  .. -- compile bytecode
+                " && csc " .. files .. " -out:" .. output .. " " .. arguments  ..  -- compile bytecode
                 " && echo " .. entry_point ..                                      -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -126,7 +126,7 @@ function M.action(selected_option)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                -- clean
                 " && mkdir -p " .. output_dir ..                                     -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. arguments  ..   -- compile bytecode
+                " && csc " .. files .. " -out:" .. output .. " " .. arguments  ..    -- compile bytecode
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -143,10 +143,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build & run .net project → .cproj",
+        tasks = {{ "shell", name = "- Dotnet build & run → .cproj",
           cmd = "dotnet run" ..                                                      -- compile and run
-                " && echo " .. entry_point ..                                        -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo '" .. final_message .. "'"                                 -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -154,10 +153,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build .net project → .csproj",
+        tasks = {{ "shell", name = "- Dotnet build → .csproj",
           cmd = "dotnet build" ..                                                    -- compile
-                " && echo " .. entry_point ..                                        -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo '" .. final_message .. "'"                                 -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
