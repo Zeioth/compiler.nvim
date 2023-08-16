@@ -48,7 +48,7 @@ end
 -- Parse the config file and extract variables
 ---@param string
 ---@return table config A table like { {entry_point, ouptput, ..} .. }
-function M.parseConfigFile(filePath)
+function M.parse_config_file(filePath)
   local file = assert(io.open(filePath, "r"))  -- Open the file in read mode
   local config = {}  -- Initialize an empty Lua table to store the variables
   local currentEntry = nil  -- Variable to track the current entry being processed
@@ -76,7 +76,7 @@ end
 --- Programatically require the backend for the current language.
 ---@return module language If languages/<filetype>.lua doesn't exist,
 --         send a notification and return nil.
-function M.requireLanguage(filetype)
+function M.require_language(filetype)
   local localPath = debug.getinfo(1, "S").source:sub(2)
   local localPathDir = localPath:match("(.*[/\\])")
   local moduleFilePath = localPathDir .. "languages/" .. filetype .. ".lua"
@@ -92,7 +92,7 @@ end
 
 --- Function that returns true if a file exists in physical storage
 ---@return bool
-function M.fileExists(filename)
+function M.file_exists(filename)
   local stat = vim.loop.fs_stat(filename)
   return stat and stat.type == "file"
 end
@@ -101,7 +101,7 @@ end
 -- Then return the resulting string.
 ---@param path string
 ---@return string
-function M.osPath(path)
+function M.os_path(path)
   if path == nil then return nil end
   -- Get the platform-specific path separator
   local separator = package.config:sub(1,1)

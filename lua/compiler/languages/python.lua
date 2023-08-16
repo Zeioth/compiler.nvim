@@ -29,11 +29,11 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local current_file = vim.fn.expand('%:p')                                  -- current file
-  local entry_point = utils.osPath(vim.fn.getcwd() .. "/main.py")            -- working_directory/main.py
-  local files = utils.find_files_to_compile(entry_point, "*.py")             -- *.py files under entry_point_dir (recursively)
-  local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
-  local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
+  local current_file = vim.fn.expand('%:p')                                   -- current file
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.py")            -- working_directory/main.py
+  local files = utils.find_files_to_compile(entry_point, "*.py")              -- *.py files under entry_point_dir (recursively)
+  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
   local final_message = "--task finished--"
   -- For python, arguments are not globally defined,
   -- as we have 3 different ways to run the code.
@@ -68,11 +68,11 @@ function M.action(selected_option)
     local task
 
     -- if .solution file exists in working dir
-    if utils.fileExists(".solution.toml") then
-      local config = utils.parseConfigFile(utils.osPath(vim.fn.getcwd() .. "/.solution.toml"))
+    if utils.file_exists(".solution.toml") then
+      local config = utils.parse_config_file(utils.os_path(vim.fn.getcwd() .. "/.solution.toml"))
 
       for entry, variables in pairs(config) do
-        local entry_point = utils.osPath(variables.entry_point)
+        local entry_point = utils.os_path(variables.entry_point)
         local arguments = variables.arguments or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "python " .. arguments .. " " .. entry_point ..              -- run (interpreted)
@@ -95,7 +95,7 @@ function M.action(selected_option)
       entry_points = utils.find_files(vim.fn.getcwd(), "main.py")
       local arguments = ""
       for _, entry_point in ipairs(entry_points) do
-        entry_point = utils.osPath(entry_point)
+        entry_point = utils.os_path(entry_point)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "python " .. arguments .. " " .. entry_point ..              -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
@@ -141,7 +141,7 @@ function M.action(selected_option)
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option5" then
-    local arguments = "--warn-implicit-exceptions --warn-unusual-code"                 --optional
+    local arguments = "--warn-implicit-exceptions --warn-unusual-code"                  -- optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
@@ -173,18 +173,18 @@ function M.action(selected_option)
     local task
 
     -- if .solution file exists in working dir
-    if utils.fileExists(".solution.toml") then
-      local config = utils.parseConfigFile(utils.osPath(vim.fn.getcwd() .. "/.solution.toml"))
+    if utils.file_exists(".solution.toml") then
+      local config = utils.parse_config_file(utils.os_path(vim.fn.getcwd() .. "/.solution.toml"))
       local executable
 
       for entry, variables in pairs(config) do
         if variables.executable then
-          executable = utils.osPath(variables.executable)
+          executable = utils.os_path(variables.executable)
           goto continue
         end
-        entry_point = utils.osPath(variables.entry_point)
-        output = utils.osPath(variables.output)
-        output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
+        entry_point = utils.os_path(variables.entry_point)
+        output = utils.os_path(variables.output)
+        output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         local arguments = variables.arguments or "--warn-implicit-exceptions --warn-unusual-code" -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
@@ -223,9 +223,9 @@ function M.action(selected_option)
       entry_points = utils.find_files(vim.fn.getcwd(), "main.py")
 
       for _, entry_point in ipairs(entry_points) do
-        entry_point = utils.osPath(entry_point)
-        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")     -- entry_point/bin
-        output = utils.osPath(output_dir .. "/program")                                 -- entry_point/bin/program
+        entry_point = utils.os_path(entry_point)
+        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")    -- entry_point/bin
+        output = utils.os_path(output_dir .. "/program")                                -- entry_point/bin/program
         local arguments = "--warn-implicit-exceptions --warn-unusual-code"              -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
@@ -259,7 +259,7 @@ function M.action(selected_option)
 
   --============================ BYTECODE ===================================--
   elseif selected_option == "option8" then
-    local cache_dir = utils.osPath(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
+    local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
     local output_filename = vim.fn.fnamemodify(output, ":t")
     local arguments = "--log-level WARN --python-option W" -- optional
     local task = overseer.new_task({
@@ -281,7 +281,7 @@ function M.action(selected_option)
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option9" then
-    local cache_dir = utils.osPath(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
+    local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
     local output_filename = vim.fn.fnamemodify(output, ":t")
     local arguments = "--log-level WARN --python-option W" -- optional
     local task = overseer.new_task({
@@ -318,21 +318,21 @@ function M.action(selected_option)
     local task
 
     -- if .solution file exists in working dir
-    if utils.fileExists(".solution.toml") then
-      local config = utils.parseConfigFile(utils.osPath(vim.fn.getcwd() .. "/.solution.toml"))
+    if utils.file_exists(".solution.toml") then
+      local config = utils.parse_config_file(utils.os_path(vim.fn.getcwd() .. "/.solution.toml"))
       local executable
 
       for entry, variables in pairs(config) do
         if variables.executable then
-          executable = utils.osPath(variables.executable)
+          executable = utils.os_path(variables.executable)
           goto continue
         end
-        local cache_dir = utils.osPath(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
-        entry_point = utils.osPath(variables.entry_point)
+        local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
+        entry_point = utils.os_path(variables.entry_point)
         files = utils.find_files_to_compile(entry_point, "*.py")
-        output = utils.osPath(variables.output)
+        output = utils.os_path(variables.output)
         local output_filename = vim.fn.fnamemodify(output, ":t")
-        output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
+        output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         local arguments = variables.arguments or "--log-level WARN --python-option W"   -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                   -- clean
@@ -374,11 +374,11 @@ function M.action(selected_option)
       entry_points = utils.find_files(vim.fn.getcwd(), "main.py")
 
       for _, entry_point in ipairs(entry_points) do
-        entry_point = utils.osPath(entry_point)
+        entry_point = utils.os_path(entry_point)
         files = utils.find_files_to_compile(entry_point, "*.py")
-        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")     -- entry_point/bin
-        output = utils.osPath(output_dir .. "/program")                                 -- entry_point/bin/program
-        local cache_dir = utils.osPath(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
+        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")    -- entry_point/bin
+        output = utils.os_path(output_dir .. "/program")                                -- entry_point/bin/program
+        local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
         local output_filename = vim.fn.fnamemodify(output, ":t")
         local arguments = "--log-level WARN --python-option W"                          -- optional
         task = { "shell", name = "- Build program → " .. entry_point,

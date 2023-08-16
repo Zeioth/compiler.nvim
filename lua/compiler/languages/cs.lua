@@ -19,11 +19,11 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local entry_point = utils.osPath(vim.fn.getcwd() .. "/Program.cs")        -- working_directory/Program.cs
-  local files = utils.find_files_to_compile(entry_point, "*.cs")            -- *.cs files under entry_point_dir (recursively)
-  local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
-  local output = utils.osPath(vim.fn.getcwd() .. "/bin/Program.exe")        -- working_directory/bin/program
-  local arguments = "-warn:4 /debug"                                        -- arguments can be overriden in .solution
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/Program.cs")        -- working_directory/Program.cs
+  local files = utils.find_files_to_compile(entry_point, "*.cs")             -- *.cs files under entry_point_dir (recursively)
+  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/Program.exe")        -- working_directory/bin/program
+  local arguments = "-warn:4 /debug"                                         -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -70,19 +70,19 @@ function M.action(selected_option)
     local task
 
     -- if .solution file exists in working dir
-    if utils.fileExists(".solution.toml") then
-      local config = utils.parseConfigFile(utils.osPath(vim.fn.getcwd() .. "/.solution.toml"))
+    if utils.file_exists(".solution.toml") then
+      local config = utils.parse_config_file(utils.os_path(vim.fn.getcwd() .. "/.solution.toml"))
       local executable
 
       for entry, variables in pairs(config) do
         if variables.executable then
-          executable = utils.osPath(variables.executable)
+          executable = utils.os_path(variables.executable)
           goto continue
         end
-        entry_point = utils.osPath(variables.entry_point)
+        entry_point = utils.os_path(variables.entry_point)
         files = utils.find_files_to_compile(entry_point, "*.cs")
-        output = utils.osPath(variables.output)
-        output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))
+        output = utils.os_path(variables.output)
+        output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                              -- clean
@@ -119,10 +119,10 @@ function M.action(selected_option)
       entry_points = utils.find_files(vim.fn.getcwd(), "Program.cs")
 
       for _, entry_point in ipairs(entry_points) do
-        entry_point = utils.osPath(entry_point)
+        entry_point = utils.os_path(entry_point)
         files = utils.find_files_to_compile(entry_point, "*.cs")
-        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
-        output = utils.osPath(output_dir .. "/program")                              -- entry_point/bin/program
+        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
+        output = utils.os_path(output_dir .. "/program")                              -- entry_point/bin/program
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                -- clean
                 " && mkdir -p " .. output_dir ..                                     -- mkdir

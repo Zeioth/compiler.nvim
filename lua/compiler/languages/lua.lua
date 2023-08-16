@@ -15,7 +15,7 @@ function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
   local current_file = vim.fn.expand('%:p')                                  -- current file
-  local entry_point = utils.osPath(vim.fn.getcwd() .. "/main.lua")           -- working_directory/main.lua
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.lua")          -- working_directory/main.lua
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -46,11 +46,11 @@ function M.action(selected_option)
     local task
 
     -- if .solution file exists in working dir
-    if utils.fileExists(".solution.toml") then
-      local config = utils.parseConfigFile(utils.osPath(vim.fn.getcwd() .. "/.solution.toml"))
+    if utils.file_exists(".solution.toml") then
+      local config = utils.parse_config_file(utils.os_path(vim.fn.getcwd() .. "/.solution.toml"))
 
       for entry, variables in pairs(config) do
-        entry_point = utils.osPath(variables.entry_point)
+        entry_point = utils.os_path(variables.entry_point)
         arguments = variables.arguments or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "lua " .. arguments .. " " .. entry_point ..                 -- run (interpreted)
@@ -73,7 +73,7 @@ function M.action(selected_option)
       entry_points = utils.find_files(vim.fn.getcwd(), "main.lua")
       arguments = "" -- optional
       for _, entry_point in ipairs(entry_points) do
-        entry_point = utils.osPath(entry_point)
+        entry_point = utils.os_path(entry_point)
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "lua " .. arguments .. " " .. entry_point ..                 -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo

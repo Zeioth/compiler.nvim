@@ -15,11 +15,11 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local entry_point = utils.osPath(vim.fn.getcwd() .. "/main.asm")           -- working_directory/main.asm
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.asm")          -- working_directory/main.asm
   local entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")              -- working_directory/
   local files = utils.find_files(entry_point_dir, "*.asm")                   -- *.asm files under entry_point_dir (recursively)
-  local output_dir = utils.osPath(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
-  local output = utils.osPath(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
+  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
   local arguments = "-g"                                                     -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
@@ -73,7 +73,7 @@ function M.action(selected_option)
       local task = { "shell", name = "- Build program → " .. file,
         cmd = "mkdir -p " .. output_dir ..
               " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. arguments  ..   -- compile
-              " && echo " .. file ..                                               -- echo
+              " && echo " .. file ..                                                       -- echo
               " && echo '" .. final_message .. "'"
       }
       files[_] = output_dir .. filename .. ".o" -- prepare for linker
@@ -113,21 +113,21 @@ function M.action(selected_option)
     local task
 
     -- if .solution file exists in working dir
-    if utils.fileExists(".solution.toml") then
-      local config = utils.parseConfigFile(
-        utils.osPath(vim.fn.getcwd() .. "/.solution.toml"))
+    if utils.file_exists(".solution.toml") then
+      local config = utils.parse_config_file(
+        utils.os_path(vim.fn.getcwd() .. "/.solution.toml"))
       local executable
 
       for entry, variables in pairs(config) do
         if variables.executable then
-          executable = utils.osPath(variables.executable)
+          executable = utils.os_path(variables.executable)
           goto continue
         end
-        entry_point = utils.osPath(variables.entry_point)
+        entry_point = utils.os_path(variables.entry_point)
         entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
         files = utils.find_files(entry_point_dir, "*.asm")
-        output = utils.osPath(variables.output)                              -- entry_point/bin/program
-        output_dir = utils.osPath(output:match("^(.-[/\\])[^/\\]*$"))        -- entry_point/bin
+        output = utils.os_path(variables.output)                              -- entry_point/bin/program
+        output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))        -- entry_point/bin
         arguments = variables.arguments or arguments -- optional
 
         -- Build .asm files in parallel
@@ -181,11 +181,11 @@ function M.action(selected_option)
 
       -- For every entry point
       for _, entry_point in ipairs(entry_points) do
-        entry_point = utils.osPath(entry_point)
+        entry_point = utils.os_path(entry_point)
         entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
         files = utils.find_files(entry_point_dir, "*.asm")
-        output_dir = utils.osPath(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")        -- entry_point/bin
-        output = utils.osPath(output_dir .. "/program")                                    -- entry_point/bin/program
+        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")        -- entry_point/bin
+        output = utils.os_path(output_dir .. "/program")                                    -- entry_point/bin/program
 
         -- Build .asm files in parallel
         local tasks_compile = {}

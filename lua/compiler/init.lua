@@ -28,7 +28,7 @@ M.setup = function(ctx)
       return
     end
     -- Redo
-    local language = utils.requireLanguage(current_filetype)
+    local language = utils.require_language(current_filetype)
     if not language then language = require("compiler.languages.make") end
     language.action(_G.compiler_redo)
   end, { desc = "Redo the last selected compiler option" })
