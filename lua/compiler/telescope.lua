@@ -23,7 +23,7 @@ function M.show()
 
   -- programatically require the backend for the current language.
   -- On unsupported languages, allow "Run Makefile".
-  language = utils.requireLanguage(filetype)
+  language = utils.require_language(filetype)
   if not language then language = require("compiler.languages.make") end
 
   --- On option selected → Run action depending of the language
