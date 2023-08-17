@@ -74,12 +74,14 @@ function M.parse_config_file(filePath)
 end
 
 --- Programatically require the backend for the current language.
+--- This function is compatible with Unix and Windows.
 ---@return module language If languages/<filetype>.lua doesn't exist,
 --         send a notification and return nil.
 function M.require_language(filetype)
+  local slash = package.config:sub(1, 1)
   local localPath = debug.getinfo(1, "S").source:sub(2)
-  local localPathDir = localPath:match("(.*[/\\])")
-  local moduleFilePath = localPathDir .. "languages/" .. filetype .. ".lua"
+  local localPathDir = localPath:match("(.*[/\\])")  -- This handles both Unix and Windows separators
+  local moduleFilePath = localPathDir .. "languages" .. slash .. filetype .. ".lua"
   local success, language = pcall(dofile, moduleFilePath)
 
   if success then return language
