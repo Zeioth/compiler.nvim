@@ -78,11 +78,10 @@ end
 ---@return module language If languages/<filetype>.lua doesn't exist,
 --         send a notification and return nil.
 function M.require_language(filetype)
-  local slash = package.config:sub(1, 1)
-  local localPath = debug.getinfo(1, "S").source:sub(2)
-  local localPathDir = localPath:match("(.*[/\\])")  -- This handles both Unix and Windows separators
-  local moduleFilePath = localPathDir .. "languages" .. slash .. filetype .. ".lua"
-  local success, language = pcall(dofile, moduleFilePath)
+  local local_path = debug.getinfo(1, "S").source:sub(2)
+  local local_path_dir = local_path:match("(.*[/\\])")
+  local module_file_path = M.os_path(local_path_dir .. "languages/" .. filetype .. ".lua")
+  local success, language = pcall(dofile, module_file_path)
 
   if success then return language
   else
