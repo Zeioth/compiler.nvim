@@ -46,24 +46,24 @@ function M.find_files_to_compile(entry_point, pattern)
 end
 
 -- Parse the config file and extract variables
----@param string
+---@param file_path string
 ---@return table config A table like { {entry_point, ouptput, ..} .. }
-function M.parse_config_file(filePath)
-  local file = assert(io.open(filePath, "r"))  -- Open the file in read mode
+function M.parse_config_file(file_path)
+  local file = assert(io.open(file_path, "r"))  -- Open the file in read mode
   local config = {}  -- Initialize an empty Lua table to store the variables
-  local currentEntry = nil  -- Variable to track the current entry being processed
+  local current_entry = nil  -- Variable to track the current entry being processed
 
   for line in file:lines() do
     if not (line:match("^%s*#") or line:match("^%s*$")) then -- ignore comments and empty lines
       local entry = line:match("%[([^%]]+)%]")  -- Check if the line represents a new entry
       if entry then
-        currentEntry = entry  -- Update the current entry being processed
-        config[currentEntry] = {}  -- Initialize a sub-table for the current entry
+        current_entry = entry  -- Update the current entry being processed
+        config[current_entry] = {}  -- Initialize a sub-table for the current entry
       else
         local key, value = line:match("([^=]+)%s-=%s-(.+)")  -- Extract key-value pairs
-        if key and value and currentEntry then
+        if key and value and current_entry then
           value = value:gsub("^%s*[\"'](.+)[\"']%s*$", "%1")  -- Remove surrounding quotes if present
-          config[currentEntry][vim.trim(key)] = vim.trim(value)  -- Store the variable in the table
+          config[current_entry][vim.trim(key)] = vim.trim(value)  -- Store the variable in the table
         end
       end
     end
