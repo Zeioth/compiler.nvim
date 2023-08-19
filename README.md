@@ -141,7 +141,7 @@ entry_point = "/path/to/my/entry_point_file/main.c"
 output = "/path/where/the/program/will/be/written/hello_world"
 arguments = ""
 
-[Solution]
+[SOLUTION]
 executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 ```
 
