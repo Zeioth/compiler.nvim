@@ -51,6 +51,11 @@ function M.check()
       msg = "Used to call the C# compiler.",
     },
     {
+      cmd = "dotnet",
+      type = "warn",
+      msg = "Used to call the C# compiler for .csproj files.",
+    },
+    {
       cmd = "javac",
       type = "warn",
       msg = "Used to call the java compiler.",
