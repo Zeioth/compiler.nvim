@@ -1,4 +1,4 @@
-*compier.txt*                                           A compiler for neovim.
+*compiler.txt*                                          A compiler for neovim.
 
 ==============================================================================
 Table of Contents                                  *markmap-table-of-contents*
@@ -17,3 +17,8 @@ Table of Contents                                  *markmap-table-of-contents*
 1. compiler.nvim                                                    *compiler*
 
 WIP - Help needed to convert README.md to .txt
+
+      In the meantime you can use `:h compiler.md`
+      to read the help in markdown format.
+
+      Or visit: https://github.com/Zeioth/compiler.nvim

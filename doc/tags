@@ -1,0 +1,3 @@
+compiler.txt	compiler.txt	/*compiler.txt*
+compiler	compiler.txt	/*compiler*
+compiler.md	../README.md	/*compiler.md*
