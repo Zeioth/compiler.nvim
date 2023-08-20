@@ -70,7 +70,7 @@ function M.action(selected_option)
     -- if .solution file exists in working dir
     local solution_file = utils.get_solution_file()
     if solution_file then
-      local config = utils.parse_config_file(solution_file)
+      local config = utils.parse_solution_file(solution_file)
 
       for entry, variables in pairs(config) do
         local entry_point = utils.os_path(variables.entry_point)
@@ -176,7 +176,7 @@ function M.action(selected_option)
     -- if .solution file exists in working dir
     local solution_file = utils.get_solution_file()
     if solution_file then
-      local config = utils.parse_config_file(solution_file)
+      local config = utils.parse_solution_file(solution_file)
       local executable
 
       for entry, variables in pairs(config) do
@@ -322,7 +322,7 @@ function M.action(selected_option)
     -- if .solution file exists in working dir
     local solution_file = utils.get_solution_file()
     if solution_file then
-      local config = utils.parse_config_file(solution_file)
+      local config = utils.parse_solution_file(solution_file)
       local executable
 
       for entry, variables in pairs(config) do

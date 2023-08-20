@@ -45,10 +45,10 @@ function M.find_files_to_compile(entry_point, pattern)
   return files_as_string
 end
 
--- Parse the config file and extract variables
----@param file_path string
+-- Parse the solution file and extract variables.
+---@param file_path string Path of the solution file to read.
 ---@return table config A table like { {entry_point, ouptput, ..} .. }
-function M.parse_config_file(file_path)
+function M.parse_solution_file(file_path)
   local file = assert(io.open(file_path, "r"))  -- Open the file in read mode
   local config = {}  -- Initialize an empty Lua table to store the variables
   local current_entry = nil  -- Variable to track the current entry being processed
