@@ -23,7 +23,7 @@ Neovim compiler for building and running your code without having to configure a
 - [FAQ](#faq)
 
 ## Why
-Those familiar with Visual Studio IDE will remember how convenient it was to just press a button and having your program compiled. I wanted to bring that same user experience to Neovim.
+Those familiar with Visual Studio IDE will remember how convenient it was to just press a button and having your program compiled and running. I wanted to bring that same user experience to Neovim.
 
 ## Supported languages
 
