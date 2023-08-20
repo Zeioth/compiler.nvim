@@ -98,6 +98,19 @@ function M.file_exists(filename)
   return stat and stat.type == "file"
 end
 
+--- Function that returns the path of the .solution file if exists in the current
+--- working diectory root, or nil otherwise.
+---@return string|nil
+function M.get_solution_file()
+  if M.file_exists(".solution.toml") then
+    return  M.os_path(vim.fn.getcwd() .. "/.solution.toml")
+  elseif M.file_exists(".solution") then
+    return  M.os_path(vim.fn.getcwd() .. "/.solution")
+  else
+    return nil
+  end
+end
+
 --- Given a string, convert 'slash' to 'inverted slash' if on windows, and vice versa on UNIX.
 -- Then return the resulting string.
 ---@param path string

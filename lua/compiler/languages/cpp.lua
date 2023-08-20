@@ -66,9 +66,9 @@ function M.action(selected_option)
     local task
 
     -- if .solution file exists in working dir
-    if utils.file_exists(".solution.toml") then
-      local config = utils.parse_config_file(
-        utils.os_path((vim.fn.getcwd() .. "/.solution.toml")))
+    local solution_file = utils.get_solution_file()
+    if solution_file then
+      local config = utils.parse_config_file(solution_file)
       local executable
 
       for entry, variables in pairs(config) do
