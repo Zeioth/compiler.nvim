@@ -99,7 +99,7 @@ function M.file_exists(filename)
 end
 
 --- Function that returns the path of the .solution file if exists in the current
---- working directory root, or nil otherwise.
+--- working directory's root, or nil otherwise.
 ---@return string|nil
 function M.get_solution_file()
   if M.file_exists(".solution.toml") then
