@@ -13,16 +13,19 @@ M.options = {
   { text = "6 - Cargo build", value = "option6" },
   { text = "7 - Cargo run", value = "option7" },
   { text = "", value = "separator" },
-  { text = "8 - Run Makefile", value = "option8" }
+  { text = "8 - Cargo build --all and run", value = "option8" },
+  { text = "9 - Cargo build --all", value = "option9" },
+  { text = "", value = "separator" },
+  { text = "10 - Run Makefile", value = "option10" }
 }
 
 -- Backend - overseer tasks performed on option selected
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.rs")           -- working_directory/main.rs
-  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
-  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.rs")            -- working_directory/main.rs
+  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
   local arguments = "-D warnings -g"                                         -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
@@ -70,8 +73,9 @@ function M.action(selected_option)
     local task
 
     -- if .solution file exists in working dir
-    if utils.file_exists(".solution.toml") then
-      local config = utils.parse_config_file(utils.os_path(vim.fn.getcwd() .. "/.solution.toml"))
+    local solution_file = utils.get_solution_file()
+    if solution_file then
+      local config = utils.parse_config_file(solution_file)
       local executable
 
       for entry, variables in pairs(config) do
@@ -119,8 +123,8 @@ function M.action(selected_option)
 
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point)
-        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")     -- entry_point/bin
-        output = utils.os_path(output_dir .. "/program")                                 -- entry_point/bin/program
+        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")      -- entry_point/bin
+        output = utils.os_path(output_dir .. "/program")                                  -- entry_point/bin/program
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                    -- clean
                 " && mkdir -p " .. output_dir ..                                         -- mkdir
@@ -143,6 +147,7 @@ function M.action(selected_option)
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Cargo build & run → " .. "Cargo.toml",
           cmd = "cargo build " ..                                                       -- compile
+                " && cargo run" ..                                                      --run
                 " && echo '" .. final_message .. "'"                                    -- echo
         },},},})
     task:start()
@@ -162,14 +167,36 @@ function M.action(selected_option)
       name = "- Rust compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Cargo run → " .. "Cargo.toml",
-          cmd = "cargo run " ..                                                        -- compile
+          cmd = "cargo run " ..                                                        -- run
                 " && echo '" .. final_message .. "'"                                   -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option8" then
+    local task = overseer.new_task({
+      name = "- Rust compiler",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Cargo build --all & run → " .. "Cargo.toml",
+          cmd = "cargo build --all " ..                                                -- compile
+                " && cargo run" ..
+                " && echo '" .. final_message .. "'"                                   -- echo
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option9" then
+    local task = overseer.new_task({
+      name = "- Rust compiler",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Cargo build --all → " .. "Cargo.toml",
+          cmd = "cargo build --all" ..                                                 -- compile
+                " && echo '" .. final_message .. "'"                                   -- echo
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option10" then
     require("compiler.languages.make").run_makefile()                        -- run
   end
 end
 
 return M
+
