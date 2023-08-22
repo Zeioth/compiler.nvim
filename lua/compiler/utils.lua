@@ -48,29 +48,46 @@ end
 -- Parse the solution file and extract variables.
 ---@param file_path string Path of the solution file to read.
 ---@return table config A table like { {entry_point, ouptput, ..} .. }
+--- The last table will only contain the solution executables like:
+--- { "/path/to/executable", ... }
 function M.parse_solution_file(file_path)
-  local file = assert(io.open(file_path, "r"))  -- Open the file in read mode
-  local config = {}  -- Initialize an empty Lua table to store the variables
-  local current_entry = nil  -- Variable to track the current entry being processed
+  local file = assert(io.open(file_path, "r"))
+  local config = {}
+  local executables = {}
+  local current_entry = nil
 
   for line in file:lines() do
-    if not (line:match("^%s*#") or line:match("^%s*$")) then -- ignore comments and empty lines
-      local entry = line:match("%[([^%]]+)%]")  -- Check if the line represents a new entry
+    if not (line:match("^%s*#") or line:match("^%s*$")) then
+      local entry = line:match("%[([^%]]+)%]")
       if entry then
-        current_entry = entry  -- Update the current entry being processed
-        config[current_entry] = {}  -- Initialize a sub-table for the current entry
+        current_entry = entry
+        config[current_entry] = {}
       else
-        local key, value = line:match("([^=]+)%s-=%s-(.+)")  -- Extract key-value pairs
+        local key, value = line:match("([^=]+)%s-=%s-(.+)")
         if key and value and current_entry then
-          value = value:gsub("^%s*[\"'](.+)[\"']%s*$", "%1")  -- Remove surrounding quotes if present
-          config[current_entry][vim.trim(key)] = vim.trim(value)  -- Store the variable in the table
+          key = vim.trim(key)
+          value = value:gsub("^%s*", ""):gsub(" *#.*", ""):gsub("^['\"](.-)['\"]$", "%1")  -- Remove inline comments and surrounding quotes
+
+          if string.find(key, "executable") then
+            table.insert(executables, value)
+          else
+            config[current_entry][key] = value
+          end
         end
       end
     end
   end
 
-  file:close()  -- Close the file
-  return config  -- Return the parsed config
+  file:close()
+  config["executables"] = executables
+
+  for key, value in pairs(config) do
+    if type(value) == "table" and next(value) == nil then
+      config[key] = nil
+    end
+  end
+
+  return config
 end
 
 --- Programatically require the backend for the current language.
@@ -99,7 +116,7 @@ function M.file_exists(filename)
 end
 
 --- Function that returns the path of the .solution file if exists in the current
---- working directory's root, or nil otherwise.
+--- working diectory root, or nil otherwise.
 ---@return string|nil
 function M.get_solution_file()
   if M.file_exists(".solution.toml") then
