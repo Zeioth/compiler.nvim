@@ -96,7 +96,7 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', "<cmd>CompilerOpen<cr>", { noremap =
 
 -- Redo last selected option
 vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>', function()
-  vim.cmd("CompilerStop") -- Stop all tasks before redo (optional)
+  vim.cmd("CompilerStop") -- (Optional)
   vim.cmd("CompilerRedo")
 end, { noremap = true, silent = true })
 
