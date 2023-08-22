@@ -32,6 +32,15 @@ M.setup = function(ctx)
     if not language then language = require("compiler.languages.make") end
     language.action(_G.compiler_redo)
   end, { desc = "Redo the last selected compiler option" })
+
+  cmd("CompilerStop", function()
+    vim.notify("SUCCESS - All tasks have been disposed.", "info")
+    local overseer = require("overseer.task_list")
+    tasks = overseer.list_tasks({ unique = false })
+    for _, task in pairs(tasks) do
+      task.dispose(task, true)
+    end
+  end, { desc = "Dispose all tasks running in the compiler" })
 end
 
 return M
