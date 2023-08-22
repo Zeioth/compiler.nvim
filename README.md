@@ -194,5 +194,5 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-
+* Command: `CompilerStop` to kill and clear all running jobs. This allow people easily creating a keymapping like "kill all and redo.
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
