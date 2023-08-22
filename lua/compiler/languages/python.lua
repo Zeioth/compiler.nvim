@@ -29,11 +29,11 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local current_file = vim.fn.expand('%:p')                                   -- current file
-  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.py")            -- working_directory/main.py
-  local files = utils.find_files_to_compile(entry_point, "*.py")              -- *.py files under entry_point_dir (recursively)
-  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
-  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
+  local current_file = vim.fn.expand('%:p')                                  -- current file
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.py")           -- working_directory/main.py
+  local files = utils.find_files_to_compile(entry_point, "*.py")             -- *.py files under entry_point_dir (recursively)
+  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
   local final_message = "--task finished--"
   -- For python, arguments are not globally defined,
   -- as we have 3 different ways to run the code.
@@ -64,8 +64,9 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option3" then
     local entry_points
+    local task = {}
     local tasks = {}
-    local task
+    local executables = {}
 
     -- if .solution file exists in working dir
     local solution_file = utils.get_solution_file()
@@ -73,6 +74,7 @@ function M.action(selected_option)
       local config = utils.parse_solution_file(solution_file)
 
       for entry, variables in pairs(config) do
+        if entry == "executables" then goto continue end
         local entry_point = utils.os_path(variables.entry_point)
         local arguments = variables.arguments or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
@@ -81,12 +83,26 @@ function M.action(selected_option)
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
+        ::continue::
+      end
+
+      local solution_executables = config["executables"]
+      if solution_executables then
+        for entry, executable in pairs(solution_executables) do
+          task = { "shell", name = "- Run program → " .. executable,
+            cmd = executable ..                                              -- run
+                  " && echo " .. executable ..                               -- echo
+                  " && echo '" .. final_message .. "'"
+          }
+          table.insert(executables, task) -- store all the executables we've created
+        end
       end
 
       task = overseer.new_task({
         name = "- Python interpreter", strategy = { "orchestrator",
           tasks = {
-            tasks, -- Run all the programs in the solution in parallel
+            tasks,        -- Build all the programs in the solution in parallel
+            executables   -- Then run the solution executable(s)
           }}})
       task:start()
       vim.cmd("OverseerOpen")
@@ -171,19 +187,16 @@ function M.action(selected_option)
   elseif selected_option == "option7" then
     local entry_points
     local tasks = {}
-    local task
+    local task = {}
+    local executables = {}
 
     -- if .solution file exists in working dir
     local solution_file = utils.get_solution_file()
     if solution_file then
       local config = utils.parse_solution_file(solution_file)
-      local executable
 
       for entry, variables in pairs(config) do
-        if variables.executable then
-          executable = utils.os_path(variables.executable)
-          goto continue
-        end
+        if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
@@ -201,21 +214,23 @@ function M.action(selected_option)
         ::continue::
       end
 
-      if executable then
-        task = { "shell", name = "- Python machine code compiler",
-          cmd = executable ..                                                           -- run
-                " && echo " .. executable ..                                            -- echo
-                " && echo '" .. final_message .. "'"
-        }
-      else
-        task = {}
+      local solution_executables = config["executables"]
+      if solution_executables then
+        for entry, executable in pairs(solution_executables) do
+          task = { "shell", name = "- Run program → " .. executable,
+            cmd = executable ..                                                         -- run
+                  " && echo " .. executable ..                                          -- echo
+                  " && echo '" .. final_message .. "'"
+          }
+          table.insert(executables, task) -- store all the executables we've created
+        end
       end
 
       task = overseer.new_task({
         name = "- Build program → " .. entry_point, strategy = { "orchestrator",
           tasks = {
-            tasks, -- Build all the programs in the solution in parallel
-            task   -- Then run the solution executable
+            tasks,        -- Build all the programs in the solution in parallel
+            executables   -- Then run the solution executable(s)
           }}})
       task:start()
       vim.cmd("OverseerOpen")
@@ -317,19 +332,16 @@ function M.action(selected_option)
   elseif selected_option == "option11" then
     local entry_points
     local tasks = {}
-    local task
+    local task = {}
+    local executables = {}
 
     -- if .solution file exists in working dir
     local solution_file = utils.get_solution_file()
     if solution_file then
       local config = utils.parse_solution_file(solution_file)
-      local executable
 
       for entry, variables in pairs(config) do
-        if variables.executable then
-          executable = utils.os_path(variables.executable)
-          goto continue
-        end
+        if entry == "executables" then goto continue end
         local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
         entry_point = utils.os_path(variables.entry_point)
         files = utils.find_files_to_compile(entry_point, "*.py")
@@ -353,21 +365,23 @@ function M.action(selected_option)
         ::continue::
       end
 
-      if executable then
-        task = { "shell", name = "- Python bytecode compiler",
-          cmd = executable ..                                                           -- run
-                " && echo " .. executable ..                                            -- echo
-                " && echo '" .. final_message .. "'"
-        }
-      else
-        task = {}
+      local solution_executables = config["executables"]
+      if solution_executables then
+        for entry, executable in pairs(solution_executables) do
+          task = { "shell", name = "- Run program → " .. executable,
+            cmd = executable ..                                                         -- run
+                  " && echo " .. executable ..                                          -- echo
+                  " && echo '" .. final_message .. "'"
+          }
+          table.insert(executables, task) -- store all the executables we've created
+        end
       end
 
       task = overseer.new_task({
         name = "- Build program → " .. entry_point, strategy = { "orchestrator",
           tasks = {
-            tasks, -- Build all the programs in the solution in parallel
-            task   -- Then run the solution executable
+            tasks,        -- Build all the programs in the solution in parallel
+            executables   -- Then run the solution executable(s)
           }}})
       task:start()
       vim.cmd("OverseerOpen")

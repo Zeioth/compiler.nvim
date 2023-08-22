@@ -42,8 +42,9 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option3" then
     local entry_points
+    local task = {}
     local tasks = {}
-    local task
+    local executables = {}
 
     -- if .solution file exists in working dir
     local solution_file = utils.get_solution_file()
@@ -51,6 +52,7 @@ function M.action(selected_option)
       local config = utils.parse_solution_file(solution_file)
 
       for entry, variables in pairs(config) do
+        if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
         arguments = variables.arguments or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
@@ -59,12 +61,26 @@ function M.action(selected_option)
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
+        ::continue::
+      end
+
+      local solution_executables = config["executables"]
+      if solution_executables then
+        for entry, executable in pairs(solution_executables) do
+          task = { "shell", name = "- Run program → " .. executable,
+            cmd = executable ..                                              -- run
+                  " && echo " .. executable ..                               -- echo
+                  " && echo '" .. final_message .. "'"
+          }
+          table.insert(executables, task) -- store all the executables we've created
+        end
       end
 
       task = overseer.new_task({
         name = "- Ruby interpreter", strategy = { "orchestrator",
           tasks = {
-            tasks, -- Run all the programs in the solution in parallel
+            tasks,        -- Build all the programs in the solution in parallel
+            executables   -- Then run the solution executable(s)
           }}})
       task:start()
       vim.cmd("OverseerOpen")

@@ -109,20 +109,17 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option4" then
     local entry_points
+    local task = {}
     local tasks = {}
-    local task
+    local executables = {}
 
     -- if .solution file exists in working dir
     local solution_file = utils.get_solution_file()
     if solution_file then
       local config = utils.parse_solution_file(solution_file)
-      local executable
 
       for entry, variables in pairs(config) do
-        if variables.executable then
-          executable = utils.os_path(variables.executable)
-          goto continue
-        end
+        if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
         entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
         files = utils.find_files(entry_point_dir, "*.asm")
@@ -157,20 +154,24 @@ function M.action(selected_option)
         ::continue::
       end
 
-      if executable then
-        task = { "shell", name = "- Run program → " .. executable,
-          cmd = executable ..                                                -- run
-                " && echo && echo " .. executable ..                         -- echo
-                " && echo '" .. final_message .. "'"
-        }
-        table.insert(tasks, task)
-      else
-        task = {}
+      local solution_executables = config["executables"]
+      if solution_executables then
+        for entry, executable in pairs(solution_executables) do
+          task = { "shell", name = "- Run program → " .. executable,
+            cmd = executable ..                                                  -- run
+                  " && echo " .. executable ..                                   -- echo
+                  " && echo '" .. final_message .. "'"
+          }
+          table.insert(executables, task)  -- store all the executables we've created
+          table.insert(tasks, executables)
+        end
       end
 
       task = overseer.new_task({
         name = "- Assembly compiler", strategy = { "orchestrator",
-          tasks = tasks
+          tasks = tasks -- Build all the programs in the solution in parallel
+                        -- Link all the programs in the solution in parallel
+--                      -- Then run the solution executable(s)
         }})
       task:start()
       vim.cmd("OverseerOpen")

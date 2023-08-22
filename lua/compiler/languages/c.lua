@@ -55,28 +55,25 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-          cmd = output ..                                                    -- run
-                " && echo " .. output ..                                     -- echo
+          cmd = output ..                                                            -- run
+                " && echo " .. output ..                                             -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option4" then
     local entry_points
+    local task = {}
     local tasks = {}
-    local task
+    local executables = {}
 
     -- if .solution file exists in working dir
     local solution_file = utils.get_solution_file()
     if solution_file then
       local config = utils.parse_solution_file(solution_file)
-      local executable
 
       for entry, variables in pairs(config) do
-        if variables.executable then
-          executable = utils.os_path(variables.executable)
-          goto continue
-        end
+        if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
         files = utils.find_files_to_compile(entry_point, "*.c")
         output = utils.os_path(variables.output)
@@ -93,21 +90,23 @@ function M.action(selected_option)
         ::continue::
       end
 
-      if executable then
-        task = { "shell", name = "- Run program → " .. executable,
-          cmd = executable ..                                                -- run
-                " && echo " .. executable ..                                 -- echo
-                " && echo '" .. final_message .. "'"
-        }
-      else
-        task = {}
+      local solution_executables = config["executables"]
+      if solution_executables then
+        for entry, executable in pairs(solution_executables) do
+          task = { "shell", name = "- Run program → " .. executable,
+            cmd = executable ..                                                      -- run
+                  " && echo " .. executable ..                                       -- echo
+                  " && echo '" .. final_message .. "'"
+          }
+          table.insert(executables, task) -- store all the executables we've created
+        end
       end
 
       task = overseer.new_task({
         name = "- C compiler", strategy = { "orchestrator",
           tasks = {
-            tasks, -- Build all the programs in the solution in parallel
-            task   -- Then run the solution executable
+            tasks,        -- Build all the programs in the solution in parallel
+            executables   -- Then run the solution executable(s)
           }}})
       task:start()
       vim.cmd("OverseerOpen")

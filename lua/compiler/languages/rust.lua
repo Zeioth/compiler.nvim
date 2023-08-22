@@ -23,9 +23,9 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.rs")            -- working_directory/main.rs
-  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")                -- working_directory/bin/
-  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")             -- working_directory/bin/program
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.rs")           -- working_directory/main.rs
+  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
   local arguments = "-D warnings -g"                                         -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
@@ -69,20 +69,17 @@ function M.action(selected_option)
     vim.cmd("OverseerOpen")
   elseif selected_option == "option4" then
     local entry_points
+    local task = {}
     local tasks = {}
-    local task
+    local executables = {}
 
     -- if .solution file exists in working dir
     local solution_file = utils.get_solution_file()
     if solution_file then
       local config = utils.parse_solution_file(solution_file)
-      local executable
 
       for entry, variables in pairs(config) do
-        if variables.executable then
-          executable = utils.os_path(variables.executable)
-          goto continue
-        end
+        if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
@@ -98,21 +95,23 @@ function M.action(selected_option)
         ::continue::
       end
 
-      if executable then
-        task = { "shell", name = "- Run program → " .. executable,
-          cmd = executable ..                                                -- run
-                " && echo " .. executable ..                                 -- echo
-                " && echo '" .. final_message .. "'"
-        }
-      else
-        task = {}
+      local solution_executables = config["executables"]
+      if solution_executables then
+        for entry, executable in pairs(solution_executables) do
+          task = { "shell", name = "- Run program → " .. executable,
+            cmd = executable ..                                                         -- run
+                  " && echo " .. executable ..                                          -- echo
+                  " && echo '" .. final_message .. "'"
+          }
+          table.insert(executables, task) -- store all the executables we've created
+        end
       end
 
       task = overseer.new_task({
         name = "- Rust compiler", strategy = { "orchestrator",
           tasks = {
-            tasks, -- Build all the programs in the solution in parallel
-            task   -- Then run the solution executable
+            tasks,        -- Build all the programs in the solution in parallel
+            executables   -- Then run the solution executable(s)
           }}})
       task:start()
       vim.cmd("OverseerOpen")
