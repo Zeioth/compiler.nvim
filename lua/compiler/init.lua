@@ -35,10 +35,10 @@ M.setup = function(ctx)
 
   cmd("CompilerStop", function()
     vim.notify("SUCCESS - All tasks have been disposed.", "info")
-    local overseer = require("overseer.task_list")
+    local overseer = require("overseer")
     tasks = overseer.list_tasks({ unique = false })
-    for _, task in pairs(tasks) do
-      task.dispose(task, true)
+    for _, task in ipairs(tasks) do
+      overseer.run_action(task, "dispose")
     end
   end, { desc = "Dispose all tasks running in the compiler" })
 end
