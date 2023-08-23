@@ -9,6 +9,12 @@ Neovim compiler for building and running your code without having to configure a
     </a>
 </div>
 
+---
+
+https://github.com/Zeioth/compiler.nvim/assets/3357792/65e3a491-45e2-48c9-8998-7ae52c26085f
+
+---
+
 ## Table of contents
 
 - [Why](#why)
