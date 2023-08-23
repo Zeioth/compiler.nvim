@@ -5,7 +5,7 @@ Neovim compiler for building and running your code without having to configure a
 
 ---
 
-**Demo**: Complier + DAP in 30 secs
+**Demo**: Compile and debug
 
 https://github.com/Zeioth/compiler.nvim/assets/3357792/65e3a491-45e2-48c9-8998-7ae52c26085f
 
