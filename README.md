@@ -3,17 +3,15 @@ Neovim compiler for building and running your code without having to configure a
 
 ![screenshot_2023-06-19_13-59-07_947251291](https://github.com/Zeioth/compiler.nvim/assets/3357792/7c31d02c-2e8d-4562-bcec-323d8a468f67)
 
+---
+
+https://github.com/Zeioth/compiler.nvim/assets/3357792/65e3a491-45e2-48c9-8998-7ae52c26085f
+
 <div align="center">
   <a href="https://discord.gg/ymcMaSnq7d" rel="nofollow">
       <img src="https://img.shields.io/discord/1121138836525813760?color=azure&labelColor=6DC2A4&logo=discord&logoColor=black&label=Join the discord server&style=for-the-badge" data-canonical-src="https://img.shields.io/discord/1121138836525813760">
     </a>
 </div>
-
----
-
-https://github.com/Zeioth/compiler.nvim/assets/3357792/65e3a491-45e2-48c9-8998-7ae52c26085f
-
----
 
 ## Table of contents
 
