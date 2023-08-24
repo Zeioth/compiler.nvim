@@ -30,6 +30,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
 * [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/cs-compiler))
+* [f#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/fsharp.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler))
 * [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua)
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua)
@@ -51,7 +52,6 @@ Pull requests are welcome. See [FAQ](#faq).
 * javascript
 * typescript
 * visual basic
-* F# ([more info](https://github.com/Zeioth/compiler.nvim/wiki/fs-compiler)) ← WIP
 * R
 * objetive C
 * scala
@@ -124,6 +124,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c | ./main.c | ./bin/program |
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/Program.exe |
+| f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |  |
 | java | ./Main.java | ./bin/Main.class |
 | rust | ./main.rs | ./bin/program |
 | go | ./main.go | ./bin/program |
