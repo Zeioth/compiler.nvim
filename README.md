@@ -124,7 +124,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c | ./main.c | ./bin/program |
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/Program.exe |
-| f# | see [here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |  |
+| f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |  |
 | java | ./Main.java | ./bin/Main.class |
 | rust | ./main.rs | ./bin/program |
 | go | ./main.go | ./bin/program |
