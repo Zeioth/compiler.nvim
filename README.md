@@ -51,7 +51,7 @@ Pull requests are welcome. See [FAQ](#faq).
 * javascript
 * typescript
 * visual basic
-* F
+* F# ([more info](https://github.com/Zeioth/compiler.nvim/wiki/fs-compiler)) ← WIP
 * R
 * objetive C
 * scala
