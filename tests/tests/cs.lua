@@ -29,12 +29,12 @@ vim.api.nvim_set_current_dir(example .. "solution/")
 language.action("option4")
 vim.wait(ms)
 
--- Build and run
+-- Build and run dotnet
 vim.api.nvim_set_current_dir(example .. "build-and-run-dotnet/")
 language.action("option5")
 vim.wait(ms)
 
--- Build
+-- Build dotnet
 vim.api.nvim_set_current_dir(example .. "build-dotnet/")
 language.action("option6")
 vim.wait(ms)
