@@ -10,7 +10,7 @@ M.options = {
   { text = "4 - Build solution", value = "option4" },
   { text = "", value = "separator" },
   { text = "5 - Dotnet build and run", value = "option5" },
-  { text = "6 - Dotnet run", value = "option6" },
+  { text = "6 - Dotnet build", value = "option6" },
   { text = "", value = "separator" },
   { text = "7 - Run Makefile", value = "option7" }
 }
