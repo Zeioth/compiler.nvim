@@ -13,9 +13,11 @@ dofile(tests_dir .. 'java.lua')
 dofile(tests_dir .. 'python.lua')
 dofile(tests_dir .. 'ruby.lua')
 dofile(tests_dir .. 'sh.lua')
+dofile(tests_dir .. 'fsharp.lua')
 dofile(tests_dir .. 'make.lua')
 
 -- Cases that require to be tested manually atm.
 -- * python → Run this file.
 -- * ruby   → Run this file.
 -- * shell  → Run this file.
+-- * fsharp → Run this file.
