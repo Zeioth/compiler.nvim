@@ -4,7 +4,7 @@ local M = {}
 
 --- Frontend  - options displayed on telescope
 M.options = {
-  { text = "1 - Run this file (interpreted)", value = "option1" },
+  { text = "1 - Dotnet run this file on REPL", value = "option1" },
   { text = "", value = "separator" },
   { text = "2 - Dotnet build and run", value = "option2" },
   { text = "3 - Dotnet build", value = "option3" },
@@ -20,9 +20,9 @@ function M.action(selected_option)
 
   if selected_option == "option1" then
     local task = overseer.new_task({
-      name = "- F# REPL",
+      name = "- F# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build & run program → " .. current_file,
+        tasks = {{ "shell", name = "- Dotnet run on REPL → " .. current_file,
           cmd = "  echo 'To exit the REPL enter #q;;'" ..                            -- echo
                 " ; dotnet fsi " .. current_file ..                                  -- run (interpreted)
                 " ; echo " .. current_file ..                                        -- echo
