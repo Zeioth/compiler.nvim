@@ -53,7 +53,7 @@ Pull requests are welcome. See [FAQ](#faq).
 * swift
 * objetive C
 * C# (Unity, build and run game)
-* C# (Godot, build and run game)
+* C#/GDscript (Godot, build and run game)
 * javascript
 * typescript
 * elixir
