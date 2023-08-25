@@ -1,0 +1,5 @@
+[HelloWorld]
+entry_point = "./main.r"
+
+[MyOtherCoolScript]
+entry_point = "./extra.r"
