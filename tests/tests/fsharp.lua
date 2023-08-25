@@ -7,10 +7,10 @@ local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/fsh
 
 -- Build and run dotnet
 vim.api.nvim_set_current_dir(example .. "build-and-run-dotnet/")
-language.action("option2")
+language.action("option1")
 vim.wait(ms)
 
 -- Build dotnet
 vim.api.nvim_set_current_dir(example .. "build-dotnet/")
-language.action("option3")
+language.action("option2")
 vim.wait(ms)

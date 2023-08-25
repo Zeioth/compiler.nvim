@@ -22,7 +22,8 @@ M.options = {
   { text = "10 - Run program (bytecode)", value = "option10" },
   { text = "11 - Build solution (bytecode)", value = "option11" },
   { text = "", value = "separator" },
-  { text = "12 - Run Makefile", value = "option12" }
+  { text = "12 - Run REPL", value = "option12" },
+  { text = "13 - Run Makefile", value = "option13" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -429,8 +430,33 @@ function M.action(selected_option)
 
 
 
-  --=============================== MAKE ====================================--
+
+  --=============================== REPL ====================================--
   elseif selected_option == "option12" then
+    local task = overseer.new_task({
+      name = "- Python REPL",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Start REPL",
+          cmd = "echo 'To exit the REPL enter exit()'" ..
+                " && python" ..                                                         -- run
+                " && echo '" .. final_message .. "'"
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+
+
+
+
+
+
+
+
+
+
+
+
+  --=============================== MAKE ====================================--
+  elseif selected_option == "option13" then
     require("compiler.languages.make").run_makefile()                        -- run
   end
 
