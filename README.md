@@ -47,7 +47,6 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 ### Planned & coming soon:
 Pull requests are welcome. See [FAQ](#faq).
 
-* matlab
 * scala
 * dart
 * kotlin
