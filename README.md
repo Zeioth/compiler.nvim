@@ -52,6 +52,8 @@ Pull requests are welcome. See [FAQ](#faq).
 * kotlin
 * swift
 * objetive C
+* C# (Unity, build and run game)
+* C# (Godot, build and run game)
 * javascript
 * typescript
 * elixir
