@@ -47,17 +47,19 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 ### Planned & coming soon:
 Pull requests are welcome. See [FAQ](#faq).
 
+* matlab
+* scala
 * dart
 * kotlin
 * swift
 * javascript
 * typescript
-* visual basic
 * objetive C
-* scala
 * elixir
+* visual basic
 * delphy
 * pascal
+* ada
 * cobol
 
 ## Required system dependencies
