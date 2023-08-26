@@ -5,7 +5,7 @@ local M = {}
 --- Frontend  - options displayed on telescope
 M.options = {
   { text = "1  - Run this file (interpreted)", value = "option1" },
-  { text = "2  - Run program (interpreted)", value = "option2" },
+  { text = "2  - Run rogram (interpreted)", value = "option2" },
   { text = "3  - Build solution (interpreted)", value = "option3" },
   { text = "", value = "separator" },
   { text = "4  - Build and run program (machine code)", value = "option4" },
@@ -28,9 +28,9 @@ function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
   local current_file = vim.fn.expand('%:p')                                  -- current file
-  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.dart")         -- working_directory/main.dart
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/lib/main.dart")     -- working_directory/lib/main.dart
   local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
-  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/main")               -- working_directory/bin/main
   local final_message = "--task finished--"
 
 
@@ -229,8 +229,8 @@ function M.action(selected_option)
       local arguments = ""
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point)
-        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
-        output = utils.os_path(output_dir .. "/program")                              -- entry_point/bin/program
+        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "../bin")  -- entry_point/../bin
+        output = utils.os_path(output_dir .. "/main")                                    -- entry_point/bin/main
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd ="rm -f " .. output ..                                                 -- clean
                 " && mkdir -p " .. output_dir ..                                     -- mkdir
