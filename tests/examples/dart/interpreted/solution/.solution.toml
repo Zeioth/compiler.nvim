@@ -1,2 +1,2 @@
 [HelloWorld]
-entry_point = "./project1/main.dart"
+entry_point = "./project1/lib/main.dart"

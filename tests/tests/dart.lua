@@ -1,5 +1,6 @@
 --- This test file run all supported cases of use.
 --- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests/dart.lua
+--- NOTE: You must initialize the flutter dir with 'flutter create'.
 
 local ms =  1000 -- wait time
 local language = require("compiler.languages.dart")
@@ -18,7 +19,7 @@ vim.api.nvim_set_current_dir(example .. "solution-nofile/")
 language.action("option3")
 vim.wait(ms)
 
--- Build solution (without .solution file)
+-- Build solution
 vim.api.nvim_set_current_dir(example .. "solution/")
 language.action("option3")
 vim.wait(ms)
@@ -51,7 +52,7 @@ language.action("option7")
 vim.wait(ms)
 
 -- =============================== FLUTTER ===================================
-example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/dart/flutter/"
+example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/dart/fluttr/"
 vim.api.nvim_set_current_dir(example)
 
 -- We don't test run program (flutter because it is a loop)

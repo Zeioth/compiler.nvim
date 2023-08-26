@@ -18,7 +18,7 @@ vim.api.nvim_set_current_dir(example .. "solution-nofile/")
 language.action("option3")
 vim.wait(ms)
 
--- Build solution (without .solution file)
+-- Build solution
 vim.api.nvim_set_current_dir(example .. "solution/")
 language.action("option3")
 vim.wait(ms)
@@ -45,7 +45,7 @@ vim.api.nvim_set_current_dir(example .. "solution-nofile/")
 language.action("option7")
 vim.wait(ms)
 
--- Build solution (without .solution file)
+-- Build solution
 vim.api.nvim_set_current_dir(example .. "solution/")
 language.action("option7")
 vim.wait(ms)
@@ -73,7 +73,7 @@ vim.api.nvim_set_current_dir(example .. "solution-nofile/")
 language.action("option11")
 vim.wait(ms)
 
--- Build solution (without .solution file)
+-- Build solution
 vim.api.nvim_set_current_dir(example .. "solution/")
 language.action("option11")
 vim.wait(ms)
