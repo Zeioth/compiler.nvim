@@ -212,4 +212,4 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
-* Aditionally, we will also have to add an option to compile for `dart` `flutter windows`.
+* Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
