@@ -1,0 +1,9 @@
+[Program1]
+entry_point = "./project1/main.dart"
+output = "./project1/program1"
+execute = "./project1/program1"
+
+[Program2]
+entry_point = "./project2/main.dart"
+output = "./project2/program2"
+execute = "./project2/program2"

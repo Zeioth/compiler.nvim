@@ -1,0 +1,14 @@
+name: hello_world_app
+description: A simple Flutter app that displays "Hello, Flutter World!"
+version: 1.0.0
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
