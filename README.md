@@ -50,10 +50,10 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 Pull requests are welcome. See [FAQ](#faq).
 
 * kotlin
-* swift
-* objetive C
 * C# `Build and run game (unity)`
 * C#/GDscript `Build and run game (godot)`
+* swift
+* objetive C
 * javascript
 * typescript
 * elixir
