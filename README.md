@@ -50,10 +50,10 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 Pull requests are welcome. See [FAQ](#faq).
 
 * kotlin
-* swift
-* objetive C
 * C# `Build and run game (unity)`
 * C#/GDscript `Build and run game (godot)`
+* swift
+* objetive C
 * javascript
 * typescript
 * elixir
@@ -139,7 +139,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | ruby | ./main.rb |  |
 | lua | ./main.lua |  |
 | perl | ./main.pl |  |
-| dart | ./main.dart |
+| dart | ./lib/main.dart | ./bin/main |
 | flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | |
 | shell | ./main.sh |  |
 | make | ./Makefile | |
