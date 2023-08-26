@@ -140,7 +140,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | lua | ./main.lua |  |
 | perl | ./main.pl |  |
 | dart | ./main.dart |
-| flutter | see here | |
+| flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | |
 | shell | ./main.sh |  |
 | make | ./Makefile | |
 
