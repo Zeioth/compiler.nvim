@@ -1,14 +1,14 @@
 --- This test file run all supported cases of use.
 --- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests/python.lua
 
-local ms = 6000 -- wait time
+local ms = 1000 -- wait time
 local language = require("compiler.languages.python")
 local example
 
 -- ============================= INTERPRETED ==================================
 example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/python/interpreted/"
 
--- Build solution (without .solution file)
+-- Run program
 vim.api.nvim_set_current_dir(example .. "run-program/")
 language.action("option2")
 vim.wait(ms)
@@ -34,7 +34,7 @@ vim.wait(ms)
 -- Build
 vim.api.nvim_set_current_dir(example .. "build/")
 language.action("option5")
-vim.wait(ms)
+vim.wait(6000)
 
 -- Run
 language.action("option6")
@@ -61,7 +61,7 @@ vim.wait(ms)
 -- Build
 vim.api.nvim_set_current_dir(example .. "build/")
 language.action("option9")
-vim.wait(ms)
+vim.wait(6000)
 
 -- Run
 vim.wait(ms)
