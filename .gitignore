@@ -2,3 +2,7 @@
 **/obj/
 **/target/
 **/__pycache__/
+**/.dart_tool/
+**/.idea/
+*.pyc
+*.metadata
