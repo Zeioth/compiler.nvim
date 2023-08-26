@@ -76,7 +76,7 @@ function M.action(selected_option)
 
       for entry, variables in pairs(config) do
         if entry == "executables" then goto continue end
-        local entry_point = utils.os_path(variables.entry_point)
+        entry_point = utils.os_path(variables.entry_point)
         local arguments = variables.arguments or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "python " .. arguments .. " " .. entry_point ..              -- run (interpreted)
