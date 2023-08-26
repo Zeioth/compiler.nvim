@@ -40,8 +40,8 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/ruby.lua)
 * [lua](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/lua.lua)
 * [perl](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/perl.lua)
-* dart → WIP
-* flutter → WIP
+* [dart](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler))
+* [flutter](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler))
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 
@@ -139,6 +139,8 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | ruby | ./main.rb |  |
 | lua | ./main.lua |  |
 | perl | ./main.pl |  |
+| dart | ./main.dart |
+| flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | |
 | shell | ./main.sh |  |
 | make | ./Makefile | |
 
