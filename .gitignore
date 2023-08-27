@@ -1,9 +1,10 @@
+*.jar
+*.pyc
 **/.gitignore
 **/bin/
 **/obj/
 **/target/
 **/__pycache__/
-**/python/**/*.pyc
 **/dart/**/.metadata
 **/dart/**/.dart_tool/
 **/dart/**/.idea/
