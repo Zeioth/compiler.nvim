@@ -1,0 +1,12 @@
+[HelloWorld]
+entry_point = "./project1/Main.kt"
+output = "./project1/bin/MainKt"
+arguments = ""
+
+[HelloWorld2]
+entry_point = "./project2/Helper.kt"
+output = "./project2/bin/MainKt"
+arguments = "-include-runtime"
+
+[SOLUTION]
+executable = "./project1/bin/MainKt"
