@@ -172,7 +172,7 @@ function M.action(selected_option)
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-          cmd = "./grandlew build " ..                                                          -- build
+          cmd = "./gradlew build " ..                                                           -- build
                 " && adb install ./app/build/outputs/apk/debug/app-debug.apk" ..                -- install in your smartphone
                 " && echo " .. output_dir .. output_filename ..                                 -- echo
                 " && echo '" .. final_message .. "'"
@@ -184,7 +184,7 @@ function M.action(selected_option)
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-          cmd = "./grandlew build " ..                                                          -- build
+          cmd = "./gradlew build " ..                                                           -- build
                 " && echo " .. output_dir .. output_filename ..                                 -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
