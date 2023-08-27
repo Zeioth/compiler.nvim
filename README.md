@@ -31,6 +31,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
 * [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/cs-compiler))
 * [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua)
+* [kotlin](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/kotlin.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/kotlin-compiler))
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua)
 * [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
@@ -49,7 +50,6 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 ### Planned & coming soon:
 Pull requests are welcome. See [FAQ](#faq).
 
-* kotlin
 * C# `Build and run game (unity)`
 * C#/GDscript `Build and run game (godot)`
 * swift
@@ -130,6 +130,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/Program.exe |
 | java | ./Main.java | ./bin/Main.class |
+| kotlin | ./Maicivin.kt | ./bin/MainKt.class |
 | rust | ./main.rs | ./bin/program |
 | go | ./main.go | ./bin/program |
 | asm x86-64 | ./main.asm | ./bin/program |
