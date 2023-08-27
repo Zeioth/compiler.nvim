@@ -11,7 +11,7 @@ M.options = {
   { text = "5 - Build solution", value = "option5" },
   { text = "", value = "separator" },
   { text = "6 - Android studio build and install apk (adb)", value = "option6" },
-  { text = "7 - Android studio build apk (adb)", value = "option7" },
+  { text = "7 - Android studio build apk", value = "option7" },
   { text = "", value = "separator" },
   { text = "8 - Run REPL", value = "option8" },
   { text = "9 - Run Makefile", value = "option9" }
