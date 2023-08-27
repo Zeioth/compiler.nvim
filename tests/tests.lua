@@ -17,14 +17,16 @@ dofile(tests_dir .. 'perl.lua')
 dofile(tests_dir .. 'fsharp.lua')
 dofile(tests_dir .. 'r.lua')
 dofile(tests_dir .. 'dart.lua')
+dofile(tests_dir .. 'kotlin.lua')
 dofile(tests_dir .. 'sh.lua')
 dofile(tests_dir .. 'make.lua')
 
 -- Cases that require to be tested manually atm.
--- * python      → Run this file.
--- * ruby        → Run this file.
--- * shell       → Run this file.
--- * fsharp      → Run this file.
--- * r           → Run this file.
--- * python/r/F# → REPL
--- * dart        → Run progam (flutter).
+-- * python             → Run this file.
+-- * ruby               → Run this file.
+-- * shell              → Run this file.
+-- * fsharp             → Run this file.
+-- * r                  → Run this file.
+-- * python/r/F#/kotlin → REPL
+-- * dart               → Run program (flutter).
+-- * kotlin             → Android studio adb.
