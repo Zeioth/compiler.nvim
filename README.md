@@ -51,12 +51,12 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 
 * C# `Build and run game (unity)`
 * C#/GDscript `Build and run game (godot)`
+* visual basic
 * swift
 * objetive C
 * javascript
 * typescript
 * elixir
-* visual basic
 
 ## Required system dependencies
 Some languages require you manually install their compilers in your machine, so compiler.nvim is able to call them. [Please check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
