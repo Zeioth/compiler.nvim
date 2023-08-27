@@ -205,7 +205,6 @@ If you want to help me, please star this repository to increase the visibility o
 
 ## Roadmap
 * Kotlin is in beta state. Currently applying directory conventions. Don't use it until is oficially released in `v2.3.5`.
-* Fix: We are using the wrong convention for java. We should look for `./src/main/Main.java` according to maven/gradle conventions, which most projects follow. Also we should compile to `./target` instead of `./bin`.
 * Fix: If the user don't specify `output` or `entry_point` on `.solution.toml`, set a default value.
 * Feat: Support for alternatives of telescope, like fzf.
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
