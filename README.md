@@ -130,7 +130,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/Program.exe |
 | java | ./Main.java | ./bin/Main.class |
-| kotlin | ./Maicivin.kt | ./bin/MainKt.class |
+| kotlin | ./Main.kt | ./bin/MainKt.class |
 | rust | ./main.rs | ./bin/program |
 | go | ./main.go | ./bin/program |
 | asm x86-64 | ./main.asm | ./bin/program |
