@@ -6,15 +6,14 @@ local M = {}
 M.options = {
   { text = "1 - Build and run program", value = "option1" },
   { text = "2 - Build program", value = "option2" },
-  { text = "3 - Build program and package as .jar", value = "option3" },
-  { text = "4 - Run program", value = "option4" },
-  { text = "5 - Build solution", value = "option5" },
+  { text = "3 - Run program", value = "option3" },
+  { text = "4 - Build solution", value = "option4" },
   { text = "", value = "separator" },
-  { text = "6 - Android studio build and install apk (adb)", value = "option6" },
-  { text = "7 - Android studio build apk", value = "option7" },
+  { text = "5 - Run gradlew installDebug", value = "option5" },
+  { text = "6 - Run gradlew build", value = "option6" },
   { text = "", value = "separator" },
-  { text = "8 - Run REPL", value = "option8" },
-  { text = "9 - Run Makefile", value = "option9" }
+  { text = "7 - Run REPL", value = "option7" },
+  { text = "8 - Run Makefile", value = "option8" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -60,17 +59,6 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build program and package as .jar → " .. entry_point,
-          cmd = "kotlinc " .. files .. " -include-runtime -d " .. output_dir .. output_filename .. ".jar " .. arguments  .. -- compile bytecode (.jar)
-                " && echo " .. output_dir .. output_filename .. ".jar" ..                                   -- echo
-                " && echo '" .. final_message .. "'"
-        },},},})
-    task:start()
-    vim.cmd("OverseerOpen")
-  elseif selected_option == "option4" then
-    local task = overseer.new_task({
-      name = "- Kotlin compiler",
-      strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
           cmd = "java -cp " .. output_dir .. " " .. output_filename ..                         -- run
                 " && echo " .. output_dir .. " " .. output_filename ..                         -- echo
@@ -78,7 +66,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option5" then
+  elseif selected_option == "option4" then
     local entry_points
     local task = {}
     local tasks = {}
@@ -97,9 +85,8 @@ function M.action(selected_option)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                          -- clean
-                " && mkdir -p " .. output_dir ..                                               -- mkdir
-                " && kotlinc " .. files .. " -d " .. output_dir .. " " .. arguments .. " "  ..     -- compile bytecode
+          cmd = "mkdir -p " .. output_dir ..                                                   -- mkdir
+                " && kotlinc " .. files .. " -d " .. output_dir .. " " .. arguments .. " "  .. -- compile bytecode
                 " && echo " .. entry_point ..                                                  -- echo
                 " && echo '" .. final_message .. "'"
         }
@@ -138,10 +125,9 @@ function M.action(selected_option)
         entry_point = utils.os_path(entry_point)
         files = utils.find_files_to_compile(entry_point, "*.kt")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")           -- entry_point/bin
-        output = utils.os_path(output_dir .. "/program")                                       -- entry_point/bin/program
+        output = utils.os_path(output_dir .. "/program")                                       -- entry_point/bin/MainKt
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                          -- clean
-                " && mkdir -p " .. output_dir ..                                               -- mkdir
+          cmd = "mkdir -p " .. output_dir ..                                                   -- mkdir
                 " && kotlinc " .. files .. " -include-runtime -d " .. output_dir .. output_filename .. ".jar " .. arguments .. " "  .. -- compile bytecode (.jar)
                 " && echo " .. entry_point ..                                                  -- echo
                 " && echo '" .. final_message .. "'"
@@ -167,23 +153,22 @@ function M.action(selected_option)
 
 
   --========================== Android studio ===============================--
-  elseif selected_option == "option6" then
+  elseif selected_option == "option5" then
     local task = overseer.new_task({
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. entry_point,
-          cmd = "./gradlew build " ..                                                           -- build
-                " && adb install ./app/build/outputs/apk/debug/app-debug.apk" ..                -- install in your smartphone
+        tasks = {{ "shell", name = "- Build & run program → ./gradlew installDebug",
+          cmd = "./gradlew installDebug " ..                                                    -- build and run
                 " && echo " .. output_dir .. output_filename ..                                 -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option7" then
+  elseif selected_option == "option6" then
     local task = overseer.new_task({
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. entry_point,
+        tasks = {{ "shell", name = "- Build program → ./gradlew build",
           cmd = "./gradlew build " ..                                                           -- build
                 " && echo " .. output_dir .. output_filename ..                                 -- echo
                 " && echo '" .. final_message .. "'"
@@ -202,7 +187,7 @@ function M.action(selected_option)
 
 
   --========================== MISC ===============================--
-  elseif selected_option == "option8" then
+  elseif selected_option == "option7" then
     local task = overseer.new_task({
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
@@ -224,7 +209,7 @@ function M.action(selected_option)
 
 
   --=============================== MAKE ====================================--
-  elseif selected_option == "option9" then
+  elseif selected_option == "option8" then
     require("compiler.languages.make").run_makefile()                        -- run
   end
 end

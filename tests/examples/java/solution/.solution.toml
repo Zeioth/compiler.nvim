@@ -1,10 +1,10 @@
 [HelloWorld]
 entry_point = "./project1/Main.java"
-output = "./project1/bin/"                  # output directory, since javac don't take an output file
+output = "./project1/bin/"                  # output directory, since javac don't take an output file.
 
 [HelloWorld2]
 entry_point = "./project2/Helper.java"
-output = "./project2/bin/"                  # output directory, since javac don't take an output file
+output = "./project2/bin/"                  # output directory, since javac don't take an output file.
 
 [SOLUTION]
 executable = "./project1/bin/Main.class"

@@ -1,12 +1,12 @@
 [HelloWorld]
 entry_point = "./project1/Main.kt"
-output = "./project1/bin/MainKt"
+output = "./project1/bin/Main.kt"     # output directory, since kotlinc don't take an output file.
 arguments = ""
 
 [HelloWorld2]
-entry_point = "./project2/Helper.kt"
-output = "./project2/bin/MainKt"
-arguments = "-include-runtime"
+entry_point = "./project2/"
+output = "./project2/bin/"            # output directory, since kotlinc don't take an output file.
+arguments = ""
 
 [SOLUTION]
 executable = "./project1/bin/MainKt"

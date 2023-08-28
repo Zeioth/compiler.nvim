@@ -15,21 +15,16 @@ vim.api.nvim_set_current_dir(example .. "build/")
 language.action("option2")
 vim.wait(ms)
 
--- Build and package
-vim.api.nvim_set_current_dir(example .. "build/")
-language.action("option3")
-vim.wait(ms)
-
 -- Run
-language.action("option4")
+language.action("option3")
 vim.wait(ms)
 
 -- Build solution (without .solution file)
 vim.api.nvim_set_current_dir(example .. "solution-nofile/")
-language.action("option5")
+language.action("option4")
 vim.wait(ms)
 
 -- Build solution
 vim.api.nvim_set_current_dir(example .. "solution/")
-language.action("option5")
+language.action("option4")
 vim.wait(ms)
