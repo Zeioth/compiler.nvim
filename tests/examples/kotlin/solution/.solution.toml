@@ -1,12 +1,12 @@
 [HelloWorld]
 entry_point = "./project1/Main.kt"
-output = "./project1/bin/Main.kt"     # output directory, since kotlinc don't take an output file.
+output = "./project1/bin/MainKt.jar"
 arguments = ""
 
 [HelloWorld2]
-entry_point = "./project2/"
-output = "./project2/bin/"            # output directory, since kotlinc don't take an output file.
+entry_point = "./project2/Main.kt"
+output = "./project2/bin/MainKt.jar"
 arguments = ""
 
 [SOLUTION]
-executable = "./project1/bin/MainKt"
+executable = "./project1/bin/MainKt.jar"
