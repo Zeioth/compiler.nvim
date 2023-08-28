@@ -181,6 +181,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
 ![screenshot_2023-07-25_23-56-57_069109256](https://github.com/Zeioth/compiler.nvim/assets/3357792/fd102350-ca44-4501-9cb0-db2ea0093264)
 
 ## FAQ
+* **I get errors when compiling:** You have to run `:cd` in your project root directory before using [Compiler.nvim](https://starchart.cc/Zeioth/Compiler.nvim).
 * **I don't have time to read:** If you prefer you can try [NormalNvim](https://github.com/NormalNvim/NormalNvim) which comes with the compiler pre-installed. Just open some code and hit F6!
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
 * **How can I change the way the compiler works?** Same as the previous one.
@@ -208,9 +209,7 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* Kotlin is in beta state. Currently applying directory conventions. Don't use it until is oficially released in `v2.3.5`.
 * Fix: If the user don't specify `output` or `entry_point` on `.solution.toml`, set a default value.
-* Feat: Support for alternatives of telescope, like fzf.
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
