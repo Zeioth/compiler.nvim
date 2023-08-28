@@ -30,8 +30,8 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
 * [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
 * [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/cs-compiler))
-* [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua)
-* [kotlin](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/kotlin.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/kotlin-compiler))
+* [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler))
+* [kotlin](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/kotlin.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler))
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua)
 * [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
@@ -48,22 +48,15 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 
 
 ### Planned & coming soon:
-Pull requests are welcome. See [FAQ](#faq).
 
 * C# `Build and run game (unity)`
 * C#/GDscript `Build and run game (godot)`
+* visual basic
 * swift
 * objetive C
 * javascript
 * typescript
 * elixir
-* visual basic
-* delphy
-* pascal
-* ada
-* cobol
-* scala
-* matlab
 
 ## Required system dependencies
 Some languages require you manually install their compilers in your machine, so compiler.nvim is able to call them. [Please check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
@@ -130,7 +123,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/Program.exe |
 | java | ./Main.java | ./bin/Main.class |
-| kotlin | ./Maicivin.kt | ./bin/MainKt.class |
+| kotlin | ./Main.kt | ./bin/MainKt.class |
 | rust | ./main.rs | ./bin/program |
 | go | ./main.go | ./bin/program |
 | asm x86-64 | ./main.asm | ./bin/program |
@@ -211,6 +204,7 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
+* Kotlin is in beta state. Currently applying directory conventions. Don't use it until is oficially released in `v2.3.5`.
 * Fix: If the user don't specify `output` or `entry_point` on `.solution.toml`, set a default value.
 * Feat: Support for alternatives of telescope, like fzf.
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
