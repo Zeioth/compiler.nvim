@@ -28,8 +28,7 @@ function M.action(selected_option)
       name = "- Java compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                         -- clean
-                " && mkdir -p " .. output_dir ..                                              -- mkdir
+          cmd = "mkdir -p " .. output_dir ..                                                  -- mkdir
                 " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files ..  -- compile bytecode
                 " && java -cp " .. output_dir .. " " .. output_filename ..                    -- run
                 " && echo " .. entry_point ..                                                 -- echo
@@ -42,10 +41,9 @@ function M.action(selected_option)
       name = "- Java compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                               -- clean
-                " && mkdir -p " .. output_dir ..                                                    -- mkdir
-                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files ..        -- compile bytecode
-                " && echo " .. entry_point ..                                                       -- echo
+          cmd = "mkdir -p " .. output_dir ..                                                   -- mkdir
+                " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files ..   -- compile bytecode
+                " && echo " .. entry_point ..                                                  -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -55,8 +53,8 @@ function M.action(selected_option)
       name = "- Java compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-          cmd = "java -cp " .. output_dir .. " " .. output_filename ..                            -- run
-                " && echo " .. output_dir .. output_filename ..                                   -- echo
+          cmd = "java -cp " .. output_dir .. " " .. output_filename ..                         -- run
+                " && echo " .. output_dir .. output_filename ..                                -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -80,8 +78,7 @@ function M.action(selected_option)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                         -- clean
-                " && mkdir -p " .. output_dir ..                                              -- mkdir
+          cmd = "mkdir -p " .. output_dir ..                                                  -- mkdir
                 " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files ..  -- compile bytecode
                 " && echo " .. entry_point ..                                                 -- echo
                 " && echo '" .. final_message .. "'"
@@ -119,10 +116,9 @@ function M.action(selected_option)
         entry_point = utils.os_path(entry_point)
         files = utils.find_files_to_compile(entry_point, "*.java")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")          -- entry_point/bin
-        output = utils.os_path(output_dir .. "/program")                                      -- entry_point/bin/program
+        output = utils.os_path(output_dir .. "/program")                                      -- entry_point/bin/Main
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                         -- clean
-                " && mkdir -p " .. output_dir ..                                              -- mkdir
+          cmd = "mkdir -p " .. output_dir ..                                                  -- mkdir
                 " && javac " .. " -d " .. output_dir .. " " .. arguments .. " "  .. files ..  -- compile bytecode
                 " && echo " .. entry_point ..                                                 -- echo
                 " && echo '" .. final_message .. "'"
