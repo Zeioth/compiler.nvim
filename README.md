@@ -191,13 +191,13 @@ Open the compiler and select `Build and run`. You will see the compilation resul
 * **How can I auto `:cd` my projects?** Use [this fork](https://github.com/Zeioth/project.nvim) of the plugin `project.nvim`.
 
 ### How to compile videogames
-The workflow of game development is essencially very different from just compiling and running a program. The usual way of working is by loading editing and running scenes.
+The workflow of game development is essencially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, I offer you some tricks
 
 #### Godot engine
-To `Build and run godot scene`, use the command `godot /my/scene.tscn` on the terminal to run a scene of your project. This works really well, it's fast and simple.
+To `Build and run godot scene`, use the command `godot /my/scene.tscn` on the terminal to run a scene of your project. This works really well: It's fast and simple.
 
 #### Unity
-The recommended way is to have 2 monitors, one with nvim and your code, and another one with your unity scenes to run the game. Unity offer [some terminal commands](https://docs.unity3d.com/560/Documentation/Manual/CommandLineArguments.html), but working with them is quite a painful experience.
+The recommended way is to have 2 monitors, one with nvim and your code, and another one with your unity scenes to run the game. Unity has [some terminal commands](https://docs.unity3d.com/560/Documentation/Manual/CommandLineArguments.html), but working with them is quite a painful experience.
 
 ## 🌟 Support the project
 If you want to help me, please star this repository to increase the visibility of the project.
