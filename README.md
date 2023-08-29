@@ -197,7 +197,7 @@ The workflow of game development is essencially very different from just compili
 To `Build and run a godot scene`, use the command `godot /my/scene.tscn` on the terminal. This works really well: It's fast and simple.
 
 #### Unity
-The recommended way is to have 2 monitors, one with nvim and your code, and another one with your unity scenes to run the game. Unity has [some terminal commands](https://docs.unity3d.com/560/Documentation/Manual/CommandLineArguments.html), but working with them is quite a painful experience.
+The recommended way is to have 2 monitors, one with nvim and your code, and another one with your unity scenes to run the game. Unity has [some terminal commands](https://docs.unity3d.com/Manual/CommandLineArguments.html), but working with them is quite a painful experience.
 
 ## 🌟 Support the project
 If you want to help me, please star this repository to increase the visibility of the project.
