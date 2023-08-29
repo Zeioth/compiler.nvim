@@ -194,7 +194,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
 The workflow of game development is essencially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
 
 #### Godot engine
-To `Build and run godot scene`, use the command `godot /my/scene.tscn` on the terminal to run a scene of your project. This works really well: It's fast and simple.
+To `Build and run a godot scene`, use the command `godot /my/scene.tscn` on the terminal to run a scene of your project. This works really well: It's fast and simple.
 
 #### Unity
 The recommended way is to have 2 monitors, one with nvim and your code, and another one with your unity scenes to run the game. Unity has [some terminal commands](https://docs.unity3d.com/560/Documentation/Manual/CommandLineArguments.html), but working with them is quite a painful experience.
