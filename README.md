@@ -35,6 +35,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua)
 * [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
+* [visual Basic dotnet](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/vb.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler))
 * [f#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/fsharp.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler))
 * [r](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/r.lua)
 * [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler))
@@ -43,7 +44,6 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [perl](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/perl.lua)
 * [dart](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler))
 * [flutter](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler))
-* [visual Basic dotnet](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/vb.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler))
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 
