@@ -167,9 +167,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Dart compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. entry_point,
-          cmd = output ..                                                            -- run
-                " && echo " .. entry_point ..                                        -- echo
+        tasks = {{ "shell", name = "- Run program → " .. output,
+          cmd = output ..                                                       -- run
+                " && echo " .. output ..                                        -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -255,7 +255,7 @@ function M.action(selected_option)
 
 
 
-  --===================== MACHINE CODE (FLUTTER) ============================--
+  --============================ FLUTTER ====================================--
   elseif selected_option == "option8" then
     local task = overseer.new_task({
       name = "- Flutter compiler",

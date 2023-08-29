@@ -13,7 +13,6 @@ M.options = {
 --- Backend - overseer tasks performed on option selected
 function M.action(selected_option)
   local overseer = require("overseer")
-  local current_file = vim.fn.expand('%:p')                                  -- current file
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -40,10 +39,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- F# REPL",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Start REPL → " .. current_file,
+        tasks = {{ "shell", name = "- Start REPL",
           cmd = "echo 'To exit the REPL enter #q;;'" ..                              -- echo
                 " ; dotnet fsi" ..                                                   -- run
-                " ; echo " .. current_file ..                                        -- echo
                 " ; echo '" .. final_message .. "'"
         },},},})
     task:start()

@@ -178,7 +178,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. entry_point,
+        tasks = {{ "shell", name = "- Run program → " .. output,
             cmd = output ..                                                             -- run
                   " && echo " .. output ..                                              -- echo
                   " && echo '" .. final_message .. "'"
@@ -323,7 +323,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. entry_point,
+        tasks = {{ "shell", name = "- Run program → " .. output,
             cmd = output ..                                                             -- run
                 " && echo " .. output ..                                                -- echo
                 " && echo '" .. final_message .. "'"

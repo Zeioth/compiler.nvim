@@ -25,7 +25,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- R interpreter",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run this file → " .. entry_point,
+        tasks = {{ "shell", name = "- Run this file → " .. current_file,
           cmd = "Rscript " .. current_file .. " " .. arguments ..                    -- run
                 " && echo " .. current_file ..                                       -- echo
                 " && echo '" .. final_message .. "'"

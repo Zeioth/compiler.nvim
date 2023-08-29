@@ -65,7 +65,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program (class) → " .. entry_point,
+        tasks = {{ "shell", name = "- Run program (class) → " .. output_dir .. output_filename .. ".class",
           cmd = "java -cp " .. output_dir .. " " .. output_filename ..                         -- run
                 " && echo " .. output_dir .. output_filename .. ".class" ..                    -- echo
                 " && echo '" .. final_message .. "'"
@@ -312,8 +312,8 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. entry_point,
-          cmd = "kotlin " ..                                                                   -- run
+        tasks = {{ "shell", name = "- Start REPL",
+          cmd = "kotlin " ..                                                                   -- run (repl)
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
