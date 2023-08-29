@@ -47,19 +47,14 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 
-### Planned & coming soon
-
-* C# `Build and run game (unity)`
-* C#/GDscript `Build and run game (godot)`
-
-### Community languages
+## Community languages
 These are not planned, but PRs will be accepted.
 
 * javascript
 * typescript
 * elixir
 * swift
-
+  
 ## Required system dependencies
 Some languages require you manually install their compilers in your machine, so compiler.nvim is able to call them. [Please check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
 
@@ -194,7 +189,16 @@ Open the compiler and select `Build and run`. You will see the compilation resul
   * A way to transpile: toggleterm + tmux.
   * A way run the project: Just keep the website opened in your browser.
 * **How can I auto `:cd` my projects?** Use [this fork](https://github.com/Zeioth/project.nvim) of the plugin `project.nvim`.
-    
+
+### How to compile videogames
+The workflow of game development is essencially very different from just compiling and running a program. The usual way of working is by loading editing and running scenes.
+
+#### Godot engine
+To `Build and run godot scene`, use the command `godot /my/scene.tscn` on the terminal to run a scene of your project. This works really well, it's fast and simple.
+
+#### Unity
+The recommended way is to have 2 monitors, one with nvim and your code, and another one with your unity scenes to run the game. Unity offer [some terminal commands](https://docs.unity3d.com/560/Documentation/Manual/CommandLineArguments.html), but working with them is quite a painful experience.
+
 ## 🌟 Support the project
 If you want to help me, please star this repository to increase the visibility of the project.
 
