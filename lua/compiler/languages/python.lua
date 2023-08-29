@@ -147,7 +147,7 @@ function M.action(selected_option)
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                  -- clean
+          cmd = "rm -f " .. output ..  " || true" ..                                   -- clean
             " && mkdir -p " .. output_dir ..                                           -- mkdir
             " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..           -- compile to machine code
               " --output-filename=" .. output  ..
@@ -164,7 +164,7 @@ function M.action(selected_option)
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                   -- clean
+          cmd = "rm -f " .. output ..  " || true" ..                                    -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
                 " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=" .. output  ..
@@ -203,7 +203,7 @@ function M.action(selected_option)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         local arguments = variables.arguments or "--warn-implicit-exceptions --warn-unusual-code" -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                   -- clean
+          cmd = "rm -f " .. output ..  " || true" ..                                    -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
                 " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=" .. output  ..
@@ -246,7 +246,7 @@ function M.action(selected_option)
         output = utils.os_path(output_dir .. "/program")                                -- entry_point/bin/program
         local arguments = "--warn-implicit-exceptions --warn-unusual-code"              -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                   -- clean
+          cmd = "rm -f " .. output ..  " || true" ..                                    -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
                 " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=" .. output  ..
@@ -284,7 +284,7 @@ function M.action(selected_option)
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                   -- clean
+          cmd = "rm -f " .. output ..  " || true" ..                                    -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
                 " && mkdir -p " .. cache_dir ..
                 " && pyinstaller " .. files ..                                          -- compile to bytecode
@@ -306,7 +306,7 @@ function M.action(selected_option)
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                   -- clean
+          cmd = "rm -f " .. output ..  " || true" ..                                    -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
                 " && mkdir -p " .. cache_dir ..
                 " && pyinstaller " .. files ..                                          -- compile to bytecode
@@ -351,7 +351,7 @@ function M.action(selected_option)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         local arguments = variables.arguments or "--log-level WARN --python-option W"   -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                   -- clean
+          cmd = "rm -f " .. output ..  " || true" ..                                    -- clean
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
                 " && mkdir -p " .. cache_dir ..
                 " && pyinstaller " .. files ..                                          -- compile to bytecode
@@ -400,7 +400,7 @@ function M.action(selected_option)
         local output_filename = vim.fn.fnamemodify(output, ":t")
         local arguments = "--log-level WARN --python-option W"                          -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                   -- clean
+          cmd = "rm -f " .. output ..  " || true" ..                                    -- clean
                 " && mkdir -p " .. cache_dir ..                                         -- mkdir
                 " && pyinstaller " .. files ..                                          -- compile to bytecode
                   " --name " .. output_filename ..

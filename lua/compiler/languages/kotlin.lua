@@ -225,6 +225,7 @@ function M.action(selected_option)
       local solution_executables = config["executables"]
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
+
           task = { "shell", name = "- Run program (jar) → " .. executable,
             cmd = "java -jar " .. executable ..                                                -- run
                   " && echo " .. executable ..                                                 -- echo

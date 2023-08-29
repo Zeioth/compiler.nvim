@@ -27,7 +27,7 @@ function M.action(selected_option)
       name = "- C++ compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                 -- clean
+          cmd = "rm -f " .. output .. " || true" ..                                   -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
                 " && g++ " .. files .. " -o " .. output .. " " .. arguments ..        -- compile
                 " && " .. output ..                                                   -- run
@@ -41,7 +41,7 @@ function M.action(selected_option)
       name = "- C++ compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                 -- clean
+          cmd = "rm -f " .. output ..  " || true" ..                                  -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
                 " && g++ " .. files .. " -o " .. output .. " " .. arguments ..        -- compile
                 " && echo " .. entry_point ..                                         -- echo
@@ -53,7 +53,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C++ compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. entry_point,
+        tasks = {{ "shell", name = "- Run program → " .. output,
           cmd = output ..                                                            -- run
                 " && echo " .. output ..                                             -- echo
                 " && echo '" .. final_message .. "'"
@@ -79,7 +79,7 @@ function M.action(selected_option)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                 -- clean
+          cmd = "rm -f " .. output ..  " || true" ..                                  -- clean
                 " && mkdir -p " .. output_dir ..                                      -- mkdir
                 " && g++ " .. files .. " -o " .. output .. " " .. arguments ..        -- compile
                 " && echo " .. entry_point ..                                         -- echo
@@ -120,7 +120,7 @@ function M.action(selected_option)
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
         output = utils.os_path(output_dir .. "/program")                              -- entry_point/bin/program
         task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                -- clean
+          cmd = "rm -f " .. output ..  " || true" ..                                 -- clean
                 " && mkdir -p " .. output_dir ..                                     -- mkdir
                 " && g++ " .. files .. " -o " .. output .. " " .. arguments ..       -- compile
                 " && echo " .. entry_point ..                                        -- echo
