@@ -190,7 +190,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
   * A way run the project: Just keep the website opened in your browser.
 * **How can I auto `:cd` my projects?** Use [this fork](https://github.com/Zeioth/project.nvim) of the plugin `project.nvim`.
 
-### How to compile videogames
+### How can I compile videogames?
 The workflow of game development is essencially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
 
 #### Godot engine
