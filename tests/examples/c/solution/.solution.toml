@@ -7,5 +7,5 @@ executable  = "./bin/hello_world1"   # ...Accepted now.
 # Any entry containing a key with the word "executable" on it
 # will be executed directly in the terminal in parallel.
 [AnyNameWeWant]
-executable_1 = './bin/hello_world2'
-executable_2 = './bin/hello_world2'
+executable_1 = './bin/hello_world1'
+executable_2 = './bin/hello_world1'
