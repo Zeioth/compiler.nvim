@@ -35,6 +35,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua)
 * [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
+* [visual Basic dotnet](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/vb.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler))
 * [f#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/fsharp.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler))
 * [r](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/r.lua)
 * [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler))
@@ -46,21 +47,15 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
 
-
-### Planned & coming soon
-
-* C# `Build and run game (unity)`
-* C#/GDscript `Build and run game (godot)`
-* visual basic
-
-### Community languages
+## Community languages
 These are not planned, but PRs will be accepted.
 
 * javascript
 * typescript
+* zig
 * elixir
 * swift
-
+  
 ## Required system dependencies
 Some languages require you manually install their compilers in your machine, so compiler.nvim is able to call them. [Please check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
 
@@ -130,6 +125,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | rust | ./main.rs | ./bin/program |
 | go | ./main.go | ./bin/program |
 | asm x86-64 | ./main.asm | ./bin/program |
+| visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | |
 | f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |  |
 | r | ./main.r |  |
 | python | ./main.py | ./bin/program |
@@ -180,7 +176,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
 ![screenshot_2023-07-25_23-56-57_069109256](https://github.com/Zeioth/compiler.nvim/assets/3357792/fd102350-ca44-4501-9cb0-db2ea0093264)
 
 ## FAQ
-* **I get errors when compiling:** You have to run `:cd` in your project root directory before using [Compiler.nvim](https://starchart.cc/Zeioth/Compiler.nvim).
+* **I get errors when compiling:** You have to  `:cd /your/project/root_dir` before calling [Compiler.nvim](https://starchart.cc/Zeioth/Compiler.nvim).
 * **I don't have time to read:** If you prefer you can try [NormalNvim](https://github.com/NormalNvim/NormalNvim) which comes with the compiler pre-installed. Just open some code and hit F6!
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
 * **How can I change the way the compiler works?** Same as the previous one.
@@ -194,7 +190,16 @@ Open the compiler and select `Build and run`. You will see the compilation resul
   * A way to transpile: toggleterm + tmux.
   * A way run the project: Just keep the website opened in your browser.
 * **How can I auto `:cd` my projects?** Use [this fork](https://github.com/Zeioth/project.nvim) of the plugin `project.nvim`.
-    
+
+### How can I compile videogames?
+The workflow of game development is essencially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
+
+#### Godot engine
+To `Build and run a godot scene`, use the command `godot /my/scene.tscn` on the terminal. This works really well: It's fast and simple.
+
+#### Unity
+The recommended way is to have 2 monitors, one with nvim and your code, and another one with your unity scenes to run the game. Unity has [some terminal commands](https://docs.unity3d.com/Manual/CommandLineArguments.html), but working with them is quite a painful experience.
+
 ## 🌟 Support the project
 If you want to help me, please star this repository to increase the visibility of the project.
 
@@ -208,7 +213,6 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* Fix: If the user don't specify `output` or `entry_point` on `.solution.toml`, set a default value.
 * Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
