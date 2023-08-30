@@ -32,25 +32,25 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 | [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)| | 
 | [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua) ||
 | [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua) ||
-|[c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua)  | [info](https://github.com/Zeioth/compiler.nvim/wiki/cs-compiler) |
-| [dart](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) |
-| [f#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/fsharp.lua) |[info](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |
-| [flutter](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) |
+|[c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua)  | [+info](https://github.com/Zeioth/compiler.nvim/wiki/cs-compiler) |
+| [dart](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) |
+| [f#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/fsharp.lua) |[+info](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |
+| [flutter](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) |
 | [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua) ||
-| [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler) |
+| [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler) |
 | [javascript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/javascript.lua) ||
-| [kotlin](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/kotlin.lua)  | [info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler) |
+| [kotlin](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/kotlin.lua)  | [+info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler) |
 | [lua](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/lua.lua) ||
 | [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua) ||
 | [perl](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/perl.lua) ||
-| [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua)  | [info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler) |
+| [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua)  | [+info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler) |
 | [r](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/r.lua) ||
 | [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/ruby.lua) ||
 | [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua) ||
-| [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter) |
-| [typescript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/typescript.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/typescript-transpiler) |
-| [visual basic dotnet](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/vb.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) |
-| [zig](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/zig.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/zig-compiler) |
+| [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter) |
+| [typescript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/typescript.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/typescript-transpiler) |
+| [visual basic dotnet](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/vb.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) |
+| [zig](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/zig.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/zig-compiler) |
   
 ## Required system dependencies
 Some languages require you manually install their compilers in your machine, so compiler.nvim is able to call them. [Please check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
