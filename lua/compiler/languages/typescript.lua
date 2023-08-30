@@ -61,9 +61,9 @@ function M.action(selected_option)
       for entry, variables in pairs(config) do
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
-        output = utils.os_path(variables.output)
-        output_dir = vim.fn.fnamemodify(output, ":h") -- remove filename if any
-        entry_point_js = output_dir .. "/" .. vim.fn.fnamemodify(entry_point, ":t:r") .. ".js"
+        entry_point_filename = vim.fn.fnamemodify(entry_point, ':t:r')
+        output_dir = vim.fn.fnamemodify(utils.os_path(variables.output)) -- remove filename if any
+        entry_point_js = output_dir .. "/" .. entry_point_filename .. ".js"
         arguments = variables.arguments or "--outDir " .. output_dir -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "tsc " .. arguments .. " " .. entry_point ..                 -- transpile to js
@@ -101,11 +101,13 @@ function M.action(selected_option)
       entry_points = utils.find_files(vim.fn.getcwd(), "main.ts")
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point)
+        output_dir = vim.fn.fnamemodify(entry_point, ':h:h') .. "/dist/"     -- entry_point/../dist/ → We are assuming main.ts is in /src/main.ts
         entry_point_js = output_dir .. vim.fn.fnamemodify(entry_point, ":t:r") .. ".js"
+        arguments = "--outDir " .. output_dir
         task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "tsc " .. arguments .. " " .. entry_point ..                 -- transpile to js
                 " && node " .. entry_point_js ..                             -- run program (interpreted)
-                " && echo " .. entry_point ..                               -- echo
+                " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"
         }
         table.insert(tasks, task) -- store all the tasks we've created
