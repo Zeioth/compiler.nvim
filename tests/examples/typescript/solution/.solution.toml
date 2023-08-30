@@ -1,0 +1,13 @@
+[proj1]
+entry_point = "./project1/src/main.ts"
+output = "./project1/dist/"              # Path where the .ts files are gonna the transpiled.
+
+[proj2]
+entry_point = "./project2/src/main.ts"
+output = "./project2/dist/"
+arguments = "--outDir ./project2/dist/"  # If you are gonna override the
+                                         # default arguments we pass to tsc,
+                                         # then you must specify the outDir.
+[YouCanRunExecutablesToo]
+executable1 = "echo 'I'm an executable!'"
+executable2 = "echo 'And me too! Weee!'"
