@@ -117,7 +117,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | java | ./Main.java | ./bin/Main.class |
 | kotlin | ./Main.kt | ./bin/MainKt.class |
 | rust | ./main.rs | ./bin/program |
-| zig |  |  |
+| zig | ./build.zig | ./zig-out/bin/build |
 | go | ./main.go | ./bin/program |
 | asm x86-64 | ./main.asm | ./bin/program |
 | visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | |
