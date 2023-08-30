@@ -119,7 +119,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c# | ./Program.cs | ./bin/Program.exe |
 | dart | ./lib/main.dart | ./bin/main |
 | f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) | ./bin/ |
-| flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | |
+| flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | ./build |
 | go | ./main.go | ./bin/program |
 | java | ./Main.java | ./bin/Main.class |
 | javascript | ./src/index.js |  |
