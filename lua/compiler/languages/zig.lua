@@ -7,8 +7,8 @@ local M = {}
 
 --- Frontend  - options displayed on telescope
 M.options = {
-  { text = "1 - Zig build run", value = "option1" },
-  { text = "2 - Zig build", value = "option2" },
+  { text = "1 - Zig build and run program", value = "option1" },
+  { text = "2 - Zig build program", value = "option2" },
   { text = "3 - Run Makefile", value = "option3" }
 }
 
