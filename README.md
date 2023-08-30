@@ -129,6 +129,8 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | perl | ./main.pl |  |
 | dart | ./lib/main.dart | ./bin/main |
 | flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | |
+| typescript | ./src/index.ts |  |
+| javascript | ./src/index.js |  |
 | shell | ./main.sh |  |
 | make | ./Makefile | |
 
