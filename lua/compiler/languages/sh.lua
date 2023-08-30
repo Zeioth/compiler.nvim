@@ -71,7 +71,7 @@ function M.action(selected_option)
       task = overseer.new_task({
         name = "- Shell interpreter", strategy = { "orchestrator",
           tasks = {
-            tasks,        -- Build all the programs in the solution in parallel
+            tasks,        -- Run all the programs in the solution in parallel
             executables   -- Then run the solution executable(s)
           }}})
       task:start()
@@ -92,7 +92,7 @@ function M.action(selected_option)
       end
 
       task = overseer.new_task({ -- run all tasks we've created in parallel
-        name = "- Shell interpreter", strategy = { "orchestrator", tasks = tasks }
+        name = "- hell interpreter", strategy = { "orchestrator", tasks = tasks }
       })
 
       task:start()

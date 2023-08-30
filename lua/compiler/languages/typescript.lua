@@ -41,7 +41,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Run this program → " .. entry_point,
           cmd = "tsc " .. arguments .. " " .. entry_point ..                 -- transpile to js
                 " && node " .. entry_point_js ..                             -- run program (interpreted)
-                " && echo " .. current_file ..                               -- echo
+                " && echo " .. entry_point ..                               -- echo
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
@@ -90,7 +90,7 @@ function M.action(selected_option)
       task = overseer.new_task({
         name = "- Typescript transpiler", strategy = { "orchestrator",
           tasks = {
-            tasks,        -- Build all the programs in the solution in parallel
+            tasks,        -- Run all the programs in the solution in parallel
             executables   -- Then run the solution executable(s)
           }}})
       task:start()
@@ -104,7 +104,7 @@ function M.action(selected_option)
         output_dir = vim.fn.fnamemodify(entry_point, ':h:h') .. "/dist/"     -- entry_point/../dist/ → We are assuming index.ts is in /src/index.ts
         entry_point_js = output_dir .. vim.fn.fnamemodify(entry_point, ":t:r") .. ".js"
         arguments = "--outDir " .. output_dir
-        task = { "shell", name = "- Build program → " .. entry_point,
+        task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "tsc " .. arguments .. " " .. entry_point ..                 -- transpile to js
                 " && node " .. entry_point_js ..                             -- run program (interpreted)
                 " && echo " .. entry_point ..                                -- echo

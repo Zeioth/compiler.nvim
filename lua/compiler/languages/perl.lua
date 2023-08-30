@@ -16,6 +16,7 @@ function M.action(selected_option)
   local overseer = require("overseer")
   local current_file = vim.fn.expand('%:p')                                  -- current file
   local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.pl")           -- working_directory/main.pl
+  local arguments = ""
   local final_message = "--task finished--"
 
   if selected_option == "option1" then
@@ -54,7 +55,7 @@ function M.action(selected_option)
       for entry, variables in pairs(config) do
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
-        arguments = variables.arguments or "" -- optional
+        arguments = variables.arguments or arguments -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "perl " .. arguments .. " " .. entry_point ..                -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
@@ -79,7 +80,7 @@ function M.action(selected_option)
       task = overseer.new_task({
         name = "- Perl interpreter", strategy = { "orchestrator",
           tasks = {
-            tasks,        -- Build all the programs in the solution in parallel
+            tasks,        -- Run all the programs in the solution in parallel
             executables   -- Then run the solution executable(s)
           }}})
       task:start()
@@ -88,10 +89,9 @@ function M.action(selected_option)
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.pl")
-      arguments = "" -- optional
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point)
-        task = { "shell", name = "- Build program → " .. entry_point,
+        task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "perl " .. arguments .. " " .. entry_point ..                -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"

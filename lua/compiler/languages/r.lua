@@ -58,7 +58,7 @@ function M.action(selected_option)
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
         arguments = variables.arguments or arguments -- optional
-        task = { "shell", name = "- Build program → " .. entry_point,
+        task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "Rscript " .. entry_point .. " " .. arguments ..                     -- run
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"
@@ -82,7 +82,7 @@ function M.action(selected_option)
       task = overseer.new_task({
         name = "- R interpreter", strategy = { "orchestrator",
           tasks = {
-            tasks,        -- Build all the programs in the solution in parallel
+            tasks,        -- Run all the programs in the solution in parallel
             executables   -- Then run the solution executable(s)
           }}})
       task:start()
@@ -94,7 +94,7 @@ function M.action(selected_option)
 
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point)
-        task = { "shell", name = "- Build program → " .. entry_point,
+        task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "Rscript " .. entry_point .. " " .. arguments ..                     -- run
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo '" .. final_message .. "'"

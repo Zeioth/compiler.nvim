@@ -96,7 +96,7 @@ function M.action(selected_option)
       task = overseer.new_task({
         name = "- Dart interpreter", strategy = { "orchestrator",
           tasks = {
-            tasks,        -- Build all the programs in the solution in parallel
+            tasks,        -- Run all the programs in the solution in parallel
             executables   -- Then run the solution executable(s)
           }}})
       task:start()
@@ -108,7 +108,7 @@ function M.action(selected_option)
       local arguments = ""
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point)
-        task = { "shell", name = "- Build program → " .. entry_point,
+        task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "dart " .. arguments .. " " .. entry_point ..                -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"
@@ -255,7 +255,7 @@ function M.action(selected_option)
 
 
 
-  --============================ FLUTTER ====================================--
+  --============================= FLUTTER ===================================--
   elseif selected_option == "option8" then
     local task = overseer.new_task({
       name = "- Flutter compiler",

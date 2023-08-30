@@ -19,8 +19,8 @@ function M.action(selected_option)
       name = "- Visual basic dotnet compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Dotnet build & run → .vbproj",
-          cmd = "dotnet run" ..                                                      -- compile and run
-                " && echo '" .. final_message .. "'"                                 -- echo
+          cmd = "dotnet run" ..                                              -- compile and run
+                " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -29,8 +29,8 @@ function M.action(selected_option)
       name = "- Visual basic dotnet compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Dotnet build → .vbproj",
-          cmd = "dotnet build" ..                                                    -- compile
-                " && echo '" .. final_message .. "'"                                 -- echo
+          cmd = "dotnet build" ..                                            -- compile
+                " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
