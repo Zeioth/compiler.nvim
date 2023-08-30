@@ -19,3 +19,4 @@
 **/fluttr/.gitignore
 **/fluttr/analysis_options.yaml
 **/fluttr/pubspec.lock
+**/zig-cache
