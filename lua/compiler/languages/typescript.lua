@@ -15,7 +15,7 @@ function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
   local current_file = vim.fn.expand('%:p')                                  -- current file
-  local entry_point = utils.os_path(vim.fn.getcwd() .. "/src/main.ts")       -- working_directory/main.ts
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/src/index.ts")       -- working_directory/index.ts
   local output_dir = utils.os_path(vim.fn.getcwd() .. "/dist/")              -- working_directory/dist/
   local arguments = "--outDir " .. output_dir
   local final_message = "--task finished--"
@@ -98,10 +98,10 @@ function M.action(selected_option)
 
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
-      entry_points = utils.find_files(vim.fn.getcwd(), "main.ts")
+      entry_points = utils.find_files(vim.fn.getcwd(), "index.ts")
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point)
-        output_dir = vim.fn.fnamemodify(entry_point, ':h:h') .. "/dist/"     -- entry_point/../dist/ → We are assuming main.ts is in /src/main.ts
+        output_dir = vim.fn.fnamemodify(entry_point, ':h:h') .. "/dist/"     -- entry_point/../dist/ → We are assuming index.ts is in /src/index.ts
         entry_point_js = output_dir .. vim.fn.fnamemodify(entry_point, ":t:r") .. ".js"
         arguments = "--outDir " .. output_dir
         task = { "shell", name = "- Build program → " .. entry_point,

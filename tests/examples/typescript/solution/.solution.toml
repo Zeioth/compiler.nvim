@@ -1,9 +1,9 @@
 [proj1]
-entry_point = "./project1/src/main.ts"
+entry_point = "./project1/src/index.ts"
 output = "./project1/dist/" # Path where the .ts files are gonna the transpiled to js.
 
 [proj2]
-entry_point = "./project2/src/main.ts"
+entry_point = "./project2/src/index.ts"
 output = "./project2/dist/"
 
 [YouCanRunExecutablesToo]
