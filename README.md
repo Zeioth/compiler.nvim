@@ -45,16 +45,10 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [perl](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/perl.lua)
 * [dart](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler))
 * [flutter](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler))
+* javascript → WIP
+* [typescript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/typescript.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/typescript-transpiler))
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
-
-## Community languages
-These are not planned, but PRs will be accepted.
-
-* javascript
-* typescript
-* elixir
-* swift
   
 ## Required system dependencies
 Some languages require you manually install their compilers in your machine, so compiler.nvim is able to call them. [Please check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
@@ -123,7 +117,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | java | ./Main.java | ./bin/Main.class |
 | kotlin | ./Main.kt | ./bin/MainKt.class |
 | rust | ./main.rs | ./bin/program |
-| zig | "" | "" |
+| zig | ./build.zig | ./zig-out/bin/build |
 | go | ./main.go | ./bin/program |
 | asm x86-64 | ./main.asm | ./bin/program |
 | visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | |
