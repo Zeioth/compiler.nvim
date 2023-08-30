@@ -34,7 +34,8 @@ dofile(tests_dir .. 'zig.lua')
 -- * r                  → Run this file.
 -- * typescript         → Run this file.
 -- * javascript         → Run this file.
+-- * dart               → Run this file.
 -- * python/r/F#/kotlin → REPL
--- * dart               → Run program (flutter).
+-- * flutter            → Run program (its a loop).
 -- * kotlin             → Android studio adb.
 
