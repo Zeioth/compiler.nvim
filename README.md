@@ -52,6 +52,7 @@ These are not planned, but PRs will be accepted.
 
 * javascript
 * typescript
+* zig
 * elixir
 * swift
   
