@@ -111,28 +111,28 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 
 | Language | Default entry point | Default output |
 |--|--|--|
+| asm x86-64 | ./main.asm | ./bin/program |
 | c | ./main.c | ./bin/program |
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/Program.exe |
-| java | ./Main.java | ./bin/Main.class |
-| kotlin | ./Main.kt | ./bin/MainKt.class |
-| rust | ./main.rs | ./bin/program |
-| zig | ./build.zig | ./zig-out/bin/build |
-| go | ./main.go | ./bin/program |
-| asm x86-64 | ./main.asm | ./bin/program |
-| visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | |
-| f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |  |
-| r | ./main.r |  |
-| python | ./main.py | ./bin/program |
-| ruby | ./main.rb |  |
-| lua | ./main.lua |  |
-| perl | ./main.pl |  |
 | dart | ./lib/main.dart | ./bin/main |
+| f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |  |
 | flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | |
-| typescript | ./src/index.ts |  |
+| go | ./main.go | ./bin/program |
+| java | ./Main.java | ./bin/Main.class |
 | javascript | ./src/index.js |  |
-| shell | ./main.sh |  |
+| kotlin | ./Main.kt | ./bin/MainKt.class |
+| lua | ./main.lua |  |
 | make | ./Makefile | |
+| perl | ./main.pl |  |
+| python | ./main.py | ./bin/program |
+| r | ./main.r |  |
+| ruby | ./main.rb |  |
+| rust | ./main.rs | ./bin/program |
+| shell | ./main.sh |  |
+| typescript | ./src/index.ts |  |
+| visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | |
+| zig | ./build.zig | ./zig-out/bin/build |
 
 This is how the compilation results look after selecting `Build & run program` in c
 ![screenshot_2023-06-19_13-59-37_766847673](https://github.com/Zeioth/compiler.nvim/assets/3357792/42c4ec0d-4446-4ac6-9c4a-478a32d23ca7)
