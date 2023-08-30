@@ -34,6 +34,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [kotlin](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/kotlin.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler))
 * [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
 * [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua)
+* [zig](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/zig.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/zig-compiler))
 * [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
 * [visual Basic dotnet](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/vb.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler))
 * [f#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/fsharp.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler))
