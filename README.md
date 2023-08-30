@@ -49,7 +49,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 | [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua) ||
 | [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter) |
 | [typescript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/typescript.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/typescript-transpiler) |
-| [visual Basic dotnet](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/vb.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) |
+| [visual basic dotnet](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/vb.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) |
 | [zig](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/zig.lua) | [info](https://github.com/Zeioth/compiler.nvim/wiki/zig-compiler) |
   
 ## Required system dependencies
