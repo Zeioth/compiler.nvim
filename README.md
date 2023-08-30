@@ -53,7 +53,6 @@ These are not planned, but PRs will be accepted.
 
 * javascript
 * typescript
-* zig
 * elixir
 * swift
   
@@ -124,6 +123,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | java | ./Main.java | ./bin/Main.class |
 | kotlin | ./Main.kt | ./bin/MainKt.class |
 | rust | ./main.rs | ./bin/program |
+| zig | "" | "" |
 | go | ./main.go | ./bin/program |
 | asm x86-64 | ./main.asm | ./bin/program |
 | visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | |
