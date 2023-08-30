@@ -46,7 +46,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 * [dart](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler))
 * [flutter](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler))
 * javascript → WIP
-* typescript → WIP
+* [typescript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/typescript.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/typescript-transpiler))
 * [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
 * [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
   
