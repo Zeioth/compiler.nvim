@@ -1,4 +1,4 @@
-# Compiler.nvim
+# [Compiler.nvim](https://github.com/Zeioth/compiler.nvim)
 Neovim compiler for building and running your code without having to configure anything.
 
 ![screenshot_2023-06-19_13-59-07_947251291](https://github.com/Zeioth/compiler.nvim/assets/3357792/7c31d02c-2e8d-4562-bcec-323d8a468f67)
