@@ -1,4 +1,4 @@
-# Compiler.nvim
+# [Compiler.nvim](https://github.com/Zeioth/compiler.nvim)
 Neovim compiler for building and running your code without having to configure anything.
 
 ![screenshot_2023-06-19_13-59-07_947251291](https://github.com/Zeioth/compiler.nvim/assets/3357792/7c31d02c-2e8d-4562-bcec-323d8a468f67)
@@ -27,28 +27,30 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 
 ## Supported languages
 
-* [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua)
-* [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua)
-* [c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/cs-compiler))
-* [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler))
-* [kotlin](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/kotlin.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler))
-* [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua)
-* [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua)
-* [zig](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/zig.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/zig-compiler))
-* [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)
-* [visual Basic dotnet](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/vb.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler))
-* [f#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/fsharp.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler))
-* [r](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/r.lua)
-* [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler))
-* [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/ruby.lua)
-* [lua](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/lua.lua)
-* [perl](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/perl.lua)
-* [dart](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler))
-* [flutter](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler))
-* [typescript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/typescript.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/typescript-transpiler))
-* [javascript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/javascript.lua)
-* [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) ([more info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter))
-* [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua)
+| Language | More info |
+|--|--|
+| [asm x86-64](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/asm.lua)| | 
+| [c](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/c.lua) ||
+| [c++](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cpp.lua) ||
+|[c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua)  | [+info](https://github.com/Zeioth/compiler.nvim/wiki/cs-compiler) |
+| [dart](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) |
+| [f#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/fsharp.lua) |[+info](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |
+| [flutter](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) |
+| [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua) ||
+| [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler) |
+| [javascript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/javascript.lua) ||
+| [kotlin](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/kotlin.lua)  | [+info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler) |
+| [lua](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/lua.lua) ||
+| [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua) ||
+| [perl](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/perl.lua) ||
+| [python](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/python.lua)  | [+info](https://github.com/Zeioth/compiler.nvim/wiki/python-compiler) |
+| [r](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/r.lua) ||
+| [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/ruby.lua) ||
+| [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua) ||
+| [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter) |
+| [typescript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/typescript.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/typescript-transpiler) |
+| [visual basic dotnet](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/vb.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) |
+| [zig](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/zig.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/zig-compiler) |
   
 ## Required system dependencies
 Some languages require you manually install their compilers in your machine, so compiler.nvim is able to call them. [Please check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
@@ -111,28 +113,28 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 
 | Language | Default entry point | Default output |
 |--|--|--|
+| asm x86-64 | ./main.asm | ./bin/program |
 | c | ./main.c | ./bin/program |
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/Program.exe |
-| java | ./Main.java | ./bin/Main.class |
-| kotlin | ./Main.kt | ./bin/MainKt.class |
-| rust | ./main.rs | ./bin/program |
-| zig | ./build.zig | ./zig-out/bin/build |
-| go | ./main.go | ./bin/program |
-| asm x86-64 | ./main.asm | ./bin/program |
-| visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | |
-| f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |  |
-| r | ./main.r |  |
-| python | ./main.py | ./bin/program |
-| ruby | ./main.rb |  |
-| lua | ./main.lua |  |
-| perl | ./main.pl |  |
 | dart | ./lib/main.dart | ./bin/main |
+| f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |  |
 | flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | |
-| typescript | ./src/index.ts |  |
+| go | ./main.go | ./bin/program |
+| java | ./Main.java | ./bin/Main.class |
 | javascript | ./src/index.js |  |
-| shell | ./main.sh |  |
+| kotlin | ./Main.kt | ./bin/MainKt.class |
+| lua | ./main.lua |  |
 | make | ./Makefile | |
+| perl | ./main.pl |  |
+| python | ./main.py | ./bin/program |
+| r | ./main.r |  |
+| ruby | ./main.rb |  |
+| rust | ./main.rs | ./bin/program |
+| shell | ./main.sh |  |
+| typescript | ./src/index.ts |  |
+| visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | |
+| zig | ./build.zig | ./zig-out/bin/build |
 
 This is how the compilation results look after selecting `Build & run program` in c
 ![screenshot_2023-06-19_13-59-37_766847673](https://github.com/Zeioth/compiler.nvim/assets/3357792/42c4ec0d-4446-4ac6-9c4a-478a32d23ca7)
@@ -174,6 +176,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
 
 ## FAQ
 * **I get errors when compiling:** You have to  `:cd /your/project/root_dir` before calling [Compiler.nvim](https://starchart.cc/Zeioth/Compiler.nvim).
+* **How can I auto `:cd` my projects?** Use [this fork](https://github.com/Zeioth/project.nvim) of the plugin `project.nvim`.
 * **I don't have time to read:** If you prefer you can try [NormalNvim](https://github.com/NormalNvim/NormalNvim) which comes with the compiler pre-installed. Just open some code and hit F6!
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
 * **How can I change the way the compiler works?** Same as the previous one.
@@ -186,7 +189,6 @@ Open the compiler and select `Build and run`. You will see the compilation resul
   
   * A way to transpile: toggleterm + tmux.
   * A way run the project: Just keep the website opened in your browser.
-* **How can I auto `:cd` my projects?** Use [this fork](https://github.com/Zeioth/project.nvim) of the plugin `project.nvim`.
 
 ### How can I compile videogames?
 The workflow of game development is essencially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
