@@ -4,13 +4,13 @@ local M = {}
 
 --- Frontend  - options displayed on telescope
 M.options = {
-  { text = "1 - Build and run program", value = "option1" },
-  { text = "2 - Build program", value = "option2" },
-  { text = "3 - Run program", value = "option3" },
-  { text = "4 - Build solution", value = "option4" },
+  { text = "1 - build and run program (csc)", value = "option1" },
+  { text = "2 - build program (csc)", value = "option2" },
+  { text = "3 - run program (csc)", value = "option3" },
+  { text = "4 - Build solution (csc)", value = "option4" },
   { text = "", value = "separator" },
-  { text = "5 - Dotnet build and run", value = "option5" },
-  { text = "6 - Dotnet build", value = "option6" },
+  { text = "5 - Build and run program (dotnet)", value = "option5" },
+  { text = "6 - Build program (dotnet)", value = "option6" },
   { text = "", value = "separator" },
   { text = "7 - Run Makefile", value = "option7" }
 }
