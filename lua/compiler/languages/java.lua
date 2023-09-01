@@ -85,7 +85,6 @@ function M.action(selected_option)
         files = utils.find_files_to_compile(entry_point, "*.java")
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
-        output_filename = vim.fn.fnamemodify(output, ':t:r')
         arguments = variables.arguments or arguments -- optiona
         task = { "shell", name = "- Build program (class) → " .. entry_point,
           cmd = "rm -f " .. output_dir .. "/*.class " .. " || true" ..                        -- clean
@@ -253,7 +252,6 @@ function M.action(selected_option)
 
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point)
-        files = utils.find_files_to_compile(entry_point, "*.java")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")                        -- entry_point/bin
         output = utils.os_path(output_dir .. "/Main")                                                       -- entry_point/bin/Main.jar
         task = { "shell", name = "- Build program (jar) → " .. entry_point,

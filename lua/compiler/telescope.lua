@@ -11,19 +11,19 @@ function M.show()
   end
 
   -- dependencies
-  conf = require("telescope.config").values
-  actions = require "telescope.actions"
-  state = require "telescope.actions.state"
-  pickers = require "telescope.pickers"
-  finders = require "telescope.finders"
-  utils = require("compiler.utils")
+  local conf = require("telescope.config").values
+  local actions = require "telescope.actions"
+  local state = require "telescope.actions.state"
+  local pickers = require "telescope.pickers"
+  local finders = require "telescope.finders"
+  local utils = require("compiler.utils")
 
   local buffer = vim.api.nvim_get_current_buf()
   local filetype = vim.api.nvim_buf_get_option(buffer, "filetype")
 
   -- programatically require the backend for the current language.
   -- On unsupported languages, allow "Run Makefile".
-  language = utils.require_language(filetype)
+  local language = utils.require_language(filetype)
   if not language then language = require("compiler.languages.make") end
 
   --- On option selected → Run action depending of the language

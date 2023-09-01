@@ -61,10 +61,10 @@ function M.action(selected_option)
       for entry, variables in pairs(config) do
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
-        entry_point_filename = vim.fn.fnamemodify(entry_point, ':t:r')
+        local entry_point_filename = vim.fn.fnamemodify(entry_point, ':t:r')
         output_dir = vim.fn.fnamemodify(utils.os_path(variables.output)) -- remove filename if any
         entry_point_js = output_dir .. "/" .. entry_point_filename .. ".js"
-        arguments = variables.arguments or "--outDir " .. output_dir -- optional
+        arguments = variables.arguments or ("--outDir " .. output_dir) -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "tsc " .. arguments .. " " .. entry_point ..                 -- transpile to js
                 " && node " .. entry_point_js ..                             -- run program (interpreted)

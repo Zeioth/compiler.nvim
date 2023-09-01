@@ -90,7 +90,7 @@ function M.action(selected_option)
            " && echo '" .. final_message .. "'"
     }
     -- Runs tasks in order
-    task = overseer.new_task({
+    local task = overseer.new_task({
       name = "- Assembly compiler", strategy = { "orchestrator",
         tasks = {
           tasks_compile, -- Build .asm files in parallel

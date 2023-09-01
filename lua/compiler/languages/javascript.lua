@@ -42,7 +42,6 @@ function M.action(selected_option)
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option3" then
-    local entry_point_js
     local entry_points
     local task = {}
     local tasks = {}
@@ -56,7 +55,6 @@ function M.action(selected_option)
       for entry, variables in pairs(config) do
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
-        entry_point_filename = vim.fn.fnamemodify(entry_point, ':t:r')
         arguments = variables.arguments or arguments -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "node " .. arguments .. " " .. entry_point ..                -- run program (interpreted)
