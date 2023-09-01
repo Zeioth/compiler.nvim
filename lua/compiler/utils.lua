@@ -92,7 +92,7 @@ end
 
 --- Programatically require the backend for the current language.
 --- This function is compatible with Unix and Windows.
----@return module language If languages/<filetype>.lua doesn't exist,
+---@return table|nil language If languages/<filetype>.lua doesn't exist,
 --         send a notification and return nil.
 function M.require_language(filetype)
   local local_path = debug.getinfo(1, "S").source:sub(2)
@@ -109,7 +109,7 @@ function M.require_language(filetype)
 end
 
 --- Function that returns true if a file exists in physical storage
----@return bool
+---@return boolean|nil
 function M.file_exists(filename)
   local stat = vim.loop.fs_stat(filename)
   return stat and stat.type == "file"
@@ -131,7 +131,7 @@ end
 --- Given a string, convert 'slash' to 'inverted slash' if on windows, and vice versa on UNIX.
 -- Then return the resulting string.
 ---@param path string
----@return string
+---@return string|nil,nil
 function M.os_path(path)
   if path == nil then return nil end
   -- Get the platform-specific path separator
