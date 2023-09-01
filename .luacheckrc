@@ -14,7 +14,5 @@ self = false
 max_line_length = 150
 
 ignore = {
-  "task",
-  "entry",
-  "entry_point",
+  311 -- ignore "Value assigned to a local variable is unused"
 }
