@@ -11,7 +11,7 @@ function M.show()
     return
   end
 
-  -- dependencies
+  -- Dependencies
   local conf = require("telescope.config").values
   local actions = require "telescope.actions"
   local state = require "telescope.actions.state"
@@ -22,7 +22,7 @@ function M.show()
   local buffer = vim.api.nvim_get_current_buf()
   local filetype = vim.api.nvim_buf_get_option(buffer, "filetype")
 
-  -- programatically require the backend for the current language.
+  -- Programatically require the backend for the current language.
   -- On unsupported languages, allow "Run Makefile".
   local language = utils.require_language(filetype)
   if not language then language = require("compiler.languages.make") end
