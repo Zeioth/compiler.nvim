@@ -18,13 +18,17 @@ M.setup = function(ctx)
   cmd("CompilerRedo", function()
     -- If the user didn't select an option yet, send a notification.
     if _G.compiler_redo == nil then
-      vim.notify("Open the compiler and select an option before doing redo.", vim.log.levels.INFO)
+      vim.notify("Open the compiler and select an option before doing redo.", vim.log.levels.INFO, {
+        title = "Compiler.nvim"
+      })
       return
     end
     -- If filetype is not the same as when the option was selected, send a notification.
     local current_filetype = vim.bo.filetype
     if _G.compiler_redo_filetype ~= current_filetype then
-      vim.notify("You are on a different language now. Open the compiler and select an option before doing redo.", vim.log.levels.INFO)
+      vim.notify("You are on a different language now. Open the compiler and select an option before doing redo.", vim.log.levels.INFO, {
+        title = "Compiler.nvim"
+      })
       return
     end
     -- Redo
@@ -34,7 +38,9 @@ M.setup = function(ctx)
   end, { desc = "Redo the last selected compiler option" })
 
   cmd("CompilerStop", function()
-    vim.notify("SUCCESS - All tasks have been disposed.", vim.log.levels.INFO)
+    vim.notify("SUCCESS - All tasks have been disposed.", vim.log.levels.INFO, {
+      title = "Compiler.nvim"
+    })
     local overseer = require("overseer")
     local tasks = overseer.list_tasks({ unique = false })
     for _, task in ipairs(tasks) do

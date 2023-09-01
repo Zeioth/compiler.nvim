@@ -5,9 +5,10 @@ local M = {}
 function M.show()
   -- If working directory is home, don't open telescope.
   if vim.loop.os_homedir() == vim.loop.cwd() then
-     vim.notify("You must :cd your project dir first.\nHome is not allowed as working dir.", vim.log.levels.WARN, {
-       title = "Compiler.nvim",})
-     return
+    vim.notify("You must :cd your project dir first.\nHome is not allowed as working dir.", vim.log.levels.WARN, {
+      title = "Compiler.nvim"
+    })
+    return
   end
 
   -- dependencies
