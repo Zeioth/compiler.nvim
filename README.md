@@ -118,8 +118,8 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/Program.exe |
 | dart | ./lib/main.dart | ./bin/main |
-| f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |  |
-| flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | |
+| f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) | ./bin/ |
+| flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | ./build/ |
 | go | ./main.go | ./bin/program |
 | java | ./Main.java | ./bin/Main.class |
 | javascript | ./src/index.js |  |
@@ -133,7 +133,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | rust | ./main.rs | ./bin/program |
 | shell | ./main.sh |  |
 | typescript | ./src/index.ts |  |
-| visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | |
+| visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | ./bin/ |
 | zig | ./build.zig | ./zig-out/bin/build |
 
 This is how the compilation results look after selecting `Build & run program` in c
@@ -159,7 +159,7 @@ executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 This option will look for a `Makefile` in the working directory and execute it with `make Makefile`. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## Quick start
-Create `./c-example/main.c` and paste this code. Then do `:cd ./c-example/` to change the working directory to the project.
+Create `~/c-example/main.c` and paste this code. Then do `:cd ~/c-example/` to change the working directory to the project.
 
 ```c
 #include <stdio.h>
@@ -212,6 +212,6 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* Better windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
+* Better Windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
