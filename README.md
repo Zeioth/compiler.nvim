@@ -66,7 +66,7 @@ lazy.nvim package manager
 },
 { -- The task runner we use
   "stevearc/overseer.nvim",
-  commit = "3047ede61cc1308069ad1184c0d447ebee92d749",
+  commit = "19aac0426710c8fc0510e54b7a6466a03a1a7377",
   cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
   opts = {
     task_list = {
