@@ -133,7 +133,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | rust | ./main.rs | ./bin/program |
 | shell | ./main.sh |  |
 | typescript | ./src/index.ts |  |
-| visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | ./bin/ |
+| visual basic dotnet  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | ./bin/ |
 | zig | ./build.zig | ./zig-out/bin/build |
 
 This is how the compilation results look after selecting `Build & run program` in c
