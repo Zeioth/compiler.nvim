@@ -107,7 +107,7 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<S-F7>', "<cmd>CompilerToggleResults<cr>", 
 
 
 ## How to use (Basic usage)
-This is what hapen when you select `build & run`, `build`, or `run` in the compiler:
+This is what happen when you select `build & run`, `build`, or `run` in the compiler:
 
 > compiler.nvim will look for the conventional entry point file for the current language you are using. To achieve this, it searches in your current working directory for the next files
 
