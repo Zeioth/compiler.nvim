@@ -66,7 +66,7 @@ lazy.nvim package manager
 },
 { -- The task runner we use
   "stevearc/overseer.nvim",
-  commit = "3047ede61cc1308069ad1184c0d447ebee92d749",
+  commit = "19aac0426710c8fc0510e54b7a6466a03a1a7377",
   cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
   opts = {
     task_list = {
@@ -107,7 +107,7 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<S-F7>', "<cmd>CompilerToggleResults<cr>", 
 
 
 ## How to use (Basic usage)
-This is what hapen when you select `build & run`, `build`, or `run` in the compiler:
+This is what happen when you select `build & run`, `build`, or `run` in the compiler:
 
 > compiler.nvim will look for the conventional entry point file for the current language you are using. To achieve this, it searches in your current working directory for the next files
 
@@ -133,7 +133,7 @@ This is what hapen when you select `build & run`, `build`, or `run` in the compi
 | rust | ./main.rs | ./bin/program |
 | shell | ./main.sh |  |
 | typescript | ./src/index.ts |  |
-| visual basic .net  | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | ./bin/ |
+| visual basic .net | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | ./bin/ |
 | zig | ./build.zig | ./zig-out/bin/build |
 
 This is how the compilation results look after selecting `Build & run program` in c
