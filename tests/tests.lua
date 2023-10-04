@@ -1,7 +1,7 @@
 --- This file runs all the tests to ensure all compilers are working correctly.
 --- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests.lua
 
- -- path of this script → tests
+-- path of this script → tests
 local tests_dir = (debug.getinfo(1, 'S').source:sub(2):match '(.*/)') .. "/tests/"
 
 dofile(tests_dir .. 'asm.lua')
