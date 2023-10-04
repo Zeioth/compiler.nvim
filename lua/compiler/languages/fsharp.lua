@@ -1,4 +1,4 @@
---- C# language actions
+--- F# language actions
 
 local M = {}
 
