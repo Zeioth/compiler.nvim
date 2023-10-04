@@ -32,7 +32,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Elixir compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build & run program → ./mix.exs",
+        tasks = {{ "shell", name = "- Mix run → ./mix.exs",
           cmd = "mix clean " ..                                                      -- clean
                 " && mix run " ..                                                    -- compile & run (bytecode)
                 " && echo '" .. final_message .. "'"
