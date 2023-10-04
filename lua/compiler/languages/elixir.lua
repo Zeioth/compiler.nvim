@@ -39,7 +39,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option4" then
+  elseif selected_option == "option3" then
     local task = overseer.new_task({
       name = "- Elixir REPL",
       strategy = { "orchestrator",
@@ -48,7 +48,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option5" then
+  elseif selected_option == "option4" then
     require("compiler.languages.make").run_makefile()                        -- run
   end
 end
