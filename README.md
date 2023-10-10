@@ -121,7 +121,7 @@ This is what happen when you select `build & run`, `build`, or `run` in the comp
 | dart | ./lib/main.dart | ./bin/main |
 | elixir | ./mix.exs | ./_build/ |
 | f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) | ./bin/ |
-| flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | ./build/ |
+| flutter | ./pubspec.yaml | ./build/ |
 | go | ./main.go | ./bin/program |
 | java | ./Main.java | ./bin/Main.class |
 | javascript | ./src/index.js |  |
