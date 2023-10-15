@@ -193,7 +193,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
   * A way run the project: Just keep the website opened in your browser.
 
 ### How can I compile videogames?
-The workflow of game development is essencially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
+The workflow of game development is essentially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
 
 #### Godot engine
 To `Build and run a godot scene`, use the command `godot /my/scene.tscn` on the terminal. This works really well: It's fast and simple.
