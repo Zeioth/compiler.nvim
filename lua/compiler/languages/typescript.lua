@@ -30,7 +30,7 @@ function M.action(selected_option)
         tasks = { {
           "shell",
           name = "- Run this file with ts-node → " .. current_file,
-          cmd = "ts-node " .. current_file .. -- run program (interpreted)
+          cmd = "ts-node " .. current_file .. -- run with ts-node
               " && echo " .. current_file ..  -- echo
               " && echo '" .. final_message .. "'"
         }, },
@@ -48,7 +48,7 @@ function M.action(selected_option)
           "shell",
           name = "- Build & Run this file with tsc & node → " .. current_file,
           cmd = "tsc " .. arguments .. " " .. current_file .. -- transpile to js
-              --" && node " .. current_file_js ..               -- run program (interpreted)
+              " && node " .. current_file_js ..               -- run program (interpreted)
               " && echo " .. current_file ..                  -- echo
               " && echo '" .. final_message .. "'"
         }, },
@@ -64,7 +64,7 @@ function M.action(selected_option)
         tasks = { {
           "shell",
           name = "- Run this program with ts-node → " .. entry_point,
-          cmd = "ts-node " .. arguments .. " " .. entry_point .. -- transpile to js
+          cmd = "ts-node " .. arguments .. " " .. entry_point .. -- run with ts-node
               " && echo " .. entry_point ..                      -- echo
               " && echo '" .. final_message .. "'"
         }, },
