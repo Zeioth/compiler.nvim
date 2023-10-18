@@ -5,10 +5,11 @@ local M = {}
 --- Frontend  - options displayed on telescope
 M.options = {
   { text = "1 - Run this file (ts-node)",            value = "option1" },
-  { text = "1 - Build & Run this file (tsc & node)", value = "option2" },
-  { text = "2 - Run program",                        value = "option3" },
-  { text = "3 - Run solution",                       value = "option4" },
-  { text = "4 - Run Makefile",                       value = "option5" }
+  { text = "2 - Build & Run this file (tsc & node)", value = "option2" },
+  { text = "3 - Run program (ts-node)",              value = "option3" },
+  { text = "4 - Build & Run program (tsc & node)",   value = "option4" },
+  { text = "5 - Run solution (tsc & node)",          value = "option5" },
+  { text = "6 - Run Makefile",                       value = "option6" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -47,7 +48,7 @@ function M.action(selected_option)
           "shell",
           name = "- Build & Run this file with tsc & node → " .. current_file,
           cmd = "tsc " .. arguments .. " " .. current_file .. -- transpile to js
-              " && node " .. current_file_js ..               -- run program (interpreted)
+              --" && node " .. current_file_js ..               -- run program (interpreted)
               " && echo " .. current_file ..                  -- echo
               " && echo '" .. final_message .. "'"
         }, },
@@ -56,6 +57,22 @@ function M.action(selected_option)
     task:start()
     vim.cmd("OverseerOpen")
   elseif selected_option == "option3" then
+    local task = overseer.new_task({
+      name = "- Typescript runner",
+      strategy = {
+        "orchestrator",
+        tasks = { {
+          "shell",
+          name = "- Run this program with ts-node → " .. entry_point,
+          cmd = "ts-node " .. arguments .. " " .. entry_point .. -- transpile to js
+              " && echo " .. entry_point ..                      -- echo
+              " && echo '" .. final_message .. "'"
+        }, },
+      },
+    })
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option4" then
     local entry_point_js = output_dir .. vim.fn.fnamemodify(entry_point, ":t:r") .. ".js"
     local task = overseer.new_task({
       name = "- Typescript transpiler",
@@ -63,7 +80,7 @@ function M.action(selected_option)
         "orchestrator",
         tasks = { {
           "shell",
-          name = "- Run this program → " .. entry_point,
+          name = "- Build & Run this program with tsc & node → " .. entry_point,
           cmd = "tsc " .. arguments .. " " .. entry_point .. -- transpile to js
               " && node " .. entry_point_js ..               -- run program (interpreted)
               " && echo " .. entry_point ..                  -- echo
@@ -73,7 +90,7 @@ function M.action(selected_option)
     })
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option4" then
+  elseif selected_option == "option5" then
     local entry_point_js
     local entry_points
     local task = {}
@@ -156,7 +173,7 @@ function M.action(selected_option)
       task:start()
       vim.cmd("OverseerOpen")
     end
-  elseif selected_option == "option5" then
+  elseif selected_option == "option6" then
     require("compiler.languages.make").run_makefile() -- run
   end
 end
