@@ -64,8 +64,8 @@ function M.action(selected_option)
         tasks = { {
           "shell",
           name = "- Run this program with ts-node → " .. entry_point,
-          cmd = "ts-node " .. arguments .. " " .. entry_point .. -- run with ts-node
-              " && echo " .. entry_point ..                      -- echo
+          cmd = "ts-node " .. entry_point .. -- run with ts-node
+              " && echo " .. entry_point ..  -- echo
               " && echo '" .. final_message .. "'"
         }, },
       },
