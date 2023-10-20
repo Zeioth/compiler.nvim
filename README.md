@@ -39,7 +39,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 | [flutter](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) |
 | [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua) ||
 | [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler) |
-| [javascript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/javascript.lua) ||
+| [javascript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/javascript.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/javascript-interpreter) |
 | [kotlin](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/kotlin.lua)  | [+info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler) |
 | [lua](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/lua.lua) ||
 | [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua) ||
