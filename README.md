@@ -213,7 +213,10 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* Typescript/Javascript: In practice, programs are gonna have dependencies, so we should add an option for `npm start` / `npm install` / `yarn start`, `yarn start`.
+* There are plans to replace `Run makefile` with the new option `Building systems` that is gonna contain them all.
+* Building system: `Building systems → Makefile` is gonna work as [makeit.nvim](https://github.com/Zeioth/makeit.nvim).
+* Building system: `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
+* Building system: `Building systems → CmakeLists.txt` is planned. Auto discovery of options defined by the user is planned.
 * Better Windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
