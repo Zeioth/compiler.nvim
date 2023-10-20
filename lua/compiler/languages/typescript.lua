@@ -6,8 +6,8 @@ local M = {}
 M.options = {
   { text = "1 - Run this file", value = "option1" },
   { text = "2 - Run program",   value = "option2" },
-  { text = "3 - npm install",  value = "option3" },
-  { text = "4 - npm start",  value = "option4" },
+  { text = "3 - NPM install",  value = "option3" },
+  { text = "4 - NPM start",  value = "option4" },
   { text = "5 - Run Makefile",  value = "option5" }
 }
 
