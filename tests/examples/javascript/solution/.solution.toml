@@ -1,9 +1,0 @@
-[proj1]
-entry_point = "./project1/src/index.js"
-
-[proj2]
-entry_point = "./project2/src/index.js"
-
-[YouCanRunExecutablesToo]
-executable1 = "echo 'I'm an executable!'"
-executable2 = "echo 'And me too! Weee!'"

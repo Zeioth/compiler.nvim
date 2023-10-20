@@ -10,12 +10,12 @@ vim.api.nvim_set_current_dir(example .. "run-program/")
 language.action("option2")
 vim.wait(ms)
 
--- Build solution (without .solution file)
-vim.api.nvim_set_current_dir(example .. "solution-nofile/")
+-- npm install
+vim.api.nvim_set_current_dir(example .. "npm/")
 language.action("option3")
 vim.wait(ms)
 
--- Build solution
-vim.api.nvim_set_current_dir(example .. "solution/")
-language.action("option3")
+-- npm start
+vim.api.nvim_set_current_dir(example .. "npm/")
+language.action("option4")
 vim.wait(ms)

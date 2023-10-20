@@ -1,4 +1,5 @@
-import { getGreeting } from './helper';
+import { getGreeting } from "./helper.js";
+
 
 function sayHello(): void {
     const greeting = getGreeting();
@@ -7,4 +8,3 @@ function sayHello(): void {
 }
 
 sayHello();
-
