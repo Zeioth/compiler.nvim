@@ -18,7 +18,7 @@ function M.check()
 
   health.info(
     "Neovim Version: v"
-      .. vim.fn.matchstr(vim.fn.execute "version", "NVIM v\\zs[^\n]*")
+    .. vim.fn.matchstr(vim.fn.execute "version", "NVIM v\\zs[^\n]*")
   )
 
   if vim.version().prerelease then
@@ -105,6 +105,16 @@ function M.check()
       type = "warn",
       msg = "Used to call the make interpreter.",
     },
+    {
+      cmd = "tsc",
+      type = "warn",
+      mag = "Used to call the typescript compiler.",
+    },
+    {
+      cmd = "ts-node",
+      type = "warn",
+      msg = "Used to call the typescript interpreter.",
+    }
   }
 
   for _, program in ipairs(programs) do
@@ -130,4 +140,3 @@ function M.check()
 end
 
 return M
-
