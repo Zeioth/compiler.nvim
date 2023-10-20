@@ -1,10 +1,10 @@
-import { getGreeting } from './helper';
+import { getGreeting } from "./helper.js";
+
 
 function sayHello(): void {
     const greeting = getGreeting();
-    const name = "World2";
+    const name = "World";
     console.log(`${greeting}, ${name}!`);
 }
 
 sayHello();
-
