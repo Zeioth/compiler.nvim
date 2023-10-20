@@ -91,6 +91,16 @@ function M.check()
       msg = "Used to call the ruby interpreter.",
     },
     {
+      cmd = "node",
+      type = "warn",
+      mag = "Used to call the javascript interpreter.",
+    },
+    {
+      cmd = "tsc",
+      type = "warn",
+      mag = "Used to transpile typescript to javascript. If you install it on your project, it will prevail over the global tsc executable.",
+    },
+    {
       cmd = "make",
       type = "warn",
       msg = "Used to call the make interpreter.",
