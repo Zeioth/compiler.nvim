@@ -67,15 +67,14 @@ lazy.nvim package manager
 },
 { -- The task runner we use
   "stevearc/overseer.nvim",
-  commit = "19aac0426710c8fc0510e54b7a6466a03a1a7377",
+  commit = "400e762648b70397d0d315e5acaf0ff3597f2d8b",
   cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
   opts = {
     task_list = {
       direction = "bottom",
       min_height = 25,
       max_height = 25,
-      default_detail = 1,
-      bindings = { ["q"] = function() vim.cmd("OverseerClose") end },
+      default_detail = 1
     },
   },
 },
@@ -119,8 +118,9 @@ This is what happen when you select `build & run`, `build`, or `run` in the comp
 | c++ | ./main.cpp | ./bin/program |
 | c# | ./Program.cs | ./bin/Program.exe |
 | dart | ./lib/main.dart | ./bin/main |
+| elixir | ./mix.exs | ./_build/ |
 | f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) | ./bin/ |
-| flutter | [see here](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) | ./build/ |
+| flutter | ./pubspec.yaml | ./build/ |
 | go | ./main.go | ./bin/program |
 | java | ./Main.java | ./bin/Main.class |
 | javascript | ./src/index.js |  |
@@ -192,7 +192,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
   * A way run the project: Just keep the website opened in your browser.
 
 ### How can I compile videogames?
-The workflow of game development is essencially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
+The workflow of game development is essentially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
 
 #### Godot engine
 To `Build and run a godot scene`, use the command `godot /my/scene.tscn` on the terminal. This works really well: It's fast and simple.
@@ -213,6 +213,7 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
+* Typescript/Javascript: In practice, programs are gonna have dependencies, so we should add an option for `npm start` / `npm install` / `yarn start`, `yarn start`.
 * Better Windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.

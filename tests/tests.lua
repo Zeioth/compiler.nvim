@@ -9,6 +9,7 @@ dofile(tests_dir .. 'c.lua')
 dofile(tests_dir .. 'cpp.lua')
 dofile(tests_dir .. 'cs.lua')
 dofile(tests_dir .. 'dart.lua')
+dofile(tests_dir .. 'elixir.lua')
 dofile(tests_dir .. 'fsharp.lua')
 dofile(tests_dir .. 'go.lua')
 dofile(tests_dir .. 'java.lua')
@@ -27,15 +28,16 @@ dofile(tests_dir .. 'vb.lua')
 dofile(tests_dir .. 'zig.lua')
 
 -- Cases that require to be tested manually atm.
--- * python             → Run this file.
--- * ruby               → Run this file.
--- * shell              → Run this file.
--- * fsharp             → Run this file.
--- * r                  → Run this file.
--- * typescript         → Run this file.
--- * javascript         → Run this file.
--- * dart               → Run this file.
--- * python/r/F#/kotlin → REPL
--- * flutter            → Run program (its a loop).
--- * kotlin             → Android studio adb.
+-- * python                    → Run this file.
+-- * ruby                      → Run this file.
+-- * shell                     → Run this file.
+-- * elixir                    → Run this file.
+-- * fsharp                    → Run this file.
+-- * r                         → Run this file.
+-- * typescript                → Run this file.
+-- * javascript                → Run this file.
+-- * dart                      → Run this file.
+-- * python/r/elixir/F#/kotlin → REPL
+-- * flutter                   → Run program (its a loop).
+-- * kotlin                    → Android studio adb.
 
