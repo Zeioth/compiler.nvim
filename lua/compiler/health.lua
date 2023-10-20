@@ -98,7 +98,7 @@ function M.check()
     {
       cmd = "tsc",
       type = "warn",
-      mag = "Used to transpile typescript to javascript. If you install it on your project, it will prevail over the global tsc executable.",
+      mag = "Used to transpile typescript to javascript.",
     },
     {
       cmd = "make",
