@@ -39,7 +39,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 | [flutter](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) |
 | [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua) ||
 | [java](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/java.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler) |
-| [javascript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/javascript.lua) ||
+| [javascript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/javascript.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/javascript-interpreter) |
 | [kotlin](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/kotlin.lua)  | [+info](https://github.com/Zeioth/compiler.nvim/wiki/java-compiler) |
 | [lua](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/lua.lua) ||
 | [make](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/make.lua) ||
@@ -214,9 +214,9 @@ If you want to help me, please star this repository to increase the visibility o
 
 ## Roadmap
 * There are plans to replace `Run makefile` with the new option `Building systems` that is gonna contain them all.
-* Building system: `Building systems → Makefile` is gonna work as [makeit.nvim](https://github.com/Zeioth/makeit.nvim).
-* Building system: `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
-* Building system: `Building systems → CmakeLists.txt` is planned. Auto discovery of options defined by the user is planned.
+* `Building systems → Makefile` is gonna work as [makeit.nvim](https://github.com/Zeioth/makeit.nvim).
+* `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
+* `Building systems → CmakeLists.txt` is planned. Auto discovery of options defined by the user is planned.
 * Better Windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
