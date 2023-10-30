@@ -18,26 +18,83 @@ function M.show()
   local pickers = require "telescope.pickers"
   local finders = require "telescope.finders"
   local utils = require("compiler.utils")
+  local utils_bau = require("compiler.utils-bau")
 
   local buffer = vim.api.nvim_get_current_buf()
-  local filetype = vim.api.nvim_buf_get_option(buffer, "filetype")
+  local filetype = vim.api.nvim_get_option_value("filetype", { buf = buffer })
+
+
+  -- POPULATE
+  -- ========================================================================
 
   -- Programatically require the backend for the current language.
-  -- On unsupported languages, allow "Run Makefile".
   local language = utils.require_language(filetype)
-  if not language then language = require("compiler.languages.make") end
 
-  --- On option selected → Run action depending of the language
+  -- On unsupported languages, default to make.
+  if not language then language = utils.require_language("make") or {} end
+
+  -- Also show options discovered on Makefile, Cmake... and other bau.
+  if not language.bau_added then
+    language.bau_added = true
+    local bau_opts = utils_bau.get_bau_opts()
+
+    -- Insert a separator on telescope for every bau.
+    local last_bau_value = nil
+    for _, item in ipairs(bau_opts) do
+      if last_bau_value ~= item.bau then
+        table.insert(language.options, { text = "", value = "separator" })
+        last_bau_value = item.bau
+      end
+      table.insert(language.options, item)
+    end
+  end
+
+  -- Add numbers in front of the options to display.
+  local index_counter = 0
+  for _, option in ipairs(language.options) do
+    if option.value ~= "separator" then
+      index_counter = index_counter + 1
+      option.text = index_counter .. " - " .. option.text
+    end
+  end
+
+
+  -- RUN ACTION ON SELECTED
+  -- ========================================================================
+
+  --- On option selected → Run action depending of the language.
   local function on_option_selected(prompt_bufnr)
     actions.close(prompt_bufnr) -- Close Telescope on selection
     local selection = state.get_selected_entry()
     if selection.value == "" then return end -- Ignore separators
     _G.compiler_redo = selection.value       -- Save redo
     _G.compiler_redo_filetype = filetype     -- Save redo
-    if selection then language.action(selection.value) end
+
+
+    if selection then
+      -- Do the selected option belong to a build automation utility?
+      local bau = nil
+      for _, value in ipairs(language.options) do
+        if value.text == selection.display then
+          bau = value.bau
+        end
+      end
+
+      -- If any → call the bau backend.
+      -- If nil → call the language backend.
+      if bau then
+        bau = utils_bau.require_bau(bau)
+        if bau then bau.action(selection.value) end
+      else
+        language.action(selection.value)
+      end
+
+    end
   end
 
-  --- Show telescope
+
+  -- SHOW TELESCOPE
+  -- ========================================================================
   local function open_telescope()
     pickers
       .new({}, {
