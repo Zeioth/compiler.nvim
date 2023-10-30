@@ -186,7 +186,6 @@ Open the compiler and select `Build and run`. You will see the compilation resul
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
 * **How can I change the way the compiler works?** Same as the previous one.
 * **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive arguments, we recommend you to use the terminal instead, because creating a `.solution.toml` file just to be able to pass arguments to your simple shell script is probably a overkill, and not the right tool.
-* **Is this plugin also a building system manager?** No, it is not. For convenience, we provide the option `Run Makefile`, which should cover some cases of use. But if your workflow relies heavily on building systems, please consider installing an specific neovim plugin for this purpose. [See wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples#building-systems-support).
 * **I'm a windows user, do I need to do something special?** You have to [enable WLS](https://www.youtube.com/watch?v=fFbLUEQsRhM), and run nvim inside. Otherwise it would be impossible for you to install the [required dependencies](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies).
 * **Where are the global options?** There are not. Creating a `.solution.toml` file of your project is the way to configure stuff. This way we can keep the code extra simple.
 *  **How can I disable notifications when compiling?** Check [here](https://github.com/stevearc/overseer.nvim/issues/158#issuecomment-1631542247).
@@ -194,6 +193,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
   
   * A way to transpile: toggleterm + tmux.
   * A way run the project: Just keep the website opened in your browser.
+* **Is this plugin also support build automation utilities?** We are currently adding this feature. Please be patient.
 
 ### How can I compile videogames?
 The workflow of game development is essentially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
