@@ -157,7 +157,11 @@ executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solution-examples).
 
 ## Make (optional)
-This option will look for a `Makefile` in the working directory and execute it with `make Makefile`. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
+If any of these files exist in your current working directory, they will be automatically detected and displayed on [Compiler.nvim](https://github.com/Zeioth/compiler.nvim): 
+
+* `Makefile`
+
+[For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## Quick start
 Create `~/c-example/main.c` and paste this code. Then do `:cd ~/c-example/` to change the working directory to the project.
@@ -182,7 +186,6 @@ Open the compiler and select `Build and run`. You will see the compilation resul
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
 * **How can I change the way the compiler works?** Same as the previous one.
 * **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive arguments, we recommend you to use the terminal instead, because creating a `.solution.toml` file just to be able to pass arguments to your simple shell script is probably a overkill, and not the right tool.
-* **Is this plugin also a building system manager?** No, it is not. For convenience, we provide the option `Run Makefile`, which should cover some cases of use. But if your workflow relies heavily on building systems, please consider installing an specific neovim plugin for this purpose. [See wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples#building-systems-support).
 * **I'm a windows user, do I need to do something special?** You have to [enable WLS](https://www.youtube.com/watch?v=fFbLUEQsRhM), and run nvim inside. Otherwise it would be impossible for you to install the [required dependencies](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies).
 * **Where are the global options?** There are not. Creating a `.solution.toml` file of your project is the way to configure stuff. This way we can keep the code extra simple.
 *  **How can I disable notifications when compiling?** Check [here](https://github.com/stevearc/overseer.nvim/issues/158#issuecomment-1631542247).
@@ -190,6 +193,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
   
   * A way to transpile: toggleterm + tmux.
   * A way run the project: Just keep the website opened in your browser.
+* **Do this plugin also support build automation utilities?** We are currently adding this feature. Please be patient.
 
 ### How can I compile videogames?
 The workflow of game development is essentially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
@@ -213,10 +217,8 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* There are plans to replace `Run makefile` with the new option `Building systems` that is gonna contain them all.
-* `Building systems → Makefile` is gonna work as [makeit.nvim](https://github.com/Zeioth/makeit.nvim).
-* `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → CmakeLists.txt` is planned. Auto discovery of options defined by the user is planned.
+* `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
 * Better Windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
