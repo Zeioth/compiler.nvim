@@ -157,7 +157,11 @@ executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solution-examples).
 
 ## Make (optional)
-This option will look for a `Makefile` in the working directory and execute it with `make Makefile`. [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
+If any of these files exist in your current working directory, its content will be also diplay on [Compiler.nvim](https://github.com/Zeioth/compiler.nvim): 
+
+* `Makefile`
+
+[For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
 ## Quick start
 Create `~/c-example/main.c` and paste this code. Then do `:cd ~/c-example/` to change the working directory to the project.
@@ -213,10 +217,8 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* There are plans to replace `Run makefile` with the new option `Building systems` that is gonna contain them all.
-* `Building systems → Makefile` is gonna work as [makeit.nvim](https://github.com/Zeioth/makeit.nvim).
-* `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → CmakeLists.txt` is planned. Auto discovery of options defined by the user is planned.
+* `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
 * Better Windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
