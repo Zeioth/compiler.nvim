@@ -1,4 +1,4 @@
---- ### Utils-bau for build automation systems
+--- ### Utils-bau for build automation utilities
 
 --- Frontend compatilibity:
 --- The parsers in this file return data in a format Telescope can undestand.
