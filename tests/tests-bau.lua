@@ -5,3 +5,4 @@
 local tests_dir = (debug.getinfo(1, 'S').source:sub(2):match '(.*/)') .. "/tests/bau/"
 
 dofile(tests_dir .. 'make.lua')
+dofile(tests_dir .. 'cmake.lua')

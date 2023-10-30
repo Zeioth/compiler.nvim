@@ -1,4 +1,4 @@
-all: hello
+all: hello_world
 
-hello:
+hello_world:
 	echo "Hello, World"
