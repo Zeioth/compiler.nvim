@@ -10,9 +10,9 @@ function M.action(option)
     name = "- Make interpreter",
     strategy = { "orchestrator",
       tasks = {{ "shell", name = "- Run makefile → make " .. option ,
-          cmd = "make ".. option ..                                          -- run
-                " && echo make " .. option ..                                -- echo
-                " && echo '" .. final_message .. "'"
+        cmd = "make ".. option ..                                            -- run
+              " && echo make " .. option ..                                  -- echo
+              " && echo '" .. final_message .. "'"
       },},},})
   task:start()
   vim.cmd("OverseerOpen")

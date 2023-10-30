@@ -13,11 +13,11 @@ local utils = require("compiler.utils")
 -- Private functions to parse bau files.
 -- ============================================================================
 
----Given a file, open the makefile, extract all the options,
+---Given a Makefile file, parse all the targets,
 -- and return them as a table.
 ---@param path string Path to the Makefile.
 ---@return table options A table like:
---- { { text: "my option", value="all" bau = "make"}, { text: "another option", value="hello", "make"} ...}
+--- { { text: "Make all", value="all", bau = "cmake"}, { text: "Make hello", value="hello", bau = "make"} ...}
 local function get_makefile_opts(path)
   local options = {}
 
@@ -51,6 +51,44 @@ local function get_makefile_opts(path)
   return options
 end
 
+---Given a CMakeLists.txt file, parse all the targets,
+-- and return them as a table.
+---@param path string Path to the CMakeLists.txt file.
+---@return table options A table like:
+--- { { text: "CMake all", value="all", bau = "cmake"}, { text: "CMake hello", value="hello", bau = "cmake"} ...}
+local function get_cmake_opts(path)
+  local options = {}
+
+  local file = io.open(path, "r")
+
+  if file then
+    local in_command = false
+
+    for line in file:lines() do
+      local target = line:match("^%s*add_%w+%s*%(")
+      if target then
+        in_command = true
+        target = line:match("(%b())")
+        target = target:gsub("[%(%)]", "")
+
+        -- Split the target string by spaces and take the first part
+        local targetName = target:match("(%S+)")
+
+        table.insert(
+          options,
+          { text = "CMake " .. targetName, value = targetName, bau = "cmake" }
+        )
+      elseif in_command then
+        in_command = false
+      end
+    end
+
+    file:close()
+  end
+
+  return options
+end
+
 
 -- FRONTEND
 -- Public functions to call from the frontend.
@@ -64,12 +102,21 @@ function M.get_bau_opts()
   local current_dir = vim.fn.expand("%:p:h")
   local options = {}
 
-  vim.list_extend(
-    options,
-    get_makefile_opts(
-      current_dir .. utils.os_path("/Makefile")
-    )
-  )
+  -- make
+  vim.list_extend(options, get_makefile_opts(
+    current_dir .. utils.os_path("/Makefile")
+  ))
+
+  -- cmake
+  vim.list_extend(options, get_cmake_opts(
+    current_dir .. utils.os_path("/CMakeLists.txt")
+  ))
+
+  print(vim.inspect(
+
+get_cmake_opts(current_dir .. utils.os_path("/CMakeLists.txt"))
+
+  ))
 
   return options
 end
