@@ -159,7 +159,7 @@ executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 ## Make (optional)
 If any of these files exist in your current working directory, they will be automatically detected and displayed on [Compiler.nvim](https://github.com/Zeioth/compiler.nvim): 
 
-* `Makefile`
+* `./Makefile`
 
 [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
