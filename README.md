@@ -160,6 +160,7 @@ executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 If any of these files exist in your current working directory, they will be automatically detected and displayed on [Compiler.nvim](https://github.com/Zeioth/compiler.nvim): 
 
 * `./Makefile`
+* `./CMakeLists.txt`
 
 [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
@@ -217,7 +218,6 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* `Building systems → CmakeLists.txt` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → gradle` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
