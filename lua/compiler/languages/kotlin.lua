@@ -4,21 +4,20 @@ local M = {}
 
 --- Frontend  - options displayed on telescope
 M.options = {
-  { text = "1  - Build and run program (class)", value = "option1" },
-  { text = "2  - Build program (class)", value = "option2" },
-  { text = "3  - Run program (class)", value = "option3" },
-  { text = "4  - Build solution (class)", value = "option4" },
+  { text = "Build and run program (class)", value = "option1" },
+  { text = "Build program (class)", value = "option2" },
+  { text = "Run program (class)", value = "option3" },
+  { text = "Build solution (class)", value = "option4" },
   { text = "", value = "separator" },
-  { text = "5  - Build and run program (jar)", value = "option5" },
-  { text = "6  - Build program (jar)", value = "option6" },
-  { text = "7  - Run program (jar)", value = "option7" },
-  { text = "8  - Build solution (jar)", value = "option8" },
+  { text = "Build and run program (jar)", value = "option5" },
+  { text = "Build program (jar)", value = "option6" },
+  { text = "Run program (jar)", value = "option7" },
+  { text = "Build solution (jar)", value = "option8" },
   { text = "", value = "separator" },
-  { text = "9  - Run gradlew installDebug", value = "option9" },
-  { text = "10 - Run gradlew build", value = "option10" },
+  { text = "Run gradlew installDebug", value = "option9" },
+  { text = "Run gradlew build", value = "option10" },
   { text = "", value = "separator" },
-  { text = "11 - Run REPL", value = "option11" },
-  { text = "12 - Run Makefile", value = "option12" }
+  { text = "Run REPL", value = "option11" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -318,20 +317,6 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-
-
-
-
-
-
-
-
-
-
-
-  --=============================== MAKE ====================================--
-  elseif selected_option == "option12" then
-    require("compiler.languages.make").run_makefile()                        -- run
   end
 end
 

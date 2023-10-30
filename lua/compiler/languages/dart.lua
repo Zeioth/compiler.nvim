@@ -4,23 +4,22 @@ local M = {}
 
 --- Frontend  - options displayed on telescope
 M.options = {
-  { text = "1  - Run this file (interpreted)", value = "option1" },
-  { text = "2  - Run program (interpreted)", value = "option2" },
-  { text = "3  - Build solution (interpreted)", value = "option3" },
+  { text = "Run this file (interpreted)", value = "option1" },
+  { text = "Run program (interpreted)", value = "option2" },
+  { text = "Build solution (interpreted)", value = "option3" },
   { text = "", value = "separator" },
-  { text = "4  - Build and run program (machine code)", value = "option4" },
-  { text = "5  - Build program (machine code)", value = "option5" },
-  { text = "6  - Run program (machine code)", value = "option6" },
-  { text = "7  - Build solution (machine code)", value = "option7" },
+  { text = "Build and run program (machine code)", value = "option4" },
+  { text = "Build program (machine code)", value = "option5" },
+  { text = "Run program (machine code)", value = "option6" },
+  { text = "Build solution (machine code)", value = "option7" },
   { text = "", value = "separator" },
-  { text = "8  - Run program (flutter)", value = "option8" },
-  { text = "9  - Build for linux (flutter)", value = "option9" },
-  { text = "10 - Build for android (flutter)", value = "option10" },
-  { text = "11 - Build for ios (flutter)", value = "option11" },
-  { text = "12 - Build for web (flutter)", value = "option12" },
+  { text = "Run program (flutter)", value = "option8" },
+  { text = "Build for linux (flutter)", value = "option9" },
+  { text = "Build for android (flutter)", value = "option10" },
+  { text = "Build for ios (flutter)", value = "option11" },
+  { text = "Build for web (flutter)", value = "option12" },
   { text = "", value = "separator" },
-  { text = "13 - Transpile program to javascript", value = "option13" },
-  { text = "14 - Run Makefile", value = "option14" }
+  { text = "Transpile program to javascript", value = "option13" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -327,21 +326,6 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-
-
-
-
-
-
-
-
-
-
-
-
-  --=============================== MAKE ====================================--
-  elseif selected_option == "option14" then
-    require("compiler.languages.make").run_makefile()                        -- run
   end
 end
 

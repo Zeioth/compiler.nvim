@@ -6,14 +6,22 @@ local M = {}
 
 --- Frontend  - options displayed on telescope
 M.options = {
-  { text = "1 - Run Makefile", value = "option1" }
+  { text = "Run Makefile", value = "option1" }
 }
 
 --- Helper
 -- Runs ./Makefile in the current working directory.
--- This prevents code repetition as this method is meant to be called by
--- all other languages to act as glue for border cases.
 function M.run_makefile()
+  -- If no makefile, show a warning notification and return.
+  local stat = vim.loop.fs_stat("./Makefile")
+  if not stat then
+    vim.notify("You must have a Makefile in your working directory", vim.log.levels.WARN, {
+      title = "Compiler.nvim"
+    })
+    return
+  end
+
+  -- Run makefile
   local utils = require("compiler.utils")
   local overseer = require("overseer")
   local makefile = utils.os_path(vim.fn.getcwd() .. "/Makefile")

@@ -4,10 +4,9 @@ local M = {}
 
 --- Frontend  - options displayed on telescope
 M.options = {
-  { text = "1 - Build and run program (dotnet)", value = "option1" },
-  { text = "2 - Build program (dotnet)", value = "option2" },
-  { text = "3 - Run REPL", value = "option3" },
-  { text = "4 - Run Makefile", value = "option4" }
+  { text = "Build and run program (dotnet)", value = "option1" },
+  { text = "Build program (dotnet)", value = "option2" },
+  { text = "Run REPL", value = "option3" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -46,8 +45,6 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option4" then
-    require("compiler.languages.make").run_makefile()                        -- run
   end
 end
 

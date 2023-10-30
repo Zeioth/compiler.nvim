@@ -8,22 +8,21 @@ local M = {}
 
 --- Frontend  - options displayed on telescope
 M.options = {
-  { text = "1  - Run this file (interpreted)", value = "option1" },
-  { text = "2  - Run program (interpreted)", value = "option2" },
-  { text = "3  - Run solution (interpreted)", value = "option3" },
+  { text = "Run this file (interpreted)", value = "option1" },
+  { text = "Run program (interpreted)", value = "option2" },
+  { text = "Run solution (interpreted)", value = "option3" },
   { text = "", value = "separator" },
-  { text = "4  - Build and run program (machine code)", value = "option4" },
-  { text = "5  - Build program (machine code)", value = "option5" },
-  { text = "6  - Run program (machine code)", value = "option6" },
-  { text = "7  - Build solution (machine code)", value = "option7" },
+  { text = "Build and run program (machine code)", value = "option4" },
+  { text = "Build program (machine code)", value = "option5" },
+  { text = "Run program (machine code)", value = "option6" },
+  { text = "Build solution (machine code)", value = "option7" },
   { text = "", value = "separator" },
-  { text = "8  - Build and run program (bytecode)", value = "option8" },
-  { text = "9  - Build program (bytecode)", value = "option9" },
-  { text = "10 - Run program (bytecode)", value = "option10" },
-  { text = "11 - Build solution (bytecode)", value = "option11" },
+  { text = "Build and run program (bytecode)", value = "option8" },
+  { text = "Build program (bytecode)", value = "option9" },
+  { text = "Run program (bytecode)", value = "option10" },
+  { text = "Build solution (bytecode)", value = "option11" },
   { text = "", value = "separator" },
-  { text = "12 - Run REPL", value = "option12" },
-  { text = "13 - Run Makefile", value = "option13" }
+  { text = "Run REPL", value = "option12" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -443,21 +442,6 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-
-
-
-
-
-
-
-
-
-
-
-
-  --=============================== MAKE ====================================--
-  elseif selected_option == "option13" then
-    require("compiler.languages.make").run_makefile()                        -- run
   end
 
 end
