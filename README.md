@@ -193,7 +193,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
   
   * A way to transpile: toggleterm + tmux.
   * A way run the project: Just keep the website opened in your browser.
-* **Is this plugin also support build automation utilities?** We are currently adding this feature. Please be patient.
+* **Do this plugin also support build automation utilities?** We are currently adding this feature. Please be patient.
 
 ### How can I compile videogames?
 The workflow of game development is essentially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
