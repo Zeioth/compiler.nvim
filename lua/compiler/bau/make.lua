@@ -1,8 +1,8 @@
---- Run the selected make option using overseer
+--- Makefile bau actions
 
 local M = {}
 
--- Backend
+-- Backend - overseer tasks performed on option selected
 function M.action(option)
   local overseer = require("overseer")
   local final_message = "--task finished--"
