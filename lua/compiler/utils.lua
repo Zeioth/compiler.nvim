@@ -2,11 +2,11 @@
 
 local M = {}
 
---- Recursively searches for files with the given name
---  in all directories under start_dir.
----@param start_dir string
----@param file_name string
----@return table files Empty table if no files found.
+---Recursively searches for files with the given name
+-- in all directories under start_dir.
+---@param start_dir string A dir path string.
+---@param file_name string A file path string.
+---@return table files If any, a tables of files. Otherwise, a Empty table.
 function M.find_files(start_dir, file_name)
   local files = {}
 
@@ -31,8 +31,8 @@ function M.find_files(start_dir, file_name)
   return files
 end
 
---- Search recursively, starting by the directory
---- of the entry_point file. Return files matching the pattern.
+---Search recursively, starting by the directory
+-- of the entry_point file. Return files matching the pattern.
 ---@param entry_point string Entry point file of the program.
 ---@param pattern string File extension to search.
 ---@return string files_as_string Files separated by a space.
@@ -45,11 +45,11 @@ function M.find_files_to_compile(entry_point, pattern)
   return files_as_string
 end
 
--- Parse the solution file and extract variables.
+---Parse the solution file and extract variables.
 ---@param file_path string Path of the solution file to read.
 ---@return table config A table like { {entry_point, ouptput, ..} .. }
---- The last table will only contain the solution executables like:
---- { "/path/to/executable", ... }
+-- The last table will only contain the solution executables like:
+-- { "/path/to/executable", ... }
 function M.parse_solution_file(file_path)
   local file = assert(io.open(file_path, "r"))
   local config = {}
@@ -90,10 +90,9 @@ function M.parse_solution_file(file_path)
   return config
 end
 
---- Programatically require the backend for the current language.
---- This function is compatible with Unix and Windows.
----@return table|nil language If languages/<filetype>.lua doesn't exist,
---         send a notification and return nil.
+---Programatically require the backend for the current language.
+---@return table|nil language The language backend.
+-- If ./languages/<filetype>.lua doesn't exist, return nil.
 function M.require_language(filetype)
   local local_path = debug.getinfo(1, "S").source:sub(2)
   local local_path_dir = local_path:match("(.*[/\\])")
@@ -108,16 +107,17 @@ function M.require_language(filetype)
   end
 end
 
---- Function that returns true if a file exists in physical storage
----@return boolean|nil
+---Function that returns true if a file exists in physical storage
+---@return boolean|nil exists true or false
 function M.file_exists(filename)
   local stat = vim.loop.fs_stat(filename)
   return stat and stat.type == "file"
 end
 
---- Function that returns the path of the .solution file if exists in the current
---- working diectory root, or nil otherwise.
----@return string|nil
+---Function that returns the path of the .solution file if exists in the current
+-- working diectory root, or nil otherwise.
+---@return string|nil path Path of the .solution file if exists in the current
+-- working diectory root, or nil otherwise.
 function M.get_solution_file()
   if M.file_exists(".solution.toml") then
     return  M.os_path(vim.fn.getcwd() .. "/.solution.toml")
@@ -128,10 +128,10 @@ function M.get_solution_file()
   end
 end
 
---- Given a string, convert 'slash' to 'inverted slash' if on windows, and vice versa on UNIX.
+---Given a string, convert 'slash' to 'inverted slash' if on windows, and vice versa on UNIX.
 -- Then return the resulting string.
----@param path string
----@return string|nil,nil
+---@param path string A path string.
+---@return string|nil,nil path A path string formatted for the current OS.
 function M.os_path(path)
   if path == nil then return nil end
   -- Get the platform-specific path separator

@@ -96,14 +96,9 @@ function M.check()
       mag = "Used to call the javascript interpreter.",
     },
     {
-      cmd = "npm",
-      type = "warn",
-      mag = "Used to call npm from typescript and javascript.",
-    },
-    {
       cmd = "tsc",
       type = "warn",
-      mag = "Used to transpile typescript to javascript.",
+      mag = "Used to transpile typescript to javascript. If you install it on your project, it will prevail over the global tsc executable.",
     },
     {
       cmd = "make",
