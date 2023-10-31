@@ -218,6 +218,7 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
+* `Building systems → CMakeLists.txt` Experimental support. We currently only parse `add_executable`. We should parse all possible targets.
 * `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → gradle` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
