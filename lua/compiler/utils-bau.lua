@@ -65,6 +65,7 @@ local function get_cmake_opts(path)
     local in_command = false
 
     for line in file:lines() do
+      -- Anything that starts by 'add_' is consivered a target.
       local target = line:match("^%s*add_%w+%s*%(")
       if target then
         in_command = true
