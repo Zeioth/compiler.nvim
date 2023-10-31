@@ -160,6 +160,7 @@ executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 If any of these files exist in your current working directory, they will be automatically detected and displayed on [Compiler.nvim](https://github.com/Zeioth/compiler.nvim): 
 
 * `./Makefile`
+* `./CMakeLists.txt`
 
 [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
 
@@ -193,7 +194,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
   
   * A way to transpile: toggleterm + tmux.
   * A way run the project: Just keep the website opened in your browser.
-* **Do this plugin also support build automation utilities?** We are currently adding this feature. You can check if yours is supported [here](https://github.com/Zeioth/Compiler.nvim/wiki/makefile-examples#support-for-other-build-automation-tools).
+* **Do this plugin also support build automation utilities?** We are currently adding this feature. You can check if yours is supported [here](https://github.com/Zeioth/compiler.nvim/wiki/Makefile-examples#supported-build-automation-tools).
 
 ### How can I compile videogames?
 The workflow of game development is essentially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
@@ -217,7 +218,7 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* `Building systems → CmakeLists.txt` is planned. Auto discovery of options defined by the user is planned.
+* `Building systems → CMakeLists.txt` Experimental support. We currently only parse `add_executable`. We should parse all possible targets.
 * `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → gradle` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
