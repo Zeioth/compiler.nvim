@@ -14,7 +14,7 @@ function M.action(option)
               " && mkdir -p ./build" ..
               " && cmake -S . -B build" ..                                   -- Generate build files in a 'build' directory
               " && cmake --build build --target " .. option ..               -- Build the specified target from the 'build' directory
-              " && echo make " .. option ..                                  -- echo
+              " && echo cmake " .. option ..                                 -- echo
               " && echo '" .. final_message .. "'"
       },},},})
   task:start()
