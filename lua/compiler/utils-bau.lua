@@ -134,8 +134,8 @@ function M.require_bau(bau)
 
   if success then return bau
   else
-    -- local error = "Build automation system \"" .. bau .. "\" not supported by the compiler."
-    -- vim.notify(error, vim.log.levels.INFO, { title = "Build automation system unsupported" })
+    -- local error = "Build automation utility \"" .. bau .. "\" not supported by the compiler."
+    -- vim.notify(error, vim.log.levels.INFO, { title = "Build automation utility unsupported" })
     return nil
   end
 end
