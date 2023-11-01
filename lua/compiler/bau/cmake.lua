@@ -13,7 +13,7 @@ function M.action(option)
   vim.api.nvim_set_var("CMAKE_BUILD_DIR", build_dir)
 
   -- Global: CMAKE_BUILD_TYPE
-  local build_type = vim.api.nvim_get_var("CMAKE_BUILD_TYPE") or "Release"
+  local build_type = vim.api.nvim_get_var("CMAKE_BUILD_TYPE") or "Debug"
   vim.api.nvim_set_var("CMAKE_BUILD_TYPE", build_type)
 
   -- Run command
