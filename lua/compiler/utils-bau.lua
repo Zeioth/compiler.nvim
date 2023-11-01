@@ -82,6 +82,24 @@ local function get_cmake_opts(path)
       elseif in_command then
         in_command = false
       end
+
+      -- Parse 'add_custom_target' commands
+      local custom_target = line:match("^%s*add_custom_target%s*%(")
+      if custom_target then
+        in_command = true
+        custom_target = line:match("(%b())")
+        custom_target = custom_target:gsub("[%(%)]", "")
+
+        -- Split the custom target string by spaces and take the first part
+        custom_target = custom_target:match("(%S+)")
+
+        table.insert(
+          options,
+          { text = "CMake " .. custom_target, value = custom_target, bau = "cmake" }
+        )
+      elseif in_command then
+        in_command = false
+      end
     end
 
     file:close()
@@ -89,6 +107,7 @@ local function get_cmake_opts(path)
 
   return options
 end
+
 
 
 -- FRONTEND
