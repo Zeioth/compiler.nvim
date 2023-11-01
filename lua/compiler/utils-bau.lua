@@ -65,7 +65,7 @@ local function get_cmake_opts(path)
     local in_command = false
 
     for line in file:lines() do
-      -- Checking specifically for 'add_executable' command
+      -- Parse 'add_executable' commands
       local target = line:match("^%s*add_executable%s*%(")
       if target then
         in_command = true
@@ -73,11 +73,11 @@ local function get_cmake_opts(path)
         target = target:gsub("[%(%)]", "")
 
         -- Split the target string by spaces and take the first part
-        local targetName = target:match("(%S+)")
+        target = target:match("(%S+)")
 
         table.insert(
           options,
-          { text = "CMake " .. targetName, value = targetName, bau = "cmake" }
+          { text = "CMake " .. target, value = target, bau = "cmake" }
         )
       elseif in_command then
         in_command = false
@@ -134,8 +134,8 @@ function M.require_bau(bau)
 
   if success then return bau
   else
-    -- local error = "Build automation utility \"" .. bau .. "\" not supported by the compiler."
-    -- vim.notify(error, vim.log.levels.INFO, { title = "Build automation utility unsupported" })
+    -- local error = "Build automation utilities \"" .. bau .. "\" not supported by the compiler."
+    -- vim.notify(error, vim.log.levels.INFO, { title = "Build automation utilities unsupported" })
     return nil
   end
 end
