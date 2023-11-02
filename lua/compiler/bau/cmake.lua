@@ -9,11 +9,11 @@ function M.action(option)
 
   -- Global: CMAKE_BUILD_DIR
   local success, build_dir = pcall(vim.api.nvim_get_var, 'CMAKE_BUILD_DIR')
-  if not success then build_dir = './build' end
+  if not success or build_dir == "" then build_dir = './build' end
 
   -- Global: CMAKE_BUILD_TYPE
   local success, build_type = pcall(vim.api.nvim_get_var, 'CMAKE_BUILD_TYPE')
-  if not success then build_type = 'Debug' end
+  if not success or build_type == "" then build_type = 'Debug' end
 
   -- Global: CMAKE_CLEAN_FIRST
   local clean_first_arg = ""
