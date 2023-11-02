@@ -217,7 +217,6 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* `WIP: CMake` Bugfixes: We are currently parsing all add_ targets. We only want to paste `add_executable`. We also want a option `cmake all` to run build all executables. We also want to list them once per `build_type`, so they can be built for debug, release...
 * `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → gradle` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
