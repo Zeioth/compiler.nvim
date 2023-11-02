@@ -8,19 +8,17 @@ function M.action(option)
   local final_message = "--task finished--"
 
   -- Global: CMAKE_BUILD_DIR
-  local build_dir = vim.api.nvim_get_var('CMAKE_BUILD_DIR')
-  if not build_dir then build_dir = './build' end
+  local success, build_dir = pcall(vim.api.nvim_get_var, 'CMAKE_BUILD_DIR')
+  if not success then build_dir = './build' end
 
   -- Global: CMAKE_BUILD_TYPE
-  local build_type = vim.api.nvim_get_var('CMAKE_BUILD_TYPE')
-  if not build_type then build_dir = 'debug' end
+  local success, build_type = pcall(vim.api.nvim_get_var, 'CMAKE_BUILD_TYPE')
+  if not success then build_type = 'Debug' end
 
   -- Global: CMAKE_CLEAN_FIRST
   local clean_first_arg = ""
-  local clean_first = vim.api.nvim_get_var('CMAKE_CLEAN_FIRST')
-  if clean_first and clean_first == "true" then
-    clean_first_arg = "--clean-first"
-  end
+  local _, clean_first = pcall(vim.api.nvim_get_var, 'CMAKE_CLEAN_FIRST')
+  if clean_first == "true" then clean_first_arg = "--clean-first" end
 
   -- Run command
   local cmd_build = "cmake -S . -B " .. build_dir .. " -DCMAKE_BUILD_TYPE=" .. build_type
