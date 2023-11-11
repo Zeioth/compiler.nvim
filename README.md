@@ -161,7 +161,7 @@ If any of these files exist in your current working directory, they will be auto
 
 | Build automation utility | More info |
 |--|--|
-| [Makefile](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/make.lua)| [+info](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples) | 
+| [Makefile](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/make.lua)| [+info](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-build-automation-utility) | 
 | [CMake](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/cmake.lua) | +info |
 
 ## Quick start
