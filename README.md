@@ -18,7 +18,7 @@ Neovim compiler for building and running your code without having to configure a
 - [Commands](#commands)
 - [Basic usage](#how-to-use-basic-usage)
 - [Creating a solution (optional)](#creating-a-solution-optional)
-- [Make](#make-optional)
+- [Build automation utilities](#build-automation-utilities-optional)
 - [Quick start](#quick-start)
 - [FAQ](#faq)
 
@@ -156,7 +156,7 @@ executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 
 [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solution-examples).
 
-## Make (optional)
+## Build automation utilities (optional)
 If any of these files exist in your current working directory, they will be automatically detected and displayed on [Compiler.nvim](https://github.com/Zeioth/compiler.nvim): 
 
 * `./Makefile`, `./CMakeLists.txt`
