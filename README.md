@@ -159,9 +159,10 @@ executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 ## Build automation utilities (optional)
 If any of these files exist in your current working directory, they will be automatically detected and displayed on [Compiler.nvim](https://github.com/Zeioth/compiler.nvim): 
 
-* `./Makefile`, `./CMakeLists.txt`
-
-[For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
+| Build automation utility | More info |
+|--|--|
+| [Makefile](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/make.lua)| [+info](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples) | 
+| [CMake](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/cmake.lua) | +info |
 
 ## Quick start
 Create `~/c-example/main.c` and paste this code. Then do `:cd ~/c-example/` to change the working directory to the project.
