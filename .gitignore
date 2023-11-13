@@ -24,4 +24,5 @@
 **/build/
 **/dist/
 **/node_modules/
+**/.gradle/
 **/package-lock.json
