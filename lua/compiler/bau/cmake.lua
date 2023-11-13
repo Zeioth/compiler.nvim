@@ -13,7 +13,7 @@ function M.action(option)
 
   -- Global: CMAKE_BUILD_TYPE
   local success, build_type = pcall(vim.api.nvim_get_var, 'CMAKE_BUILD_TYPE')
-  if not success or build_type == "" then build_type = 'Debug' end
+  if not success or build_type == "" then build_type = '""' end
 
   -- Global: CMAKE_CLEAN_FIRST
   local clean_first_arg = ""
