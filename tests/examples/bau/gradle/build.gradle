@@ -1,0 +1,13 @@
+// NOTE: build.gradle.kts will prevail over build.gradle.
+
+// Example of a task
+task hello_world {
+    doLast {
+        println 'Hello, World!'
+    }
+}
+
+// Example of a custom task to run all tasks
+task build_all {
+    dependsOn hello_world
+}
