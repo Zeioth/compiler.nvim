@@ -18,7 +18,7 @@ Neovim compiler for building and running your code without having to configure a
 - [Commands](#commands)
 - [Basic usage](#how-to-use-basic-usage)
 - [Creating a solution (optional)](#creating-a-solution-optional)
-- [Make](#make-optional)
+- [Build automation utilities (optional)](#build-automation-utilities-optional)
 - [Quick start](#quick-start)
 - [FAQ](#faq)
 
@@ -156,12 +156,13 @@ executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 
 [For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/solution-examples).
 
-## Make (optional)
+## Build automation utilities (optional)
 If any of these files exist in your current working directory, they will be automatically detected and displayed on [Compiler.nvim](https://github.com/Zeioth/compiler.nvim): 
 
-* `./Makefile`, `./CMakeLists.txt`
-
-[For more examples see wiki](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-examples).
+| Build automation utility | More info |
+|--|--|
+| [Makefile](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/make.lua)| [+info](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-build-automation-utility) | 
+| [CMakeLists.txt](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/cmake.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/CMake-build-automation-utility) |
 
 ## Quick start
 Create `~/c-example/main.c` and paste this code. Then do `:cd ~/c-example/` to change the working directory to the project.
@@ -185,9 +186,9 @@ Open the compiler and select `Build and run`. You will see the compilation resul
 * **I don't have time to read:** If you prefer you can try [NormalNvim](https://github.com/NormalNvim/NormalNvim) which comes with the compiler pre-installed. Just open some code and hit F6!
 * **How can I add a language that is not supported yet?** Fork the project, and go to the directory `/compiler/languages`. Copy `c.lua` and rename it to any language you would like to add, for example `ruby.lua`. Now modify the file the way you want. It is important you name the file as the filetype of the language you are implementing. Then please, submit a PR to this repo so everyone can benefit from it.
 * **How can I change the way the compiler works?** Same as the previous one.
+* **How can I add an automation build utility that is not supported yet?** Fork the project, and go to the directory `/compiler/bau`. Copy `make.lua` and rename it to the build automation utility you want to add, for example `maven.lua`. Now modify the file the way you want. Note that you will also have to modify `/utilities-bau.lua` and change the function `get_bau_opts()` so it can parse the utility you want to add. Then please, submit a PR to this repo so everyone can benefit from it.
 * **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive arguments, we recommend you to use the terminal instead, because creating a `.solution.toml` file just to be able to pass arguments to your simple shell script is probably a overkill, and not the right tool.
 * **I'm a windows user, do I need to do something special?** You have to [enable WLS](https://www.youtube.com/watch?v=fFbLUEQsRhM), and run nvim inside. Otherwise it would be impossible for you to install the [required dependencies](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies).
-* **Where are the global options?** There are not. Creating a `.solution.toml` file of your project is the way to configure stuff. This way we can keep the code extra simple.
 *  **How can I disable notifications when compiling?** Check [here](https://github.com/stevearc/overseer.nvim/issues/158#issuecomment-1631542247).
 * **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. I recommend you this strategy instead:
   
@@ -217,11 +218,11 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* `WIP: CMake` Bugfixes: We are currently parsing all add_ targets. We only want to paste `add_executable`. We also want a option `cmake all` to run build all executables. We also want to list them once per `build_type`, so they can be built for debug, release...
-* `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
+* `Improvement`: We currently display Flutter compiling options when using Dart. We also show Android studio compiling options when using Kotlin, but we are not doing the same thing for java. → In fact we should add all of this as building system system (gradle), instead of adding it as part of the language compiler options. That would allow us to display these options only when present in the Android build.gradle.
 * `Building systems → gradle` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
-
+* `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
+* Consider adding rake support.
 * Better Windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
