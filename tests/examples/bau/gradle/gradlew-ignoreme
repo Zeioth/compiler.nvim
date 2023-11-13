@@ -1,5 +1,5 @@
 #!/bin/bash
-# Note: Change this file name to "Gradlew", and it will have priority over
+# Note: Change this file name to "gradlew", and it will have priority over
 #       build.gradle.kts and build.gradle
 
 # Wrapper script for Gradle

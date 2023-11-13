@@ -1,4 +1,4 @@
-// NOTE: build.gradle.kts will prevail over build.gradle.
+// NOTE: gradlew will prevail over build.gradle.
 
 // Example of a task
 tasks.register("hello_world") {
