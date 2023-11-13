@@ -14,7 +14,7 @@ local utils = require("compiler.utils")
 -- ============================================================================
 
 ---Given a Makefile file, parse all the targets,
--- and return them as a table.
+--- and return them as a table.
 ---@param path string Path to the Makefile.
 ---@return table options A table like:
 --- { { text: "Make all", value="all", bau = "cmake"}, { text: "Make hello", value="hello", bau = "make"} ...}
@@ -52,7 +52,7 @@ local function get_makefile_opts(path)
 end
 
 ---Given a CMakeLists.txt file, parse all the targets,
--- and return them as a table.
+--- and return them as a table.
 ---@param path string Path to the CMakeLists.txt file.
 ---@return table options A table like:
 --- { { text: "CMake all", value="all", bau = "cmake"}, { text: "CMake hello", value="hello", bau = "cmake"} ...}
@@ -108,6 +108,76 @@ local function get_cmake_opts(path)
   return options
 end
 
+---Given a build.gradle.kts file, parse all the tasks,
+---and return them as a table.
+---
+--- If the file is not found. It will fallback to build.gradle.
+---@param path string Path to the build.gradle.kts file.
+---@return table options A table like:
+--- { { text: "Gradle all", value="all", bau = "gradle"}, { text: "Gradle hello", value="hello", bau = "gradle"} ...}
+local function get_gradle_opts(path)
+  local options = {}
+
+  local file = io.open(path, "r")
+
+  if not file then
+    -- If the file with ".kts" extension doesn't exist, try without the extension
+    local alternative_path = string.gsub(path, "%.kts$", "")
+    file = io.open(alternative_path, "r")
+    print(file)
+  end
+
+  if file then
+    local in_task = false
+    local task_name = ""
+
+    for line in file:lines() do
+      -- Parse Kotlin DSL file
+      local task_match = line:match('tasks%.register%s*%(?%s*"(.-)"%s*%)?%s*{')
+
+      if task_match then
+        in_task = true
+        task_name = task_match
+
+        table.insert(
+          options,
+          { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
+        )
+      elseif in_task then
+        local task_end = line:match("}")
+        if task_end then
+          in_task = false
+          task_name = ""
+        end
+      else
+        -- Parse Groovy DSL file
+        task_match = line:match("%s*task%s+([%w_]+)%s*%{")
+        if task_match then
+          in_task = true
+          task_name = task_match
+
+          table.insert(
+            options,
+            { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
+          )
+        elseif in_task then
+          local task_end = line:match("}")
+          if task_end then
+            in_task = false
+            task_name = ""
+          end
+        end
+      end
+    end
+
+    file:close()
+  end
+
+  return options
+end
+
+
+
 
 
 -- FRONTEND
@@ -132,17 +202,16 @@ function M.get_bau_opts()
     current_dir .. utils.os_path("/CMakeLists.txt")
   ))
 
-  print(vim.inspect(
-
-get_cmake_opts(current_dir .. utils.os_path("/CMakeLists.txt"))
-
+  -- gradle
+  vim.list_extend(options, get_gradle_opts(
+    current_dir .. utils.os_path("/build.gradle.kts")
   ))
 
   return options
 end
 
 ---Programatically require a bau backend,
--- responsible for running the action selected by the user in the frontend.
+--- responsible for running the action selected by the user in the frontend.
 ---@return table|nil bau The bau backend,
 --- or nil, if ./bau/<bau>.lua doesn't exist.
 function M.require_bau(bau)
