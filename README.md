@@ -84,16 +84,16 @@ lazy.nvim package manager
 
 ```lua
 -- Open compiler
-vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', "<cmd>CompilerOpen<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<F6>', "<cmd>CompilerOpen<cr>", { noremap = true, silent = true })
 
 -- Redo last selected option
-vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>', function()
-  vim.cmd("CompilerStop") -- (Optional, to dispose all tasks before redo)
-  vim.cmd("CompilerRedo")
-end, { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<S-F6>',
+     "<cmd>CompilerStop<cr>" -- (Optional, to dispose all tasks before redo)
+  .. "<cmd>CompilerRedo<cr>",
+ { noremap = true, silent = true })
 
 -- Toggle compiler results
-vim.api.nvim_buf_set_keymap(0, 'n', '<S-F7>', "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<S-F7>', "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
 ```
 
 ## Commands
