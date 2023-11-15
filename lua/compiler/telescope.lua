@@ -77,22 +77,24 @@ function M.show()
         end
       end
 
-      -- If bau   → call the bau backend.
-      -- If ~=bau → call the language backend.
-      if bau then
+      if bau then -- call the bau backend.
         bau = utils_bau.require_bau(bau)
         if bau then bau.action(selection.value) end
+        -- then
+        -- clean redo (language)
+        _G.compiler_redo_selection = nil
         -- save redo (bau)
-        _G.compiler_redo_bau = bau
         _G.compiler_redo_bau_selection = selection.value
-      else
+        _G.compiler_redo_bau = bau
+      else -- call the language backend.
         language.action(selection.value)
+        -- then
         -- save redo (language)
-        _G.compiler_redo = selection.value
+        _G.compiler_redo_selection = selection.value
         _G.compiler_redo_filetype = filetype
         -- clean redo (bau)
-        _G.compiler_redo_bau = nil
         _G.compiler_redo_bau_selection = nil
+        _G.compiler_redo_bau = nil
       end
 
     end
