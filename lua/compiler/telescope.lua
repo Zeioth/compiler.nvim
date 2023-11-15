@@ -67,9 +67,6 @@ function M.show()
     actions.close(prompt_bufnr) -- Close Telescope on selection
     local selection = state.get_selected_entry()
     if selection.value == "" then return end -- Ignore separators
-    _G.compiler_redo = selection.value       -- Save redo
-    _G.compiler_redo_filetype = filetype     -- Save redo
-
 
     if selection then
       -- Do the selected option belong to a build automation utility?
@@ -80,13 +77,22 @@ function M.show()
         end
       end
 
-      -- If any → call the bau backend.
-      -- If nil → call the language backend.
+      -- If bau   → call the bau backend.
+      -- If ~=bau → call the language backend.
       if bau then
         bau = utils_bau.require_bau(bau)
         if bau then bau.action(selection.value) end
+        -- save redo (bau)
+        _G.compiler_redo_bau = bau
+        _G.compiler_redo_bau_selection = selection.value
       else
         language.action(selection.value)
+        -- save redo (language)
+        _G.compiler_redo = selection.value
+        _G.compiler_redo_filetype = filetype
+        -- clean redo (bau)
+        _G.compiler_redo_bau = nil
+        _G.compiler_redo_bau_selection = nil
       end
 
     end
