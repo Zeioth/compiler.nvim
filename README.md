@@ -219,7 +219,6 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* `minor bugfix`: Build automation utilities are not repeated when using `:CompilerRedo`.
 * `Improvement`: We currently display Flutter compiling options when using Dart. We also show Android studio compiling options when using Kotlin, but we are not doing the same thing for java. → In fact we should add all of this as building system system (gradle), instead of adding it as part of the language compiler options. That would allow us to display these options only when present in the Android build.gradle.
 * `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
