@@ -84,16 +84,16 @@ lazy.nvim package manager
 
 ```lua
 -- Open compiler
-vim.api.nvim_buf_set_keymap(0, 'n', '<F6>', "<cmd>CompilerOpen<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<F6>', "<cmd>CompilerOpen<cr>", { noremap = true, silent = true })
 
 -- Redo last selected option
-vim.api.nvim_buf_set_keymap(0, 'n', '<S-F6>', function()
-  vim.cmd("CompilerStop") -- (Optional, to dispose all tasks before redo)
-  vim.cmd("CompilerRedo")
-end, { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<S-F6>',
+     "<cmd>CompilerStop<cr>" -- (Optional, to dispose all tasks before redo)
+  .. "<cmd>CompilerRedo<cr>",
+ { noremap = true, silent = true })
 
 -- Toggle compiler results
-vim.api.nvim_buf_set_keymap(0, 'n', '<S-F7>', "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<S-F7>', "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
 ```
 
 ## Commands
@@ -219,8 +219,8 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
+* `minor bugfix`: Build automation utilities are not repeated when using `:CompilerRedo`.
 * `Improvement`: We currently display Flutter compiling options when using Dart. We also show Android studio compiling options when using Kotlin, but we are not doing the same thing for java. → In fact we should add all of this as building system system (gradle), instead of adding it as part of the language compiler options. That would allow us to display these options only when present in the Android build.gradle.
-* `Building systems → gradle` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
 * Consider adding rake support.
