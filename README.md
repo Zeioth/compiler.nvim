@@ -221,6 +221,7 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 * `Improvement`: We currently display Flutter compiling options when using Dart. We also show Android studio compiling options when using Kotlin, but we are not doing the same thing for java. → In fact we should add all of this as building system system (gradle), instead of adding it as part of the language compiler options. That would allow us to display these options only when present in the Android build.gradle.
 * `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
+* `Improvement`: Now that we have added npm as building system, we should remove the hardcoded npm options from javascript and typescript.
 * `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
 * Consider adding rake support.
 * Better Windows compatibility when not using WSL: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WSL we should run the equivalent powershell command when Windows is detected.
