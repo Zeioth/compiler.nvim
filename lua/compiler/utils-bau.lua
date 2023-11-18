@@ -182,7 +182,7 @@ end
 ---@param path string Path to the package.json file.
 ---@return table options A table like:
 --- { { text: "npm install", value="install", bau = "npm"}, { text: "npm start", value="start", bau = "npm"} ...}
-local function get_packagejs_opts(path)
+local function get_nodejs_opts(path)
   local options = {}
 
   local file = io.open(path, "r")
@@ -216,7 +216,7 @@ local function get_packagejs_opts(path)
         {
           text = package_manager:upper() .. " install",
           value = package_manager .. " install",
-          bau = "packagejs",
+          bau = "nodejs",
         }
       )
       if package_manager == "npm" then
@@ -225,7 +225,7 @@ local function get_packagejs_opts(path)
           {
             text = package_manager:upper() .. " uninstall *",
             value = package_manager .. " uninstall *",
-            bau = "packagejs",
+            bau = "nodejs",
           }
         )
       end
@@ -235,7 +235,7 @@ local function get_packagejs_opts(path)
         table.insert(options, {
           text = package_manager:upper() .. " " .. script,
           value = package_manager .. " run " .. script,
-          bau = "packagejs",
+          bau = "nodejs",
         })
       end
     end
@@ -272,8 +272,8 @@ function M.get_bau_opts()
     working_dir .. utils.os_path("/build.gradle.kts")
   ))
 
-  -- package.json
-  vim.list_extend(options, get_packagejs_opts(
+  -- nodejs
+  vim.list_extend(options, get_nodejs_opts(
     working_dir .. utils.os_path("/package.json")
   ))
 
