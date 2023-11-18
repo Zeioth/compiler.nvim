@@ -14,7 +14,7 @@ local utils = require("compiler.utils")
 -- ============================================================================
 
 ---Given a Makefile file, parse all the targets,
---- and return them as a table.
+---and return them as a table.
 ---@param path string Path to the Makefile.
 ---@return table options A table like:
 --- { { text: "Make all", value="all", bau = "cmake"}, { text: "Make hello", value="hello", bau = "make"} ...}
@@ -52,7 +52,7 @@ local function get_makefile_opts(path)
 end
 
 ---Given a CMakeLists.txt file, parse all the targets,
---- and return them as a table.
+---and return them as a table.
 ---@param path string Path to the CMakeLists.txt file.
 ---@return table options A table like:
 --- { { text: "CMake all", value="all", bau = "cmake"}, { text: "CMake hello", value="hello", bau = "cmake"} ...}
@@ -124,7 +124,6 @@ local function get_gradle_opts(path)
     -- If the file with ".kts" extension doesn't exist, try without the extension
     local alternative_path = string.gsub(path, "%.kts$", "")
     file = io.open(alternative_path, "r")
-    print(file)
   end
 
   if file then
@@ -176,8 +175,74 @@ local function get_gradle_opts(path)
   return options
 end
 
+--- Given a package.json file, parse all the targets,
+--- and return them as a table.
+---
+--- let g:NODE_PACKAGE_MANAGER can be defined to 'yarn' or 'npm' (default)
+---@param path string Path to the package.json file.
+---@return table options A table like:
+--- { { text: "npm install", value="install", bau = "npm"}, { text: "npm start", value="start", bau = "npm"} ...}
+local function get_packagejs_opts(path)
+  local options = {}
 
+  local file = io.open(path, "r")
 
+  if file then
+    local content = file:read "*all"
+    file:close()
+
+    -- parse package.json
+    local package_json = {}
+    local success, result = pcall(
+      function() package_json = vim.fn.json_decode(content) end
+    )
+    if not success then
+      -- Handle the error, such as invalid JSON format
+      print("Error decoding JSON: " .. result)
+      return options
+    end
+
+    -- Global: NODEJS_PACKAGE_MANAGER
+    local success, package_manager =
+        pcall(vim.api.nvim_get_var, "NODE_PACKAGE_MANAGER")
+    if not success or package_manager == "" then package_manager = "npm" end
+
+    -- Add parsed options to table "options"
+    local scripts = package_json.scripts
+    if scripts then
+      -- Hardcode install/uninstall scripts
+      table.insert(
+        options,
+        {
+          text = package_manager:upper() .. " install",
+          value = package_manager .. " install",
+          bau = "packagejs",
+        }
+      )
+      if package_manager == "npm" then
+        table.insert(
+          options,
+          {
+            text = package_manager:upper() .. " uninstall *",
+            value = package_manager .. " uninstall *",
+            bau = "packagejs",
+          }
+        )
+      end
+
+      -- Afterwards, add the scripts from package.json
+      for script, _ in pairs(scripts) do
+        table.insert(options, {
+          text = package_manager:upper() .. " " .. script,
+          value = package_manager .. " run " .. script,
+          bau = "packagejs",
+        })
+      end
+    end
+  end
+
+  return options
+end
 
 
 -- FRONTEND
@@ -189,22 +254,27 @@ end
 --- the options of all bau available in the current working directory.
 --- Empty table {} if none is found.
 function M.get_bau_opts()
-  local current_dir = vim.fn.expand("%:p:h")
+  local working_dir = vim.fn.getcwd()
   local options = {}
 
   -- make
   vim.list_extend(options, get_makefile_opts(
-    current_dir .. utils.os_path("/Makefile")
+    working_dir .. utils.os_path("/Makefile")
   ))
 
   -- cmake
   vim.list_extend(options, get_cmake_opts(
-    current_dir .. utils.os_path("/CMakeLists.txt")
+    working_dir .. utils.os_path("/CMakeLists.txt")
   ))
 
   -- gradle
   vim.list_extend(options, get_gradle_opts(
-    current_dir .. utils.os_path("/build.gradle.kts")
+    working_dir .. utils.os_path("/build.gradle.kts")
+  ))
+
+  -- package.json
+  vim.list_extend(options, get_packagejs_opts(
+    working_dir .. utils.os_path("/package.json")
   ))
 
   return options
