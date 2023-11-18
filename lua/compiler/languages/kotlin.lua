@@ -14,10 +14,7 @@ M.options = {
   { text = "Run program (jar)", value = "option7" },
   { text = "Build solution (jar)", value = "option8" },
   { text = "", value = "separator" },
-  { text = "Run gradlew installDebug", value = "option9" },
-  { text = "Run gradlew build", value = "option10" },
-  { text = "", value = "separator" },
-  { text = "Run REPL", value = "option11" }
+  { text = "Run REPL", value = "option9" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -153,6 +150,8 @@ function M.action(selected_option)
 
 
 
+
+
   --=========================== Build as jar ================================--
   elseif selected_option == "option5" then
     local task = overseer.new_task({
@@ -272,47 +271,17 @@ function M.action(selected_option)
 
 
 
-  --========================== Android studio ===============================--
-  elseif selected_option == "option9" then
-    local task = overseer.new_task({
-      name = "- Kotlin compiler",
-      strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build & run program → ./gradlew installDebug",
-          cmd = "./gradlew installDebug " ..                                                    -- build and run
-                " && echo " .. output_dir .. output_filename ..                                 -- echo
-                " && echo '" .. final_message .. "'"
-        },},},})
-    task:start()
-    vim.cmd("OverseerOpen")
-  elseif selected_option == "option10" then
-    local task = overseer.new_task({
-      name = "- Kotlin compiler",
-      strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build program → ./gradlew build",
-          cmd = "./gradlew build " ..                                                           -- build
-                " && echo " .. output_dir .. output_filename ..                                 -- echo
-                " && echo '" .. final_message .. "'"
-        },},},})
-    task:start()
-    vim.cmd("OverseerOpen")
-
-
-
-
-
-
-
 
 
 
 
   --========================== MISC ===============================--
-  elseif selected_option == "option11" then
+  elseif selected_option == "option9" then
     local task = overseer.new_task({
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Start REPL",
-          cmd = "kotlin " ..                                                                   -- run (repl)
+          cmd = "kotlin " ..                                                 -- run (repl)
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
