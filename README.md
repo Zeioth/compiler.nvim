@@ -222,7 +222,7 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 * `Building systems → pip` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → cargo` is planned. Auto discovery of options defined by the user is planned.
-* `Building systems → dart` is planned. Auto discovery of options defined by the user is planned.
+* `Building systems → dart pub` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → go build` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → elixir` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → zig` is planned. Auto discovery of options defined by the user is planned.
