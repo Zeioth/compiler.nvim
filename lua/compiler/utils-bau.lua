@@ -178,7 +178,7 @@ end
 --- Given a package.json file, parse all the targets,
 --- and return them as a table.
 ---
---- let g:NODE_PACKAGE_MANAGER can be defined to 'yarn' or 'npm' (default)
+--- let g:NODEJS_PACKAGE_MANAGER can be defined to 'yarn' or 'npm' (default)
 ---@param path string Path to the package.json file.
 ---@return table options A table like:
 --- { { text: "npm install", value="install", bau = "npm"}, { text: "npm start", value="start", bau = "npm"} ...}
@@ -204,7 +204,7 @@ local function get_nodejs_opts(path)
 
     -- Global: NODEJS_PACKAGE_MANAGER
     local success, package_manager =
-        pcall(vim.api.nvim_get_var, "NODE_PACKAGE_MANAGER")
+        pcall(vim.api.nvim_get_var, "NODEJS_PACKAGE_MANAGER")
     if not success or package_manager == "" then package_manager = "npm" end
 
     -- Add parsed options to table "options"
