@@ -12,7 +12,9 @@ M.options = {
   { text = "Build and run program (jar)", value = "option5" },
   { text = "Build program (jar)", value = "option6" },
   { text = "Run program (jar)", value = "option7" },
-  { text = "Build solution (jar)", value = "option8" }
+  { text = "Build solution (jar)", value = "option8" },
+  { text = "", value = "separator" },
+  { text = "Run REPL", value = "option9" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -150,10 +152,6 @@ function M.action(selected_option)
 
 
 
-
-
-
-
   --=========================== Build as jar ================================--
   elseif selected_option == "option5" then
     local task = overseer.new_task({
@@ -268,6 +266,26 @@ function M.action(selected_option)
       task:start()
       vim.cmd("OverseerOpen")
     end
+
+
+
+
+
+
+
+
+  --========================== MISC ===============================--
+  elseif selected_option == "option9" then
+    local task = overseer.new_task({
+      name = "- Java compiler",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Start REPL",
+          cmd = "echo 'To exit the REPL enter /exit'" ..                     -- echo
+                " && jshell " ..                                             -- run (repl)
+                " && echo '" .. final_message .. "'"
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
   end
 end
 
