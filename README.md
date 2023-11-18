@@ -192,11 +192,6 @@ Open the compiler and select `Build and run`. You will see the compilation resul
 * **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive arguments, we recommend you to use the terminal instead, because creating a `.solution.toml` file just to be able to pass arguments to your simple shell script is probably a overkill, and not the right tool.
 * **I'm a windows user, do I need to do something special?** You have to [enable WSL](https://www.youtube.com/watch?v=fFbLUEQsRhM), and run nvim inside. Otherwise it would be impossible for you to install the [required dependencies](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies).
 *  **How can I disable notifications when compiling?** Check [here](https://github.com/stevearc/overseer.nvim/issues/158#issuecomment-1631542247).
-* **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. I recommend you this strategy instead:
-  
-  * A way to transpile: toggleterm + tmux.
-  * A way run the project: Just keep the website opened in your browser.
-* **Do this plugin also support build automation utilities?** We are currently adding this feature. You can check if yours is supported [here](https://github.com/Zeioth/compiler.nvim/wiki/Makefile-examples#supported-build-automation-tools).
 
 ### How can I compile videogames?
 The workflow of game development is essentially very different from just compiling and running a program. It involve loading editing and running scenes. While there is no way for us to support it directly, here I offer you some tricks:
