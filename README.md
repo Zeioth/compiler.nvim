@@ -189,7 +189,7 @@ Open the compiler and select `Build and run`. You will see the compilation resul
 * **How can I change the way the compiler works?** Same as the previous one.
 * **How can I add an automation build utility that is not supported yet?** Fork the project, and go to the directory `/compiler/bau`. Copy `make.lua` and rename it to the build automation utility you want to add, for example `maven.lua`. Now modify the file the way you want. Note that you will also have to modify `/utilities-bau.lua` and change the function `get_bau_opts()` so it can parse the utility you want to add. Then please, submit a PR to this repo so everyone can benefit from it.
 * **Is this plugin just a compiler, or can I run scripts too?** Yes you can. But if your script receive arguments, we recommend you to use the terminal instead, because creating a `.solution.toml` file just to be able to pass arguments to your simple shell script is probably a overkill, and not the right tool.
-* **I'm a windows user, do I need to do something special?** You have to [enable WLS](https://www.youtube.com/watch?v=fFbLUEQsRhM), and run nvim inside. Otherwise it would be impossible for you to install the [required dependencies](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies).
+* **I'm a windows user, do I need to do something special?** You have to [enable WSL](https://www.youtube.com/watch?v=fFbLUEQsRhM), and run nvim inside. Otherwise it would be impossible for you to install the [required dependencies](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies).
 *  **How can I disable notifications when compiling?** Check [here](https://github.com/stevearc/overseer.nvim/issues/158#issuecomment-1631542247).
 * **I'm coding a web, how do I run it?** Please don't try to compile/run web languages. I recommend you this strategy instead:
   
@@ -219,11 +219,11 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* `minor bugfix`: Build automation utilities are not repeated when using `:CompilerRedo`.
 * `Improvement`: We currently display Flutter compiling options when using Dart. We also show Android studio compiling options when using Kotlin, but we are not doing the same thing for java. → In fact we should add all of this as building system system (gradle), instead of adding it as part of the language compiler options. That would allow us to display these options only when present in the Android build.gradle.
-* `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → package.json` is planned. Auto discovery of options defined by the user is planned.
+* `Improvement`: Now that we have added npm as building system, we should remove the hardcoded npm options from javascript and typescript.
+* `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
 * Consider adding rake support.
-* Better Windows compatibility when not using WLS: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WLS we should run the equivalent powershell command when Windows is detected.
+* Better Windows compatibility when not using WSL: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WSL we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
