@@ -164,6 +164,7 @@ If any of these files exist in your current working directory, they will be auto
 | [Makefile](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/make.lua)| [+info](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-build-automation-utility) | 
 | [CMakeLists.txt](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/cmake.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/CMake-build-automation-utility) |
 | [build.gradle](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/gradle.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/gradle-build-automation-utility) |
+| [package.json](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/packagejs.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/packagejs-build-automation-utility) |
 
 ## Quick start
 Create `~/c-example/main.c` and paste this code. Then do `:cd ~/c-example/` to change the working directory to the project.
