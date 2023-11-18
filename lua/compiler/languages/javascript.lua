@@ -5,9 +5,7 @@ local M = {}
 --- Frontend  - options displayed on telescope
 M.options = {
   { text = "Run this file", value = "option1" },
-  { text = "Run program",   value = "option2" },
-  { text = "NPM install",  value = "option3" },
-  { text = "NPM start",  value = "option4" }
+  { text = "Run program",   value = "option2" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -40,29 +38,6 @@ function M.action(selected_option)
                 " && echo '" .. final_message .. "'"
         },},},})
     task:start()
-    vim.cmd("OverseerOpen")
-  elseif selected_option == "option3" then
-    local task = overseer.new_task({
-      name = "- Typescript interpreter",
-      strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- npm install → package.json",
-          cmd = "npm install" ..                                             -- install dependencies
-                " && echo npm install" ..                                    -- echo
-                " && echo '" .. final_message .. "'"
-        },},},})
-    task:start()
-    vim.cmd("OverseerOpen")
-  elseif selected_option == "option4" then
-    local task = overseer.new_task({
-      name = "- Typescript interpreter",
-      strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- npm run → package.json",
-          cmd = "npm start" ..                                               -- run
-                " && echo npm start" ..                                      -- echo
-                " && echo '" .. final_message .. "'"
-        },},},})
-    task:start()
-    vim.cmd("OverseerOpen")
     vim.cmd("OverseerOpen")
   end
 
