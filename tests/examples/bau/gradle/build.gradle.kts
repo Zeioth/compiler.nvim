@@ -1,4 +1,5 @@
 // NOTE: gradlew will prevail over build.gradle.
+//       to test it run "gradle wrapper" to generate it.
 
 // Example of a task
 tasks.register("hello_world") {
