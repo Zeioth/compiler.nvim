@@ -1,6 +1,6 @@
 -- On neovim you can run
 -- :checkhealth compiler
--- To know possible causes in case compiler.nvim is nor working correctly.
+-- To know possible causes in case compiler.nvim is not working correctly.
 
 local M = {}
 
