@@ -39,5 +39,3 @@ dofile(tests_dir .. 'zig.lua')
 -- * dart                      → Run this file.
 -- * python/r/elixir/F#/kotlin → REPL
 -- * flutter                   → Run program (its a loop).
--- * kotlin                    → Android studio adb.
-
