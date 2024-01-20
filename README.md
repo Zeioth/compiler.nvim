@@ -215,7 +215,6 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
-* `new language → html` should give a option to open the `current file`/`index.html` in the internet browser.
 * `Building systems → pip` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → cargo` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → dart pub` is planned. Auto discovery of options defined by the user is planned.
