@@ -21,10 +21,10 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local working_directory = vim.api.nvim_exec(":echo '%:h'", true)           -- working_directory
-  local entry_point = vim.api.nvim_exec(":echo expand('%:p')", true)         -- working_directory/Main.java
+  local working_directory = vim.fn.expand('%:h')                             -- working_directory
+  local entry_point = vim.fn.expand('%:p')                                   -- working_directory/Main.java
   local files = utils.find_files_to_compile(entry_point, "*.java")           -- *.java files under working_directory (recursively)
-  local output_filename = vim.api.nvim_exec(":echo expand('%:t:r')", true)   -- Main filename
+  local output_filename = vim.fn.expand('%:t:r')                             -- Main filename
   local output = working_directory .. "/bin/" .. output_filename             -- working_directory/bin/Main.class
   local output_dir = working_directory .. "/bin"                             -- working_directory/bin
   local arguments = "-Xlint:all"                                             -- arguments can be overriden in .solution
