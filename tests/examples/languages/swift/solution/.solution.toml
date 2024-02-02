@@ -1,0 +1,10 @@
+[HelloWorld]
+entry_point = "./project1/main.swift"
+output = "./bin/hello_world1"
+
+[HelloWorld2]
+entry_point = "./project2/main.swift"
+output = "./bin/hello_world2"
+
+[SOLUTION]
+executable = "./bin/hello_world1"
