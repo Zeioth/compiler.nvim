@@ -18,7 +18,7 @@ function M.action(selected_option)
   local files = utils.find_files_to_compile(entry_point, "*.swift")          -- *.swift files under entry_point_dir (recursively)
   local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
   local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
-  local arguments = "-warn-swift3-objc-inference -g"                         -- arguments can be overriden in .solution
+  local arguments = "-warn-swift3-objc-inference-minimal -g"                 -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
 
