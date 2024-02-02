@@ -218,12 +218,12 @@ If you want to help me, please star this repository to increase the visibility o
 
 ## Roadmap
 * `swift programming language` second iteration. This will add support for the `swift cli`, aditionally to `swiftc` (which we already implement). → Reminder for myself: Don't forget to add `+more info` once we do this. → Also let's support the swift REPL.
-* `Building systems → pip` is planned. Auto discovery of options defined by the user is planned.
-* `Building systems → cargo` is planned. Auto discovery of options defined by the user is planned.
-* `Building systems → dart pub` is planned. Auto discovery of options defined by the user is planned.
-* `Building systems → go build` is planned. Auto discovery of options defined by the user is planned.
-* `Building systems → elixir` is planned. Auto discovery of options defined by the user is planned.
-* `Building systems → zig` is planned. Auto discovery of options defined by the user is planned.
+* `cli → pip` is planned. Auto discovery of options defined by the user is planned.
+* `cli → cargo` is planned. Auto discovery of options defined by the user is planned.
+* `cli → dart pub` is planned. Auto discovery of options defined by the user is planned.
+* `cli → go build` is planned. Auto discovery of options defined by the user is planned.
+* `cli → elixir` is planned. Auto discovery of options defined by the user is planned.
+* `cli→ zig` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
 * Consider adding rake support.
 * Better Windows compatibility when not using WSL: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WSL we should run the equivalent powershell command when Windows is detected.
