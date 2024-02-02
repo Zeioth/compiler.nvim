@@ -51,6 +51,11 @@ function M.check()
       msg = "Used to call the C# compiler.",
     },
     {
+      cmd = "mono",
+      type = "warn",
+      msg = "Used to run C# programs compiled by csc.",
+    },
+    {
       cmd = "dotnet",
       type = "warn",
       msg = "Used to call the C# compiler for .csproj files.",
@@ -69,6 +74,21 @@ function M.check()
       cmd = "rustc",
       type = "warn",
       msg = "Used to call the rust compiler.",
+    },
+    {
+      cmd = "cargo",
+      type = "warn",
+      msg = "Used to call the rust compiler.",
+    },
+    {
+      cmd = { "elixir" },
+      type = "warn",
+      msg = "Used to call the elixir compiler.",
+    },
+    {
+      cmd = { "Rscript" },
+      type = "warn",
+      msg = "Used to call the r interpreter.",
     },
     {
       cmd = "python",
@@ -99,6 +119,51 @@ function M.check()
       cmd = "tsc",
       type = "warn",
       mag = "Used to transpile typescript to javascript. If you install it on your project, it will prevail over the global tsc executable.",
+    },
+    {
+      cmd = { "swift" },
+      type = "warn",
+      msg = "Used to call the swift cli.",
+    },
+    {
+      cmd = { "swiftc" },
+      type = "warn",
+      msg = "Used to call the swift compiler.",
+    },
+    {
+      cmd = { "go" },
+      type = "warn",
+      msg = "Used to call the go compiler.",
+    },
+    {
+      cmd = "kotlin",
+      type = "warn",
+      msg = "Used to call the kotlin compiler.",
+    },
+    {
+      cmd = "kotlinc",
+      type = "warn",
+      msg = "Used to call the kotlin compiler.",
+    },
+    {
+      cmd = "dart",
+      type = "warn",
+      msg = "Used to call the dart compiler.",
+    },
+    {
+      cmd = "flutter",
+      type = "warn",
+      msg = "Used to call the dart flutter compiler.",
+    },
+    {
+      cmd = "perl",
+      type = "warn",
+      msg = "Used to call the perl interpreter.",
+    },
+    {
+      cmd = "zig",
+      type = "warn",
+      msg = "Used to call the zig compiler.",
     },
     {
       cmd = "make",
