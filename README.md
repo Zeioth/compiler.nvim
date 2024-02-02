@@ -217,6 +217,7 @@ If you want to help me, please star this repository to increase the visibility o
 </a>
 
 ## Roadmap
+* `swift programming language` second iteration. This will add support for the `swift cli`, aditionally to `swiftc` (which we already implement).
 * `Building systems → pip` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → cargo` is planned. Auto discovery of options defined by the user is planned.
 * `Building systems → dart pub` is planned. Auto discovery of options defined by the user is planned.
