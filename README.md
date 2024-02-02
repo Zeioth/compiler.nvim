@@ -49,6 +49,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 | [ruby](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/ruby.lua) ||
 | [rust](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/rust.lua) ||
 | [shell](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/shell.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/shell-interpreter) |
+| [swift](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/swift.lua) ||
 | [typescript](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/typescript.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/typescript-transpiler) |
 | [visual basic dotnet](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/vb.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) |
 | [zig](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/zig.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/zig-compiler) |
@@ -133,6 +134,7 @@ This is what happen when you select `build & run`, `build`, or `run` in the comp
 | ruby | ./main.rb |  |
 | rust | ./main.rs | ./bin/program |
 | shell | ./main.sh |  |
+| swift | ./main.swift | ./bin/program |
 | typescript | ./src/index.ts |  |
 | visual basic .net | [see here](https://github.com/Zeioth/compiler.nvim/wiki/visual-basic-dotnet-compiler) | ./bin/ |
 | zig | ./build.zig | ./zig-out/bin/build |
