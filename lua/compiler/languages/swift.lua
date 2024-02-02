@@ -3,33 +3,36 @@
 local M = {}
 
 --- Frontend  - options displayed on telescope
--- TODO: add support for other configurations (beyond debug and release)
 M.options = {
-  { text = "Run debug configration", value = "option1" },
-  { text = "Run release configuration", value = "option2" },
-  { text = "Build debug configuration", value = "option3" },
-  { text = "Build release configuration", value = "option4" },
+  { text = "Build and run program", value = "option1" },
+  { text = "Build program", value = "option2" },
+  { text = "Run program", value = "option3" },
+  { text = "Build solution", value = "option4" }
 }
 
 --- Backend - overseer tasks performed on option selected
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.swift")        -- working_directory/main.swift
+  local files = utils.find_files_to_compile(entry_point, "*.swift")          -- *.swift files under entry_point_dir (recursively)
+  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
+  local arguments = "-warn-swift3-objc-inference -g"                         -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
-  local package_file = assert(utils.os_path(vim.fn.getcwd() .. "/Package.swift"))   -- working_directory/Package.swift
-  local package = M.parse_package_file(package_file)
-
-  -- TODO: add support for selecting a target
-  local target_name = package.package_name
 
   if selected_option == "option1" then
     local task = overseer.new_task({
       name = "- Swift compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run target → " .. target_name,
-          cmd = "swift run " .. target_name .. " -c debug" ..    -- build target 
-                " && echo '" .. final_message .. "'"                      -- echo
+        tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
+          cmd = "rm -f " .. output ..  " || true" ..                                 -- clean
+                " && mkdir -p " .. output_dir ..                                     -- mkdir
+                " && swiftc " .. files .. " -o " .. output .. " " .. arguments ..    -- compile
+                " && " .. output ..                                                  -- run
+                " && echo " .. entry_point ..                                        -- echo
+                " && echo '" .. final_message .. "'"
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -37,9 +40,12 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Swift compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run target → " .. target_name,
-          cmd = "swift run " .. target_name .. " -c release" ..    -- build target 
-                " && echo '" .. final_message .. "'"                        -- echo
+        tasks = {{ "shell", name = "- Build program → " .. entry_point,
+          cmd = "rm -f " .. output ..  " || true" ..                                 -- clean
+                " && mkdir -p " .. output_dir ..                                     -- mkdir
+                " && swiftc " .. files .. " -o " .. output .. " " .. arguments ..    -- compile
+                " && echo " .. entry_point ..                                        -- echo
+                " && echo '" .. final_message .. "'"
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -47,56 +53,89 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Swift compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build target → " .. target_name,
-          cmd = "swift build --target " .. target_name .. " -c debug" ..    -- build target 
-                " && echo '" .. final_message .. "'"                        -- echo
+        tasks = {{ "shell", name = "- Run program → " .. output,
+          cmd = output ..                                                            -- run
+                " && echo " .. output ..                                             -- echo
+                " && echo '" .. final_message .. "'"
         },},},})
     task:start()
+    vim.cmd("OverseerOpen")
   elseif selected_option == "option4" then
-    local task = overseer.new_task({
-      name = "- Swift compiler",
-      strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build and run target → ",
-          cmd = "swift build --target " .. target_name .. " -c release" ..    -- build target 
-                " && echo '" .. final_message .. "'"                          -- echo
-        },},},})
-    task:start()
-  end
+    local entry_points
+    local task = {}
+    local tasks = {}
+    local executables = {}
 
+    -- if .solution file exists in working dir
+    local solution_file = utils.get_solution_file()
+    if solution_file then
+      local config = utils.parse_solution_file(solution_file)
+
+      for entry, variables in pairs(config) do
+        if entry == "executables" then goto continue end
+        entry_point = utils.os_path(variables.entry_point)
+        files = utils.find_files_to_compile(entry_point, "*.swift")
+        output = utils.os_path(variables.output)
+        output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
+        arguments = variables.arguments or arguments -- optional
+        task = { "shell", name = "- Build program → " .. entry_point,
+          cmd = "rm -f " .. output ..  " || true" ..                                 -- clean
+                " && mkdir -p " .. output_dir ..                                     -- mkdir
+                " && swiftc " .. files .. " -o " .. output .. " " .. arguments ..    -- compile
+                " && echo " .. entry_point ..                                        -- echo
+                " && echo '" .. final_message .. "'"
+        }
+        table.insert(tasks, task) -- store all the tasks we've created
+        ::continue::
+      end
+
+      local solution_executables = config["executables"]
+      if solution_executables then
+        for entry, executable in pairs(solution_executables) do
+          task = { "shell", name = "- Run program → " .. executable,
+            cmd = executable ..                                                      -- run
+                  " && echo " .. executable ..                                       -- echo
+                  " && echo '" .. final_message .. "'"
+          }
+          table.insert(executables, task) -- store all the executables we've created
+        end
+      end
+
+      task = overseer.new_task({
+        name = "- Swift compiler", strategy = { "orchestrator",
+          tasks = {
+            tasks,        -- Build all the programs in the solution in parallel
+            executables   -- Then run the solution executable(s)
+          }}})
+      task:start()
+      vim.cmd("OverseerOpen")
+
+    else -- If no .solution file
+      -- Create a list of all entry point files in the working directory
+      entry_points = utils.find_files(vim.fn.getcwd(), "main.c")
+
+      for _, entry_point in ipairs(entry_points) do
+        entry_point = utils.os_path(entry_point)
+        files = utils.find_files_to_compile(entry_point, "*.swift")
+        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
+        output = utils.os_path(output_dir .. "/program")                              -- entry_point/bin/program
+        task = { "shell", name = "- Build program → " .. entry_point,
+          cmd = "rm -f " .. output ..  " || true" ..                                 -- clean
+                " && mkdir -p " .. output_dir ..                                     -- mkdir
+                " && swiftc " .. files .. " -o " .. output .. " " .. arguments ..    -- compile
+                " && echo " .. entry_point ..                                        -- echo
+                " && echo '" .. final_message .. "'"
+        }
+        table.insert(tasks, task) -- store all the tasks we've created
+      end
+
+      task = overseer.new_task({ -- run all tasks we've created in parallel
+        name = "- Swift compiler", strategy = { "orchestrator", tasks = tasks }
+      })
+      task:start()
+      vim.cmd("OverseerOpen")
+    end
+  end
 end
-
---- Extracts targets from Package.swift file
---- Example format:
---- let package = Package(
----   name: "example",
----   targets: [
----     .executableTarget(name: "example")
----   ]
----  )
----
----@param file_path string
----@return table
-M.parse_package_file = function(file_path)
-  local file = assert(io.open(file_path, "r"))
-  local content = file:read("*a")
-  file:close()
-
-  local packageDeclaration = content:match("Package%b()")
-  local package_name = nil
-  if packageDeclaration then
-      package_name = packageDeclaration:match('name:%s*"([^"]+)"')
-  end
-
-  local targets = {}
-  for target in content:gmatch('.executableTarget%(name:%s*"([^"]+)"%)') do
-      table.insert(targets, target)
-  end
-
-  return {
-    package_name = package_name,
-    targets = targets,
-  }
-end
-
 
 return M
