@@ -218,6 +218,8 @@ If you want to help me, please star this repository to increase the visibility o
 
 ## Roadmap
 * `swift programming language` second iteration. This will add support for the `swift cli`, aditionally to `swiftc` (which we already implement). → Reminder for myself: Don't forget to add `+more info` once we do this. → Also let's support the swift REPL.
+* `rust, go, swift` require the user to initialize the package before using its respective cli `cargo, go, swift`. Let's explain this on `+more info`.
+* `research` the possibility of adding vite support.
 * `cli → pip` look for improvements.
 * `cli → cargo` look for improvements.
 * `cli → dart pub` look for improvements.
