@@ -28,3 +28,4 @@
 **/.project
 **/.settings
 **/package-lock.json
+**/.build
