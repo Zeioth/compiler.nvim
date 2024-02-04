@@ -29,14 +29,15 @@ dofile(tests_dir .. 'vb.lua')
 dofile(tests_dir .. 'zig.lua')
 
 -- Cases that require to be tested manually atm.
--- * python                    → Run this file.
--- * ruby                      → Run this file.
--- * shell                     → Run this file.
--- * elixir                    → Run this file.
--- * fsharp                    → Run this file.
--- * r                         → Run this file.
--- * typescript                → Run this file.
--- * javascript                → Run this file.
--- * dart                      → Run this file.
--- * python/r/elixir/F#/kotlin → REPL
--- * flutter                   → Run program (its a loop).
+-- * python                          → Run this file.
+-- * ruby                            → Run this file.
+-- * shell                           → Run this file.
+-- * elixir                          → Run this file.
+-- * fsharp                          → Run this file.
+-- * r                               → Run this file.
+-- * typescript                      → Run this file.
+-- * javascript                      → Run this file.
+-- * dart                            → Run this file.
+-- * python/r/elixir/F#/kotlin/swift → REPL
+-- * flutter                         → Run program (its a loop).
+--
