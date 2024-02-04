@@ -7,7 +7,13 @@ M.options = {
   { text = "Build and run program", value = "option1" },
   { text = "Build program", value = "option2" },
   { text = "Run program", value = "option3" },
-  { text = "Build solution", value = "option4" }
+  { text = "Build solution", value = "option4" },
+  { text = "", value = "separator" },
+  { text = "Swift build and run program", value = "option5" },
+  { text = "Swift build program", value = "option6" },
+  { text = "Swift run program", value = "option7" },
+  { text = "", value = "separator" },
+  { text = "Run REPL", value = "option8" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -135,6 +141,51 @@ function M.action(selected_option)
       task:start()
       vim.cmd("OverseerOpen")
     end
+  elseif selected_option == "option5" then
+    local task = overseer.new_task({
+      name = "- Swift compiler",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Swift build & run program → Package.swift",
+          cmd = "swift package clean" ..                                             -- clean
+                " && swift build" ..                                                 -- compile
+                " && swift run" ..                                                   -- run
+                " && echo '" .. final_message .. "'"
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option6" then
+    local task = overseer.new_task({
+      name = "- Swift compiler",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Swift build program → Package.swift",
+          cmd = "swift package clean" ..                                             -- clean
+                " && swift build" ..                                                 -- compile
+                " && echo '" .. final_message .. "'"
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option7" then
+    local task = overseer.new_task({
+      name = "- Swift compiler",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Swift run program → Package.swift",
+          cmd = "swift package clean" ..                                             -- clean
+                " && swift run" ..                                                   -- run
+                " && echo '" .. final_message .. "'"
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option8" then
+    local task = overseer.new_task({
+      name = "- Swift compiler",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Start REPL",
+          cmd = output ..                                                            -- run
+                " && echo " .. output ..                                             -- echo
+                " && echo '" .. final_message .. "'"
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
   end
 end
 
