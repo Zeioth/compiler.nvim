@@ -38,3 +38,7 @@ vim.wait(ms)
 vim.api.nvim_set_current_dir(example .. "build-dotnet/")
 language.action("option6")
 vim.wait(ms)
+
+-- Watch dotnet (requires aspnet)
+language.action("option7")
+vim.wait(ms)
