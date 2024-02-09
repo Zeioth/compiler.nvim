@@ -10,7 +10,8 @@ M.options = {
   { text = "Build solution (csc)", value = "option4" },
   { text = "", value = "separator" },
   { text = "Build and run program (dotnet)", value = "option5" },
-  { text = "Build program (dotnet)", value = "option6" }
+  { text = "Build program (dotnet)", value = "option6" },
+  { text = "Watch program (dotnet)", value = "option7" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -157,6 +158,21 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
+  elseif selected_option == "option7" then
+    local task = overseer.new_task({
+      name = "- C# compiler",
+      strategy = {
+        "orchestrator",
+        tasks = { {
+          "shell",
+          name = "- Dotnet build & watch → .csproj",
+          cmd = "dotnet watch" ..                    -- compile
+              " && echo '" .. final_message .. "'"   -- echo
+        }, },
+      },
+    })
+    task:start()
+    vim.cmd("OverseerOpen")  
   end
 end
 
