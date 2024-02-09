@@ -142,7 +142,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Dotnet build & run → .cproj",
+        tasks = {{ "shell", name = "- Dotnet build & run → .csproj",
           cmd = "dotnet run" ..                                                      -- compile and run
                 " && echo '" .. final_message .. "'"                                 -- echo
         },},},})
