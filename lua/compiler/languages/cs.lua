@@ -165,7 +165,7 @@ function M.action(selected_option)
         "orchestrator",
         tasks = { {
           "shell",
-          name = "- Dotnet build & watch → .csproj",
+          name = "- Dotnet watch → .csproj",
           cmd = "dotnet watch" ..                    -- compile
               " && echo '" .. final_message .. "'"   -- echo
         }, },
