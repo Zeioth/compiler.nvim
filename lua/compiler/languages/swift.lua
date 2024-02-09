@@ -180,9 +180,7 @@ function M.action(selected_option)
       name = "- Swift compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Start REPL",
-          cmd = output ..                                                            -- run
-                " && echo " .. output ..                                             -- echo
-                " && echo '" .. final_message .. "'"
+          cmd = "swift repl"                                                         -- run
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
