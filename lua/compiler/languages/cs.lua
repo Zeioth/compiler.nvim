@@ -161,18 +161,13 @@ function M.action(selected_option)
   elseif selected_option == "option7" then
     local task = overseer.new_task({
       name = "- C# compiler",
-      strategy = {
-        "orchestrator",
-        tasks = { {
-          "shell",
-          name = "- Dotnet watch → .csproj",
-          cmd = "dotnet watch" ..                    -- compile
-              " && echo '" .. final_message .. "'"   -- echo
-        }, },
-      },
-    })
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Dotnet watch → .csproj",
+          cmd = "dotnet watch" ..                                                     -- compile
+                " && echo '" .. final_message .. "'"                                  -- echo
+        },},},})
     task:start()
-    vim.cmd("OverseerOpen")  
+    vim.cmd("OverseerOpen")
   end
 end
 
