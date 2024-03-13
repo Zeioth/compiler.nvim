@@ -21,6 +21,7 @@ M.setup = function(opts)
       vim.notify("Open the compiler and select an option before doing redo.",
         vim.log.levels.INFO, { title = "Compiler.nvim" }
       )
+      return
     end
     -- If filetype is not the same as when the option was selected, send a notification.
     local current_filetype = vim.bo.filetype
