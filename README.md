@@ -58,7 +58,9 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 Some languages require you manually install their compilers in your machine, so compiler.nvim is able to call them. [Please check here](https://github.com/Zeioth/Compiler.nvim/wiki/how-to-install-the-required-dependencies), as the packages will be different depending your operative system.
 
 ## How to install
-lazy.nvim package manager
+
+### lazy.nvim package manager
+
 ```lua
 { -- This plugin
   "Zeioth/compiler.nvim",
@@ -79,6 +81,19 @@ lazy.nvim package manager
     },
   },
 },
+```
+
+### Plug package manager
+
+```vimscript
+Plug 'stevearc/overseer.nvim', {'commit': '68a2d344cea4a2e11acfb5690dc8ecd1a1ec0ce0'}
+Plug 'Zeioth/compiler.nvim'
+```
+
+and then setup with:
+
+```lua
+require("compiler").setup()
 ```
 
 ### Recommended mappings
