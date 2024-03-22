@@ -9,20 +9,21 @@ local M = {}
 --- Frontend  - options displayed on telescope
 M.options = {
   { text = "Run this file (interpreted)", value = "option1" },
-  { text = "Run program (interpreted)", value = "option2" },
-  { text = "Run solution (interpreted)", value = "option3" },
+  { text = "Run this file as module (interpreted)", value = "option2" },
+  { text = "Run program (interpreted)", value = "option3" },
+  { text = "Run solution (interpreted)", value = "option4" },
   { text = "", value = "separator" },
-  { text = "Build and run program (machine code)", value = "option4" },
-  { text = "Build program (machine code)", value = "option5" },
-  { text = "Run program (machine code)", value = "option6" },
-  { text = "Build solution (machine code)", value = "option7" },
+  { text = "Build and run program (machine code)", value = "option5" },
+  { text = "Build program (machine code)", value = "option6" },
+  { text = "Run program (machine code)", value = "option7" },
+  { text = "Build solution (machine code)", value = "option8" },
   { text = "", value = "separator" },
-  { text = "Build and run program (bytecode)", value = "option8" },
-  { text = "Build program (bytecode)", value = "option9" },
-  { text = "Run program (bytecode)", value = "option10" },
-  { text = "Build solution (bytecode)", value = "option11" },
+  { text = "Build and run program (bytecode)", value = "option9" },
+  { text = "Build program (bytecode)", value = "option10" },
+  { text = "Run program (bytecode)", value = "option11" },
+  { text = "Build solution (bytecode)", value = "option12" },
   { text = "", value = "separator" },
-  { text = "Run REPL", value = "option12" }
+  { text = "Run REPL", value = "option13" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -34,7 +35,9 @@ function M.action(selected_option)
   local files = utils.find_files_to_compile(entry_point, "*.py")             -- *.py files under entry_point_dir (recursively)
   local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
   local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
+  local module_path = current_file:gsub(vim.fn.getcwd(),""):gsub(".py", ""):gsub("/", "."):sub(2) -- Same path as the file but in module syntax
   local final_message = "--task finished--"
+
   -- For python, arguments are not globally defined,
   -- as we have 3 different ways to run the code.
 
@@ -55,6 +58,17 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python interpreter",
       strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- Run this file → " .. module_path,
+          cmd =  "python -m" .. module_path ..                                -- run (interpreted)
+                " && echo " .. module_path ..                               -- echo
+                " && echo '" .. final_message .. "'"
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option3" then
+    local task = overseer.new_task({
+      name = "- Python interpreter",
+      strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
           cmd = "python " .. entry_point ..                                  -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
@@ -62,7 +76,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option3" then
+  elseif selected_option == "option4" then
     local entry_points
     local task = {}
     local tasks = {}
@@ -140,7 +154,7 @@ function M.action(selected_option)
 
 
   --========================== MACHINE CODE =================================--
-  elseif selected_option == "option4" then
+  elseif selected_option == "option5" then
     local arguments = "--warn-implicit-exceptions --warn-unusual-code"                 -- optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
@@ -157,7 +171,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option5" then
+  elseif selected_option == "option6" then
     local arguments = "--warn-implicit-exceptions --warn-unusual-code"                  -- optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
@@ -173,7 +187,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option6" then
+  elseif selected_option == "option7" then
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
@@ -184,7 +198,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option7" then
+  elseif selected_option == "option8" then
     local entry_points
     local tasks = {}
     local task = {}
@@ -275,7 +289,7 @@ function M.action(selected_option)
 
 
   --============================ BYTECODE ===================================--
-  elseif selected_option == "option8" then
+  elseif selected_option == "option9" then
     local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
     local output_filename = vim.fn.fnamemodify(output, ":t")
     local arguments = "--log-level WARN --python-option W" -- optional
@@ -297,7 +311,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option9" then
+  elseif selected_option == "option10" then
     local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
     local output_filename = vim.fn.fnamemodify(output, ":t")
     local arguments = "--log-level WARN --python-option W" -- optional
@@ -318,7 +332,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option10" then
+  elseif selected_option == "option11" then
     local task = overseer.new_task({
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
@@ -329,7 +343,7 @@ function M.action(selected_option)
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
-  elseif selected_option == "option11" then
+  elseif selected_option == "option12" then
     local entry_points
     local tasks = {}
     local task = {}
@@ -431,7 +445,7 @@ function M.action(selected_option)
 
 
   --=============================== REPL ====================================--
-  elseif selected_option == "option12" then
+  elseif selected_option == "option13" then
     local task = overseer.new_task({
       name = "- Python REPL",
       strategy = { "orchestrator",
