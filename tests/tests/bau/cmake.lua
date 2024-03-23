@@ -1,5 +1,5 @@
 --- This test file run all supported cases of use.
---- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests/bau/make.lua
+--- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests/bau/cmake.lua
 
 local ms = 1000 -- wait time
 local bau = require("compiler.bau.cmake")
