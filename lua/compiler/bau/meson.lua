@@ -26,7 +26,7 @@ function M.action(option)
   local cmd_target = "ninja -C " .. build_dir .. " " .. option
   print(cmd_build)
   local task = overseer.new_task({
-    name = "- Mason interpreter",
+    name = "- Meson interpreter",
     strategy = { "orchestrator",
       tasks = {{ "shell", name = "- Run Meson → " .. option,
         cmd = "mkdir -p " .. build_dir ..
