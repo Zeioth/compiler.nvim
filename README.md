@@ -219,7 +219,6 @@ If you want to help me, please star this repository to increase the visibility o
 
 ## Roadmap
 * `rust, go, swift` require the user to initialize the package before using its respective cli `cargo, go, swift`. Let's explain this on `+more info`. → Let's evaluate the pros and cons of auto initializing a package if do not exist already, so this process is automatic.
-* `Building systems → meson`. We support it, but we don't currently support Ninja, so there is no way to run the targets, only building them.
 * `cli → pip` look for improvements.
 * `cli → cargo` look for improvements.
 * `cli → dart pub` look for improvements.
