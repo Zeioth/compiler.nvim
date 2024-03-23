@@ -108,6 +108,62 @@ local function get_cmake_opts(path)
   return options
 end
 
+
+--- Given a Mesonfile, parse all the options,
+--- and return them as a table.
+--- @param path string Path to the meson.build
+--- @return table options A table like:
+--- { { text = "Meson hello", value = "hello", description = "Print Hello, World!", bau = "meson" }, ...}
+local function get_meson_opts(path)
+  local options = {}
+
+  local file = io.open(path, "r")
+
+  if file then
+    local in_command = false
+
+    for line in file:lines() do
+      -- Parse 'executable' commands
+      local target = line:match("^%s*([%w_]-)%s*=%s*executable%s*%('%s*([%w_]+)'")
+          or line:match("^%s*executable%s*%('%s*([%w_]+)'")
+
+      if target then
+        in_command = true
+        local target_name = line:match("%('%s*([^']+)'%s*")
+        if target_name then
+          table.insert(
+            options,
+            { text = "Meson " .. target_name, value = target_name, bau = "meson" }
+          )
+        end
+      elseif in_command then
+        in_command = false
+      end
+
+      -- Parse 'custom_target' commands
+      local custom_target = line:match("^%s*([%w_]-)%s*=%s*custom_target%s*%('%s*([%w_]+)'")
+          or line:match("^%s*custom_target%s*%('%s*([%w_]+)'")
+
+      if custom_target then
+        in_command = true
+        local target_name = line:match("%('([%w_']+)'")
+        if target_name then
+          table.insert(
+            options,
+            { text = "Meson " .. target_name, value = target_name, bau = "meson" }
+          )
+        end
+      elseif in_command then
+        in_command = false
+      end
+    end
+
+    file:close()
+  end
+
+  return options
+end
+
 ---Given a build.gradle.kts file, parse all the tasks,
 ---and return them as a table.
 ---
@@ -267,6 +323,11 @@ function M.get_bau_opts()
     working_dir .. utils.os_path("/CMakeLists.txt")
   ))
 
+  -- meson
+  vim.list_extend(options, get_meson_opts(
+    working_dir .. utils.os_path("/meson.build")
+  ))
+
   -- gradle
   vim.list_extend(options, get_gradle_opts(
     working_dir .. utils.os_path("/build.gradle.kts")
@@ -290,7 +351,8 @@ function M.require_bau(bau)
   local module_file_path = utils.os_path(local_path_dir .. "bau/" .. bau .. ".lua")
   local success, bau = pcall(dofile, module_file_path)
 
-  if success then return bau
+  if success then
+    return bau
   else
     -- local error = "Build automation utilities \"" .. bau .. "\" not supported by the compiler."
     -- vim.notify(error, vim.log.levels.INFO, { title = "Build automation utilities unsupported" })
