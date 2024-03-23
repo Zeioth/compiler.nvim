@@ -167,6 +167,7 @@ If any of these files exist in your current working directory, they will be auto
 | [CMakeLists.txt](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/cmake.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/CMake-build-automation-utility) |
 | [build.gradle](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/gradle.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/gradle-build-automation-utility) |
 | [package.json](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/nodejs.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/nodejs-build-automation-utility) |
+| [meson.build](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/meson.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/meson-build-automation-utility) |
 
 ## Quick start
 Create `~/c-example/main.c` and paste this code. Then do `:cd ~/c-example/` to change the working directory to the project.
@@ -218,7 +219,6 @@ If you want to help me, please star this repository to increase the visibility o
 
 ## Roadmap
 * `rust, go, swift` require the user to initialize the package before using its respective cli `cargo, go, swift`. Let's explain this on `+more info`. → Let's evaluate the pros and cons of auto initializing a package if do not exist already, so this process is automatic.
-* `Building systems → meson` is planned. Auto discovery of options defined by the user is planned.
 * `cli → pip` look for improvements.
 * `cli → cargo` look for improvements.
 * `cli → dart pub` look for improvements.
