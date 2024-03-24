@@ -108,7 +108,6 @@ local function get_cmake_opts(path)
   return options
 end
 
-
 --- Given a Mesonfile, parse all the options,
 --- and return them as a table.
 --- @param path string Path to the meson.build
@@ -118,47 +117,25 @@ local function get_meson_opts(path)
   local options = {}
 
   local file = io.open(path, "r")
-
   if file then
-    local in_command = false
+    local content = file:read("*all")
+    file:close()
 
-    for line in file:lines() do
-      -- Parse 'executable' commands
-      local target = line:match("^%s*([%w_]-)%s*=%s*executable%s*%('%s*([%w_]+)'")
-          or line:match("^%s*executable%s*%('%s*([%w_]+)'")
-
-      if target then
-        in_command = true
-        local target_name = line:match("%('%s*([^']+)'%s*")
-        if target_name then
-          table.insert(
-            options,
-            { text = "Meson " .. target_name, value = target_name, bau = "meson" }
-          )
-        end
-      elseif in_command then
-        in_command = false
-      end
-
-      -- Parse 'custom_target' commands
-      local custom_target = line:match("^%s*([%w_]-)%s*=%s*custom_target%s*%('%s*([%w_]+)'")
-          or line:match("^%s*custom_target%s*%('%s*([%w_]+)'")
-
-      if custom_target then
-        in_command = true
-        local target_name = line:match("%('([%w_']+)'")
-        if target_name then
-          table.insert(
-            options,
-            { text = "Meson " .. target_name, value = target_name, bau = "meson" }
-          )
-        end
-      elseif in_command then
-        in_command = false
-      end
+    -- Parse executable entries
+    for target in content:gmatch("executable%s*%(.-['\"]([%w_]+)['\"]") do
+      table.insert(
+        options,
+        { text = "Meson " .. target, value = target, bau = "meson" }
+      )
     end
 
-    file:close()
+    -- Parse custom_target entries
+    for target in content:gmatch("custom_target%s*%(%s*'([^']+)'") do
+      table.insert(
+        options,
+        { text = "Meson " .. target, value = target, bau = "meson" }
+      )
+    end
   end
 
   return options
