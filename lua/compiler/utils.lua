@@ -68,8 +68,9 @@ function M.parse_solution_file(file_path)
           key = vim.trim(key)
           value = value:gsub("^%s*", ""):gsub(" *#.*", ""):gsub("^['\"](.-)['\"]$", "%1")  -- Remove inline comments and surrounding quotes
 
-          if key == "entry_point" and value == "$current_buffer" then
-            value = vim.api.nvim_buf_get_name(0)
+          if key == "entry_point" and value:find("^%$current_buffer") then
+            value = string.gsub( -- Substitute $current_buffer by actual path
+              value, "$current_buffer", vim.api.nvim_buf_get_name(0))
           end
           
           if string.find(key, "executable") then
