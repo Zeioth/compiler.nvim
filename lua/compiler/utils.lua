@@ -72,7 +72,7 @@ function M.parse_solution_file(file_path)
             value = string.gsub( -- Substitute $current_buffer by actual path
               value, "$current_buffer", vim.api.nvim_buf_get_name(0))
           end
-          
+
           if string.find(key, "executable") then
             table.insert(executables, value)
           else
