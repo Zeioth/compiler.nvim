@@ -17,7 +17,7 @@ local utils = require("compiler.utils")
 ---and return them as a table.
 ---@param path string Path to the Makefile.
 ---@return table options A table like:
---- { { text: "Make all", value="all", bau = "cmake"}, { text: "Make hello", value="hello", bau = "make"} ...}
+--- { { text: "Make all", value="all", bau = "make"}, { text: "Make hello", value="hello", bau = "make"} ...}
 local function get_makefile_opts(path)
   local options = {}
 
