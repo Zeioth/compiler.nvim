@@ -219,8 +219,7 @@ If you want to help me, please star this repository to increase the visibility o
 
 ## Roadmap
 * `rust, go, swift` require the user to initialize the package before using its respective cli `cargo, go, swift`. Let's explain this on `+more info`. → Let's evaluate the pros and cons of auto initializing a package if do not exist already, so this process is automatic.
-* `Building systems → maven` is planned. Auto discovery of options defined by the user is planned.
-* Consider adding rake support.
+* `Building systems → maven` Low prio, as spring and android studio have moved to gradle, and most mainstream projects are doing the same. PRs are accepted.
 * Better Windows compatibility when not using WSL: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WSL we should run the equivalent powershell command when Windows is detected.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
