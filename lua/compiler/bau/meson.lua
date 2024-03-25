@@ -7,7 +7,7 @@ function M.action(option)
   local overseer = require("overseer")
   local final_message = "--task finished--"
 
-  -- Global: MESON_BUILD_ROOT
+  -- Global: MESON_BUILD_DIR
   local success, build_dir = pcall(vim.api.nvim_get_var, 'MESON_BUILD_DIR')
   if not success or build_dir == "" then build_dir = './build' end
 
