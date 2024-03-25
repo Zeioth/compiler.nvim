@@ -60,49 +60,25 @@ local function get_cmake_opts(path)
   local options = {}
 
   local file = io.open(path, "r")
-
   if file then
-    local in_command = false
+    local content = file:read("*all")
+    file:close()
 
-    for line in file:lines() do
-      -- Parse 'add_executable' commands
-      local target = line:match("^%s*add_executable%s*%(")
-      if target then
-        in_command = true
-        target = line:match("(%b())")
-        target = target:gsub("[%(%)]", "")
-
-        -- Split the target string by spaces and take the first part
-        target = target:match("(%S+)")
-
-        table.insert(
-          options,
-          { text = "CMake " .. target, value = target, bau = "cmake" }
-        )
-      elseif in_command then
-        in_command = false
-      end
-
-      -- Parse 'add_custom_target' commands
-      local custom_target = line:match("^%s*add_custom_target%s*%(")
-      if custom_target then
-        in_command = true
-        custom_target = line:match("(%b())")
-        custom_target = custom_target:gsub("[%(%)]", "")
-
-        -- Split the custom target string by spaces and take the first part
-        custom_target = custom_target:match("(%S+)")
-
-        table.insert(
-          options,
-          { text = "CMake " .. custom_target, value = custom_target, bau = "cmake" }
-        )
-      elseif in_command then
-        in_command = false
-      end
+    -- Parse add_executable entries
+    for target in content:gmatch("add_executable%s*%(%s*([%w_]+)") do
+      table.insert(
+        options,
+        { text = "CMake " .. target, value = target, bau = "cmake" }
+      )
     end
 
-    file:close()
+    -- Parse add_custom_target entries
+    for target in content:gmatch("add_custom_target%s*%(%s*([%w_]+)") do
+      table.insert(
+        options,
+        { text = "CMake " .. target, value = target, bau = "cmake" }
+      )
+    end
   end
 
   return options
