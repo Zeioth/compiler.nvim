@@ -8,7 +8,7 @@ function M.action(option)
   local final_message = "--task finished--"
 
   -- Global: MESON_BUILD_ROOT
-  local success, build_dir = pcall(vim.api.nvim_get_var, 'MESON_BUILD_ROOT')
+  local success, build_dir = pcall(vim.api.nvim_get_var, 'MESON_BUILD_DIR')
   if not success or build_dir == "" then build_dir = './build' end
 
   -- Global: MESON_BUILD_TYPE
