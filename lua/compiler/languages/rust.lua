@@ -13,8 +13,8 @@ M.options = {
   { text = "Cargo build", value = "option6" },
   { text = "Cargo run", value = "option7" },
   { text = "", value = "separator" },
-  { text = "Cargo build --all and run", value = "option8" },
-  { text = "Cargo build --all", value = "option9" }
+  { text = "Cargo build --workspace and run", value = "option8" },
+  { text = "Cargo build --workspace", value = "option9" }
 }
 
 -- Backend - overseer tasks performed on option selected
@@ -173,8 +173,8 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Rust compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Cargo build --all & run → " .. "Cargo.toml",
-          cmd = "cargo build --all " ..                                                -- compile
+        tasks = {{ "shell", name = "- Cargo build --workspace & run → " .. "Cargo.toml",
+          cmd = "cargo build --workspace " ..                                          -- compile
                 " && cargo run" ..
                 " && echo '" .. final_message .. "'"                                   -- echo
         },},},})
@@ -184,8 +184,8 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Rust compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Cargo build --all → " .. "Cargo.toml",
-          cmd = "cargo build --all" ..                                                 -- compile
+        tasks = {{ "shell", name = "- Cargo build --workspace → " .. "Cargo.toml",
+          cmd = "cargo build --workspace" ..                                           -- compile
                 " && echo '" .. final_message .. "'"                                   -- echo
         },},},})
     task:start()
