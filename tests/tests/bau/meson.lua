@@ -2,7 +2,7 @@
 --- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests/bau/meson.lua
 
 local ms = 1000 -- wait time
-local bau = require("compiler.bau.cmake")
+local bau = require("compiler.bau.meson")
 local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/bau/meson"
 
 -- Run meson.build
