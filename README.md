@@ -161,14 +161,14 @@ executable = "/program/to/execute/after/the/solution/has/compiled/my_program"
 ## Build automation utilities (optional)
 If any of these files exist in your current working directory, they will be automatically detected and displayed on [Compiler.nvim](https://github.com/Zeioth/compiler.nvim): 
 
-| Build automation utility | More info |
-|--|--|
-| [Makefile](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/make.lua)| [+info](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-build-automation-utility) | 
-| [CMakeLists.txt](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/cmake.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/CMake-build-automation-utility) |
-| [build.gradle](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/gradle.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/gradle-build-automation-utility) |
-| pom.xml | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/maven-build-automation-utility) |
-| [package.json](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/nodejs.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/nodejs-build-automation-utility) |
-| [meson.build](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/meson.lua) | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/meson-build-automation-utility) |
+| Build automation utility | File | More info |
+|--|--|--|
+| [Makefile](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/make.lua)| `./Makefile` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-build-automation-utility) | 
+| [CMake](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/cmake.lua) | `./CMakeLists.txt` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/CMake-build-automation-utility) |
+| [Gradle](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/gradle.lua) | `./build.gradle` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/gradle-build-automation-utility) |
+| Maven | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/maven-build-automation-utility) | `./pom.xml` |
+| [NodeJS NPM](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/nodejs.lua) | `./package.json` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/nodejs-build-automation-utility) |
+| [Meson](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/meson.lua) | `./meson.build` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/meson-build-automation-utility) |
 
 ## Quick start
 Create `~/c-example/main.c` and paste this code. Then do `:cd ~/c-example/` to change the working directory to the project.
