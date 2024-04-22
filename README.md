@@ -163,7 +163,7 @@ If any of these files exist in your current working directory, they will be auto
 
 | Build automation utility | File | More info |
 |--|--|--|
-| [Makefile](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/make.lua)| `./Makefile` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-build-automation-utility) | 
+| [Make](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/make.lua)| `./Makefile` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-build-automation-utility) | 
 | [CMake](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/cmake.lua) | `./CMakeLists.txt` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/CMake-build-automation-utility) |
 | [Gradle](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/gradle.lua) | `./build.gradle` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/gradle-build-automation-utility) |
 | Maven | `./pom.xml` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/maven-build-automation-utility) | 
