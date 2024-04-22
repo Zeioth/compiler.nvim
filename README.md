@@ -166,7 +166,7 @@ If any of these files exist in your current working directory, they will be auto
 | [Makefile](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/make.lua)| `./Makefile` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/Makefile-build-automation-utility) | 
 | [CMake](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/cmake.lua) | `./CMakeLists.txt` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/CMake-build-automation-utility) |
 | [Gradle](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/gradle.lua) | `./build.gradle` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/gradle-build-automation-utility) |
-| Maven | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/maven-build-automation-utility) | `./pom.xml` |
+| Maven | `./pom.xml` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/maven-build-automation-utility) | 
 | [NodeJS NPM](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/nodejs.lua) | `./package.json` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/nodejs-build-automation-utility) |
 | [Meson](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/bau/meson.lua) | `./meson.build` | [+info](https://github.com/Zeioth/Compiler.nvim/wiki/meson-build-automation-utility) |
 
