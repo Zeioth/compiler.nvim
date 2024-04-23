@@ -141,7 +141,7 @@ local function get_gradle_opts(path)
 
     for line in file:lines() do
       -- Parse Kotlin DSL file
-      local task_match = line:match('tasks%.register%s*%(?%s*"(.-)"%s*%)?%s*{')
+      local task_match = line:match('tasks%.(%a+)%s*{') or line:match('tasks%.register%s*%(?%s*"(.-)"%s*%)?%s*{')
 
       if task_match then
         in_task = true
