@@ -23,13 +23,15 @@ M.setup = function(opts)
       )
       return
     end
-    -- If filetype is not the same as when the option was selected, send a notification.
-    local current_filetype = vim.bo.filetype
-    if _G.compiler_redo_filetype ~= current_filetype then
-      vim.notify("You are on a different language now. Open the compiler and select an option before doing redo.",
-        vim.log.levels.INFO, { title = "Compiler.nvim" }
-      )
-      return
+    if _G.compiler_redo_filetype then
+      -- If filetype is not the same as when the option was selected, send a notification.
+      local current_filetype = vim.bo.filetype
+      if _G.compiler_redo_filetype ~= current_filetype then
+        vim.notify("You are on a different language now. Open the compiler and select an option before doing redo.",
+          vim.log.levels.INFO, { title = "Compiler.nvim" }
+        )
+        return
+      end
     end
     -- Redo
     local bau = _G.compiler_redo_bau
