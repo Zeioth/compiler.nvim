@@ -16,6 +16,8 @@ M.setup = function(opts)
   end, { desc = "Toggle the compiler results" })
 
   cmd("CompilerRedo", function()
+    local current_filetype = vim.bo.filetype
+
     -- If the user didn't select an option yet, send a notification.
     if _G.compiler_redo_selection == nil and _G.compiler_redo_bau_selection == nil then
       vim.notify("Open the compiler and select an option before doing redo.",
@@ -25,7 +27,6 @@ M.setup = function(opts)
     end
     if _G.compiler_redo_filetype then
       -- If filetype is not the same as when the option was selected, send a notification.
-      local current_filetype = vim.bo.filetype
       if _G.compiler_redo_filetype ~= current_filetype then
         vim.notify("You are on a different language now. Open the compiler and select an option before doing redo.",
           vim.log.levels.INFO, { title = "Compiler.nvim" }
