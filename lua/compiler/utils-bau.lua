@@ -132,11 +132,16 @@ end
 
 -- Function to parse tasks from the output
 local function parseTasks(output)
-  local tasks = {}
-  for task in output:gmatch("[^\r\n]+") do
-    table.insert(tasks, task)
+  -- Check if output is a single line and contains only characters
+  if output:find("[^\n\r]+") and not output:find("[^%a\n\r]") then
+    local tasks = {}
+    for task in output:gmatch("%S+") do
+      table.insert(tasks, task)
+    end
+    return tasks
+  else
+    return {}
   end
-  return tasks
 end
 
 -- Function to write tasks to a file
@@ -172,7 +177,7 @@ local function get_gradle_opts(path)
 
   if isWindows() then
     gradleOutput = executeCommand(WINDOWS_COMMAND)
-  else
+  else -- Assume Unix
     gradleOutput = executeCommand(UNIX_COMMAND)
   end
 
