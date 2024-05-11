@@ -156,26 +156,27 @@ local function writeTasksToFile(filename, tasks)
 end
 
 local function isWindows()
-  return os.getenv("OS") ~= "Windows_NT"
+  return os.getenv("OS") == "Windows_NT"
 end
 
 local function get_gradle_opts(path)
-  local options = {}
+  local GRADLE_COMMAND = "gradle tasks --all"
+  local WINDOWS_COMMAND = GRADLE_COMMAND ..
+      " | Select-String -Pattern 'Application tasks', '^$' -Context 0,10 | ForEach-Object { $_.Line } | Select-Object -Skip 2 | Where-Object { $_ -notmatch '--' -and $_.Trim() -ne '' }"
+  local UNIX_COMMAND = GRADLE_COMMAND ..
+      " | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
 
+  local options = {}
   local gradleOutput = ""
   local tasks = {}
 
   if isWindows() then
-    print("Gradle tasks parsing are not supported on Windows")
-    -- Context 0,10 is used to get up to 10 tasks that are under the "Application tasks" section
-    gradleOutput = executeCommand(
-      "gradle tasks --all | Select-String -Pattern 'Application tasks', '^$' -Context 0,10 | ForEach-Object { $_.Line } | Select-Object -Skip 2 | Where-Object { $_ -notmatch '--' -and $_.Trim() -ne '' }")
-    tasks = parseTasks(gradleOutput)
+    gradleOutput = executeCommand(WINDOWS_COMMAND)
   else
-    gradleOutput = executeCommand(
-      "gradle tasks --all | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'")
-    tasks = parseTasks(gradleOutput)
+    gradleOutput = executeCommand(UNIX_COMMAND)
   end
+
+  tasks = parseTasks(gradleOutput)
 
   -- If the gradle command returns something, use it as the file content
   if tasks and #tasks > 0 then
