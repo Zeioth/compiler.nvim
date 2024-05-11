@@ -144,22 +144,6 @@ local function parseTasks(output)
   end
 end
 
--- Function to write tasks to a file
-local function writeTasksToFile(filename, tasks)
-  local file = io.open(filename, "w")
-  if not file then
-    print("Error: Unable to open file for writing")
-    return
-  end
-
-  -- Write each task to the file
-  for _, task in ipairs(tasks) do
-    file:write(task .. "\n")
-  end
-
-  file:close() -- Close the file
-end
-
 local function isWindows()
   return os.getenv("OS") == "Windows_NT"
 end
