@@ -124,9 +124,63 @@ end
 ---@param path string Path to the build.gradle.kts file.
 ---@return table options A table like:
 --- { { text: "Gradle all", value="all", bau = "gradle"}, { text: "Gradle hello", value="hello", bau = "gradle"} ...}
+
+local function executeCommand(command)
+  local output = vim.fn.system(command)
+  return output
+end
+
+-- Function to parse tasks from the output
+local function parseTasks(output)
+  local tasks = {}
+  for task in output:gmatch("[^\r\n]+") do
+    table.insert(tasks, task)
+  end
+  return tasks
+end
+
+-- Function to write tasks to a file
+local function writeTasksToFile(filename, tasks)
+  local file = io.open(filename, "w")
+  if not file then
+    print("Error: Unable to open file for writing")
+    return
+  end
+
+  -- Write each task to the file
+  for _, task in ipairs(tasks) do
+    file:write(task .. "\n")
+  end
+
+  file:close() -- Close the file
+end
+
+local function isWindows()
+  return os.getenv("OS") == "Windows_NT"
+end
+
 local function get_gradle_opts(path)
   local options = {}
 
+  local gradleOutput = executeCommand(
+    "gradle tasks --all | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'")
+  local tasks = parseTasks(gradleOutput)
+
+  -- If the gradle command returns something, use it as the file content
+  if tasks and #tasks > 0 then
+    -- For debugging purposes
+    -- writeTasksToFile("tasks.txt", tasks)
+    for _, task_name in ipairs(tasks) do
+      if task_name == "" then
+        break
+      end
+      table.insert(
+        options,
+        { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
+      )
+    end
+    return options
+  end
   local file = io.open(path, "r")
 
   if not file then
@@ -141,7 +195,7 @@ local function get_gradle_opts(path)
 
     for line in file:lines() do
       -- Parse Kotlin DSL file
-      local task_match = line:match('tasks%.(%a+)%s*{') or line:match('tasks%.register%s*%(?%s*"(.-)"%s*%)?%s*{')
+      local task_match = line:match('tasks%.register%s*%(?%s*"(.-)"%s*%)?%s*{')
 
       if task_match then
         in_task = true
@@ -314,3 +368,4 @@ function M.require_bau(bau)
 end
 
 return M
+
