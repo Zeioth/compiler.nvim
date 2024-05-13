@@ -148,6 +148,16 @@ local function isWindows()
   return os.getenv("OS") == "Windows_NT"
 end
 
+local function isTaskAlreadyAdded(options, task_name)
+  for _, option in ipairs(options) do
+    if option.value == task_name then
+      return true
+    end
+  end
+  return false
+end
+
+
 local function get_gradle_opts(path)
   local UNIX_COMMAND =
   "gradle tasks --all | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
@@ -179,7 +189,6 @@ local function get_gradle_opts(path)
         { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
       )
     end
-    return options
   end
   local file = io.open(path, "r")
 
@@ -201,10 +210,12 @@ local function get_gradle_opts(path)
         in_task = true
         task_name = task_match
 
-        table.insert(
-          options,
-          { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
-        )
+        if not isTaskAlreadyAdded(options, task_name) then
+          table.insert(
+            options,
+            { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
+          )
+        end
       elseif in_task then
         local task_end = line:match("}")
         if task_end then
@@ -218,10 +229,12 @@ local function get_gradle_opts(path)
           in_task = true
           task_name = task_match
 
-          table.insert(
-            options,
-            { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
-          )
+          if not isTaskAlreadyAdded(options, task_name) then
+            table.insert(
+              options,
+              { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
+            )
+          end
         elseif in_task then
           local task_end = line:match("}")
           if task_end then
