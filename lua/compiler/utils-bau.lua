@@ -159,11 +159,18 @@ end
 
 
 local function get_gradle_opts(path)
-  local UNIX_COMMAND =
-  "gradle tasks --all | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
-  local WINDOWS_COMMAND =
-  [[pwsh -c 'gradle tasks --all | Out-String | Select-String -Pattern "(?sm)Application tasks(.*?)(?:\r?\n){2}" | ForEach-Object { $_.Matches.Groups[1].Value -split "\r?\n" | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split "\s+", 2)[0] } $skip = $false } | Where-Object { $_ -notmatch "--" -and $_.Trim() -ne "" } }']]
-
+  -- OS-specific commands to get all Application tasks from 'gradle tasks --all'
+  -- Needs gradle to be install globally and available in the PATH
+  -- For windows, powershell needs to be installed
+  local GRADLE_COMMAND = "gradle tasks --all"
+  local RUN_POWERSHELL_COMMAND = "powershell -c"
+  local RUN_POWERSHELL_COMMAND_UNIX = "pwsh -c" -- For testing on unix systems
+  local POWERSHELL_COMMAND =
+  [[ | Out-String | Select-String -Pattern "(?sm)Application tasks(.*?)(?:\r?\n){2}" | ForEach-Object { $_.Matches.Groups[1].Value -split "\r?\n" | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split "\s+", 2)[0] } $skip = $false } | Where-Object { $_ -notmatch "--" -and $_.Trim() -ne "" } }]]
+  local AWK_COMMAND =
+  " | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
+  local UNIX_COMMAND = GRADLE_COMMAND .. AWK_COMMAND
+  local WINDOWS_COMMAND = RUN_POWERSHELL_COMMAND .. " '" .. GRADLE_COMMAND .. POWERSHELL_COMMAND .. "'"
   local options = {}
   local gradleOutput = ""
   local tasks = {}
