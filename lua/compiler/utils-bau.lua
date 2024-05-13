@@ -164,7 +164,6 @@ local function get_gradle_opts(path)
   -- For windows, powershell needs to be installed
   local GRADLE_COMMAND = "gradle tasks --all"
   local RUN_POWERSHELL_COMMAND = "powershell -c"
-  local RUN_POWERSHELL_COMMAND_UNIX = "pwsh -c" -- For testing on unix systems
   local POWERSHELL_COMMAND =
   [[ | Out-String | Select-String -Pattern "(?sm)Application tasks(.*?)(?:\r?\n){2}" | ForEach-Object { $_.Matches.Groups[1].Value -split "\r?\n" | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split "\s+", 2)[0] } $skip = $false } | Where-Object { $_ -notmatch "--" -and $_.Trim() -ne "" } }]]
   local AWK_COMMAND =
