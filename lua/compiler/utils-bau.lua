@@ -145,14 +145,14 @@ local function parseTasks(output)
 end
 
 local function isWindows()
-  return os.getenv("OS") ~= "Windows_NT"
+  return os.getenv("OS") == "Windows_NT"
 end
 
 local function get_gradle_opts(path)
   local UNIX_COMMAND =
   "gradle tasks --all | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
   local WINDOWS_COMMAND =
-  [[pwsh --Command 'gradle tasks --all | Out-String | Select-String -Pattern "(?sm)Application tasks(.*?)(?:\r?\n){2}" | ForEach-Object { $_.Matches.Groups[1].Value -split "\r?\n" | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split "\s+", 2)[0] } $skip = $false } | Where-Object { $_ -notmatch "--" -and $_.Trim() -ne "" } }']]
+  [[pwsh -c 'gradle tasks --all | Out-String | Select-String -Pattern "(?sm)Application tasks(.*?)(?:\r?\n){2}" | ForEach-Object { $_.Matches.Groups[1].Value -split "\r?\n" | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split "\s+", 2)[0] } $skip = $false } | Where-Object { $_ -notmatch "--" -and $_.Trim() -ne "" } }']]
 
   local options = {}
   local gradleOutput = ""
