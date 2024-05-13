@@ -162,7 +162,7 @@ local function get_gradle_opts(path)
   -- OS-specific commands to get all Application tasks from 'gradle tasks --all'
   -- Needs gradle to be install globally and available in the PATH
   -- For windows, powershell needs to be installed
-  local GRADLE_COMMAND = "gradle tasks --all"
+  local GRADLE_COMMAND = "gradle tasks"
   local RUN_POWERSHELL_COMMAND = "powershell -c"
   local POWERSHELL_COMMAND =
   [[ | Out-String | Select-String -Pattern "(?sm)Application tasks(.*?)(?:\r?\n){2}" | ForEach-Object { $_.Matches.Groups[1].Value -split "\r?\n" | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split "\s+", 2)[0] } $skip = $false } | Where-Object { $_ -notmatch "--" -and $_.Trim() -ne "" } }]]
