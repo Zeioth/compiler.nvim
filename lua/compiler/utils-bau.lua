@@ -157,47 +157,57 @@ local function isTaskAlreadyAdded(options, task_name)
   return false
 end
 
--- Check if at least one of the files exists
-local function check_files(files_to_check)
-  for _, file in ipairs(files_to_check) do
-    if vim.fn.filereadable("./" .. file) then
-      return true
+local function getGradleTasksCommandLine()
+  local GRADLE_GLOBAL_COMMAND = "gradle tasks"
+  local GRADLEW_UNIX_COMMAND = "./gradlew tasks"
+  local GRADLEW_WINDOWS_COMMAND = "gradlew.bat tasks"
+  local RUN_POWERSHELL_COMMAND = "powershell -c"
+
+  local POWERSHELL_COMMAND =
+  [[ | Out-String | Select-String -Pattern "(?sm)Application tasks(.*?)(?:\r?\n){2}" | ForEach-Object { $_.Matches.Groups[1].Value -split "\r?\n" | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split "\s+", 2)[0] } $skip = $false } | Where-Object { $_ -notmatch "--" -and $_.Trim() -ne "" } }]]
+  local AWK_COMMAND =
+  " 2>&1 | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
+
+  local gradleOutput = ""
+  local gradleCommand = ""
+
+  if isWindows() then
+    if vim.fn.filereadable("./gradlew.bat") then
+      gradleCommand = RUN_POWERSHELL_COMMAND .. " '" .. GRADLEW_WINDOWS_COMMAND .. POWERSHELL_COMMAND .. "'"
+    else -- Fallback to global gradle
+      gradleCommand = RUN_POWERSHELL_COMMAND .. " '" .. GRADLE_GLOBAL_COMMAND .. POWERSHELL_COMMAND .. "'"
+    end
+  else -- Assume Unix
+    if vim.fn.filereadable("./gradlew") then
+      gradleCommand = GRADLEW_UNIX_COMMAND .. AWK_COMMAND
+    else -- Fallback to global gradle
+      gradleCommand = GRADLE_GLOBAL_COMMAND .. AWK_COMMAND
     end
   end
-  return false
+
+  gradleOutput = executeCommand(gradleCommand);
+
+  return parseTasks(gradleOutput)
 end
 
 
 local function get_gradle_opts(path)
   local options = {}
 
-  -- OS-specific commands to get all Application tasks from 'gradle tasks --all'
-  -- Needs gradle to be install globally and available in the PATH
-  -- For windows, powershell needs to be installed
-  if check_files({ "gradlew", "build.gradle.kts", "build.gradle" }) then
-    local GRADLE_COMMAND = "gradle tasks"
-    local RUN_POWERSHELL_COMMAND = "powershell -c"
-    local POWERSHELL_COMMAND =
-    [[ | Out-String | Select-String -Pattern "(?sm)Application tasks(.*?)(?:\r?\n){2}" | ForEach-Object { $_.Matches.Groups[1].Value -split "\r?\n" | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split "\s+", 2)[0] } $skip = $false } | Where-Object { $_ -notmatch "--" -and $_.Trim() -ne "" } }]]
-    local AWK_COMMAND =
-    " | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
-    local UNIX_COMMAND = GRADLE_COMMAND .. AWK_COMMAND
-    local WINDOWS_COMMAND = RUN_POWERSHELL_COMMAND .. " '" .. GRADLE_COMMAND .. POWERSHELL_COMMAND .. "'"
-    local gradleOutput = ""
-    local tasks = {}
+  local file = io.open(path, "r")
 
-    if isWindows() then
-      gradleOutput = executeCommand(WINDOWS_COMMAND)
-    else -- Assume Unix
-      gradleOutput = executeCommand(UNIX_COMMAND)
-    end
+  if not file then
+    -- If the file with ".kts" extension doesn't exist, try without the extension
+    local alternative_path = string.gsub(path, "%.kts$", "")
+    file = io.open(alternative_path, "r")
+  end
 
-    tasks = parseTasks(gradleOutput)
+  if file then
+    -- First parse the gradle tasks using the command line
+    local tasks = getGradleTasksCommandLine()
 
-    -- If the gradle command returns something, use it as the file content
+    -- If the gradle command returns something, add the tasks to the options
     if tasks and #tasks > 0 then
-      -- For debugging purposes
-      -- writeTasksToFile("tasks.txt", tasks)
       for _, task_name in ipairs(tasks) do
         if task_name == "" then
           break
@@ -208,16 +218,8 @@ local function get_gradle_opts(path)
         )
       end
     end
-  end
-  local file = io.open(path, "r")
 
-  if not file then
-    -- If the file with ".kts" extension doesn't exist, try without the extension
-    local alternative_path = string.gsub(path, "%.kts$", "")
-    file = io.open(alternative_path, "r")
-  end
-
-  if file then
+    -- Then parse the the tasks from file to get additional user-defined tasks if any
     local in_task = false
     local task_name = ""
 
