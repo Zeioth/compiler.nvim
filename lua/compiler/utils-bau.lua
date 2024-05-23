@@ -157,43 +157,56 @@ local function isTaskAlreadyAdded(options, task_name)
   return false
 end
 
+-- Check if at least one of the files exists
+local function check_files(files_to_check)
+  for _, file in ipairs(files_to_check) do
+    if vim.fn.filereadable("./" .. file) then
+      return true
+    end
+  end
+  return false
+end
+
 
 local function get_gradle_opts(path)
+  local options = {}
+
   -- OS-specific commands to get all Application tasks from 'gradle tasks --all'
   -- Needs gradle to be install globally and available in the PATH
   -- For windows, powershell needs to be installed
-  local GRADLE_COMMAND = "gradle tasks"
-  local RUN_POWERSHELL_COMMAND = "powershell -c"
-  local POWERSHELL_COMMAND =
-  [[ | Out-String | Select-String -Pattern "(?sm)Application tasks(.*?)(?:\r?\n){2}" | ForEach-Object { $_.Matches.Groups[1].Value -split "\r?\n" | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split "\s+", 2)[0] } $skip = $false } | Where-Object { $_ -notmatch "--" -and $_.Trim() -ne "" } }]]
-  local AWK_COMMAND =
-  " | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
-  local UNIX_COMMAND = GRADLE_COMMAND .. AWK_COMMAND
-  local WINDOWS_COMMAND = RUN_POWERSHELL_COMMAND .. " '" .. GRADLE_COMMAND .. POWERSHELL_COMMAND .. "'"
-  local options = {}
-  local gradleOutput = ""
-  local tasks = {}
+  if check_files({ "gradlew", "build.gradle.kts", "build.gradle" }) then
+    local GRADLE_COMMAND = "gradle tasks"
+    local RUN_POWERSHELL_COMMAND = "powershell -c"
+    local POWERSHELL_COMMAND =
+    [[ | Out-String | Select-String -Pattern "(?sm)Application tasks(.*?)(?:\r?\n){2}" | ForEach-Object { $_.Matches.Groups[1].Value -split "\r?\n" | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split "\s+", 2)[0] } $skip = $false } | Where-Object { $_ -notmatch "--" -and $_.Trim() -ne "" } }]]
+    local AWK_COMMAND =
+    " | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
+    local UNIX_COMMAND = GRADLE_COMMAND .. AWK_COMMAND
+    local WINDOWS_COMMAND = RUN_POWERSHELL_COMMAND .. " '" .. GRADLE_COMMAND .. POWERSHELL_COMMAND .. "'"
+    local gradleOutput = ""
+    local tasks = {}
 
-  if isWindows() then
-    gradleOutput = executeCommand(WINDOWS_COMMAND)
-  else -- Assume Unix
-    gradleOutput = executeCommand(UNIX_COMMAND)
-  end
+    if isWindows() then
+      gradleOutput = executeCommand(WINDOWS_COMMAND)
+    else -- Assume Unix
+      gradleOutput = executeCommand(UNIX_COMMAND)
+    end
 
-  tasks = parseTasks(gradleOutput)
+    tasks = parseTasks(gradleOutput)
 
-  -- If the gradle command returns something, use it as the file content
-  if tasks and #tasks > 0 then
-    -- For debugging purposes
-    -- writeTasksToFile("tasks.txt", tasks)
-    for _, task_name in ipairs(tasks) do
-      if task_name == "" then
-        break
+    -- If the gradle command returns something, use it as the file content
+    if tasks and #tasks > 0 then
+      -- For debugging purposes
+      -- writeTasksToFile("tasks.txt", tasks)
+      for _, task_name in ipairs(tasks) do
+        if task_name == "" then
+          break
+        end
+        table.insert(
+          options,
+          { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
+        )
       end
-      table.insert(
-        options,
-        { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
-      )
     end
   end
   local file = io.open(path, "r")
