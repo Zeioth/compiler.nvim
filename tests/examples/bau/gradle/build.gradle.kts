@@ -1,4 +1,4 @@
-// NOTE: gradlew will prevail over build.gradle.
+// NOTE: gradlew will prevail over 'build.gradle.kts'.
 //       to test it run "gradle wrapper" to generate it.
 
 // Example of a task
