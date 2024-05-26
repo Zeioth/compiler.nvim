@@ -14,8 +14,3 @@ vim.wait(ms)
 vim.api.nvim_set_current_dir(example .. "fpm-build/")
 language.action("option3")
 vim.wait(ms)
-
--- Run
-vim.api.nvim_set_current_dir(example .. "fpm-run/")
-language.action("option4")
-vim.wait(ms)

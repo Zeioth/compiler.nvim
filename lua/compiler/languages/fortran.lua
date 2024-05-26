@@ -7,7 +7,6 @@ M.options = {
   { text = "Run this file", value = "option1" },
   { text = "FPM build and run", value = "option2" },
   { text = "FPM build", value = "option3" },
-  { text = "FPM run", value = "option4" },
 }
 
 -- Backend - overseer tasks performed on option selected
@@ -51,16 +50,6 @@ function M.action(selected_option)
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- fpm build → " .. "fpm.toml",
           cmd = "fpm build " ..                                              -- compile
-                " && echo '" .. final_message .. "'"                         -- echo
-        },},},})
-    task:start()
-    vim.cmd("OverseerOpen")
-  elseif selected_option == "option4" then
-    local task = overseer.new_task({
-      name = "- Fortran compiler",
-      strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- fpm run → " .. "fpm.toml",
-          cmd = "fpm run " ..                                                -- run
                 " && echo '" .. final_message .. "'"                         -- echo
         },},},})
     task:start()
