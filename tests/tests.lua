@@ -10,6 +10,7 @@ dofile(tests_dir .. 'cpp.lua')
 dofile(tests_dir .. 'cs.lua')
 dofile(tests_dir .. 'dart.lua')
 dofile(tests_dir .. 'elixir.lua')
+dofile(tests_dir .. 'fortran.lua')
 dofile(tests_dir .. 'fsharp.lua')
 dofile(tests_dir .. 'go.lua')
 dofile(tests_dir .. 'java.lua')
@@ -33,6 +34,7 @@ dofile(tests_dir .. 'zig.lua')
 -- * ruby                            → Run this file.
 -- * shell                           → Run this file.
 -- * elixir                          → Run this file.
+-- * fortran                         → Run this file.
 -- * fsharp                          → Run this file.
 -- * r                               → Run this file.
 -- * typescript                      → Run this file.
