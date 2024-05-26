@@ -35,6 +35,7 @@ Those familiar with Visual Studio IDE will remember how convenient it was to jus
 |[c#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/cs.lua)  | [+info](https://github.com/Zeioth/compiler.nvim/wiki/cs-compiler) |
 | [dart](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) |
 | [elixir](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/elixir.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/elixir-compiler) |
+| [fortran](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/fortran.lua) ||
 | [f#](https://github.com/Zeioth/compiler.nvim/blob/main/lua/compiler/languages/fsharp.lua) |[+info](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) |
 | [flutter](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/dart.lua) | [+info](https://github.com/Zeioth/compiler.nvim/wiki/dart-compiler) |
 | [go](https://github.com/Zeioth/Compiler.nvim/blob/main/lua/compiler/languages/go.lua) ||
