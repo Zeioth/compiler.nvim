@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local language = require("compiler.languages.make")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages"
 
 -- Run makefile
 vim.api.nvim_set_current_dir(example)
