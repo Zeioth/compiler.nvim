@@ -54,3 +54,13 @@ vim.wait(ms)
 vim.api.nvim_set_current_dir(example .. "solution/")
 language.action("option8")
 vim.wait(ms)
+
+-- Build solution (without .solution file)
+vim.api.nvim_set_current_dir(example .. "solution-nofile/")
+language.action("option8")
+vim.wait(ms)
+
+-- Build solution
+vim.api.nvim_set_current_dir(example .. "solution/")
+language.action("option8")
+vim.wait(ms)
