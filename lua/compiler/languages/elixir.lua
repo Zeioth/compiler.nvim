@@ -11,8 +11,9 @@ M.options = {
 
 --- Backend - overseer tasks performed on option selected
 function M.action(selected_option)
+  local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local current_file = vim.fn.expand('%:p')                                  -- current file
+  local current_file = utils.os_path(vim.fn.expand('%:p'), true)                      -- current file
   local final_message = "--task finished--"
 
 
@@ -31,7 +32,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Elixir compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Mix run → mix.exs",
+        tasks = {{ "shell", name = "- Mix run → \"./mix.exs\"",
           cmd = "mix clean " ..                                                      -- clean
                 " && mix run " ..                                                    -- compile & run (bytecode)
                 " && echo '" .. final_message .. "'"
