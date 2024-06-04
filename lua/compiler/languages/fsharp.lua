@@ -18,7 +18,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- F# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Dotnet build & run → .fsroj",
+        tasks = {{ "shell", name = "- Dotnet build & run → \".fsroj\"",
           cmd = "dotnet run" ..                                                      -- compile and run
                 " && echo \"" .. final_message .. "\""                                 -- echo
         },},},})
@@ -28,7 +28,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- F# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Dotnet build → .fsproj",
+        tasks = {{ "shell", name = "- Dotnet build → \".fsproj\"",
           cmd = "dotnet build" ..                                                    -- compile
                 " && echo \"" .. final_message .. "\""                                 -- echo
         },},},})
