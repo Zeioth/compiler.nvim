@@ -20,7 +20,7 @@ function M.action(selected_option)
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Dotnet build & run → .fsroj",
           cmd = "dotnet run" ..                                                      -- compile and run
-                " && echo '" .. final_message .. "'"                                 -- echo
+                " && echo \"" .. final_message .. "\""                                 -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -30,7 +30,7 @@ function M.action(selected_option)
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Dotnet build → .fsproj",
           cmd = "dotnet build" ..                                                    -- compile
-                " && echo '" .. final_message .. "'"                                 -- echo
+                " && echo \"" .. final_message .. "\""                                 -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -41,7 +41,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Start REPL",
           cmd = "echo 'To exit the REPL enter #q;;'" ..                              -- echo
                 " ; dotnet fsi" ..                                                   -- run
-                " ; echo '" .. final_message .. "'"
+                " ; echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
