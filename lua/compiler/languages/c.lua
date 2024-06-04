@@ -78,7 +78,7 @@ function M.action(selected_option)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
-        task = { "shell", name = "- Build program → \n" .. entry_point .. "\"",
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. "\" || true" ..                           -- clean
               " && mkdir -p \"" .. output_dir .. "\"" ..                          -- mkdir
               " && gcc " .. files .. " -o \"" .. output .. "\" " .. arguments ..  -- compile
