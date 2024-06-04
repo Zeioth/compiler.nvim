@@ -34,8 +34,8 @@ function M.action(selected_option)
               " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
               " && csc " .. files .. " -out:\"" .. output .. "\" " .. arguments .. -- compile bytecode
               " && mono \"" .. output .. "\"" ..                                   -- run
-              " && echo \"" .. entry_point .. "\"" ..                              -- echo
-              " && echo \"" .. final_message .. "\""
+              " ; echo \"" .. entry_point .. "\"" ..                              -- echo
+              " ; echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -58,8 +58,8 @@ function M.action(selected_option)
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
           cmd = "mono \"" .. output .. "\"" ..                                     -- run
-                " && echo \"" .. entry_point .. "\"" ..                            -- echo
-                " && echo \"" .. final_message .. "\""
+                " ; echo \"" .. entry_point .. "\"" ..                            -- echo
+                " ; echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -98,8 +98,8 @@ function M.action(selected_option)
           executable = utils.os_path(executable, true)
           task = { "shell", name = "- Run program → " .. executable,
             cmd = "mono " .. executable ..                                         -- run
-                  " && echo " .. executable ..                                     -- echo
-                  " && echo \"" .. final_message .. "\""
+                  " ; echo " .. executable ..                                     -- echo
+                  " ; echo \"" .. final_message .. "\""
           }
           table.insert(executables, task) -- store all the executables we've created
         end
@@ -113,7 +113,6 @@ function M.action(selected_option)
           }}})
       task:start()
       vim.cmd("OverseerOpen")
-
 
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory

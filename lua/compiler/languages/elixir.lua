@@ -24,7 +24,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Run this file → " .. current_file,
           cmd = "elixir -r " .. current_file ..                                       -- compile & run single file (bytecode)
                 " && echo " .. current_file ..                                        -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -35,7 +35,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Mix run → \"./mix.exs\"",
           cmd = "mix clean " ..                                                      -- clean
                 " && mix run " ..                                                    -- compile & run (bytecode)
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
