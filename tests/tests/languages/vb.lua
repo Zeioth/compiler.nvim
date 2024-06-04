@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local language = require("compiler.languages.vb")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/vb/"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/vb/"
 
 -- Build and run dotnet
 vim.api.nvim_set_current_dir(example .. "build-and-run-dotnet/")

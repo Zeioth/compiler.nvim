@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local bau = require("compiler.bau.gradle")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/bau/gradle"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/bau/gradle"
 
 -- Run gradlew > build.gradlew.kts > build.gradlew (first occurence by priority)
 vim.api.nvim_set_current_dir(example)

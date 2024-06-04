@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local language = require("compiler.languages.java")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/java/"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/java/"
 
 -- ================================ CLASS ====================================-
 -- Build and run

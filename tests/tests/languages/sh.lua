@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local language = require("compiler.languages.sh")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/sh/"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/sh/"
 
 
 -- Build solution (without .solution file)

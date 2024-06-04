@@ -3,7 +3,7 @@
 
 local ms = 2000 -- wait time
 local language = require("compiler.languages.swift")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/swift/"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/swift/"
 
 -- Build and run
 vim.api.nvim_set_current_dir(example .. "build-and-run/")

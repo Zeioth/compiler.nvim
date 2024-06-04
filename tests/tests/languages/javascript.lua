@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local language = require("compiler.languages.javascript")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/javascript/"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/javascript/"
 
 -- Run
 vim.api.nvim_set_current_dir(example .. "run-program/")

@@ -7,7 +7,7 @@ local language = require("compiler.languages.dart")
 local example
 
 -- ============================= INTERPRETED ==================================
-example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/dart/interpreted/"
+example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/dart/interpreted/"
 
 -- Run program
 vim.api.nvim_set_current_dir(example .. "run-program/")
@@ -25,7 +25,7 @@ language.action("option3")
 vim.wait(ms)
 
 -- ============================= MACHINE CODE =================================
-example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/dart/machine-code/"
+example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/dart/machine-code/"
 
 -- Build and run
 vim.api.nvim_set_current_dir(example .. "build-and-run/")
@@ -52,7 +52,7 @@ language.action("option7")
 vim.wait(ms)
 
 -- =============================== FLUTTER ===================================
-example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/dart/fluttr/"
+example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/dart/fluttr/"
 vim.api.nvim_set_current_dir(example)
 
 -- We don't test run program (flutter because it is a loop)
@@ -76,7 +76,7 @@ language.action("option12")
 vim.wait(ms)
 
 -- =============================== OTHER ===================================
-example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/dart/transpiled/"
+example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/dart/transpiled/"
 
 -- Transpile to javascript
 vim.api.nvim_set_current_dir(example .. "to-javascript/")

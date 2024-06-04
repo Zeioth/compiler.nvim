@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local language = require("compiler.languages.kotlin")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/kotlin/"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/kotlin/"
 
 -- ================================ CLASS ====================================-
 -- Build and run

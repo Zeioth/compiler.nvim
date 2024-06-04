@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local bau = require("compiler.bau.cmake")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/bau/cmake"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code sambles/bau/cmake"
 
 -- Run CMakeLists.txt
 vim.api.nvim_set_current_dir(example)
