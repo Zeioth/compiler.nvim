@@ -2,12 +2,13 @@
 
 local M = {}
 
+
 ---Recursively searches for files with the given name
 -- in all directories under start_dir.
 ---@param start_dir string A dir path string.
 ---@param file_name string A file path string.
 ---@return table files If any, a tables of files. Otherwise, a Empty table.
-function M.find_files(start_dir, file_name)
+function M.find_files(start_dir, file_name, surround)
   local files = {}
 
   -- Create the find command with appropriate flags for recursive searching
@@ -22,7 +23,11 @@ function M.find_files(start_dir, file_name)
   local pipe = io.popen(find_command, "r")
   if pipe then
     for file_path in pipe:lines() do
-      table.insert(files, file_path)
+      if surround then
+        table.insert(files, '"' .. file_path .. '"')
+      else
+        table.insert(files, file_path)
+      end
       --print("Found file:", file_path)
     end
     pipe:close()
@@ -39,7 +44,7 @@ end
 ---@usage find_files_to_compile("/path/to/main.c", "*.c")
 function M.find_files_to_compile(entry_point, pattern)
   local entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
-  local files = M.find_files(entry_point_dir, pattern)
+  local files = M.find_files(entry_point_dir, pattern, true)
   local files_as_string = table.concat(files ," ")
 
   return files_as_string
@@ -134,13 +139,22 @@ function M.get_solution_file()
 end
 
 ---Given a string, convert 'slash' to 'inverted slash' if on windows, and vice versa on UNIX.
--- Then return the resulting string.
+---Then return the resulting string surrounded by "".
+---
+---This way the shell will be able to detect spaces in the path.
 ---@param path string A path string.
+---@param surround boolean|nil path will be surrounded by "" unless 'false'.
 ---@return string|nil,nil path A path string formatted for the current OS.
-function M.os_path(path)
+function M.os_path(path, surround)
   if path == nil then return nil end
-  -- Get the platform-specific path separator
+  if surround == nil then surround = false end
+
   local separator = string.sub(package.config, 1, 1)
+
+  if surround then
+      path = '"' .. path .. '"'
+  end
+
   return string.gsub(path, '[/\\]', separator)
 end
 
