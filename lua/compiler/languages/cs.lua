@@ -98,7 +98,7 @@ function M.action(selected_option)
           executable = utils.os_path(executable, true)
           task = { "shell", name = "- Run program → " .. executable,
             cmd = "mono " .. executable ..                                         -- run
-                  " && echo \"" .. executable .. "\"" ..                           -- echo
+                  " && echo " .. executable ..                                     -- echo
                   " && echo \"" .. final_message .. "\""
           }
           table.insert(executables, task) -- store all the executables we've created
