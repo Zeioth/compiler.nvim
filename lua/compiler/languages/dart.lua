@@ -26,7 +26,7 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local current_file = vim.fn.expand('%:p')                                     -- current file
+  local current_file = utils.os_path(vim.fn.expand('%:p'), true)                -- current file
   local entry_point = utils.os_path(vim.fn.getcwd() .. "/lib/main.dart", true)  -- working_directory/lib/main.dart
   local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")                  -- working_directory/bin/
   local output = utils.os_path(vim.fn.getcwd() .. "/bin/main")                  -- working_directory/bin/main
@@ -38,9 +38,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Dart interpreter",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run this file → \"" .. current_file .. "\"",
-          cmd = "dart \"" .. current_file .. "\"" ..                            -- run
-                " && echo \"" .. current_file .. "\"" ..                        -- echo
+        tasks = {{ "shell", name = "- Run this file → " .. current_file,
+          cmd = "dart " .. current_file ..                                      -- run
+                " && echo " .. current_file ..                                  -- echo
                 " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
