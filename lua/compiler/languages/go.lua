@@ -26,7 +26,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Go compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
+        tasks = {{ name = "- Build & run program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                    -- clean
                 " && mkdir -p " .. output_dir ..                                         -- mkdir
                 " && go build " .. arguments .. " -o " .. output .. " " .. files ..      -- compile
@@ -40,7 +40,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Go compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build program → " .. entry_point,
+        tasks = {{ name = "- Build program → " .. entry_point,
           cmd = "rm -f " .. output ..                                                    -- clean
                 " && mkdir -p " .. output_dir ..                                         -- mkdir
                 " && go build " .. arguments .. " -o " .. output .. " " .. files ..      -- compile
@@ -53,7 +53,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Go compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. entry_point,
+        tasks = {{ name = "- Run program → " .. entry_point,
           cmd = output ..                                                                -- run
                 " && echo " .. output ..                                                 -- echo
                 " && echo \"" .. final_message .. "\""
@@ -78,7 +78,7 @@ function M.action(selected_option)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
-        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
+        task = { name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. "\"" ..                                          -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                               -- mkdir
                 " && go build " .. arguments .. " -o \"" .. output .. "\" " .. files ..  -- compile
@@ -93,7 +93,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { "shell", name = "- Run program → " .. executable,
+          task = { name = "- Run program → " .. executable,
             cmd = executable ..                                                          -- run
                   " && echo " .. executable ..                                           -- echo
                   " && echo \"" .. final_message .. "\""
@@ -120,7 +120,7 @@ function M.action(selected_option)
         files = utils.find_files_to_compile(entry_point, "*.go")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")     -- entry_point/bin
         output = utils.os_path(output_dir .. "/program")                                 -- entry_point/bin/program
-        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
+        task = { name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. "\"" ..                                          -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                               -- mkdir
                 " && go build " .. arguments .. " -o \"" .. output .. "\" " .. files ..  -- compile

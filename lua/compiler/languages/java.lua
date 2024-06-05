@@ -34,7 +34,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Java compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build & run program (class) → \"" .. entry_point .. "\"",
+        tasks = {{ name = "- Build & run program (class) → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output_dir .. "*.class\"" .. " || true" ..                   -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                                 -- mkdir
                 " && javac -d \"" .. output_dir .. "\" " .. arguments .. " " .. files ..   -- compile bytecode (.class)
@@ -48,7 +48,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Java compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build program (class) → \"" .. entry_point .. "\"",
+        tasks = {{ name = "- Build program (class) → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output_dir .. "/*.class\"" .. " || true" ..                  -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                                 -- mkdir
                 " && javac -d \"" .. output_dir .. "\" " .. arguments .. " "  .. files ..  -- compile bytecode (.class)
@@ -61,7 +61,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Java compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program (class) → \"" .. output .. ".class\"",
+        tasks = {{ name = "- Run program (class) → \"" .. output .. ".class\"",
           cmd = "java -cp \"" .. output_dir .. "\" " .. output_filename ..                 -- run
                 " && echo \"" .. output .. ".class\"" ..                                   -- echo
                 " && echo \"" .. final_message .. "\""
@@ -86,7 +86,7 @@ function M.action(selected_option)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optiona
-        task = { "shell", name = "- Build program (class) → \"" .. entry_point .. "\"",
+        task = { name = "- Build program (class) → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output_dir .. "/*.class\"" .. " || true" ..                  -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                                 -- mkdir
                 " && javac -d \"" .. output_dir .. "\" " .. arguments .. " "  .. files ..  -- compile bytecode
@@ -102,7 +102,7 @@ function M.action(selected_option)
         for entry, executable in pairs(solution_executables) do
           output_dir = utils.os_path(executable:match("^(.-[/\\])[^/\\]*$"))
           output_filename = vim.fn.fnamemodify(executable, ':t:r')
-          task = { "shell", name = "- Run program (class) → \"" .. executable .. "\"",
+          task = { name = "- Run program (class) → \"" .. executable .. "\"",
             cmd = "java -cp \"" .. output_dir .. "\" " .. output_filename ..               -- run
                   " && echo \"" .. output_dir .. output_filename .. ".class\"" ..          -- echo
                   " && echo \"" .. final_message .. "\""
@@ -128,7 +128,7 @@ function M.action(selected_option)
         entry_point = utils.os_path(entry_point)
         files = utils.find_files_to_compile(entry_point, "*.java")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")       -- entry_point/bin
-        task = { "shell", name = "- Build program (class) → \"" .. entry_point .. "\"",
+        task = { name = "- Build program (class) → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output_dir .. "/*.class\"" .. " || true" ..                  -- clean
                 " && mkdir -p \"" .. output_dir .."\"" ..                                  -- mkdir
                 " && javac -d \"" .. output_dir .. "\" " .. arguments .. " "  .. files ..  -- compile bytecode
@@ -157,7 +157,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Java compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build & run program (jar) → \"" .. entry_point .. "\"",
+        tasks = {{ name = "- Build & run program (jar) → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. ".jar\"" .. " || true" ..                                           -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                                                  -- mkdir
                 " && jar cfe \"" .. output .. ".jar\" " .. output_filename .. " -C \"" .. output_dir .. "\" . " ..  -- compile bytecode (.jar)
@@ -171,7 +171,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Java compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build program (jar) → \"" .. entry_point .. "\"",
+        tasks = {{ name = "- Build program (jar) → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. ".jar\"" .. " || true" ..                                           -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                                                  -- mkdir
                 " && jar cfe \"" .. output .. ".jar\" " .. output_filename .. " -C \"" .. output_dir .. "\" . " ..  -- compile bytecode (.jar)
@@ -184,7 +184,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Java compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program (jar) → \"" .. output .. ".jar\"",
+        tasks = {{ name = "- Run program (jar) → \"" .. output .. ".jar\"",
           cmd = "java -jar \"" .. output .. ".jar\"" ..                                                     -- run
                 " && echo \"" .. output .. ".jar\""  ..                                                     -- echo
                 " && echo \"" .. final_message .. "\""
@@ -210,7 +210,7 @@ function M.action(selected_option)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         output_filename = vim.fn.fnamemodify(output, ':t:r')
         arguments = variables.arguments or arguments -- optional
-        task = { "shell", name = "- Build program (jar) → \"" .. entry_point .. "\"",
+        task = { name = "- Build program (jar) → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. "\" || true" ..                                                     -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                                                  -- mkdir
                 " && jar cfe \"" .. output .. "\" " .. output_filename .. " -C \"" .. output_dir .. "\" . " ..  -- compile bytecode (jar)
@@ -225,7 +225,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { "shell", name = "- Run program (jar) → \"" .. executable .. "\"",
+          task = { name = "- Run program (jar) → \"" .. executable .. "\"",
             cmd = "java -jar " .. executable ..                                                             -- run
                   " && echo " .. executable ..                                                              -- echo
                   " && echo \"" .. final_message .. "\""
@@ -251,7 +251,7 @@ function M.action(selected_option)
         entry_point = utils.os_path(entry_point)
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")                            -- entry_point/bin
         output = utils.os_path(output_dir .. "/Main")                                                           -- entry_point/bin/Main.jar
-        task = { "shell", name = "- Build program (jar) → \"" .. entry_point .. "\"",
+        task = { name = "- Build program (jar) → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. ".jar\" " .. " || true" ..                                              -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                                                      -- mkdir
                 " && jar cfe \"" .. output .. ".jar\" " .. output_filename .. " -C \"" .. output_dir .. "\" . " ..  -- compile bytecode (jar)
@@ -280,7 +280,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Java compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Start REPL",
+        tasks = {{ name = "- Start REPL",
           cmd = "echo 'To exit the REPL enter /exit'" ..                     -- echo
                 " && jshell " ..                                             -- run (repl)
                 " && echo \"" .. final_message .. "\""

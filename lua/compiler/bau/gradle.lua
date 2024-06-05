@@ -28,7 +28,7 @@ function M.action(option)
   local task = overseer.new_task({
     name = "- Gradle interpreter",
     strategy = { "orchestrator",
-      tasks = {{ "shell", name = "- " .. filename ..  " → " .. cmd .. " " .. option .. build_type,
+      tasks = {{ name = "- " .. filename ..  " → " .. cmd .. " " .. option .. build_type,
         cmd = cmd .. " " .. option .. build_type ..                          -- run
               " && echo " .. cmd .. " "  .. option .. build_type ..          -- echo
               " && echo \"" .. final_message .. "\""

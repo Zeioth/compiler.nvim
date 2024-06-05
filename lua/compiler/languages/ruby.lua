@@ -22,7 +22,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Ruby interpreter",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run this file → " .. current_file,
+        tasks = {{ name = "- Run this file → " .. current_file,
           cmd =  "ruby " .. current_file ..                                  -- run (interpreted)
                 " && echo " .. current_file ..                               -- echo
                 " && echo \"" .. final_message .. "\""
@@ -33,7 +33,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Ruby interpreter",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. entry_point,
+        tasks = {{ name = "- Run program → " .. entry_point,
             cmd = "ruby " .. entry_point ..                                  -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo \"" .. final_message .. "\""
@@ -55,7 +55,7 @@ function M.action(selected_option)
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point, true)
         arguments = variables.arguments or arguments -- optional
-        task = { "shell", name = "- Run program → " .. entry_point,
+        task = { name = "- Run program → " .. entry_point,
           cmd = "ruby " .. arguments .. " " .. entry_point ..                -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo \"" .. final_message .. "\""
@@ -68,7 +68,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { "shell", name = "- Run program → " .. executable,
+          task = { name = "- Run program → " .. executable,
             cmd = executable ..                                              -- run
                   " && echo " .. executable ..                               -- echo
                   " && echo \"" .. final_message .. "\""
@@ -91,7 +91,7 @@ function M.action(selected_option)
       entry_points = utils.find_files(vim.fn.getcwd(), "main.rb")
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point, true)
-        task = { "shell", name = "- Run program → " .. entry_point,
+        task = { name = "- Run program → " .. entry_point,
           cmd = "ruby " .. arguments .. " " .. entry_point ..                -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo '" .. final_message .. "'"

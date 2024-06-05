@@ -21,7 +21,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Elixir compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run this file → " .. current_file,
+        tasks = {{ name = "- Run this file → " .. current_file,
           cmd = "elixir -r " .. current_file ..                              -- compile & run single file (bytecode)
                 " && echo " .. current_file ..                               -- echo
                 " && echo \"" .. final_message .. "\""
@@ -32,7 +32,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Elixir compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Mix run → \"./mix.exs\"",
+        tasks = {{ name = "- Mix run → \"./mix.exs\"",
           cmd = "mix clean " ..                                              -- clean
                 " && mix run " ..                                            -- compile & run (bytecode)
                 " && echo \"" .. final_message .. "\""
@@ -43,7 +43,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Elixir REPL",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Start REPL",
+        tasks = {{ name = "- Start REPL",
           cmd = "iex"                                                        -- run
         },},},})
     task:start()

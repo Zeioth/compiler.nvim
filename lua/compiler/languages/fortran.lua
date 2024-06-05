@@ -23,7 +23,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Fortran compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run this file → " .. current_file,
+        tasks = {{ name = "- Run this file → " .. current_file,
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                   -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                                 -- mkdir
                 " && gfortran " .. current_file .. " -o \"" .. output .. "\" " .. arguments .. -- compile
@@ -37,7 +37,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Fortran compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- fpm build & run → " .. "\"./fpm.toml\"",
+        tasks = {{ name = "- fpm build & run → " .. "\"./fpm.toml\"",
           cmd = "fpm build " ..                                              -- compile
                 " && fpm run" ..                                             -- run
                 " && echo \"" .. final_message .. "\""                       -- echo
@@ -48,7 +48,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Fortran compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- fpm build → " .. "\"./fpm.toml\"",
+        tasks = {{ name = "- fpm build → " .. "\"./fpm.toml\"",
           cmd = "fpm build " ..                                              -- compile
                 " && echo \"" .. final_message .. "\""                       -- echo
         },},},})

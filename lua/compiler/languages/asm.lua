@@ -29,7 +29,7 @@ function M.action(selected_option)
       local filename = vim.fn.fnamemodify(file, ":t")
       local output_o = output_dir .. filename .. ".o"
       file = utils.os_path(file, true)
-      local task = { "shell", name = "- Build program → \"" .. file .. "\"",
+      local task = { name = "- Build program → \"" .. file .. "\"",
         cmd = "rm -f \"" .. output .. "\" || true" ..                                       -- clean
               " && mkdir -p \"" .. output_dir .. "\"" ..                                    -- mkdir
               " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" ".. arguments ..  -- compile
@@ -41,7 +41,7 @@ function M.action(selected_option)
     end
     -- Link .o files
     files = table.concat(files ," ") -- table to string
-    local task_link = { "shell", name = "- Link program → \"" .. entry_point .."\"" ,
+    local task_link = { name = "- Link program → \"" .. entry_point .."\"" ,
       cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..                  -- link
             " && rm -f " .. files .. " || true" ..                           -- clean
             " && \"" .. output .. "\"" ..                                    -- run
@@ -49,7 +49,7 @@ function M.action(selected_option)
             " && echo \"" .. final_message .. "\""
     }
     -- Run program
-    local task_run = { "shell", name = "- Run program → \"" .. output .. "\"",
+    local task_run = { name = "- Run program → \"" .. output .. "\"",
       cmd = utils.os_path(output, true) ..                                   -- run
             " && echo && echo \"" .. output .. "\"" ..                       -- echo
             " && echo \"" .. final_message .. "\""
@@ -72,7 +72,7 @@ function M.action(selected_option)
       local filename = vim.fn.fnamemodify(file, ":t")
       local output_o = output_dir .. filename .. ".o"
       file = utils.os_path(file, true)
-      local task = { "shell", name = "- Build program → " .. file,
+      local task = { name = "- Build program → " .. file,
         cmd = "rm -f \"" .. output .. "\" || true" ..                                        -- clean
               " && mkdir -p \"" .. output_dir .. "\"" ..                                     -- mkdir
               " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments  .. -- compile
@@ -84,7 +84,7 @@ function M.action(selected_option)
     end
     -- Link .o files
     files = table.concat(files ," ") -- table to string
-    local task_link = { "shell", name = "- Link program → \"" .. entry_point .. "\"",
+    local task_link = { name = "- Link program → \"" .. entry_point .. "\"",
       cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..                  -- link
            " && rm -f " .. files .. " || true" ..                            -- clean
            " && echo \"" .. entry_point .. "\"" ..                           -- echo
@@ -103,7 +103,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Assembly compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → \"" .. output .. "\"",
+        tasks = {{ name = "- Run program → \"" .. output .. "\"",
           cmd = "\"" .. output .. "\"" ..                                    -- run
                 " && echo && echo \"" .. output .. "\"" ..                   -- echo
                 " && echo \"" .. final_message .. "\""
@@ -136,7 +136,7 @@ function M.action(selected_option)
           local filename = vim.fn.fnamemodify(file, ":t")
           local output_o = output_dir .. filename .. ".o"
           file = utils.os_path(file, true)
-          local task = { "shell", name = "- Build program → " .. file,
+          local task = { name = "- Build program → " .. file,
             cmd = "rm -f \"" .. output .. "\" || true" ..                                       -- clean
                   " && mkdir -p \"" .. output_dir .. "\"" ..                                    -- mkdir
                   " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments .. -- compile
@@ -148,7 +148,7 @@ function M.action(selected_option)
         end
         -- Link .o files
         files = table.concat(files ," ") -- table to string
-        local task_link = { "shell", name = "- Link program → " .. entry_point,
+        local task_link = { name = "- Link program → " .. entry_point,
           cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..              -- link
                " && rm -f " .. files ..  " || true" ..                       -- clean
                " && echo \"" .. entry_point .. "\""  ..                      -- echo
@@ -163,7 +163,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           utils.os_path(executable, true)
-          task = { "shell", name = "- Run program → " .. executable,
+          task = { name = "- Run program → " .. executable,
             cmd = executable ..                                              -- run
                   " && echo && echo " .. executable ..                       -- echo
                   " && echo \"" .. final_message .. "\""
@@ -200,7 +200,7 @@ function M.action(selected_option)
           local filename = vim.fn.fnamemodify(file, ":t")
           local output_o = output_dir .. filename .. ".o"
           file = utils.os_path(file, true)
-          local task = { "shell", name = "- Build program → " .. file,
+          local task = { name = "- Build program → " .. file,
             cmd = "rm -f \"" .. output .. "\" || true" ..                                       -- clean
                   " && mkdir -p \"" .. output_dir .. "\"" ..                                    -- mkdir
                   " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments .. -- compile
@@ -212,7 +212,7 @@ function M.action(selected_option)
         end
         -- Link .o files
         files = table.concat(files ," ") -- table to string
-        local task_link = { "shell", name = "- Link program → \"" .. entry_point .. "\"",
+        local task_link = { name = "- Link program → \"" .. entry_point .. "\"",
           cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..              -- link
                " && rm -f " .. files ..  " || true" ..                       -- clean
                " && echo \"" .. entry_point .. "\"" ..                       -- echo
