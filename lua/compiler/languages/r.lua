@@ -114,7 +114,7 @@ function M.action(selected_option)
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Start REPL",
           cmd = "R" ..                                                               -- run
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
