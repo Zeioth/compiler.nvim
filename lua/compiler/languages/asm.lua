@@ -29,7 +29,7 @@ function M.action(selected_option)
       local filename = vim.fn.fnamemodify(file, ":t")
       local output_o = output_dir .. filename .. ".o"
       file = utils.os_path(file, true)
-      local task = { name = "- Build program → \"" .. file .. "\"",
+      local task = { name = "- Build program → " .. file,
         cmd = "rm -f \"" .. output .. "\" || true" ..                                       -- clean
               " && mkdir -p \"" .. output_dir .. "\"" ..                                    -- mkdir
               " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" ".. arguments ..  -- compile
