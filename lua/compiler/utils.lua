@@ -7,6 +7,7 @@ local M = {}
 -- in all directories under start_dir.
 ---@param start_dir string A dir path string.
 ---@param file_name string A file path string.
+---@param surround boolean If true, surround every returned path by "". False by default.
 ---@return table files If any, a tables of files. Otherwise, a Empty table.
 function M.find_files(start_dir, file_name, surround)
   local files = {}
@@ -38,6 +39,8 @@ end
 
 ---Search recursively, starting by the directory
 -- of the entry_point file. Return files matching the pattern.
+--
+-- The paths returned are surrounded by "".
 ---@param entry_point string Entry point file of the program.
 ---@param pattern string File extension to search.
 ---@return string files_as_string Files separated by a space.
@@ -143,7 +146,7 @@ end
 ---
 ---This way the shell will be able to detect spaces in the path.
 ---@param path string A path string.
----@param surround boolean|nil path will be surrounded by "" unless 'false'.
+---@param surround boolean|nil If true, surround path by "". False by default.
 ---@return string|nil,nil path A path string formatted for the current OS.
 function M.os_path(path, surround)
   if path == nil then return nil end
