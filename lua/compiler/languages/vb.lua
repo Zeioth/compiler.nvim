@@ -17,9 +17,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Visual basic dotnet compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Dotnet build & run → .vbproj",
+        tasks = {{ "shell", name = "- Dotnet build & run → \"Program.vbproj\"",
           cmd = "dotnet run" ..                                              -- compile and run
-                " && echo '" .. final_message .. "'"                         -- echo
+                " && echo \"" .. final_message .. "\""                       -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -27,9 +27,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Visual basic dotnet compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Dotnet build → .vbproj",
+        tasks = {{ "shell", name = "- Dotnet build → \"Program.vbproj\"",
           cmd = "dotnet build" ..                                            -- compile
-                " && echo '" .. final_message .. "'"                         -- echo
+                " && echo \"" .. final_message .. "\""                       -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")

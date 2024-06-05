@@ -13,8 +13,8 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local current_file = vim.fn.expand('%:p')                                  -- current file
-  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.lua")          -- working_directory/main.lua
+  local current_file = utils.os_path(vim.fn.expand('%:p'), true)             -- current file
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.lua", true)    -- working_directory/main.lua
   local arguments = ""
   local final_message = "--task finished--"
 
@@ -25,7 +25,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Run this file → " .. current_file,
           cmd =  "lua " .. current_file ..                                   -- run (interpreted)
                 " && echo " .. current_file ..                               -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -36,7 +36,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
             cmd = "lua " .. entry_point ..                                   -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -53,12 +53,12 @@ function M.action(selected_option)
 
       for entry, variables in pairs(config) do
         if entry == "executables" then goto continue end
-        entry_point = utils.os_path(variables.entry_point)
+        entry_point = utils.os_path(variables.entry_point, true)
         arguments = variables.arguments or arguments -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "lua " .. arguments .. " " .. entry_point ..                 -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
@@ -67,10 +67,11 @@ function M.action(selected_option)
       local solution_executables = config["executables"]
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
+          executable = utils.os_path(executable, true)
           task = { "shell", name = "- Run program → " .. executable,
             cmd = executable ..                                              -- run
                   " && echo " .. executable ..                               -- echo
-                  " && echo '" .. final_message .. "'"
+                  " && echo \"" .. final_message .. "\""
           }
           table.insert(executables, task) -- store all the executables we've created
         end
@@ -89,11 +90,11 @@ function M.action(selected_option)
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.lua")
       for _, entry_point in ipairs(entry_points) do
-        entry_point = utils.os_path(entry_point)
+        entry_point = utils.os_path(entry_point, true)
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "lua " .. arguments .. " " .. entry_point ..                 -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         }
         table.insert(tasks, task) -- store all the tasks we've created
       end

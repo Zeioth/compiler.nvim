@@ -15,8 +15,8 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local entry_point = vim.fn.expand('%:p')                                   -- current buffer
-  local arguments = ""                                                       -- arguments can be overriden in .solution
+  local entry_point = utils.os_path(vim.fn.expand('%:p'), true)                  -- current buffer
+  local arguments = ""                                                           -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
 
@@ -27,7 +27,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
           cmd = entry_point ..                                                   -- run
                 " && echo " .. entry_point ..                                    -- echo
-                " && echo '" .. final_message .. "'"                             -- echo
+                " && echo \"" .. final_message .. "\""                           -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -44,12 +44,12 @@ function M.action(selected_option)
 
       for entry, variables in pairs(config) do
         if entry == "executables" then goto continue end
-        entry_point = utils.os_path(variables.entry_point)
+        entry_point = utils.os_path(variables.entry_point, true)
         arguments = variables.arguments or "" -- optional
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = (arguments == "" and "" or arguments .. " ") .. entry_point  ..  -- run
                 " && echo " .. entry_point ..                                    -- echo
-                " && echo '" .. final_message .. "'"                             -- echo
+                " && echo \"" .. final_message .. "\""                           -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
@@ -58,10 +58,11 @@ function M.action(selected_option)
       local solution_executables = config["executables"]
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
+          executable = utils.os_path(executable, true)
           task = { "shell", name = "- Run program → " .. executable,
             cmd = executable ..                                                  -- run
                   " && echo " .. executable ..                                   -- echo
-                  " && echo '" .. final_message .. "'"
+                  " && echo \"" .. final_message .. "\""
           }
           table.insert(executables, task) -- store all the executables we've created
         end
@@ -81,17 +82,17 @@ function M.action(selected_option)
       entry_points = utils.find_files(vim.fn.getcwd(), "main.sh")
 
       for _, entry_point in ipairs(entry_points) do
-        entry_point = utils.os_path(entry_point)
+        entry_point = utils.os_path(entry_point, true)
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = entry_point ..                                                   -- run
                 " && echo " .. entry_point ..                                    -- echo
-                " && echo '" .. final_message .. "'"                             -- echo
+                " && echo \"" .. final_message .. "\""                           -- echo
         }
         table.insert(tasks, task) -- store all the tasks we've created
       end
 
       task = overseer.new_task({ -- run all tasks we've created in parallel
-        name = "- hell interpreter", strategy = { "orchestrator", tasks = tasks }
+        name = "- Shell interpreter", strategy = { "orchestrator", tasks = tasks }
       })
 
       task:start()

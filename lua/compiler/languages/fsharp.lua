@@ -18,9 +18,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- F# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Dotnet build & run → .fsroj",
-          cmd = "dotnet run" ..                                                      -- compile and run
-                " && echo '" .. final_message .. "'"                                 -- echo
+        tasks = {{ "shell", name = "- Dotnet build & run → \".fsroj\"",
+          cmd = "dotnet run" ..                                              -- compile and run
+                " && echo \"" .. final_message .. "\""                       -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -28,9 +28,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- F# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Dotnet build → .fsproj",
-          cmd = "dotnet build" ..                                                    -- compile
-                " && echo '" .. final_message .. "'"                                 -- echo
+        tasks = {{ "shell", name = "- Dotnet build → \".fsproj\"",
+          cmd = "dotnet build" ..                                            -- compile
+                " && echo \"" .. final_message .. "\""                       -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -39,9 +39,9 @@ function M.action(selected_option)
       name = "- F# REPL",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Start REPL",
-          cmd = "echo 'To exit the REPL enter #q;;'" ..                              -- echo
-                " ; dotnet fsi" ..                                                   -- run
-                " ; echo '" .. final_message .. "'"
+          cmd = "echo 'To exit the REPL enter #q;;'" ..                      -- echo
+                " ; dotnet fsi" ..                                           -- run
+                " ; echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")

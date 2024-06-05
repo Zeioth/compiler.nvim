@@ -29,13 +29,13 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
-          cmd = "rm -f " .. output ..  " || true" ..                              -- clean
-                " && mkdir -p " .. output_dir ..                                  -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. arguments ..  -- compile bytecode
-                " && mono " .. output ..                                          -- run
-                " ; echo " .. entry_point ..                                      -- echo
-                " ; echo '" .. final_message .. "'"
+        tasks = {{ "shell", name = "- Build & run program → \"" .. entry_point .. "\"",
+          cmd = "rm -f \"" .. output .. "\" || true" ..                            -- clean
+              " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
+              " && csc " .. files .. " -out:\"" .. output .. "\" " .. arguments .. -- compile bytecode
+              " && mono \"" .. output .. "\"" ..                                   -- run
+              " ; echo \"" .. entry_point .. "\"" ..                               -- echo
+              " ; echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -43,12 +43,12 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..  " || true" ..                               -- clean
-                " && mkdir -p " .. output_dir ..                                   -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. arguments  ..  -- compile bytecode
-                " ; echo " .. entry_point ..                                       -- echo
-                " ; echo '" .. final_message .. "'"
+        tasks = {{ "shell", name = "- Build program → \"" .. entry_point .. "\"",
+          cmd = "rm -f \"" .. output .. "\" || true" ..                            -- clean
+              " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
+              " && csc " .. files .. " -out:\"" .. output .. "\" " .. arguments .. -- compile bytecode
+              " && echo \"" .. entry_point .. "\"" ..                              -- echo
+              " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -56,10 +56,10 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. entry_point,
-          cmd = "mono " .. output ..                                         -- run
-                " ; echo " .. output ..                                      -- echo
-                " ; echo '" .. final_message .. "'"
+        tasks = {{ "shell", name = "- Run program → \"" .. entry_point .. "\"",
+          cmd = "mono \"" .. output .. "\"" ..                                     -- run
+                " ; echo \"" .. entry_point .. "\"" ..                             -- echo
+                " ; echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -81,12 +81,12 @@ function M.action(selected_option)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
-        task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..  " || true" ..                               -- clean
-                " && mkdir -p " .. output_dir ..                                   -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. arguments  ..  -- compile bytecode
-                " && echo " .. entry_point ..                                      -- echo
-                " && echo '" .. final_message .. "'"
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
+          cmd = "rm -f \"" .. output .. "\" || true" ..                            -- clean
+              " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
+              " && csc " .. files .. " -out:\"" .. output .. "\" " .. arguments .. -- compile bytecode
+              " && echo \"" .. entry_point .. "\"" ..                              -- echo
+              " && echo \"" .. final_message .. "\""
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
@@ -95,10 +95,11 @@ function M.action(selected_option)
       local solution_executables = config["executables"]
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
+          executable = utils.os_path(executable, true)
           task = { "shell", name = "- Run program → " .. executable,
             cmd = "mono " .. executable ..                                         -- run
-                  " && echo " .. executable ..                                     -- echo
-                  " && echo '" .. final_message .. "'"
+                  " ; echo " .. executable ..                                      -- echo
+                  " ; echo \"" .. final_message .. "\""
           }
           table.insert(executables, task) -- store all the executables we've created
         end
@@ -122,12 +123,12 @@ function M.action(selected_option)
         files = utils.find_files_to_compile(entry_point, "*.cs")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
         output = utils.os_path(output_dir .. "/program")                              -- entry_point/bin/program
-        task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..  " || true" ..                                 -- clean
-                " && mkdir -p " .. output_dir ..                                     -- mkdir
-                " && csc " .. files .. " -out:" .. output .. " " .. arguments  ..    -- compile bytecode
-                " && echo " .. entry_point ..                                        -- echo
-                " && echo '" .. final_message .. "'"
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
+          cmd = "rm -f \"" .. output .. "\" || true" ..                            -- clean
+              " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
+              " && csc " .. files .. " -out:\"" .. output .. "\" " .. arguments .. -- compile
+              " && echo \"" .. entry_point .. "\"" ..                              -- echo
+              " && echo \"" .. final_message .. "\""
         }
         table.insert(tasks, task) -- store all the tasks we've created
       end
@@ -142,9 +143,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Dotnet build & run → .csproj",
-          cmd = "dotnet run" ..                                                      -- compile and run
-                " && echo '" .. final_message .. "'"                                 -- echo
+        tasks = {{ "shell", name = "- Dotnet build & run → \"Program.csproj\"",
+          cmd = "dotnet run" ..                                                    -- compile and run
+                " && echo \"" .. final_message .. "\""                             -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -152,9 +153,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Dotnet build → .csproj",
-          cmd = "dotnet build" ..                                                    -- compile
-                " && echo '" .. final_message .. "'"                                 -- echo
+        tasks = {{ "shell", name = "- Dotnet build → \"Program.csproj\"",
+          cmd = "dotnet build" ..                                                  -- compile
+                " && echo \"" .. final_message .. "\""                             -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -162,9 +163,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Dotnet watch → .csproj",
-          cmd = "dotnet watch" ..                                                     -- compile
-                " && echo '" .. final_message .. "'"                                  -- echo
+        tasks = {{ "shell", name = "- Dotnet watch → \"Program.csproj\"",
+          cmd = "dotnet watch" ..                                                  -- compile
+                " && echo \"" .. final_message .. "\""                             -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")

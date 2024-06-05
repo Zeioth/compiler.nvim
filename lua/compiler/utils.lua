@@ -2,12 +2,17 @@
 
 local M = {}
 
+
 ---Recursively searches for files with the given name
--- in all directories under start_dir.
+--- in all directories under start_dir.
+---
+--- Use this function instead of `find_files_to_compile()` if you need
+--- to operate the paths after calling the function.
 ---@param start_dir string A dir path string.
 ---@param file_name string A file path string.
+---@param surround boolean|nil If true, surround every returned path by "". False by default.
 ---@return table files If any, a tables of files. Otherwise, a Empty table.
-function M.find_files(start_dir, file_name)
+function M.find_files(start_dir, file_name, surround)
   local files = {}
 
   -- Create the find command with appropriate flags for recursive searching
@@ -22,7 +27,11 @@ function M.find_files(start_dir, file_name)
   local pipe = io.popen(find_command, "r")
   if pipe then
     for file_path in pipe:lines() do
-      table.insert(files, file_path)
+      if surround then
+        table.insert(files, '"' .. file_path .. '"')
+      else
+        table.insert(files, file_path)
+      end
       --print("Found file:", file_path)
     end
     pipe:close()
@@ -32,14 +41,16 @@ function M.find_files(start_dir, file_name)
 end
 
 ---Search recursively, starting by the directory
--- of the entry_point file. Return files matching the pattern.
+---of the entry_point file. Return files matching the pattern.
+---
+---The paths returned are surrounded by "".
 ---@param entry_point string Entry point file of the program.
 ---@param pattern string File extension to search.
 ---@return string files_as_string Files separated by a space.
 ---@usage find_files_to_compile("/path/to/main.c", "*.c")
 function M.find_files_to_compile(entry_point, pattern)
   local entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
-  local files = M.find_files(entry_point_dir, pattern)
+  local files = M.find_files(entry_point_dir, pattern, true)
   local files_as_string = table.concat(files ," ")
 
   return files_as_string
@@ -48,8 +59,8 @@ end
 ---Parse the solution file and extract variables.
 ---@param file_path string Path of the solution file to read.
 ---@return table config A table like { {entry_point, ouptput, ..} .. }
--- The last table will only contain the solution executables like:
--- { "/path/to/executable", ... }
+---The last table will only contain the solution executables like:
+---{ "/path/to/executable", ... }
 function M.parse_solution_file(file_path)
   local file = assert(io.open(file_path, "r"))
   local config = {}
@@ -120,9 +131,9 @@ function M.file_exists(filename)
 end
 
 ---Function that returns the path of the .solution file if exists in the current
--- working diectory root, or nil otherwise.
+---working diectory root, or nil otherwise.
 ---@return string|nil path Path of the .solution file if exists in the current
--- working diectory root, or nil otherwise.
+---working diectory root, or nil otherwise.
 function M.get_solution_file()
   if M.file_exists(".solution.toml") then
     return  M.os_path(vim.fn.getcwd() .. "/.solution.toml")
@@ -134,13 +145,22 @@ function M.get_solution_file()
 end
 
 ---Given a string, convert 'slash' to 'inverted slash' if on windows, and vice versa on UNIX.
--- Then return the resulting string.
+---Then return the resulting string surrounded by "".
+---
+---This way the shell will be able to detect spaces in the path.
 ---@param path string A path string.
+---@param surround boolean|nil If true, surround path by "". False by default.
 ---@return string|nil,nil path A path string formatted for the current OS.
-function M.os_path(path)
+function M.os_path(path, surround)
   if path == nil then return nil end
-  -- Get the platform-specific path separator
+  if surround == nil then surround = false end
+
   local separator = string.sub(package.config, 1, 1)
+
+  if surround then
+      path = '"' .. path .. '"'
+  end
+
   return string.gsub(path, '[/\\]', separator)
 end
 

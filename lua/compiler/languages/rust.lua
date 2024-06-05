@@ -21,9 +21,9 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.rs")           -- working_directory/main.rs
-  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
-  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.rs", true)     -- working_directory/main.rs
+  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/", true)         -- working_directory/bin/
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program", true)      -- working_directory/bin/program
   local arguments = "-D warnings -g"                                         -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
@@ -37,7 +37,7 @@ function M.action(selected_option)
                 " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments ..  -- compile
                 " && " .. output ..                                                     -- run
                 " && echo " .. entry_point ..                                           -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -50,7 +50,7 @@ function M.action(selected_option)
                 " && mkdir -p " .. output_dir ..                                        -- mkdir
                 " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments ..  -- compile
                 " && echo " .. entry_point ..                                           -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -59,9 +59,9 @@ function M.action(selected_option)
       name = "- Rust compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd = output ..                                                  -- run
-                " && echo " .. output ..                                     -- echo
-                " && echo '" .. final_message .. "'"
+            cmd = output ..                                                             -- run
+                " && echo " .. output ..                                                -- echo
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -82,12 +82,12 @@ function M.action(selected_option)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
-        task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..  " || true" ..                                    -- clean
-                " && mkdir -p " .. output_dir ..                                        -- mkdir
-                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments ..  -- compile
-                " && echo " .. entry_point ..                                           -- echo
-                " && echo '" .. final_message .. "'"
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
+          cmd = "rm -f \"" .. output ..  "\" || true" ..                                        -- clean
+                " && mkdir -p \"" .. output_dir .. "\"" ..                                      -- mkdir
+                " && rustc \"" .. entry_point .. "\" -o \"" .. output .. "\" " .. arguments ..  -- compile
+                " && echo \"" .. entry_point .. "\"" ..                                         -- echo
+                " && echo \"" .. final_message .. "\""
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
@@ -96,10 +96,11 @@ function M.action(selected_option)
       local solution_executables = config["executables"]
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
+          executable = utils.os_path(executable, true)
           task = { "shell", name = "- Run program → " .. executable,
             cmd = executable ..                                                         -- run
                   " && echo " .. executable ..                                          -- echo
-                  " && echo '" .. final_message .. "'"
+                  " && echo \"" .. final_message .. "\""
           }
           table.insert(executables, task) -- store all the executables we've created
         end
@@ -120,14 +121,14 @@ function M.action(selected_option)
 
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point)
-        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")      -- entry_point/bin
-        output = utils.os_path(output_dir .. "/program")                                  -- entry_point/bin/program
-        task = { "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..  " || true" ..                                     -- clean
-                " && mkdir -p " .. output_dir ..                                         -- mkdir
-                " && rustc " .. entry_point .. " -o " .. output .. " " .. arguments ..   -- compile
-                " && echo " .. entry_point ..                                            -- echo
-                " && echo '" .. final_message .. "'"
+        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")           -- entry_point/bin
+        output = utils.os_path(output_dir .. "/program")                                       -- entry_point/bin/program
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
+          cmd = "rm -f \"" .. output ..  "\" || true" ..                                       -- clean
+                " && mkdir -p \"" .. output_dir .. "\"" ..                                     -- mkdir
+                " && rustc \"" .. entry_point .. "\" -o \"" .. output .. "\" " .. arguments .. -- compile
+                " && echo \"" .. entry_point .. "\"" ..                                        -- echo
+                " && echo \"" .. final_message .. "\""
         }
         table.insert(tasks, task) -- store all the tasks we've created
       end
@@ -142,10 +143,10 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Rust compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Cargo build & run → " .. "Cargo.toml",
-          cmd = "cargo build " ..                                                       -- compile
-                " && cargo run" ..                                                      --run
-                " && echo '" .. final_message .. "'"                                    -- echo
+        tasks = {{ "shell", name = "- Cargo build & run → \"./Cargo.toml\"",
+          cmd = "cargo build " ..                                                        -- compile
+                " && cargo run" ..                                                       -- run
+                " && echo \"" .. final_message .. "\""                                   -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -153,9 +154,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Rust compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Cargo build → " .. "Cargo.toml",
-          cmd = "cargo build " ..                                                       -- compile
-                " && echo '" .. final_message .. "'"                                    -- echo
+        tasks = {{ "shell", name = "- Cargo build → \"./Cargo.toml\"",
+          cmd = "cargo build " ..                                                        -- compile
+                " && echo \"" .. final_message .. "\""                                   -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -163,9 +164,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Rust compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Cargo run → " .. "Cargo.toml",
-          cmd = "cargo run " ..                                                        -- run
-                " && echo '" .. final_message .. "'"                                   -- echo
+        tasks = {{ "shell", name = "- Cargo run → \"./Cargo.toml\"",
+          cmd = "cargo run " ..                                                          -- run
+                " && echo \"" .. final_message .. "\""                                   -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -173,10 +174,10 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Rust compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Cargo build --workspace & run → " .. "Cargo.toml",
-          cmd = "cargo build --workspace " ..                                          -- compile
+        tasks = {{ "shell", name = "- Cargo build --workspace & run → \"./Cargo.toml\"",
+          cmd = "cargo build --workspace " ..                                            -- compile
                 " && cargo run" ..
-                " && echo '" .. final_message .. "'"                                   -- echo
+                " && echo \"" .. final_message .. "\""                                   -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -184,9 +185,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Rust compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Cargo build --workspace → " .. "Cargo.toml",
-          cmd = "cargo build --workspace" ..                                           -- compile
-                " && echo '" .. final_message .. "'"                                   -- echo
+        tasks = {{ "shell", name = "- Cargo build --workspace → \"./Cargo.toml\"",
+          cmd = "cargo build --workspace" ..                                             -- compile
+                " && echo \"" .. final_message .. "\""                                   -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")

@@ -28,33 +28,34 @@ function M.action(selected_option)
     for _, file in pairs(files) do
       local filename = vim.fn.fnamemodify(file, ":t")
       local output_o = output_dir .. filename .. ".o"
+      file = utils.os_path(file, true)
       local task = { "shell", name = "- Build program → " .. file,
-        cmd = "rm -f " .. output .. " || true" ..                                       -- clean
-              " && mkdir -p " .. output_dir ..                                          -- mkdir
-              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " ".. arguments ..  -- compile
-              " && echo " .. file ..                                                    -- echo
-              " && echo '" .. final_message .. "'"
+        cmd = "rm -f \"" .. output .. "\" || true" ..                                       -- clean
+              " && mkdir -p \"" .. output_dir .. "\"" ..                                    -- mkdir
+              " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" ".. arguments ..  -- compile
+              " && echo " .. file ..                                                        -- echo
+              " && echo \"" .. final_message .. "\""
       }
-      files[_] = output_dir .. filename .. ".o" -- prepare for linker
+      files[_] = utils.os_path(output_dir .. filename .. ".o", true)         -- prepare for linker
       table.insert(tasks_compile, task)
     end
     -- Link .o files
     files = table.concat(files ," ") -- table to string
-    local task_link = { "shell", name = "- Link program → " .. entry_point,
-      cmd = "ld " .. files .. " -o " .. output ..                                  -- link
-            " && rm -f " .. files .. " || true" ..                                 -- clean
-            " && " .. output ..                                                    -- run
-            " && echo " .. entry_point ..                                          -- echo
-            " && echo '" .. final_message .. "'"
+    local task_link = { "shell", name = "- Link program → \"" .. entry_point .."\"" ,
+      cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..                  -- link
+            " && rm -f " .. files .. " || true" ..                           -- clean
+            " && \"" .. output .. "\"" ..                                    -- run
+            " && echo && echo \"" .. entry_point .. "\"" ..                  -- echo
+            " && echo \"" .. final_message .. "\""
     }
     -- Run program
-    local task_run = { "shell", name = "- Run program → " .. output,
-      cmd = output ..                                                              -- run
-            " && echo " .. output ..                                               -- echo
-            " && echo '" .. final_message .. "'"
+    local task_run = { "shell", name = "- Run program → \"" .. output .. "\"",
+      cmd = utils.os_path(output, true) ..                                   -- run
+            " && echo && echo \"" .. output .. "\"" ..                       -- echo
+            " && echo \"" .. final_message .. "\""
     }
     -- Runs tasks in order
-    task = overseer.new_task({
+    local task = overseer.new_task({
       name = "- Assembly compiler", strategy = { "orchestrator",
         tasks = {
           tasks_compile, -- Build .asm files in parallel
@@ -70,23 +71,24 @@ function M.action(selected_option)
     for _, file in pairs(files) do
       local filename = vim.fn.fnamemodify(file, ":t")
       local output_o = output_dir .. filename .. ".o"
+      file = utils.os_path(file, true)
       local task = { "shell", name = "- Build program → " .. file,
-        cmd = "rm -f " .. output .. " || true" ..                                          -- clean
-              " && mkdir -p " .. output_dir ..                                             -- mkdir
-              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. arguments  ..   -- compile
-              " && echo " .. file ..                                                       -- echo
-              " && echo '" .. final_message .. "'"
+        cmd = "rm -f \"" .. output .. "\" || true" ..                                        -- clean
+              " && mkdir -p \"" .. output_dir .. "\"" ..                                     -- mkdir
+              " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments  .. -- compile
+              " && echo " .. file ..                                                         -- echo
+              " && echo \"" .. final_message .. "\""
       }
-      files[_] = output_dir .. filename .. ".o" -- prepare for linker
+      files[_] = utils.os_path(output_dir .. filename .. ".o", true)         -- prepare for linker
       table.insert(tasks_compile, task)
     end
     -- Link .o files
     files = table.concat(files ," ") -- table to string
-    local task_link = { "shell", name = "- Link program → " .. entry_point,
-      cmd = "ld " .. files .. " -o " .. output ..                                  -- link
-           " && rm -f " .. files .. " || true" ..                                  -- clean
-           " && echo " .. entry_point ..                                           -- echo
-           " && echo '" .. final_message .. "'"
+    local task_link = { "shell", name = "- Link program → \"" .. entry_point .. "\"",
+      cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..                  -- link
+           " && rm -f " .. files .. " || true" ..                            -- clean
+           " && echo \"" .. entry_point .. "\"" ..                           -- echo
+           " && echo \"" .. final_message .. "\""
     }
     -- Runs tasks in order
     local task = overseer.new_task({
@@ -101,10 +103,10 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Assembly compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. output,
-          cmd = output ..                                                          -- run
-                " && echo && echo " .. output ..                                   -- echo
-                " && echo '" .. final_message .. "'"
+        tasks = {{ "shell", name = "- Run program → \"" .. output .. "\"",
+          cmd = "\"" .. output .. "\"" ..                                    -- run
+                " && echo && echo \"" .. output .. "\"" ..                   -- echo
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -124,8 +126,8 @@ function M.action(selected_option)
         entry_point = utils.os_path(variables.entry_point)
         entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
         files = utils.find_files(entry_point_dir, "*.asm")
-        output = utils.os_path(variables.output)                              -- entry_point/bin/program
-        output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))        -- entry_point/bin
+        output = utils.os_path(variables.output)                             -- entry_point/bin/program
+        output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))       -- entry_point/bin
         arguments = variables.arguments or arguments -- optional
 
         -- Build .asm files in parallel
@@ -133,23 +135,24 @@ function M.action(selected_option)
         for _, file in pairs(files) do
           local filename = vim.fn.fnamemodify(file, ":t")
           local output_o = output_dir .. filename .. ".o"
+          file = utils.os_path(file, true)
           local task = { "shell", name = "- Build program → " .. file,
-            cmd = "rm -f " .. output .. " || true" ..                                       -- clean
-                  " && mkdir -p " .. output_dir ..                                          -- mkdir
-                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. arguments .. -- compile
-                  " && echo " .. file ..                                                    -- echo
-                  " && echo '" .. final_message .. "'"
+            cmd = "rm -f \"" .. output .. "\" || true" ..                                       -- clean
+                  " && mkdir -p \"" .. output_dir .. "\"" ..                                    -- mkdir
+                  " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments .. -- compile
+                  " && echo " .. file ..                                                        -- echo
+                  " && echo \"" .. final_message .. "\""
           }
-          files[_] = output_dir .. filename .. ".o" -- prepare for linker
+          files[_] = utils.os_path(output_dir .. filename .. ".o", true)     -- prepare for linker
           table.insert(tasks_compile, task)
         end
         -- Link .o files
         files = table.concat(files ," ") -- table to string
         local task_link = { "shell", name = "- Link program → " .. entry_point,
-          cmd = "ld " .. files .. " -o " .. output ..                            -- link
-               " && rm -f " .. files ..  " || true" ..                           -- clean
-               " && echo " .. entry_point ..                                     -- echo
-               " && echo '" .. final_message .. "'"
+          cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..              -- link
+               " && rm -f " .. files ..  " || true" ..                       -- clean
+               " && echo \"" .. entry_point .. "\""  ..                      -- echo
+               " && echo \"" .. final_message .. "\""
         }
         table.insert(tasks, tasks_compile) -- store all the tasks we've created
         table.insert(tasks, task_link)
@@ -159,10 +162,11 @@ function M.action(selected_option)
       local solution_executables = config["executables"]
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
+          utils.os_path(executable, true)
           task = { "shell", name = "- Run program → " .. executable,
-            cmd = executable ..                                                  -- run
-                  " && echo " .. executable ..                                   -- echo
-                  " && echo '" .. final_message .. "'"
+            cmd = executable ..                                              -- run
+                  " && echo && echo " .. executable ..                       -- echo
+                  " && echo \"" .. final_message .. "\""
           }
           table.insert(executables, task)  -- store all the executables we've created
           table.insert(tasks, executables)
@@ -187,31 +191,32 @@ function M.action(selected_option)
         entry_point = utils.os_path(entry_point)
         entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
         files = utils.find_files(entry_point_dir, "*.asm")
-        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")        -- entry_point/bin
-        output = utils.os_path(output_dir .. "/program")                                    -- entry_point/bin/program
+        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
+        output = utils.os_path(output_dir .. "/program")                              -- entry_point/bin/program
 
         -- Build .asm files in parallel
         local tasks_compile = {}
         for _, file in pairs(files) do
           local filename = vim.fn.fnamemodify(file, ":t")
           local output_o = output_dir .. filename .. ".o"
+          file = utils.os_path(file, true)
           local task = { "shell", name = "- Build program → " .. file,
-            cmd = "rm -f " .. output .. " || true" ..                                        -- clean
-                  " && mkdir -p " .. output_dir ..                                           -- mkdir
-                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. arguments ..  -- compile
-                  " && echo " .. file ..                                                     -- echo
-                  " && echo '" .. final_message .. "'"
+            cmd = "rm -f \"" .. output .. "\" || true" ..                                       -- clean
+                  " && mkdir -p \"" .. output_dir .. "\"" ..                                    -- mkdir
+                  " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments .. -- compile
+                  " && echo " .. file ..                                                        -- echo
+                  " && echo \"" .. final_message .. "\""
           }
-          files[_] = output_dir .. filename .. ".o" -- prepare for linker
+          files[_] = utils.os_path(output_dir .. filename .. ".o", true)     -- prepare for linker
           table.insert(tasks_compile, task)
         end
         -- Link .o files
         files = table.concat(files ," ") -- table to string
-        local task_link = { "shell", name = "- Link program → " .. entry_point,
-          cmd = "ld " .. files .. " -o " .. output ..                            -- link
-               " && rm -f " .. files ..  " || true" ..                           -- clean
-               " && echo " .. entry_point ..                                     -- echo
-               " && echo '" .. final_message .. "'"
+        local task_link = { "shell", name = "- Link program → \"" .. entry_point .. "\"",
+          cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..              -- link
+               " && rm -f " .. files ..  " || true" ..                       -- clean
+               " && echo \"" .. entry_point .. "\"" ..                       -- echo
+               " && echo \"" .. final_message .. "\""
         }
         table.insert(tasks, tasks_compile) -- store all the tasks we've created
         table.insert(tasks, task_link)

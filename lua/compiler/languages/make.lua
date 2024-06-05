@@ -24,7 +24,7 @@ function M.run_makefile()
   -- Run makefile
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local makefile = utils.os_path(vim.fn.getcwd() .. "/Makefile")
+  local makefile = utils.os_path(vim.fn.getcwd() .. "/Makefile", true)
   local final_message = "--task finished--"
   local task = overseer.new_task({
     name = "- Make interpreter",
@@ -32,7 +32,7 @@ function M.run_makefile()
       tasks = {{ "shell", name = "- Run Makefile → " .. makefile,
           cmd = "make -f " .. makefile ..                                    -- run
                 " && echo " .. makefile ..                                   -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
       },},},})
   task:start()
   vim.cmd("OverseerOpen")

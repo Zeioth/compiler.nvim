@@ -21,17 +21,17 @@ function M.action(option)
   if clean_first == "true" then clean_first_arg = "--clean-first" end
 
   -- Run command
-  local cmd_build = "cmake -S . -B " .. build_dir .. " -DCMAKE_BUILD_TYPE=" .. build_type
-  local cmd_target = "cmake --build " .. build_dir .. " --target " .. option .. " " .. clean_first_arg
+  local cmd_build = "cmake -S . -B \"" .. build_dir .. "\" -DCMAKE_BUILD_TYPE=" .. build_type
+  local cmd_target = "cmake --build \"" .. build_dir .. "\" --target " .. option .. " " .. clean_first_arg
   local task = overseer.new_task({
     name = "- CMake interpreter",
     strategy = { "orchestrator",
       tasks = {{ "shell", name = "- Run CMake → " .. option,
-        cmd = "mkdir -p " .. build_dir ..
+        cmd = "mkdir -p \"" .. build_dir .. "\"" ..
               " && " .. cmd_build ..                                         -- Build to 'build' directory.
               " && " .. cmd_target ..                                        -- Build target from the 'build' directory.
               " && echo '" .. cmd_build .. " && " .. cmd_target .. "'" ..    -- echo
-              " && echo '" .. final_message .. "'"
+              " && echo \"" .. final_message .. "\""
       },},},})
   task:start()
   vim.cmd("OverseerOpen")

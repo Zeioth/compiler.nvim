@@ -12,8 +12,8 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local current_file = vim.fn.expand('%:p')                                   -- current file
-  local entry_point = utils.os_path(vim.fn.getcwd() .. "/src/index.js")       -- working_directory/index.js
+  local current_file = utils.os_path(vim.fn.expand('%:p'), true)               -- current file
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/src/index.js", true)  -- working_directory/index.js
   local arguments = ""
   local final_message = "--task finished--"
 
@@ -24,7 +24,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Run this file → " .. current_file,
           cmd = "node " .. arguments .. " " .. current_file ..               -- run program (interpreted)
                 " && echo " .. current_file ..                               -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -35,7 +35,7 @@ function M.action(selected_option)
         tasks = {{ "shell", name = "- Run this program → " .. entry_point,
           cmd = "node " .. arguments .. " " .. entry_point ..                -- run program (interpreted)
                 " && echo " .. entry_point ..                                -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")

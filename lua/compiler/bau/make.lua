@@ -12,7 +12,7 @@ function M.action(option)
       tasks = {{ "shell", name = "- Run makefile → make " .. option ,
         cmd = "make ".. option ..                                            -- run
               " && echo make " .. option ..                                  -- echo
-              " && echo '" .. final_message .. "'"
+              " && echo \"" .. final_message .. "\""
       },},},})
   task:start()
   vim.cmd("OverseerOpen")

@@ -7,13 +7,14 @@ M.options = {
   { text = "Run this file", value = "option1" },
   { text = "FPM build and run", value = "option2" },
   { text = "FPM build", value = "option3" },
+  { text = "FPM run", value = "option4" },
 }
 
 -- Backend - overseer tasks performed on option selected
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local current_file = vim.fn.expand('%:p')                                                -- current file
+  local current_file = utils.os_path(vim.fn.expand('%:p'), true)                           -- current file
   local output_dir = utils.os_path(vim.fn.stdpath("cache") .. "/compiler/fortran/")        -- working_directory/bin/
   local output = output_dir .. "program"                                                   -- working_directory/bin/program
   local arguments = ""                                                                     -- arguments can be overriden in .solution
@@ -24,12 +25,12 @@ function M.action(selected_option)
       name = "- Fortran compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run this file → " .. current_file,
-          cmd = "rm -f " .. output ..  " || true" ..                                       -- clean
-                " && mkdir -p " .. output_dir ..                                           -- mkdir
-                " && gfortran " .. current_file .. " -o " .. output .. " " .. arguments .. -- compile
+          cmd = "rm -f \"" .. output ..  "\" || true" ..                                   -- clean
+                " && mkdir -p \"" .. output_dir .. "\"" ..                                 -- mkdir
+                " && gfortran " .. current_file .. " -o \"" .. output .. "\" " .. arguments .. -- compile
                 " && " .. output ..                                                        -- run
                 " && echo " .. current_file ..                                             -- echo
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -37,10 +38,10 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Fortran compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- fpm build & run → " .. "fpm.toml",
+        tasks = {{ "shell", name = "- fpm build & run → " .. "\"./fpm.toml\"",
           cmd = "fpm build " ..                                              -- compile
                 " && fpm run" ..                                             -- run
-                " && echo '" .. final_message .. "'"                         -- echo
+                " && echo \"" .. final_message .. "\""                       -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -48,9 +49,19 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Fortran compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- fpm build → " .. "fpm.toml",
+        tasks = {{ "shell", name = "- fpm build → " .. "\"./fpm.toml\"",
           cmd = "fpm build " ..                                              -- compile
-                " && echo '" .. final_message .. "'"                         -- echo
+                " && echo \"" .. final_message .. "\""                       -- echo
+        },},},})
+    task:start()
+    vim.cmd("OverseerOpen")
+  elseif selected_option == "option4" then
+    local task = overseer.new_task({
+      name = "- Fortran compiler",
+      strategy = { "orchestrator",
+        tasks = {{ "shell", name = "- fpm run → " .. "\"./fpm.toml\"",
+          cmd = "fpm run " ..                                                -- compile
+                " && echo \"" .. final_message .. "\""                       -- echo
         },},},})
     task:start()
     vim.cmd("OverseerOpen")

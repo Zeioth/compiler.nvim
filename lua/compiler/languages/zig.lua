@@ -21,9 +21,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Zig compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build & run program → build.zig",
+        tasks = {{ "shell", name = "- Build & run program → \"./build.zig\"",
           cmd = "zig build run " .. arguments ..                             -- compile and run
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
@@ -31,9 +31,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Zig compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build program → build.zig",
+        tasks = {{ "shell", name = "- Build program → \"./build.zig\"",
           cmd = "zig build " .. arguments ..                                 -- compile
-                " && echo '" .. final_message .. "'"
+                " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
     vim.cmd("OverseerOpen")
