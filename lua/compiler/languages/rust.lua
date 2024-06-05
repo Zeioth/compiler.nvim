@@ -59,8 +59,8 @@ function M.action(selected_option)
       name = "- Rust compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-            cmd = output ..                                                  -- run
-                " && echo " .. output ..                                     -- echo
+            cmd = output ..                                                             -- run
+                " && echo " .. output ..                                                -- echo
                 " && echo \"" .. final_message .. "\""
         },},},})
     task:start()

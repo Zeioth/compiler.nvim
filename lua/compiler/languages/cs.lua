@@ -34,7 +34,7 @@ function M.action(selected_option)
               " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
               " && csc " .. files .. " -out:\"" .. output .. "\" " .. arguments .. -- compile bytecode
               " && mono \"" .. output .. "\"" ..                                   -- run
-              " ; echo \"" .. entry_point .. "\"" ..                              -- echo
+              " ; echo \"" .. entry_point .. "\"" ..                               -- echo
               " ; echo \"" .. final_message .. "\""
         },},},})
     task:start()
@@ -58,7 +58,7 @@ function M.action(selected_option)
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
           cmd = "mono \"" .. output .. "\"" ..                                     -- run
-                " ; echo \"" .. entry_point .. "\"" ..                            -- echo
+                " ; echo \"" .. entry_point .. "\"" ..                             -- echo
                 " ; echo \"" .. final_message .. "\""
         },},},})
     task:start()
@@ -98,7 +98,7 @@ function M.action(selected_option)
           executable = utils.os_path(executable, true)
           task = { "shell", name = "- Run program → " .. executable,
             cmd = "mono " .. executable ..                                         -- run
-                  " ; echo " .. executable ..                                     -- echo
+                  " ; echo " .. executable ..                                      -- echo
                   " ; echo \"" .. final_message .. "\""
           }
           table.insert(executables, task) -- store all the executables we've created

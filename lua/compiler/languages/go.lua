@@ -27,11 +27,11 @@ function M.action(selected_option)
       name = "- Go compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build & run program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                -- clean
-                " && mkdir -p " .. output_dir ..                                     -- mkdir
-                " && go build " .. arguments .. " -o " .. output .. " " .. files ..  -- compile
-                " && " .. output ..                                                  -- run
-                " && echo " .. entry_point ..                                        -- echo
+          cmd = "rm -f " .. output ..                                                    -- clean
+                " && mkdir -p " .. output_dir ..                                         -- mkdir
+                " && go build " .. arguments .. " -o " .. output .. " " .. files ..      -- compile
+                " && " .. output ..                                                      -- run
+                " && echo " .. entry_point ..                                            -- echo
                 " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
@@ -41,10 +41,10 @@ function M.action(selected_option)
       name = "- Go compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → " .. entry_point,
-          cmd = "rm -f " .. output ..                                                -- clean
-                " && mkdir -p " .. output_dir ..                                     -- mkdir
-                " && go build " .. arguments .. " -o " .. output .. " " .. files ..  -- compile
-                " && echo " .. entry_point ..                                        -- echo
+          cmd = "rm -f " .. output ..                                                    -- clean
+                " && mkdir -p " .. output_dir ..                                         -- mkdir
+                " && go build " .. arguments .. " -o " .. output .. " " .. files ..      -- compile
+                " && echo " .. entry_point ..                                            -- echo
                 " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
@@ -54,8 +54,8 @@ function M.action(selected_option)
       name = "- Go compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Run program → " .. entry_point,
-          cmd = output ..                                                    -- run
-                " && echo " .. output ..                                     -- echo
+          cmd = output ..                                                                -- run
+                " && echo " .. output ..                                                 -- echo
                 " && echo \"" .. final_message .. "\""
         },},},})
     task:start()
@@ -79,10 +79,10 @@ function M.action(selected_option)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
         task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. "\"" ..                                         -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
-                " && go build " .. arguments .. " -o \"" .. output .. "\" " .. files .. -- compile
-                " && echo \"" .. entry_point .. "\"" ..                                 -- echo
+          cmd = "rm -f \"" .. output .. "\"" ..                                          -- clean
+                " && mkdir -p \"" .. output_dir .. "\"" ..                               -- mkdir
+                " && go build " .. arguments .. " -o \"" .. output .. "\" " .. files ..  -- compile
+                " && echo \"" .. entry_point .. "\"" ..                                  -- echo
                 " && echo \"" .. final_message .. "\""
         }
         table.insert(tasks, task) -- store all the tasks we've created
@@ -94,8 +94,8 @@ function M.action(selected_option)
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
           task = { "shell", name = "- Run program → " .. executable,
-            cmd = executable ..                                                      -- run
-                  " && echo " .. executable ..                                       -- echo
+            cmd = executable ..                                                          -- run
+                  " && echo " .. executable ..                                           -- echo
                   " && echo \"" .. final_message .. "\""
           }
           table.insert(executables, task) -- store all the executables we've created

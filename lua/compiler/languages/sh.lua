@@ -15,8 +15,8 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local entry_point = utils.os_path(vim.fn.expand('%:p'), true)              -- current buffer
-  local arguments = ""                                                       -- arguments can be overriden in .solution
+  local entry_point = utils.os_path(vim.fn.expand('%:p'), true)                  -- current buffer
+  local arguments = ""                                                           -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
 
