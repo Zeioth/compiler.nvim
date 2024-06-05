@@ -92,7 +92,7 @@ function M.action(selected_option)
       end
 
       task = overseer.new_task({ -- run all tasks we've created in parallel
-        name = "- hell interpreter", strategy = { "orchestrator", tasks = tasks }
+        name = "- Shell interpreter", strategy = { "orchestrator", tasks = tasks }
       })
 
       task:start()
