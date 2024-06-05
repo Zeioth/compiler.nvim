@@ -143,7 +143,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet build & run → \"*.csproj\"",
+        tasks = {{ name = "- Dotnet build & run → \"*Program.csproj\"",
           cmd = "dotnet run" ..                                                    -- compile and run
                 " && echo \"" .. final_message .. "\""                             -- echo
         },},},})
@@ -153,7 +153,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet build → \"*.csproj\"",
+        tasks = {{ name = "- Dotnet build → \"Program.csproj\"",
           cmd = "dotnet build" ..                                                  -- compile
                 " && echo \"" .. final_message .. "\""                             -- echo
         },},},})
@@ -163,7 +163,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet watch → \"*.csproj\"",
+        tasks = {{ name = "- Dotnet watch → \"Program.csproj\"",
           cmd = "dotnet watch" ..                                                  -- compile
                 " && echo \"" .. final_message .. "\""                             -- echo
         },},},})
