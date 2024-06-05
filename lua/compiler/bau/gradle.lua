@@ -1,14 +1,17 @@
 --- Build.gradle bau actions
 
 local M = {}
-local cmd = "./gradlew"
-local filename = "./gradlew"
-local is_gradlew = vim.fn.filereadable("./gradlew") == 1
+local utils = require("compiler.utils")
+
+local cmd = utils.os_path("./gradlew")
+local filename = "gradlew"
+local is_gradlew = vim.fn.filereadable(cmd) == 1
 
 -- Determine cmd prevalence: "gradlew > gradle.kts > gradle"
 if not is_gradlew then
   cmd = "gradle"
-  local is_kts = vim.fn.filereadable("./build.gradle.kts") == 1
+  local kts_path = utils.os_path("./build.gradle.kts")
+  local is_kts = vim.fn.filereadable(kts_path) == 1
   if is_kts then filename = "build.gradle.kts"
   else filename = "build.gradle" end
 end
@@ -28,7 +31,7 @@ function M.action(option)
       tasks = {{ "shell", name = "- " .. filename ..  " → " .. cmd .. " " .. option .. build_type,
         cmd = cmd .. " " .. option .. build_type ..                          -- run
               " && echo " .. cmd .. " "  .. option .. build_type ..          -- echo
-              " && echo '" .. final_message .. "'"
+              " && echo \"" .. final_message .. "\""
       },},},})
   task:start()
   vim.cmd("OverseerOpen")
