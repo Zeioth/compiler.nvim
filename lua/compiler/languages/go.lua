@@ -96,7 +96,7 @@ function M.action(selected_option)
           task = { "shell", name = "- Run program → " .. executable,
             cmd = executable ..                                                      -- run
                   " && echo " .. executable ..                                       -- echo
-                  " && echo '" .. final_message .. "'"
+                  " && echo \"" .. final_message .. "\""
           }
           table.insert(executables, task) -- store all the executables we've created
         end
