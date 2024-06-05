@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local bau = require("compiler.bau.meson")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/bau/meson"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/bau/meson"
 
 -- Run meson.build
 vim.api.nvim_set_current_dir(example)

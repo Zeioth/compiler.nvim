@@ -6,7 +6,7 @@ local language = require("compiler.languages.python")
 local example
 
 -- ============================= INTERPRETED ==================================
-example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/python/interpreted/"
+example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/python/interpreted/"
 
 -- Run program
 vim.api.nvim_set_current_dir(example .. "run-program/")
@@ -24,7 +24,7 @@ language.action("option3")
 vim.wait(ms)
 
 -- ============================= MACHINE CODE =================================
-example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/python/machine-code/"
+example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/python/machine-code/"
 
 -- Build and run
 vim.api.nvim_set_current_dir(example .. "build-and-run/")
@@ -51,7 +51,7 @@ language.action("option7")
 vim.wait(ms)
 
 -- =============================== BYTECODE ===================================
-example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/python/bytecode/"
+example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/python/bytecode/"
 
 -- Build and run
 vim.api.nvim_set_current_dir(example .. "build-and-run/")

@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local bau = require("compiler.bau.nodejs")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/bau/nodejs/"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/bau/nodejs/"
 
 -- Run nodejs javascript project
 vim.api.nvim_set_current_dir(example .. "javascript-app")

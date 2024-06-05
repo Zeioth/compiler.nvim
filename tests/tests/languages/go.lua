@@ -3,7 +3,7 @@
 
 local ms = 6000 -- wait time
 local language = require("compiler.languages.go")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/go/"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/go/"
 
 -- Build and run
 vim.api.nvim_set_current_dir(example .. "build-and-run/")

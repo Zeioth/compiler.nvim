@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local language = require("compiler.languages.fsharp")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/examples/languages/fsharp/"
+local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/fsharp/"
 
 -- Build and run dotnet
 vim.api.nvim_set_current_dir(example .. "build-and-run-dotnet/")
