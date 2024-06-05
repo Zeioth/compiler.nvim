@@ -4,7 +4,10 @@ local M = {}
 
 
 ---Recursively searches for files with the given name
--- in all directories under start_dir.
+--- in all directories under start_dir.
+---
+--- Use this function instead of `find_files_to_compile()` if you need
+--- to operate the paths after calling the function.
 ---@param start_dir string A dir path string.
 ---@param file_name string A file path string.
 ---@param surround boolean If true, surround every returned path by "". False by default.
@@ -38,9 +41,9 @@ function M.find_files(start_dir, file_name, surround)
 end
 
 ---Search recursively, starting by the directory
--- of the entry_point file. Return files matching the pattern.
---
--- The paths returned are surrounded by "".
+---of the entry_point file. Return files matching the pattern.
+---
+---The paths returned are surrounded by "".
 ---@param entry_point string Entry point file of the program.
 ---@param pattern string File extension to search.
 ---@return string files_as_string Files separated by a space.
@@ -56,8 +59,8 @@ end
 ---Parse the solution file and extract variables.
 ---@param file_path string Path of the solution file to read.
 ---@return table config A table like { {entry_point, ouptput, ..} .. }
--- The last table will only contain the solution executables like:
--- { "/path/to/executable", ... }
+---The last table will only contain the solution executables like:
+---{ "/path/to/executable", ... }
 function M.parse_solution_file(file_path)
   local file = assert(io.open(file_path, "r"))
   local config = {}
@@ -128,9 +131,9 @@ function M.file_exists(filename)
 end
 
 ---Function that returns the path of the .solution file if exists in the current
--- working diectory root, or nil otherwise.
+---working diectory root, or nil otherwise.
 ---@return string|nil path Path of the .solution file if exists in the current
--- working diectory root, or nil otherwise.
+---working diectory root, or nil otherwise.
 function M.get_solution_file()
   if M.file_exists(".solution.toml") then
     return  M.os_path(vim.fn.getcwd() .. "/.solution.toml")

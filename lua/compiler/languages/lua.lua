@@ -90,6 +90,7 @@ function M.action(selected_option)
       -- Create a list of all entry point files in the working directory
       entry_points = utils.find_files(vim.fn.getcwd(), "main.lua", true)
       for _, entry_point in ipairs(entry_points) do
+        entry_point = utils.os_path(entry_point, true)
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "lua " .. arguments .. " " .. entry_point ..                 -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo

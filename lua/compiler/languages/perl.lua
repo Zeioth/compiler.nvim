@@ -88,8 +88,9 @@ function M.action(selected_option)
 
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
-      entry_points = utils.find_files(vim.fn.getcwd(), "main.pl", true)
+      entry_points = utils.find_files(vim.fn.getcwd(), "main.pl")
       for _, entry_point in ipairs(entry_points) do
+        entry_point = utils.os_path(entry_point, true)
         task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "perl " .. arguments .. " " .. entry_point ..                -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
