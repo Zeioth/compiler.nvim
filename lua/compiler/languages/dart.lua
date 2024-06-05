@@ -167,7 +167,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Dart compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → " .. output,
+        tasks = {{ "shell", name = "- Run program → \"" .. output .. "\"",
           cmd = "\"" .. output .. "\"" ..                                          -- run
                 " && echo \"" .. entry_point .. "\"" ..                            -- echo
                 " && echo \"" .. final_message .. "\""
