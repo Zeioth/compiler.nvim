@@ -18,7 +18,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- F# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet build & run → \".fsroj\"",
+        tasks = {{ "shell", name = "- Dotnet build & run → \".fsroj\"",
           cmd = "dotnet run" ..                                              -- compile and run
                 " && echo \"" .. final_message .. "\""                       -- echo
         },},},})
@@ -28,7 +28,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- F# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet build → \".fsproj\"",
+        tasks = {{ "shell", name = "- Dotnet build → \".fsproj\"",
           cmd = "dotnet build" ..                                            -- compile
                 " && echo \"" .. final_message .. "\""                       -- echo
         },},},})
@@ -38,7 +38,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- F# REPL",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Start REPL",
+        tasks = {{ "shell", name = "- Start REPL",
           cmd = "echo 'To exit the REPL enter #q;;'" ..                      -- echo
                 " ; dotnet fsi" ..                                           -- run
                 " ; echo \"" .. final_message .. "\""

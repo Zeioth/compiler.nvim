@@ -21,7 +21,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Javascript interpreter",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run this file → " .. current_file,
+        tasks = {{ "shell", name = "- Run this file → " .. current_file,
           cmd = "node " .. arguments .. " " .. current_file ..               -- run program (interpreted)
                 " && echo " .. current_file ..                               -- echo
                 " && echo \"" .. final_message .. "\""
@@ -32,7 +32,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Javascript interpreter",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run this program → " .. entry_point,
+        tasks = {{ "shell", name = "- Run this program → " .. entry_point,
           cmd = "node " .. arguments .. " " .. entry_point ..                -- run program (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo \"" .. final_message .. "\""

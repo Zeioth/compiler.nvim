@@ -26,7 +26,7 @@ function M.action(option)
   local task = overseer.new_task({
     name = "- CMake interpreter",
     strategy = { "orchestrator",
-      tasks = {{ name = "- Run CMake → " .. option,
+      tasks = {{ "shell", name = "- Run CMake → " .. option,
         cmd = "mkdir -p \"" .. build_dir .. "\"" ..
               " && " .. cmd_build ..                                         -- Build to 'build' directory.
               " && " .. cmd_target ..                                        -- Build target from the 'build' directory.

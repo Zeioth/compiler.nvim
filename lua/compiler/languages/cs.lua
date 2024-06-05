@@ -29,7 +29,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Build & run program → \"" .. entry_point .. "\"",
+        tasks = {{ "shell", name = "- Build & run program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. "\" || true" ..                            -- clean
               " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
               " && csc " .. files .. " -out:\"" .. output .. "\" " .. arguments .. -- compile bytecode
@@ -43,7 +43,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Build program → \"" .. entry_point .. "\"",
+        tasks = {{ "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. "\" || true" ..                            -- clean
               " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
               " && csc " .. files .. " -out:\"" .. output .. "\" " .. arguments .. -- compile bytecode
@@ -56,7 +56,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run program → \"" .. entry_point .. "\"",
+        tasks = {{ "shell", name = "- Run program → \"" .. entry_point .. "\"",
           cmd = "mono \"" .. output .. "\"" ..                                     -- run
                 " ; echo \"" .. entry_point .. "\"" ..                             -- echo
                 " ; echo \"" .. final_message .. "\""
@@ -81,7 +81,7 @@ function M.action(selected_option)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
-        task = { name = "- Build program → \"" .. entry_point .. "\"",
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. "\" || true" ..                            -- clean
               " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
               " && csc " .. files .. " -out:\"" .. output .. "\" " .. arguments .. -- compile bytecode
@@ -96,7 +96,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { name = "- Run program → " .. executable,
+          task = { "shell", name = "- Run program → " .. executable,
             cmd = "mono " .. executable ..                                         -- run
                   " ; echo " .. executable ..                                      -- echo
                   " ; echo \"" .. final_message .. "\""
@@ -123,7 +123,7 @@ function M.action(selected_option)
         files = utils.find_files_to_compile(entry_point, "*.cs")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
         output = utils.os_path(output_dir .. "/program")                              -- entry_point/bin/program
-        task = { name = "- Build program → \"" .. entry_point .. "\"",
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. "\" || true" ..                            -- clean
               " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
               " && csc " .. files .. " -out:\"" .. output .. "\" " .. arguments .. -- compile
@@ -143,7 +143,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet build & run → \"Program.csproj\"",
+        tasks = {{ "shell", name = "- Dotnet build & run → \"Program.csproj\"",
           cmd = "dotnet run" ..                                                    -- compile and run
                 " && echo \"" .. final_message .. "\""                             -- echo
         },},},})
@@ -153,7 +153,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet build → \"Program.csproj\"",
+        tasks = {{ "shell", name = "- Dotnet build → \"Program.csproj\"",
           cmd = "dotnet build" ..                                                  -- compile
                 " && echo \"" .. final_message .. "\""                             -- echo
         },},},})
@@ -163,7 +163,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet watch → \"Program.csproj\"",
+        tasks = {{ "shell", name = "- Dotnet watch → \"Program.csproj\"",
           cmd = "dotnet watch" ..                                                  -- compile
                 " && echo \"" .. final_message .. "\""                             -- echo
         },},},})

@@ -32,7 +32,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Swift compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Build & run program → \"" .. entry_point .. "\"",
+        tasks = {{ "shell", name = "- Build & run program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                              -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                            -- mkdir
                 " && swiftc " .. files .. " -o \"" .. output .. "\" " .. arguments .. -- compile
@@ -46,7 +46,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Swift compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Build program → \"" .. entry_point .. "\"",
+        tasks = {{ "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                              -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                            -- mkdir
                 " && swiftc " .. files .. " -o \"" .. output .. "\" " .. arguments .. -- compile
@@ -59,7 +59,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Swift compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run program → \"" .. output .. "\"",
+        tasks = {{ "shell", name = "- Run program → \"" .. output .. "\"",
           cmd = "\"" .. output .. "\"" ..                                            -- run
                 " && echo \"" .. output .. "\"" ..                                   -- echo
                 " && echo \"" .. final_message .. "\""
@@ -84,7 +84,7 @@ function M.action(selected_option)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
-        task = { name = "- Build program → \"" .. entry_point .. "\"",
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                  -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                                -- mkdir
                 " && swiftc " .. files .. " -o \"" .. output .. "\" " .. arguments .. -- compile
@@ -99,7 +99,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { name = "- Run program → " .. executable,
+          task = { "shell", name = "- Run program → " .. executable,
             cmd = executable ..                                                      -- run
                   " && echo " .. executable ..                                       -- echo
                   " && echo \"" .. final_message .. "\""
@@ -126,7 +126,7 @@ function M.action(selected_option)
         files = utils.find_files_to_compile(entry_point, "*.swift")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
         output = utils.os_path(output_dir .. "/program")                              -- entry_point/bin/program
-        task = { name = "- Build program → \"" .. entry_point .. "\"",
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                              -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                            -- mkdir
                 " && swiftc " .. files .. " -o \"" .. output .. "\" " .. arguments .. -- compile
@@ -146,7 +146,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Swift compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Swift build & run program → \"./Package.swift\"",
+        tasks = {{ "shell", name = "- Swift build & run program → \"./Package.swift\"",
           cmd = "swift package clean" ..                                             -- clean
                 " && swift build" ..                                                 -- compile
                 " && swift run" ..                                                   -- run
@@ -158,7 +158,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Swift compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Swift build program → \"./Package.swift\"",
+        tasks = {{ "shell", name = "- Swift build program → \"./Package.swift\"",
           cmd = "swift package clean" ..                                             -- clean
                 " && swift build" ..                                                 -- compile
                 " && echo \"" .. final_message .. "\""
@@ -169,7 +169,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Swift compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Swift run program → \"./Package.swift\"",
+        tasks = {{ "shell", name = "- Swift run program → \"./Package.swift\"",
           cmd = "swift package clean" ..                                             -- clean
                 " && swift run" ..                                                   -- run
                 " && echo \"" .. final_message .. "\""
@@ -180,7 +180,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Swift compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Start REPL",
+        tasks = {{ "shell", name = "- Start REPL",
           cmd = "swift repl" ..
                 " && echo \"" .. final_message .. "\""
         },},},})

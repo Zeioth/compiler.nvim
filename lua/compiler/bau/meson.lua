@@ -28,7 +28,7 @@ function M.action(option)
   local task = overseer.new_task({
     name = "- Meson interpreter",
     strategy = { "orchestrator",
-      tasks = {{ name = "- Run Meson → " .. option,
+      tasks = {{ "shell", name = "- Run Meson → " .. option,
         cmd = "mkdir -p \"" .. build_dir .. "\"" ..
               " && " .. cmd_setup ..                                         -- Setup
               " && " .. cmd_build ..                                         -- Build target from the 'build' directory.

@@ -24,7 +24,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- R interpreter",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run this file → " .. current_file,
+        tasks = {{ "shell", name = "- Run this file → " .. current_file,
           cmd = "Rscript " .. current_file .. " " .. arguments ..                    -- run
                 " && echo " .. current_file ..                                       -- echo
                 " && echo \"" .. final_message .. "\""
@@ -35,7 +35,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- R interpreter",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run program → " .. entry_point,
+        tasks = {{ "shell", name = "- Run program → " .. entry_point,
           cmd = "Rscript " .. entry_point .. " " .. arguments ..                     -- run
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo \"" .. final_message .. "\""
@@ -57,7 +57,7 @@ function M.action(selected_option)
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point, true)
         arguments = variables.arguments or arguments -- optional
-        task = { name = "- Run program → " .. entry_point,
+        task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "Rscript " .. entry_point .. " " .. arguments ..                     -- run
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo \"" .. final_message .. "\""
@@ -70,7 +70,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { name = "- Run program → " .. executable,
+          task = { "shell", name = "- Run program → " .. executable,
             cmd = executable ..                                                      -- run
                   " && echo " .. executable ..                                       -- echo
                   " && echo \"" .. final_message .. "\""
@@ -94,7 +94,7 @@ function M.action(selected_option)
 
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point, true)
-        task = { name = "- Run program → " .. entry_point,
+        task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "Rscript " .. entry_point .. " " .. arguments ..                     -- run
                 " && echo " .. entry_point ..                                        -- echo
                 " && echo \"" .. final_message .. "\""
@@ -112,7 +112,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- R REPL",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Start REPL",
+        tasks = {{ "shell", name = "- Start REPL",
           cmd = "R" ..                                                               -- run
                 " && echo \"" .. final_message .. "\""
         },},},})

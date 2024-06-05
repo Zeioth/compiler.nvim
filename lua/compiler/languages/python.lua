@@ -44,7 +44,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python interpreter",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run this file → " .. current_file,
+        tasks = {{ "shell", name = "- Run this file → " .. current_file,
           cmd =  "python " .. current_file ..                                -- run (interpreted)
                 " && echo " .. current_file ..                               -- echo
                 " && echo \"" .. final_message .. "\""
@@ -55,7 +55,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python interpreter",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run program → \"" .. entry_point .. "\"",
+        tasks = {{ "shell", name = "- Run program → \"" .. entry_point .. "\"",
           cmd = "python \"" .. entry_point .. "\"" ..                        -- run (interpreted)
                 " && echo \"" .. entry_point .. "\"" ..                      -- echo
                 " && echo \"" .. final_message .. "\""
@@ -77,7 +77,7 @@ function M.action(selected_option)
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point, true)
         local arguments = variables.arguments or "" -- optional
-        task = { name = "- Run program → " .. entry_point,
+        task = { "shell", name = "- Run program → " .. entry_point,
           cmd = "python " .. arguments .. " " .. entry_point ..              -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo \"" .. final_message .. "\""
@@ -90,7 +90,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { name = "- Run program → " .. executable,
+          task = { "shell", name = "- Run program → " .. executable,
             cmd = executable ..                                              -- run
                   " && echo " .. executable ..                               -- echo
                   " && echo \"" .. final_message .. "\""
@@ -114,7 +114,7 @@ function M.action(selected_option)
       local arguments = ""
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point, true)
-        task = { name = "- Build program → " .. entry_point,
+        task = { "shell", name = "- Build program → " .. entry_point,
           cmd = "python " .. arguments .. " " .. entry_point ..              -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
                 " && echo \"" .. final_message .. "\""
@@ -146,7 +146,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Build & run program → \"" .. entry_point .. "\"",
+        tasks = {{ "shell", name = "- Build & run program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
             " && mkdir -p \"" .. output_dir .. "\"" ..                                  -- mkdir
             " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..            -- compile to machine code
@@ -163,7 +163,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Build program → \"" .. entry_point .. "\"",
+        tasks = {{ "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
@@ -178,7 +178,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run program → \"" .. output .. "\"",
+        tasks = {{ "shell", name = "- Run program → \"" .. output .. "\"",
             cmd = "\"" .. output .. "\"" ..                                             -- run
                   " && echo \"" .. output .. "\"" ..                                    -- echo
                   " && echo \"" .. final_message .. "\""
@@ -202,7 +202,7 @@ function M.action(selected_option)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         local arguments = variables.arguments or "--warn-implicit-exceptions --warn-unusual-code" -- optional
-        task = { name = "- Build program → \"" .. entry_point .. "\"",
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
@@ -219,7 +219,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { name = "- Run program → " .. executable,
+          task = { "shell", name = "- Run program → " .. executable,
             cmd = executable ..                                                         -- run
                   " && echo " .. executable ..                                          -- echo
                   " && echo \"" .. final_message .. "\""
@@ -246,7 +246,7 @@ function M.action(selected_option)
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")    -- entry_point/bin
         output = utils.os_path(output_dir .. "/program")                                -- entry_point/bin/program
         local arguments = "--warn-implicit-exceptions --warn-unusual-code"              -- optional
-        task = { name = "- Build program → \"" .. entry_point .. "\"",
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
@@ -284,7 +284,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Build & run program → \"" .. entry_point .. "\"",
+        tasks = {{ "shell", name = "- Build & run program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && mkdir -p \"" .. cache_dir .. "\"" ..
@@ -306,7 +306,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Build program → \"" .. entry_point .. "\"",
+        tasks = {{ "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && mkdir -p \"" .. cache_dir .. "\"" ..
@@ -324,7 +324,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run program → \"" .. output .. "\"",
+        tasks = {{ "shell", name = "- Run program → \"" .. output .. "\"",
             cmd = "\"" .. output .. "\"" ..                                             -- run
                 " && echo \"" .. output .. "\"" ..                                      -- echo
                 " && echo \"" .. final_message .. "\""
@@ -351,7 +351,7 @@ function M.action(selected_option)
         local output_filename = vim.fn.fnamemodify(output, ":t")
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         local arguments = variables.arguments or "--log-level WARN --python-option W"   -- optional
-        task = { name = "- Build program → \"" .. entry_point .. "\"",
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && mkdir -p \"" .. cache_dir .. "\"" ..
@@ -371,7 +371,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { name = "- Run program → " .. executable,
+          task = { "shell", name = "- Run program → " .. executable,
             cmd = executable ..                                                         -- run
                   " && echo " .. executable ..                                          -- echo
                   " && echo \"" .. final_message .. "\""
@@ -401,7 +401,7 @@ function M.action(selected_option)
         local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
         local output_filename = vim.fn.fnamemodify(output, ":t")
         local arguments = "--log-level WARN --python-option W"                          -- optional
-        task = { name = "- Build program → \"" .. entry_point .. "\"",
+        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. cache_dir .. "\"" ..                               -- mkdir
                 " && pyinstaller " .. files ..                                          -- compile to bytecode
@@ -438,7 +438,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python REPL",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Start REPL",
+        tasks = {{ "shell", name = "- Start REPL",
           cmd = "echo 'To exit the REPL enter exit()'" ..
                 " && python" ..                                                         -- run
                 " && echo \"" .. final_message .. "\""

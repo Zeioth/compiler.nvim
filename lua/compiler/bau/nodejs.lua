@@ -11,7 +11,7 @@ function M.action(option)
   local task = overseer.new_task({
     name = "- Node.js package manager",
     strategy = { "orchestrator",
-      tasks = {{ name = "- Run script → " .. option,
+      tasks = {{ "shell", name = "- Run script → " .. option,
         cmd = option ..                                                      -- run script
               " && echo \"" .. option .. "\"" ..                             -- echo
               " && echo \"" .. final_message .. "\""

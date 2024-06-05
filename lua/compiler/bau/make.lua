@@ -9,7 +9,7 @@ function M.action(option)
   local task = overseer.new_task({
     name = "- Make interpreter",
     strategy = { "orchestrator",
-      tasks = {{ name = "- Run makefile → make " .. option ,
+      tasks = {{ "shell", name = "- Run makefile → make " .. option ,
         cmd = "make ".. option ..                                            -- run
               " && echo make " .. option ..                                  -- echo
               " && echo \"" .. final_message .. "\""
