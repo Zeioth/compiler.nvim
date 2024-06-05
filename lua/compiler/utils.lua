@@ -10,7 +10,7 @@ local M = {}
 --- to operate the paths after calling the function.
 ---@param start_dir string A dir path string.
 ---@param file_name string A file path string.
----@param surround boolean If true, surround every returned path by "". False by default.
+---@param surround boolean|nil If true, surround every returned path by "". False by default.
 ---@return table files If any, a tables of files. Otherwise, a Empty table.
 function M.find_files(start_dir, file_name, surround)
   local files = {}
