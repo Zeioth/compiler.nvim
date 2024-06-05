@@ -229,7 +229,7 @@ function M.action(selected_option)
       end
 
       task = overseer.new_task({
-        name = "- Build program → " .. entry_point, strategy = { "orchestrator",
+        name = "- Python machine code compiler", strategy = { "orchestrator",
           tasks = {
             tasks,        -- Build all the programs in the solution in parallel
             executables   -- Then run the solution executable(s)
@@ -304,7 +304,7 @@ function M.action(selected_option)
     local output_filename = vim.fn.fnamemodify(output, ":t")
     local arguments = "--log-level WARN --python-option W" -- optional
     local task = overseer.new_task({
-      name = "- Python machine code compiler",
+      name = "- Python bytecode compiler",
       strategy = { "orchestrator",
         tasks = {{ "shell", name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
@@ -381,7 +381,7 @@ function M.action(selected_option)
       end
 
       task = overseer.new_task({
-        name = "- Build program → " .. entry_point, strategy = { "orchestrator",
+        name = "- Python bytecode compiler", strategy = { "orchestrator",
           tasks = {
             tasks,        -- Build all the programs in the solution in parallel
             executables   -- Then run the solution executable(s)
