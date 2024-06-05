@@ -43,7 +43,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Build program → " .. entry_point,
+        tasks = {{ name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output .. "\" || true" ..                            -- clean
               " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
               " && csc " .. files .. " -out:\"" .. output .. "\" " .. arguments .. -- compile bytecode
@@ -56,7 +56,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run program → " .. entry_point,
+        tasks = {{ name = "- Run program → \"" .. entry_point .. "\"",
           cmd = "mono \"" .. output .. "\"" ..                                     -- run
                 " ; echo \"" .. entry_point .. "\"" ..                             -- echo
                 " ; echo \"" .. final_message .. "\""
@@ -143,7 +143,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- C# compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet build & run → \"*Program.csproj\"",
+        tasks = {{ name = "- Dotnet build & run → \"Program.csproj\"",
           cmd = "dotnet run" ..                                                    -- compile and run
                 " && echo \"" .. final_message .. "\""                             -- echo
         },},},})
