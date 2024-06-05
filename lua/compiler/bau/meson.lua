@@ -21,20 +21,20 @@ function M.action(option)
   if clean_first == "true" then clean_first_arg = "--wipe" end
 
   -- Run command
-  local cmd_setup = "meson setup " .. clean_first_arg .. build_dir .. " --buildtype=" .. build_type
-  local cmd_build = "meson compile -C " .. build_dir .. " " .. option
+  local cmd_setup = "meson setup " .. clean_first_arg .. " \"" .. build_dir .. "\" --buildtype=" .. build_type
+  local cmd_build = "meson compile -C \"" .. build_dir .. "\" " .. option
   local cmd_target = "ninja -C " .. build_dir .. " " .. option
   print(cmd_build)
   local task = overseer.new_task({
     name = "- Meson interpreter",
     strategy = { "orchestrator",
       tasks = {{ "shell", name = "- Run Meson → " .. option,
-        cmd = "mkdir -p " .. build_dir ..
+        cmd = "mkdir -p \"" .. build_dir .. "\"" ..
               " && " .. cmd_setup ..                                         -- Setup
               " && " .. cmd_build ..                                         -- Build target from the 'build' directory.
               --" && " .. cmd_target ..                                      -- Run target
-              " && echo '" .. cmd_setup .. " && " .. cmd_build  .. "'" ..    -- echo
-              " && echo '" .. final_message .. "'"
+              " && echo \"" .. cmd_setup .. " && " .. cmd_build  .. "\"" ..  -- echo
+              " && echo \"" .. final_message .. "\""
       },},},})
   task:start()
   vim.cmd("OverseerOpen")

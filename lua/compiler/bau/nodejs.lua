@@ -13,8 +13,8 @@ function M.action(option)
     strategy = { "orchestrator",
       tasks = {{ "shell", name = "- Run script → " .. option,
         cmd = option ..                                                      -- run script
-              " && echo '" .. option .. "'" ..                               -- echo
-              " && echo '" .. final_message .. "'"
+              " && echo \"" .. option .. "\"" ..                             -- echo
+              " && echo \"" .. final_message .. "\""
       },},},})
   task:start()
   vim.cmd("OverseerOpen")
