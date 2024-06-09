@@ -21,7 +21,6 @@
 **/fluttr/pubspec.lock
 **/zig-cache
 **/_build/
-**/build/
 **/dist/
 **/node_modules/
 **/.gradle/
