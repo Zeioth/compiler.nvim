@@ -26,15 +26,15 @@ function M.action(option)
   local task = overseer.new_task({
     name = "- CMake interpreter",
     strategy = { "orchestrator",
-      tasks = {{ "shell", name = "- Run CMake → " .. option,
+      tasks = {{ name = "- Run CMake → " .. option,
         cmd = "mkdir -p \"" .. build_dir .. "\"" ..
               " && " .. cmd_build ..                                         -- Build to 'build' directory.
               " && " .. cmd_target ..                                        -- Build target from the 'build' directory.
               " && echo '" .. cmd_build .. " && " .. cmd_target .. "'" ..    -- echo
-              " && echo \"" .. final_message .. "\""
+              " && echo \"" .. final_message .. "\"",
+        components = { "default_extended" }
       },},},})
   task:start()
-  vim.cmd("OverseerOpen")
 end
 
 return M

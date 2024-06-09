@@ -11,13 +11,13 @@ function M.action(option)
   local task = overseer.new_task({
     name = "- Node.js package manager",
     strategy = { "orchestrator",
-      tasks = {{ "shell", name = "- Run script → " .. option,
+      tasks = {{ name = "- Run script → " .. option,
         cmd = option ..                                                      -- run script
               " && echo \"" .. option .. "\"" ..                             -- echo
-              " && echo \"" .. final_message .. "\""
+              " && echo \"" .. final_message .. "\"",
+        components = { "default_extended" }
       },},},})
   task:start()
-  vim.cmd("OverseerOpen")
 end
 
 return M

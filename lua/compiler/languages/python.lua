@@ -44,24 +44,24 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python interpreter",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run this file → " .. current_file,
+        tasks = {{ name = "- Run this file → " .. current_file,
           cmd =  "python " .. current_file ..                                -- run (interpreted)
                 " && echo " .. current_file ..                               -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         },},},})
     task:start()
-    vim.cmd("OverseerOpen")
   elseif selected_option == "option2" then
     local task = overseer.new_task({
       name = "- Python interpreter",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → \"" .. entry_point .. "\"",
+        tasks = {{ name = "- Run program → \"" .. entry_point .. "\"",
           cmd = "python \"" .. entry_point .. "\"" ..                        -- run (interpreted)
                 " && echo \"" .. entry_point .. "\"" ..                      -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         },},},})
     task:start()
-    vim.cmd("OverseerOpen")
   elseif selected_option == "option3" then
     local entry_points
     local task = {}
@@ -77,10 +77,11 @@ function M.action(selected_option)
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point, true)
         local arguments = variables.arguments or "" -- optional
-        task = { "shell", name = "- Run program → " .. entry_point,
+        task = { name = "- Run program → " .. entry_point,
           cmd = "python " .. arguments .. " " .. entry_point ..              -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
@@ -90,10 +91,11 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { "shell", name = "- Run program → " .. executable,
+          task = { name = "- Run program → " .. executable,
             cmd = executable ..                                              -- run
                   " && echo " .. executable ..                               -- echo
-                  " && echo \"" .. final_message .. "\""
+                  " && echo \"" .. final_message .. "\"",
+            components = { "default_extended" }
           }
           table.insert(executables, task) -- store all the executables we've created
         end
@@ -106,7 +108,6 @@ function M.action(selected_option)
             executables   -- Then run the solution executable(s)
           }}})
       task:start()
-      vim.cmd("OverseerOpen")
 
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
@@ -114,10 +115,11 @@ function M.action(selected_option)
       local arguments = ""
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point, true)
-        task = { "shell", name = "- Build program → " .. entry_point,
+        task = { name = "- Build program → " .. entry_point,
           cmd = "python " .. arguments .. " " .. entry_point ..              -- run (interpreted)
                 " && echo " .. entry_point ..                                -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         }
         table.insert(tasks, task) -- store all the tasks we've created
       end
@@ -126,7 +128,6 @@ function M.action(selected_option)
         name = "- Python interpreter", strategy = { "orchestrator", tasks = tasks }
       })
       task:start()
-      vim.cmd("OverseerOpen")
     end
 
 
@@ -146,7 +147,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build & run program → \"" .. entry_point .. "\"",
+        tasks = {{ name = "- Build & run program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
             " && mkdir -p \"" .. output_dir .. "\"" ..                                  -- mkdir
             " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..            -- compile to machine code
@@ -154,37 +155,37 @@ function M.action(selected_option)
               " " .. arguments .. " " .. "\"" .. entry_point .. "\"" ..
             " && \"" .. output .. "\"" ..                                               -- run
             " && echo \"" .. entry_point .. "\"" ..                                     -- echo
-            " && echo \"" .. final_message .. "\""
+            " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         },},},})
     task:start()
-    vim.cmd("OverseerOpen")
   elseif selected_option == "option5" then
     local arguments = "--warn-implicit-exceptions --warn-unusual-code"                  -- optional
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build program → \"" .. entry_point .. "\"",
+        tasks = {{ name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=\"" .. output  .. "\"" ..
                   " " .. arguments .. " \"" .. entry_point .. "\"" ..
                 " && echo \"" .. entry_point .. "\"" ..                                 -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         },},},})
     task:start()
-    vim.cmd("OverseerOpen")
   elseif selected_option == "option6" then
     local task = overseer.new_task({
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → \"" .. output .. "\"",
+        tasks = {{ name = "- Run program → \"" .. output .. "\"",
             cmd = "\"" .. output .. "\"" ..                                             -- run
                   " && echo \"" .. output .. "\"" ..                                    -- echo
-                  " && echo \"" .. final_message .. "\""
+                  " && echo \"" .. final_message .. "\"",
+            components = { "default_extended" }
         },},},})
     task:start()
-    vim.cmd("OverseerOpen")
   elseif selected_option == "option7" then
     local entry_points
     local tasks = {}
@@ -202,14 +203,15 @@ function M.action(selected_option)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         local arguments = variables.arguments or "--warn-implicit-exceptions --warn-unusual-code" -- optional
-        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
+        task = { name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                 " --output-filename=\"" .. output .. "\"" ..
                 " " .. arguments .. " \"" .. entry_point .. "\"" ..
                 " && echo \"" .. entry_point .. "\"" ..                                 -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
@@ -219,10 +221,11 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { "shell", name = "- Run program → " .. executable,
+          task = { name = "- Run program → " .. executable,
             cmd = executable ..                                                         -- run
                   " && echo " .. executable ..                                          -- echo
-                  " && echo \"" .. final_message .. "\""
+                  " && echo \"" .. final_message .. "\"",
+            components = { "default_extended" }
           }
           table.insert(executables, task) -- store all the executables we've created
         end
@@ -235,7 +238,6 @@ function M.action(selected_option)
             executables   -- Then run the solution executable(s)
           }}})
       task:start()
-      vim.cmd("OverseerOpen")
 
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
@@ -246,14 +248,15 @@ function M.action(selected_option)
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")    -- entry_point/bin
         output = utils.os_path(output_dir .. "/program")                                -- entry_point/bin/program
         local arguments = "--warn-implicit-exceptions --warn-unusual-code"              -- optional
-        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
+        task = { name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=\"" .. output  .. "\"" ..
                   " " .. arguments .. " \"" .. entry_point .. "\"" ..
                 " && echo \"" .. entry_point .. "\"" ..                                 -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         }
         table.insert(tasks, task) -- store all the tasks we've created
       end
@@ -262,7 +265,6 @@ function M.action(selected_option)
         name = "- Python machine code compiler", strategy = { "orchestrator", tasks = tasks }
       })
       task:start()
-      vim.cmd("OverseerOpen")
     end
 
 
@@ -284,7 +286,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build & run program → \"" .. entry_point .. "\"",
+        tasks = {{ name = "- Build & run program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && mkdir -p \"" .. cache_dir .. "\"" ..
@@ -295,10 +297,10 @@ function M.action(selected_option)
                   " --onefile --distpath \"" .. output_dir .. "\" " .. arguments ..
                 " && \"" .. output .. "\"" ..                                           -- run
                 " && echo \"" .. entry_point .. "\"" ..                                 -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         },},},})
     task:start()
-    vim.cmd("OverseerOpen")
   elseif selected_option == "option9" then
     local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
     local output_filename = vim.fn.fnamemodify(output, ":t")
@@ -306,7 +308,7 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Build program → \"" .. entry_point .. "\"",
+        tasks = {{ name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && mkdir -p \"" .. cache_dir .. "\"" ..
@@ -316,21 +318,21 @@ function M.action(selected_option)
                   " --specpath \"" .. cache_dir .. "\"" ..
                   " --onefile --distpath \"" .. output_dir .. "\" " .. arguments ..
                 " && echo \"" .. entry_point .. "\"" ..                                 -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         },},},})
     task:start()
-    vim.cmd("OverseerOpen")
   elseif selected_option == "option10" then
     local task = overseer.new_task({
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Run program → \"" .. output .. "\"",
+        tasks = {{ name = "- Run program → \"" .. output .. "\"",
             cmd = "\"" .. output .. "\"" ..                                             -- run
                 " && echo \"" .. output .. "\"" ..                                      -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+            components = { "default_extended" }
         },},},})
     task:start()
-    vim.cmd("OverseerOpen")
   elseif selected_option == "option11" then
     local entry_points
     local tasks = {}
@@ -351,7 +353,7 @@ function M.action(selected_option)
         local output_filename = vim.fn.fnamemodify(output, ":t")
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         local arguments = variables.arguments or "--log-level WARN --python-option W"   -- optional
-        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
+        task = { name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
                 " && mkdir -p \"" .. cache_dir .. "\"" ..
@@ -361,7 +363,8 @@ function M.action(selected_option)
                   " --specpath \"" .. cache_dir .. "\"" ..
                   " --onefile --distpath \"" .. output_dir .. "\" " .. arguments ..
                 " && echo \"" .. entry_point .. "\"" ..                                 -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
@@ -371,10 +374,11 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           executable = utils.os_path(executable, true)
-          task = { "shell", name = "- Run program → " .. executable,
+          task = { name = "- Run program → " .. executable,
             cmd = executable ..                                                         -- run
                   " && echo " .. executable ..                                          -- echo
-                  " && echo \"" .. final_message .. "\""
+                  " && echo \"" .. final_message .. "\"",
+            components = { "default_extended" }
           }
           table.insert(executables, task) -- store all the executables we've created
         end
@@ -387,7 +391,6 @@ function M.action(selected_option)
             executables   -- Then run the solution executable(s)
           }}})
       task:start()
-      vim.cmd("OverseerOpen")
 
     else -- If no .solution file
       -- Create a list of all entry point files in the working directory
@@ -401,7 +404,7 @@ function M.action(selected_option)
         local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
         local output_filename = vim.fn.fnamemodify(output, ":t")
         local arguments = "--log-level WARN --python-option W"                          -- optional
-        task = { "shell", name = "- Build program → \"" .. entry_point .. "\"",
+        task = { name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. cache_dir .. "\"" ..                               -- mkdir
                 " && pyinstaller " .. files ..                                          -- compile to bytecode
@@ -410,7 +413,8 @@ function M.action(selected_option)
                 " --specpath \"" .. cache_dir .. "\"" ..
                 " --onefile --distpath \"" .. output_dir .. "\" " .. arguments ..
                 " && echo \"" .. entry_point .. "\"" ..                                 -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         }
         table.insert(tasks, task) -- store all the tasks we've created
       end
@@ -419,7 +423,6 @@ function M.action(selected_option)
         name = "- Python bytecode compiler", strategy = { "orchestrator", tasks = tasks }
       })
       task:start()
-      vim.cmd("OverseerOpen")
     end
 
 
@@ -438,13 +441,13 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Python REPL",
       strategy = { "orchestrator",
-        tasks = {{ "shell", name = "- Start REPL",
+        tasks = {{ name = "- Start REPL",
           cmd = "echo 'To exit the REPL enter exit()'" ..
                 " && python" ..                                                         -- run
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
         },},},})
     task:start()
-    vim.cmd("OverseerOpen")
   end
 
 end

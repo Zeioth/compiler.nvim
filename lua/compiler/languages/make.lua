@@ -29,13 +29,13 @@ function M.run_makefile()
   local task = overseer.new_task({
     name = "- Make interpreter",
     strategy = { "orchestrator",
-      tasks = {{ "shell", name = "- Run Makefile → " .. makefile,
+      tasks = {{ name = "- Run Makefile → " .. makefile,
           cmd = "make -f " .. makefile ..                                    -- run
                 " && echo " .. makefile ..                                   -- echo
-                " && echo \"" .. final_message .. "\""
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
       },},},})
   task:start()
-  vim.cmd("OverseerOpen")
 end
 
 --- Backend - overseer tasks performed on option selected

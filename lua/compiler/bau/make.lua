@@ -9,13 +9,13 @@ function M.action(option)
   local task = overseer.new_task({
     name = "- Make interpreter",
     strategy = { "orchestrator",
-      tasks = {{ "shell", name = "- Run makefile → make " .. option ,
+      tasks = {{ name = "- Run makefile → make " .. option ,
         cmd = "make ".. option ..                                            -- run
               " && echo make " .. option ..                                  -- echo
-              " && echo \"" .. final_message .. "\""
+              " && echo \"" .. final_message .. "\"",
+        components = { "default_extended" }
       },},},})
   task:start()
-  vim.cmd("OverseerOpen")
 end
 
 return M

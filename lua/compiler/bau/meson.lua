@@ -28,16 +28,16 @@ function M.action(option)
   local task = overseer.new_task({
     name = "- Meson interpreter",
     strategy = { "orchestrator",
-      tasks = {{ "shell", name = "- Run Meson → " .. option,
+      tasks = {{ name = "- Run Meson → " .. option,
         cmd = "mkdir -p \"" .. build_dir .. "\"" ..
               " && " .. cmd_setup ..                                         -- Setup
               " && " .. cmd_build ..                                         -- Build target from the 'build' directory.
               --" && " .. cmd_target ..                                      -- Run target
               " && echo \"" .. cmd_setup .. " && " .. cmd_build  .. "\"" ..  -- echo
-              " && echo \"" .. final_message .. "\""
+              " && echo \"" .. final_message .. "\"",
+        components = { "default_extended" }
       },},},})
   task:start()
-  vim.cmd("OverseerOpen")
 end
 
 return M

@@ -57,6 +57,12 @@ M.setup = function(opts)
       overseer.run_action(task, "dispose")
     end
   end, { desc = "Dispose all tasks running in the compiler" })
+
+  -- define the component used by the tasks
+  require("overseer").register_alias("default_extended", {
+    "default",
+    { "open_output", on_start = true, on_complete = "never" },
+  })
 end
 
 return M
