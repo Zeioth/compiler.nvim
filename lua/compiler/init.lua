@@ -61,7 +61,7 @@ M.setup = function(opts)
   -- define the component used by the tasks
   require("overseer").register_alias("default_extended", {
     "default",
-    { "open_output", on_start = true, on_complete = "never" },
+    "open_output",
   })
 end
 
