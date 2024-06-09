@@ -117,6 +117,48 @@ local function get_meson_opts(path)
   return options
 end
 
+---If a gradle.build.kts or gradle.build  file exists,
+---parse the result of the command `gradle tasks`.
+---
+---For windows, gradle needs gradle to be install globally
+---and available in the PATH.
+---@param path string Path to the build.gradle.kts file.
+---@return table options A table like:
+--- { { text: "Gradle all", value="all", bau = "gradle"}, { text: "Gradle hello", value="hello", bau = "gradle"} ...}
+local function get_gradle_cmd_opts(path)
+  -- guard clause
+  local gradle_kts_file_exists = vim.fn.filereadable(path) == 1
+  local gradle_file_exists = vim.fn.filereadable(vim.fn.fnamemodify(path, ':t:r')) == 1
+  if not gradle_kts_file_exists and not gradle_file_exists then return {} end
+
+  -- parse
+  local GRADLE_CMD = "gradle tasks"
+  local UNIX_CMD = GRADLE_CMD .. " | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
+  local WINDOWS_CMD = "powershell -c \"" .. GRADLE_CMD .. [[ | Out-String | Select-String -Pattern '(?sm)Application tasks(.*?)(?:\r?\n){2}' | ForEach-Object { $_.Matches.Groups[1].Value -split '\r?\n' | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split '\s+', 2)[0] } $skip = $false } | Where-Object { $_ -notmatch '--' -and $_.Trim() -ne '' } }"]]
+  local options = {}
+  local cmd_output = ""
+  local is_windows = os.getenv("OS") == "Windows_NT"
+  if is_windows then
+    cmd_output = vim.fn.system(WINDOWS_CMD)
+  else
+    cmd_output = vim.fn.system(UNIX_CMD)
+  end
+
+  -- Check if the output is a single line and contains only characters.
+  if cmd_output:find("[^\n\r]+") and not cmd_output:find("[^%a\n\r]") then
+    for task in cmd_output:gmatch("%S+") do
+      if task == "" then break end
+      table.insert(
+        options,
+        { text = "Gradle " .. task, value = task, bau = "gradle" }
+      )
+    end
+  end
+
+  return options
+end
+
+
 ---Given a build.gradle.kts file, parse all the tasks,
 ---and return them as a table.
 ---
@@ -126,7 +168,6 @@ end
 --- { { text: "Gradle all", value="all", bau = "gradle"}, { text: "Gradle hello", value="hello", bau = "gradle"} ...}
 local function get_gradle_opts(path)
   local options = {}
-
   local file = io.open(path, "r")
 
   if not file then
@@ -146,7 +187,6 @@ local function get_gradle_opts(path)
       if task_match then
         in_task = true
         task_name = task_match
-
         table.insert(
           options,
           { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
@@ -163,7 +203,6 @@ local function get_gradle_opts(path)
         if task_match then
           in_task = true
           task_name = task_match
-
           table.insert(
             options,
             { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
@@ -282,6 +321,9 @@ function M.get_bau_opts()
   ))
 
   -- gradle
+  vim.list_extend(options, get_gradle_cmd_opts(
+    working_dir .. utils.os_path("/build.gradle.kts")
+  ))
   vim.list_extend(options, get_gradle_opts(
     working_dir .. utils.os_path("/build.gradle.kts")
   ))
