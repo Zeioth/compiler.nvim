@@ -57,6 +57,11 @@ M.setup = function(opts)
       overseer.run_action(task, "dispose")
     end
   end, { desc = "Dispose all tasks running in the compiler" })
+
+  require("overseer").register_alias("compiler_subtask", {
+    "default",
+    { "open_output", on_start = true, on_complete = "never" },
+  })
 end
 
 return M
