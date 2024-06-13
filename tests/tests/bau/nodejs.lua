@@ -5,12 +5,21 @@ local ms = 1000 -- wait time
 local bau = require("compiler.bau.nodejs")
 local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/bau/nodejs/"
 
--- Run nodejs javascript project
-vim.api.nvim_set_current_dir(example .. "javascript-app")
-bau.action("npm install && npm start")
-vim.wait(ms)
+coroutine.resume(coroutine.create(function()
+  local co = coroutine.running()
+  local function sleep(_ms)
+    if not _ms then _ms = ms end
+    vim.defer_fn(function() coroutine.resume(co) end, _ms)
+    coroutine.yield()
+  end
 
--- Run nodejs typescript project
-vim.api.nvim_set_current_dir(example .. "typescript-app")
-bau.action("npm install && npm start")
-vim.wait(ms)
+  -- Run nodejs javascript project
+  vim.api.nvim_set_current_dir(example .. "javascript-app")
+  bau.action("npm install && npm start")
+  sleep()
+
+  -- Run nodejs typescript project
+  vim.api.nvim_set_current_dir(example .. "typescript-app")
+  bau.action("npm install && npm start")
+  sleep()
+end))

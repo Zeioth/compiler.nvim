@@ -3,19 +3,27 @@
 
 local ms = 1000 -- wait time
 local language = require("compiler.languages.lua")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/lua/"
+local example = vim.fn.stdpath("data") .. "/lazy/compiler.nvim/tests/code samples/languages/lua/"
 
--- Run
-vim.api.nvim_set_current_dir(example .. "run-program/")
-language.action("option2")
-vim.wait(ms)
+coroutine.resume(coroutine.create(function()
+  local co = coroutine.running()
+  local function sleep()
+    vim.defer_fn(function() coroutine.resume(co) end, ms)
+    coroutine.yield()
+  end
 
--- Build solution (without .solution file)
-vim.api.nvim_set_current_dir(example .. "solution-nofile/")
-language.action("option3")
-vim.wait(ms)
+  -- Run
+  vim.api.nvim_set_current_dir(example .. "run-program/")
+  language.action("option2")
+  sleep()
 
--- Build solution
-vim.api.nvim_set_current_dir(example .. "solution/")
-language.action("option3")
-vim.wait(ms)
+  -- Build solution (without .solution file)
+  vim.api.nvim_set_current_dir(example .. "solution-nofile/")
+  language.action("option3")
+  sleep()
+
+  -- Build solution
+  vim.api.nvim_set_current_dir(example .. "solution/")
+  language.action("option3")
+  sleep()
+end))

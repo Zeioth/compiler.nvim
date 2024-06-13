@@ -3,19 +3,27 @@
 
 local ms = 1000 -- wait time
 local language = require("compiler.languages.fortran")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/languages/fortran/"
+local example = vim.fn.stdpath("data") .. "/lazy/compiler.nvim/tests/code samples/languages/fortran/"
 
--- Build and run
-vim.api.nvim_set_current_dir(example .. "fpm-build-and-run/")
-language.action("option2")
-vim.wait(ms)
+coroutine.resume(coroutine.create(function()
+  local co = coroutine.running()
+  local function sleep()
+    vim.defer_fn(function() coroutine.resume(co) end, ms)
+    coroutine.yield()
+  end
 
--- Build
-vim.api.nvim_set_current_dir(example .. "fpm-build/")
-language.action("option3")
-vim.wait(ms)
+  -- Build and run
+  vim.api.nvim_set_current_dir(example .. "fpm-build-and-run/")
+  language.action("option2")
+  sleep()
 
--- Run
-vim.api.nvim_set_current_dir(example .. "fpm-build/")
-language.action("option4")
-vim.wait(ms)
+  -- Build
+  vim.api.nvim_set_current_dir(example .. "fpm-build/")
+  language.action("option3")
+  sleep()
+
+  -- Run
+  vim.api.nvim_set_current_dir(example .. "fpm-build/")
+  language.action("option4")
+  sleep()
+end))

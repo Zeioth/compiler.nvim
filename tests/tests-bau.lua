@@ -3,9 +3,24 @@
 
 -- path of this script → tests
 local tests_dir = (debug.getinfo(1, 'S').source:sub(2):match '(.*/)') .. "/tests/bau/"
+local ms = 1000 -- wait time
 
-dofile(tests_dir .. 'make.lua')
-dofile(tests_dir .. 'cmake.lua')
-dofile(tests_dir .. 'gradle.lua')
-dofile(tests_dir .. 'nodejs.lua')
-dofile(tests_dir .. 'meson.lua')
+coroutine.resume(coroutine.create(function()
+  local co = coroutine.running()
+  local function sleep(_ms)
+    if not _ms then _ms = ms end
+    vim.defer_fn(function() coroutine.resume(co) end, _ms)
+    coroutine.yield()
+  end
+  dofile(tests_dir .. 'make.lua')
+  sleep()
+  dofile(tests_dir .. 'cmake.lua')
+  sleep()
+  dofile(tests_dir .. 'gradle.lua')
+  sleep()
+  dofile(tests_dir .. 'nodejs.lua')
+  sleep()
+  dofile(tests_dir .. 'meson.lua')
+  sleep()
+  dofile(tests_dir .. 'nodejs.lua')
+end))

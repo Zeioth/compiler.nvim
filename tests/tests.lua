@@ -1,33 +1,67 @@
 --- This file runs all the tests to ensure all compilers are working correctly.
 --- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests.lua
 
+-- NOTE: These tests are meant to run in a Ryzen 5900x or upper.
+--       If your CPU is slower, you will have to increase the wait time
+--       in this file, and in every individual test.
+
 -- path of this script → tests
 local tests_dir = (debug.getinfo(1, 'S').source:sub(2):match '(.*/)') .. "/tests/languages/"
 
-dofile(tests_dir .. 'asm.lua')
-dofile(tests_dir .. 'c.lua')
-dofile(tests_dir .. 'cpp.lua')
-dofile(tests_dir .. 'cs.lua')
-dofile(tests_dir .. 'dart.lua')
-dofile(tests_dir .. 'elixir.lua')
-dofile(tests_dir .. 'fortran.lua')
-dofile(tests_dir .. 'fsharp.lua')
-dofile(tests_dir .. 'go.lua')
-dofile(tests_dir .. 'java.lua')
-dofile(tests_dir .. 'javascript.lua')
-dofile(tests_dir .. 'kotlin.lua')
-dofile(tests_dir .. 'lua.lua')
-dofile(tests_dir .. 'make.lua')
-dofile(tests_dir .. 'perl.lua')
-dofile(tests_dir .. 'python.lua')
-dofile(tests_dir .. 'r.lua')
-dofile(tests_dir .. 'ruby.lua')
-dofile(tests_dir .. 'rust.lua')
-dofile(tests_dir .. 'sh.lua')
-dofile(tests_dir .. 'swift.lua')
-dofile(tests_dir .. 'typescript.lua')
-dofile(tests_dir .. 'vb.lua')
-dofile(tests_dir .. 'zig.lua')
+coroutine.resume(coroutine.create(function()
+  local co = coroutine.running()
+  local function sleep(_ms)
+    vim.defer_fn(function() coroutine.resume(co) end, _ms)
+    coroutine.yield()
+  end
+
+  dofile(tests_dir .. 'asm.lua')
+  sleep(10000)
+  dofile(tests_dir .. 'c.lua')
+  sleep(10000)
+  dofile(tests_dir .. 'cpp.lua')
+  sleep(10000)
+  dofile(tests_dir .. 'cs.lua')
+  sleep(10000)
+  dofile(tests_dir .. 'dart.lua')
+  sleep(15000)
+  dofile(tests_dir .. 'elixir.lua')
+  sleep(3000)
+  dofile(tests_dir .. 'fortran.lua')
+  sleep(5000)
+  dofile(tests_dir .. 'fsharp.lua')
+  sleep(5000)
+  dofile(tests_dir .. 'go.lua')
+  sleep(25000)
+  dofile(tests_dir .. 'java.lua')
+  sleep(25000)
+  dofile(tests_dir .. 'javascript.lua')
+  sleep(5000)
+  dofile(tests_dir .. 'kotlin.lua')
+  sleep(25000)
+  dofile(tests_dir .. 'lua.lua')
+  sleep(5000)
+  dofile(tests_dir .. 'make.lua')
+  sleep(1000)
+  dofile(tests_dir .. 'perl.lua')
+  sleep(5000)
+  dofile(tests_dir .. 'python.lua')
+  sleep(25000)
+  dofile(tests_dir .. 'r.lua')
+  sleep(5000)
+  dofile(tests_dir .. 'ruby.lua')
+  sleep(5000)
+  dofile(tests_dir .. 'rust.lua')
+  sleep(25000)
+  dofile(tests_dir .. 'sh.lua')
+  sleep(5000)
+  dofile(tests_dir .. 'swift.lua')
+  sleep(10000)
+  dofile(tests_dir .. 'typescript.lua')
+  sleep(5000)
+  dofile(tests_dir .. 'vb.lua')
+  sleep(5000)
+  dofile(tests_dir .. 'zig.lua')
 
 -- Cases that require to be tested manually atm.
 -- * python                          → Run this file.
@@ -43,3 +77,4 @@ dofile(tests_dir .. 'zig.lua')
 -- * python/r/elixir/F#/kotlin/swift → REPL
 -- * flutter                         → Run program (its a loop).
 --
+end))

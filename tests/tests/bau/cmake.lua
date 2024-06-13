@@ -5,7 +5,16 @@ local ms = 1000 -- wait time
 local bau = require("compiler.bau.cmake")
 local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/bau/cmake"
 
--- Run CMakeLists.txt
-vim.api.nvim_set_current_dir(example)
-bau.action("hello_world")
-vim.wait(ms)
+coroutine.resume(coroutine.create(function()
+  local co = coroutine.running()
+  local function sleep(_ms)
+    if not _ms then _ms = ms end
+    vim.defer_fn(function() coroutine.resume(co) end, _ms)
+    coroutine.yield()
+  end
+
+  -- Run CMakeLists.txt
+  vim.api.nvim_set_current_dir(example)
+  bau.action("hello_world")
+  sleep()
+end))
