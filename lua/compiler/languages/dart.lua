@@ -151,6 +151,7 @@ function M.action(selected_option)
           components = { "default_extended" }
         },},},})
     task:start()
+  elseif selected_option == "option5" then
     local arguments = "" -- optional
     local task = overseer.new_task({
       name = "- Dart compiler",
@@ -164,6 +165,7 @@ function M.action(selected_option)
           components = { "default_extended" }
         },},},})
     task:start()
+  elseif selected_option == "option6" then
     local arguments = "" -- optional
     local task = overseer.new_task({
       name = "- Dart compiler",
@@ -289,6 +291,7 @@ function M.action(selected_option)
           components = { "default_extended" }
         },},},})
     task:start()
+  elseif selected_option == "option11" then
     local task = overseer.new_task({
       name = "- Flutter compiler",
       strategy = { "orchestrator",
@@ -298,6 +301,7 @@ function M.action(selected_option)
           components = { "default_extended" }
         },},},})
     task:start()
+  elseif selected_option == "option12" then
     local task = overseer.new_task({
       name = "- Flutter compiler",
       strategy = { "orchestrator",
