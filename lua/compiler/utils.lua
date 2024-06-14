@@ -168,12 +168,8 @@ end
 ---@param path_to_append string A subdirectory to append to he returned dir.
 ---@return string path tests dir + path_to_append. Supports windows and unix.
 function M.get_tests_dir(path_to_append)
-  local plugin_directory = vim.fn.fnamemodify(
-    vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":h"),
-    ":h:h"
-  )
-
-  return M.os_path(plugin_directory .. "/tests/" .. path_to_append)
+  local plugin_dir = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h:h:h")
+  return M.os_path(plugin_dir .. "/tests/" .. path_to_append)
 end
 
 return M
