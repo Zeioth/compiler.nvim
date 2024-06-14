@@ -1,7 +1,6 @@
 --- This file runs all the tests to ensure all bau are working correctly.
 --- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests-bau.lua
 
--- path of this script → tests
 local tests_dir = require("compiler.utils").plugin_dir_append("tests/bau/")
 local ms = 1000 -- wait time
 

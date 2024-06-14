@@ -5,7 +5,6 @@
 --       If your CPU is slower, you will have to increase the wait time
 --       in this file, and in every individual test.
 
--- path of this script → tests
 local tests_dir = require("compiler.utils").get_tests_dir("tests/languages/")
 
 coroutine.resume(coroutine.create(function()
