@@ -13,13 +13,13 @@ coroutine.resume(coroutine.create(function()
   end
 
   -- Run gradlew > build.gradlew.kts > build.gradlew (first occurence by priority)
-  local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/bau/gradle/parse-file"
+  local example = require("compiler.utils").get_tests_dir("code samples/bau/gradle/parse-file")
   vim.api.nvim_set_current_dir(example)
   bau.action("hello_world")
   sleep()
 
   -- Run gradlew > build.gradlew.kts > build.gradlew (first occurence by priority)
-  example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/bau/gradle/parse-cmd"
+  example = require("compiler.utils").get_tests_dir("code samples/bau/gradle/parse-cmd")
   vim.api.nvim_set_current_dir(example)
   bau.action("bootRun")
   sleep()

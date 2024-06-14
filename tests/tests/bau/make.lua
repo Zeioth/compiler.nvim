@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local bau = require("compiler.bau.make")
-local example = vim.fn.stdpath "data" .. "/lazy/compiler.nvim/tests/code samples/bau/make"
+local example = require("compiler.utils").get_tests_dir("code samples/bau/make")
 
 coroutine.resume(coroutine.create(function()
   local co = coroutine.running()

@@ -14,7 +14,7 @@ coroutine.resume(coroutine.create(function()
   end
 
   -- ============================= INTERPRETED ==================================
-  example = vim.fn.stdpath("data") .. "/lazy/compiler.nvim/tests/code samples/languages/python/interpreted/"
+  example = require("compiler.utils").get_tests_dir("code samples/languages/python/interpreted/")
 
   -- Run program
   vim.api.nvim_set_current_dir(example .. "run-program/")
@@ -32,7 +32,7 @@ coroutine.resume(coroutine.create(function()
   sleep()
 
   -- ============================= MACHINE CODE =================================
-  example = vim.fn.stdpath("data") .. "/lazy/compiler.nvim/tests/code samples/languages/python/machine-code/"
+  example = require("compiler.utils").get_tests_dir("code samples/languages/python/machine-code/")
 
   -- Build and run
   vim.api.nvim_set_current_dir(example .. "build-and-run/")
@@ -59,7 +59,7 @@ coroutine.resume(coroutine.create(function()
   sleep()
 
   -- =============================== BYTECODE ===================================
-  example = vim.fn.stdpath("data") .. "/lazy/compiler.nvim/tests/code samples/languages/python/bytecode/"
+  example = require("compiler.utils").get_tests_dir("code samples/languages/python/bytecode/")
 
   -- Build and run
   vim.api.nvim_set_current_dir(example .. "build-and-run/")

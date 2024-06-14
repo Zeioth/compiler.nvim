@@ -3,7 +3,7 @@
 
 local ms = 1000 -- wait time
 local language = require("compiler.languages.c")
-local example = vim.fn.stdpath("data") .. "/lazy/compiler.nvim/tests/code samples/languages/c/"
+local example = require("compiler.utils").get_tests_dir("code samples/languages/c/")
 
 coroutine.resume(coroutine.create(function()
   local co = coroutine.running()

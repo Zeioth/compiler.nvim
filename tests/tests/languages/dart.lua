@@ -15,7 +15,7 @@ coroutine.resume(coroutine.create(function()
   end
 
   -- ============================= INTERPRETED ================================
-  example = vim.fn.stdpath("data") .. "/lazy/compiler.nvim/tests/code samples/languages/dart/interpreted/"
+  example = require("compiler.utils").get_tests_dir("code samples/languages/dart/interpreted/")
 
   -- Run program
   vim.api.nvim_set_current_dir(example .. "run-program/")
@@ -33,7 +33,7 @@ coroutine.resume(coroutine.create(function()
   sleep()
 
   -- ============================= MACHINE CODE ===============================
-  example = vim.fn.stdpath("data") .. "/lazy/compiler.nvim/tests/code samples/languages/dart/machine-code/"
+  example = require("compiler.utils").get_tests_dir("code samples/languages/dart/machine-code/")
 
   -- Build and run
   vim.api.nvim_set_current_dir(example .. "build-and-run/")
@@ -60,7 +60,7 @@ coroutine.resume(coroutine.create(function()
   sleep()
 
   -- =============================== FLUTTER ==================================
-  example = vim.fn.stdpath("data") .. "/lazy/compiler.nvim/tests/code samples/languages/dart/fluttr/"
+  example = require("compiler.utils").get_tests_dir("code samples/languages/dart/fluttr/")
   vim.api.nvim_set_current_dir(example)
 
   -- We don't test run program (flutter because it is a loop)
@@ -84,7 +84,7 @@ coroutine.resume(coroutine.create(function()
   sleep()
 
   -- =============================== OTHER ====================================
-  example = vim.fn.stdpath("data") .. "/lazy/compiler.nvim/tests/code samples/languages/dart/transpiled/"
+  example = require("compiler.utils").get_tests_dir("code samples/languages/dart/transpiled/")
 
   -- Transpile to javascript
   vim.api.nvim_set_current_dir(example .. "to-javascript/")

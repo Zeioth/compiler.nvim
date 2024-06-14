@@ -2,7 +2,7 @@
 --- @usage :luafile ~/.local/share/nvim/lazy/compiler.nvim/tests/tests-bau.lua
 
 -- path of this script → tests
-local tests_dir = (debug.getinfo(1, 'S').source:sub(2):match '(.*/)') .. "/tests/bau/"
+local tests_dir = require("compiler.utils").plugin_dir_append("tests/bau/")
 local ms = 1000 -- wait time
 
 coroutine.resume(coroutine.create(function()
@@ -12,6 +12,7 @@ coroutine.resume(coroutine.create(function()
     vim.defer_fn(function() coroutine.resume(co) end, _ms)
     coroutine.yield()
   end
+
   dofile(tests_dir .. 'make.lua')
   sleep()
   dofile(tests_dir .. 'cmake.lua')

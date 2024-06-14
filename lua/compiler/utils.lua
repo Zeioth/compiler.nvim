@@ -164,4 +164,19 @@ function M.os_path(path, surround)
   return string.gsub(path, '[/\\]', separator)
 end
 
+---Returns the tests dir + a subdir if specified.
+---The returned path support unix and windows.
+---@param path string (optional) A subdirectory to append to he returned dir.
+---@return string resulting path.
+function M.get_tests_dir(path)
+  local plugin_directory = vim.fn.fnamemodify(
+    vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":h"),
+    ":h:h"
+  )
+  if path then
+    plugin_directory = M.os_path(plugin_directory .. "/tests/" .. path)
+  end
+  return plugin_directory
+end
+
 return M
