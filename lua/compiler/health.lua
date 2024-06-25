@@ -112,14 +112,24 @@ function M.check()
       mag = "Used to transpile typescript to javascript. If you install it on your project, it will prevail over the global tsc executable.",
     },
     {
+      cmd = { "swiftc" },
+      type = "warn",
+      msg = "Used to call the swift compiler.",
+    },
+    {
       cmd = { "swift" },
       type = "warn",
       msg = "Used to call the swift cli.",
     },
     {
-      cmd = { "swiftc" },
+      cmd = { "gfortran" },
       type = "warn",
-      msg = "Used to call the swift compiler.",
+      msg = "Used by compiler.nvim to compile fortran (optional)"
+    },
+    {
+      cmd = { "fpm" },
+      type = "warn",
+      msg = "Used by compiler.nvim to compile fortran (optional)"
     },
     {
       cmd = { "go" },
