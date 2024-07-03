@@ -172,4 +172,54 @@ function M.get_tests_dir(path_to_append)
   return M.os_path(plugin_dir .. "/tests/" .. path_to_append)
 end
 
+
+---Locates all .csproj to supply as --project to a dotnet command.
+---If multiple matches are found they're presented in the telescope filepicker.
+---If theres only one .csproj no telescope is spawned
+---@param callback function that depends on the selected .csproj file ( eg dotnet run )
+function M.pick_csproj(callback)
+  local handle = io.popen('find . -name "*.csproj"')
+  local result = handle:read("*a")
+  handle:close()
+  local files = {}
+  for file in string.gmatch(result, "[^\r\n]+") do
+    table.insert(files, file)
+  end
+
+  local has_telescope, telescope = pcall(require, 'telescope.builtin')
+  if has_telescope then
+    local pickers = require('telescope.pickers')
+    local finders = require('telescope.finders')
+    local sorters = require('telescope.sorters')
+    local actions = require('telescope.actions')
+    local action_state = require('telescope.actions.state')
+
+    local opts = {
+      prompt_title = "Select .csproj File",
+      finder = finders.new_table {
+        results = files,
+      },
+      sorter = sorters.get_generic_fuzzy_sorter(),
+      attach_mappings = function(prompt_bufnr, map)
+        actions.select_default:replace(function()
+          local selection = action_state.get_selected_entry()
+          actions.close(prompt_bufnr)
+          if callback then
+            callback(selection.value)
+          end
+        end)
+        return true
+      end,
+    }
+
+    pickers.new(opts):find()
+  else
+    vim.notify("Multiple csproj found. Please install telescope.nvim as a filepicker.", vim.log.levels.WARN)
+    vim.notify("Using first match.", vim.log.levels.INFO)
+    if callback then
+      callback(files[1])
+    end
+  end
+end
+
 return M

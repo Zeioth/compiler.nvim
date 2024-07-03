@@ -141,35 +141,41 @@ function M.action(selected_option)
       task:start()
     end
   elseif selected_option == "option5" then
-    local task = overseer.new_task({
-      name = "- C# compiler",
-      strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet build & run → \"Program.csproj\"",
-          cmd = "dotnet run" ..                                                    -- compile and run
-                " && echo \"" .. final_message .. "\"",                            -- echo
+    utils.pick_csproj(function(selected_csproj)
+      local task = overseer.new_task({
+        name = "- C# compiler",
+        strategy = { "orchestrator",
+        tasks = {{ name = "- Dotnet build & run →",
+          cmd = "dotnet run --project \"" .. selected_csproj ..                    -- compile and run
+                "\" && echo \"" .. final_message .. "\"",                          -- echo
           components = { "default_extended" }
-        },},},})
-    task:start()
+          },},},})
+      task:start()
+    end)
   elseif selected_option == "option6" then
-    local task = overseer.new_task({
-      name = "- C# compiler",
-      strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet build → \"Program.csproj\"",
-          cmd = "dotnet build" ..                                                  -- compile
-                " && echo \"" .. final_message .. "\"",                            -- echo
+    utils.pick_csproj(function(selected_csproj)
+      local task = overseer.new_task({
+        name = "- C# compiler",
+        strategy = { "orchestrator",
+        tasks = {{ name = "- Dotnet build →",
+          cmd = "dotnet build \"" .. selected_csproj ..                            -- compile and run
+                "\" && echo \"" .. final_message .. "\"",                          -- echo
           components = { "default_extended" }
-        },},},})
-    task:start()
+          },},},})
+      task:start()
+    end)
   elseif selected_option == "option7" then
-    local task = overseer.new_task({
-      name = "- C# compiler",
-      strategy = { "orchestrator",
-        tasks = {{ name = "- Dotnet watch → \"Program.csproj\"",
-          cmd = "dotnet watch" ..                                                  -- compile
-                " && echo \"" .. final_message .. "\"",                            -- echo
-          components = { "default_extended" }
-        },},},})
-    task:start()
+    utils.pick_csproj(function(selected_csproj)
+      local task = overseer.new_task({
+       name = "- C# compiler",
+       strategy = { "orchestrator",
+         tasks = {{ name = "- Dotnet watch →",
+           cmd = "dotnet watch --project \"" .. selected_csproj ..                -- compile and watch
+                 "\" && echo \"" .. final_message .. "\"",                        -- echo
+           components = { "default_extended" }
+         },},},})
+      task:start()
+    end)
   end
 end
 
