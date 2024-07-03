@@ -186,6 +186,12 @@ function M.pick_csproj(callback)
     table.insert(files, file)
   end
 
+  -- When theres only one csproj. why even bother with telescope
+  if #files == 1 then
+    if callback then callback(files[1]) end
+    return
+  end
+
   local has_telescope, telescope = pcall(require, 'telescope.builtin')
   if has_telescope then
     local pickers = require('telescope.pickers')
