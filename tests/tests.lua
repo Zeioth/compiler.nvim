@@ -30,6 +30,8 @@ coroutine.resume(coroutine.create(function()
   sleep(5000)
   dofile(tests_dir .. 'fsharp.lua')
   sleep(5000)
+  dofile(tests_dir .. 'gleam.lua')
+  sleep(5000)
   dofile(tests_dir .. 'go.lua')
   sleep(25000)
   dofile(tests_dir .. 'java.lua')
@@ -62,18 +64,18 @@ coroutine.resume(coroutine.create(function()
   sleep(5000)
   dofile(tests_dir .. 'zig.lua')
 
--- Cases that require to be tested manually atm.
--- * python                          → Run this file.
--- * ruby                            → Run this file.
--- * shell                           → Run this file.
--- * elixir                          → Run this file.
--- * fortran                         → Run this file.
--- * fsharp                          → Run this file.
--- * r                               → Run this file.
--- * typescript                      → Run this file.
--- * javascript                      → Run this file.
--- * dart                            → Run this file.
--- * python/r/elixir/F#/kotlin/swift → REPL
--- * flutter                         → Run program (its a loop).
---
+  -- Cases that require to be tested manually atm.
+  -- * python                          → Run this file.
+  -- * ruby                            → Run this file.
+  -- * shell                           → Run this file.
+  -- * elixir                          → Run this file.
+  -- * fortran                         → Run this file.
+  -- * fsharp                          → Run this file.
+  -- * r                               → Run this file.
+  -- * typescript                      → Run this file.
+  -- * javascript                      → Run this file.
+  -- * dart                            → Run this file.
+  -- * python/r/elixir/F#/kotlin/swift → REPL
+  -- * flutter                         → Run program (its a loop).
+  --
 end))
