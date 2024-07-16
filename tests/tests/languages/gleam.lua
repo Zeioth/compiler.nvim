@@ -23,7 +23,6 @@ coroutine.resume(coroutine.create(function()
   sleep()
 
   -- Run
-  vim.api.nvim_set_current_dir(example .. "build/")
   language.action("option3")
   sleep()
 end))
