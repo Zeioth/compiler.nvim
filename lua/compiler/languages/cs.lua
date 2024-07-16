@@ -2,7 +2,7 @@
 
 local M = {}
 
---- Frontend  - options displayed on telescope
+--- Frontend - options displayed on telescope
 M.options = {
   { text = "build and run program (csc)", value = "option1" },
   { text = "build program (csc)", value = "option2" },

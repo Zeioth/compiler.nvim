@@ -2,7 +2,7 @@
 
 local M = {}
 
---- Frontend  - options displayed on telescope
+--- Frontend - options displayed on telescope
 M.options = {
   { text = "Run this file (interpreted)", value = "option1" },
   { text = "Run program (interpreted)", value = "option2" },

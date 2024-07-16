@@ -5,7 +5,7 @@
 
 local M = {}
 
---- Frontend  - options displayed on telescope
+--- Frontend - options displayed on telescope
 M.options = {
   { text = "Zig build and run program", value = "option1" },
   { text = "Zig build program", value = "option2" }

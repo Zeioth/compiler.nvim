@@ -4,7 +4,7 @@
 
 local M = {}
 
---- Frontend  - options displayed on telescope
+--- Frontend - options displayed on telescope
 M.options = {
   { text = "Run Makefile", value = "option1" }
 }
