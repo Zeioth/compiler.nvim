@@ -124,6 +124,7 @@ This is what happen when you select `build & run`, `build`, or `run` in the comp
 | elixir | ./mix.exs | ./_build/ |
 | fortran | ./fpm | ./build/ |
 | f# | [see here](https://github.com/Zeioth/compiler.nvim/wiki/fsharp-compiler) | ./bin/ |
+| gleam | ./build.toml | ./build |
 | flutter | ./pubspec.yaml | ./build/ |
 | go | ./main.go | ./bin/program |
 | java | ./Main.java | ./bin/Main.class |
