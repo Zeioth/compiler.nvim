@@ -14,46 +14,50 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.asm")          -- working_directory/main.asm
-  local entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")              -- working_directory/
-  local files = utils.find_files(entry_point_dir, "*.asm")                   -- *.asm files under entry_point_dir (recursively)
-  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
-  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
-  local arguments = "-g"                                                     -- arguments can be overriden in .solution
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.asm")           -- working_directory/main.asm
+  local entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")               -- working_directory/
+  local files = utils.find_files(entry_point_dir, "*.asm")                    -- *.asm files under entry_point_dir (recursively)
+  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/", true)          -- working_directory/bin/
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program", true, true) -- working_directory/bin/program
+  local arguments = "-g"                                                      -- arguments can be overriden in .solution
   local final_message = "--task finished--"
+
+  entry_point = utils.os_path(entry_point) -- surround ""
+
+  local rm, mkdir, ignore_err = utils.get_commands()
 
   if selected_option == "option1" then
     -- Build .asm files in parallel
     local tasks_compile = {}
     for _, file in pairs(files) do
       local filename = vim.fn.fnamemodify(file, ":t")
-      local output_o = output_dir .. filename .. ".o"
+      local output_o = utils.os_path(output_dir .. filename .. ".o", true)
       file = utils.os_path(file, true)
-      local task = { name = "- Build program → " .. file,
-        cmd = "rm -f \"" .. output .. "\" || true" ..                                       -- clean
-              " && mkdir -p \"" .. output_dir .. "\"" ..                                    -- mkdir
-              " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" ".. arguments ..  -- compile
-              " && echo " .. file ..                                                        -- echo
-              " && echo \"" .. final_message .. "\"",
-        components = { "default_extended" }
+      local task = { "shell", name = "- Build program → " .. file,
+        cmd = rm .. output .. ignore_err ..                                             -- clean
+              " && " .. mkdir .. output_dir .. ignore_err ..                            -- mkdir
+              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " ".. arguments ..  -- compile
+              " && echo " .. file ..                                                    -- echo
+              " && echo '" .. final_message .. "'",
+      components = { "default_extended" }
       }
       files[_] = utils.os_path(output_dir .. filename .. ".o", true)         -- prepare for linker
       table.insert(tasks_compile, task)
     end
     -- Link .o files
     files = table.concat(files ," ") -- table to string
-    local task_link = { name = "- Link program → \"" .. entry_point .."\"" ,
-      cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..                  -- link
-            " && rm -f " .. files .. " || true" ..                           -- clean
-            " && \"" .. output .. "\"" ..                                    -- run
-            " && echo && echo \"" .. entry_point .. "\"" ..                  -- echo
+    local task_link = { "shell", name = "- Link program → \"" .. entry_point .. "\"",
+      cmd = "ld " .. files .. " -o " .. output ..              -- link
+            " && " .. rm .. files .. ignore_err ..             -- clean
+            " && " .. output ..                                -- run
+            " && echo && echo \"" .. entry_point .. "\"" ..    -- echo
             " && echo \"" .. final_message .. "\"",
       components = { "default_extended" }
     }
     -- Run program
-    local task_run = { name = "- Run program → \"" .. output .. "\"",
-      cmd = utils.os_path(output, true) ..                                   -- run
-            " && echo && echo \"" .. output .. "\"" ..                       -- echo
+    local task_run = { name = "- Run program → " .. output,
+      cmd = output ..                                    -- run
+            " && echo && echo " .. output ..             -- echo
             " && echo \"" .. final_message .. "\"",
       components = { "default_extended" }
     }
@@ -72,25 +76,25 @@ function M.action(selected_option)
     local tasks_compile = {}
     for _, file in pairs(files) do
       local filename = vim.fn.fnamemodify(file, ":t")
-      local output_o = output_dir .. filename .. ".o"
+      local output_o = utils.os_path(output_dir .. filename .. ".o", true)
       file = utils.os_path(file, true)
-      local task = { name = "- Build program → " .. file,
-        cmd = "rm -f \"" .. output .. "\" || true" ..                                        -- clean
-              " && mkdir -p \"" .. output_dir .. "\"" ..                                     -- mkdir
-              " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments  .. -- compile
-              " && echo " .. file ..                                                         -- echo
+      local task = { "shell", name = "- Build program → " .. file,
+        cmd = rm .. output .. ignore_err ..                                                    -- clean
+              " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                   -- mkdir
+              " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments  ..   -- compile
+              " && echo " .. file ..                                                           -- echo
               " && echo \"" .. final_message .. "\"",
-        components = { "default_extended" }
+      components = { "default_extended" }
       }
       files[_] = utils.os_path(output_dir .. filename .. ".o", true)         -- prepare for linker
       table.insert(tasks_compile, task)
     end
     -- Link .o files
     files = table.concat(files ," ") -- table to string
-    local task_link = { name = "- Link program → \"" .. entry_point .. "\"",
-      cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..                  -- link
-           " && rm -f " .. files .. " || true" ..                            -- clean
-           " && echo \"" .. entry_point .. "\"" ..                           -- echo
+    local task_link = { "shell", name = "- Link program → \"" .. entry_point .. "\"",
+      cmd = "ld " .. files .. " -o " .. output ..                        -- link
+           " && " .. rm .. files .. ignore_err ..                        -- clean
+           " && echo \"" .. entry_point .. "\""  ..                      -- echo
            " && echo \"" .. final_message .. "\"",
       components = { "default_extended" }
     }
@@ -106,9 +110,9 @@ function M.action(selected_option)
     local task = overseer.new_task({
       name = "- Assembly compiler",
       strategy = { "orchestrator",
-        tasks = {{ name = "- Run program → \"" .. output .. "\"",
-          cmd = "\"" .. output .. "\"" ..                                    -- run
-                " && echo && echo \"" .. output .. "\"" ..                   -- echo
+        tasks = {{ name = "- Run program → " .. output,
+          cmd = output ..                                 -- run
+                " && echo && echo " .. output ..          -- echo
                 " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         },},},})
@@ -129,7 +133,7 @@ function M.action(selected_option)
         entry_point = utils.os_path(variables.entry_point)
         entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
         files = utils.find_files(entry_point_dir, "*.asm")
-        output = utils.os_path(variables.output)                             -- entry_point/bin/program
+        output = utils.os_path(variables.output, true, true)                 -- entry_point/bin/program
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))       -- entry_point/bin
         arguments = variables.arguments or arguments -- optional
 
@@ -137,13 +141,13 @@ function M.action(selected_option)
         local tasks_compile = {}
         for _, file in pairs(files) do
           local filename = vim.fn.fnamemodify(file, ":t")
-          local output_o = output_dir .. filename .. ".o"
+          local output_o = utils.os_path(output_dir .. filename .. ".o", true)
           file = utils.os_path(file, true)
-          local task = { name = "- Build program → " .. file,
-            cmd = "rm -f \"" .. output .. "\" || true" ..                                       -- clean
-                  " && mkdir -p \"" .. output_dir .. "\"" ..                                    -- mkdir
-                  " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments .. -- compile
-                  " && echo " .. file ..                                                        -- echo
+          local task = { "shell", name = "- Build program → " .. file,
+            cmd = rm .. output .. ignore_err ..                                             -- clean
+                  " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..            -- mkdir
+                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. arguments .. -- compile
+                  " && echo " .. file ..                                                    -- echo
                   " && echo \"" .. final_message .. "\"",
             components = { "default_extended" }
           }
@@ -152,10 +156,10 @@ function M.action(selected_option)
         end
         -- Link .o files
         files = table.concat(files ," ") -- table to string
-        local task_link = { name = "- Link program → " .. entry_point,
-          cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..              -- link
-               " && rm -f " .. files ..  " || true" ..                       -- clean
-               " && echo \"" .. entry_point .. "\""  ..                      -- echo
+        local task_link = { "shell", name = "- Link program → " .. entry_point,
+          cmd = "ld " .. files .. " -o " .. output ..                   -- link
+               " && " .. rm .. files ..  ignore_err ..                  -- clean
+               " && echo \"" .. entry_point .. "\"" ..                  -- echo
                " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         }
@@ -167,7 +171,7 @@ function M.action(selected_option)
       local solution_executables = config["executables"]
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
-          utils.os_path(executable, true)
+          executable = utils.os_path(executable, true, true)
           task = { name = "- Run program → " .. executable,
             cmd = executable ..                                              -- run
                   " && echo && echo " .. executable ..                       -- echo
@@ -197,7 +201,7 @@ function M.action(selected_option)
         entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
         files = utils.find_files(entry_point_dir, "*.asm")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
-        output = utils.os_path(output_dir .. "/program")                              -- entry_point/bin/program
+        output = utils.os_path(output_dir .. "/program", true, true)                  -- entry_point/bin/program
 
         -- Build .asm files in parallel
         local tasks_compile = {}
@@ -205,11 +209,11 @@ function M.action(selected_option)
           local filename = vim.fn.fnamemodify(file, ":t")
           local output_o = output_dir .. filename .. ".o"
           file = utils.os_path(file, true)
-          local task = { name = "- Build program → " .. file,
-            cmd = "rm -f \"" .. output .. "\" || true" ..                                       -- clean
-                  " && mkdir -p \"" .. output_dir .. "\"" ..                                    -- mkdir
-                  " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments .. -- compile
-                  " && echo " .. file ..                                                        -- echo
+          local task = { "shell", name = "- Build program → " .. file,
+            cmd = rm .. output .. ignore_err ..                                                  -- clean
+                  " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                 -- mkdir
+                  " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments ..  -- compile
+                  " && echo " .. file ..                                                         -- echo
                   " && echo \"" .. final_message .. "\"",
             components = { "default_extended" }
           }
@@ -217,11 +221,11 @@ function M.action(selected_option)
           table.insert(tasks_compile, task)
         end
         -- Link .o files
-        files = table.concat(files ," ") -- table to string
-        local task_link = { name = "- Link program → \"" .. entry_point .. "\"",
-          cmd = "ld " .. files .. " -o \"" .. output .. "\"" ..              -- link
-               " && rm -f " .. files ..  " || true" ..                       -- clean
-               " && echo \"" .. entry_point .. "\"" ..                       -- echo
+        files = table.concat(files, " ") -- table to string
+        local task_link = { "shell", name = "- Link program → \"" .. entry_point .. "\"",
+          cmd = "ld " .. files .. " -o " .. output ..                          -- link
+               " && " .. rm .. files ..  ignore_err ..                         -- clean
+               " && echo \"" .. entry_point .. "\"" ..                         -- echo
                " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         }
