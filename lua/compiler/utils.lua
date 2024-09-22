@@ -150,10 +150,14 @@ end
 ---This way the shell will be able to detect spaces in the path.
 ---@param path string A path string.
 ---@param surround boolean|nil If true, surround path by "". False by default.
+---@param exe boolean|nil If true, add .exe to path when on windows
 ---@return string|nil,nil path A path string formatted for the current OS.
-function M.os_path(path, surround)
+function M.os_path(path, surround, exe)
   if path == nil then return nil end
   if surround == nil then surround = false end
+  if exe == nil then exe = false end
+
+  path = path:gsub("\"", "") -- Remove all "
 
   local separator = string.sub(package.config, 1, 1)
 
