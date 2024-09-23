@@ -29,15 +29,16 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local current_file = utils.os_path(vim.fn.expand('%:p'), true)             -- current file
-  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.py")           -- working_directory/main.py
-  local files = utils.find_files_to_compile(entry_point, "*.py")             -- *.py files under entry_point_dir (recursively)
-  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
-  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
+  local current_file = utils.os_path(vim.fn.expand('%:p'), true)                -- current file
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.py")              -- working_directory/main.py
+  local files = utils.find_files_to_compile(entry_point, "*.py")                -- *.py files under entry_point_dir (recursively)
+  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")                  -- working_directory/bin/
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program", false, true)  -- working_directory/bin/program
   local final_message = "--task finished--"
   -- For python, arguments are not globally defined,
   -- as we have 3 different ways to run the code.
 
+  local rm, mkdir, ignore_err = utils.get_commands()
 
   --=========================== INTERPRETED =================================--
   if selected_option == "option1" then
@@ -148,8 +149,8 @@ function M.action(selected_option)
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build & run program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
-            " && mkdir -p \"" .. output_dir .. "\"" ..                                  -- mkdir
+          cmd = rm .. "\"" .. output ..  "\"" .. ignore_err ..                          -- clean
+            " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..              -- mkdir
             " && nuitka --no-pyi-file --remove-output --follow-imports"  ..            -- compile to machine code
               " --output-filename=\"" .. output  .. "\"" ..
               " " .. arguments .. " " .. "\"" .. entry_point .. "\"" ..
@@ -165,8 +166,8 @@ function M.action(selected_option)
       name = "- Python machine code compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
+          cmd = rm .. "\"" .. output ..  "\"" .. ignore_err ..                          -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..          -- mkdir
                 " && nuitka --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=\"" .. output  .. "\"" ..
                   " " .. arguments .. " \"" .. entry_point .. "\"" ..
@@ -204,8 +205,8 @@ function M.action(selected_option)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         local arguments = variables.arguments or "--warn-implicit-exceptions --warn-unusual-code" -- optional
         task = { name = "- Build program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
+          cmd = rm .. "\"" .. output ..  "\"" .. ignore_err ..                          -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..          -- mkdir
                 " && nuitka --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                 " --output-filename=\"" .. output .. "\"" ..
                 " " .. arguments .. " \"" .. entry_point .. "\"" ..
@@ -249,8 +250,8 @@ function M.action(selected_option)
         output = utils.os_path(output_dir .. "/program")                                -- entry_point/bin/program
         local arguments = "--warn-implicit-exceptions --warn-unusual-code"              -- optional
         task = { name = "- Build program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
+          cmd = rm .. "\"" .. output ..  "\"" .. ignore_err ..                          -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..          -- mkdir
                 " && nuitka --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=\"" .. output  .. "\"" ..
                   " " .. arguments .. " \"" .. entry_point .. "\"" ..
@@ -281,15 +282,18 @@ function M.action(selected_option)
   --============================ BYTECODE ===================================--
   elseif selected_option == "option8" then
     local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
+    -- HACK: cache and output dir need to have forward slashes, or else pyinstaller errors
+    cache_dir = cache_dir:gsub("\\", "/")
+    output_dir = output_dir:gsub("\\", "/")
     local output_filename = vim.fn.fnamemodify(output, ":t")
     local arguments = "--log-level WARN --python-option W" -- optional
     local task = overseer.new_task({
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build & run program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
-                " && mkdir -p \"" .. cache_dir .. "\"" ..
+          cmd = rm .. "\"" .. output ..  "\"" .. ignore_err ..                          -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..          -- mkdir
+                " && " .. mkdir .. "\"" .. cache_dir .. "\"" .. ignore_err ..
                 " && pyinstaller " .. files ..                                          -- compile to bytecode
                   " --name " .. output_filename ..
                   " --workpath \"" .. cache_dir .. "\"" ..
@@ -303,15 +307,18 @@ function M.action(selected_option)
     task:start()
   elseif selected_option == "option9" then
     local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
+    -- HACK: cache and output dir need to have forward slashes, or else pyinstaller errors
+    cache_dir = cache_dir:gsub("\\", "/")
+    output_dir = output_dir:gsub("\\", "/")
     local output_filename = vim.fn.fnamemodify(output, ":t")
     local arguments = "--log-level WARN --python-option W" -- optional
     local task = overseer.new_task({
       name = "- Python bytecode compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
-                " && mkdir -p \"" .. cache_dir .. "\"" ..
+          cmd = rm .. "\"" .. output ..  "\"" .. ignore_err ..                          -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..          -- mkdir
+                " && " .. mkdir .. "\"" .. cache_dir .. "\"" .. ignore_err ..
                 " && pyinstaller " .. files ..                                          -- compile to bytecode
                   " --name " .. output_filename ..
                   " --workpath \"" .. cache_dir .. "\"" ..
@@ -352,11 +359,14 @@ function M.action(selected_option)
         output = utils.os_path(variables.output)
         local output_filename = vim.fn.fnamemodify(output, ":t")
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
+        -- HACK: cache and output dir need to have forward slashes, or else pyinstaller errors
+        cache_dir = cache_dir:gsub("\\", "/")
+        output_dir = output_dir:gsub("\\", "/")
         local arguments = variables.arguments or "--log-level WARN --python-option W"   -- optional
         task = { name = "- Build program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
-                " && mkdir -p \"" .. cache_dir .. "\"" ..
+          cmd = rm .. "\"" .. output ..  "\"" .. ignore_err ..                          -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..          -- mkdir
+                " && " .. mkdir .. "\"" .. cache_dir .. "\"" .. ignore_err ..
                 " && pyinstaller " .. files ..                                          -- compile to bytecode
                   " --name " .. output_filename ..
                   " --workpath \"" .. cache_dir .. "\"" ..
@@ -402,11 +412,14 @@ function M.action(selected_option)
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")    -- entry_point/bin
         output = utils.os_path(output_dir .. "/program")                                -- entry_point/bin/program
         local cache_dir = utils.os_path(vim.fn.stdpath "cache" .. "/compiler/pyinstall/")
+        -- HACK: cache and output dir need to have forward slashes, or else pyinstaller errors
+        cache_dir = cache_dir:gsub("\\", "/")
+        output_dir = output_dir:gsub("\\", "/")
         local output_filename = vim.fn.fnamemodify(output, ":t")
         local arguments = "--log-level WARN --python-option W"                          -- optional
         task = { name = "- Build program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
-                " && mkdir -p \"" .. cache_dir .. "\"" ..                               -- mkdir
+          cmd = rm .. "\"" .. output ..  "\"" .. ignore_err ..                          -- clean
+                " && " .. mkdir .. "\"" .. cache_dir .. "\"" .. ignore_err ..           -- mkdir
                 " && pyinstaller " .. files ..                                          -- compile to bytecode
                 " --name " .. output_filename ..
                 " --workpath \"" .. cache_dir .. "\"" ..
