@@ -150,7 +150,7 @@ function M.action(selected_option)
         tasks = {{ name = "- Build & run program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
             " && mkdir -p \"" .. output_dir .. "\"" ..                                  -- mkdir
-            " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..            -- compile to machine code
+            " && nuitka --no-pyi-file --remove-output --follow-imports"  ..            -- compile to machine code
               " --output-filename=\"" .. output  .. "\"" ..
               " " .. arguments .. " " .. "\"" .. entry_point .. "\"" ..
             " && \"" .. output .. "\"" ..                                               -- run
@@ -167,7 +167,7 @@ function M.action(selected_option)
         tasks = {{ name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
-                " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
+                " && nuitka --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=\"" .. output  .. "\"" ..
                   " " .. arguments .. " \"" .. entry_point .. "\"" ..
                 " && echo \"" .. entry_point .. "\"" ..                                 -- echo
@@ -206,7 +206,7 @@ function M.action(selected_option)
         task = { name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
-                " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
+                " && nuitka --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                 " --output-filename=\"" .. output .. "\"" ..
                 " " .. arguments .. " \"" .. entry_point .. "\"" ..
                 " && echo \"" .. entry_point .. "\"" ..                                 -- echo
@@ -251,7 +251,7 @@ function M.action(selected_option)
         task = { name = "- Build program → \"" .. entry_point .. "\"",
           cmd = "rm -f \"" .. output ..  "\" || true" ..                                -- clean
                 " && mkdir -p \"" .. output_dir .. "\"" ..                              -- mkdir
-                " && nuitka3 --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
+                " && nuitka --no-pyi-file --remove-output --follow-imports"  ..        -- compile to machine code
                   " --output-filename=\"" .. output  .. "\"" ..
                   " " .. arguments .. " \"" .. entry_point .. "\"" ..
                 " && echo \"" .. entry_point .. "\"" ..                                 -- echo
