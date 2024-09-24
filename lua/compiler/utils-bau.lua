@@ -65,7 +65,7 @@ local function get_cmake_opts(path)
     file:close()
 
     -- Parse add_executable entries
-    for target in content:gmatch("add_executable%s*%(%s*([%w_]+)") do
+    for target in content:gmatch("add_executable%s*%(%s*([%w_-]+)") do
       table.insert(
         options,
         { text = "CMake " .. target, value = target, bau = "cmake" }
@@ -73,7 +73,7 @@ local function get_cmake_opts(path)
     end
 
     -- Parse add_custom_target entries
-    for target in content:gmatch("add_custom_target%s*%(%s*([%w_]+)") do
+    for target in content:gmatch("add_custom_target%s*%(%s*([%w_-]+)") do
       table.insert(
         options,
         { text = "CMake " .. target, value = target, bau = "cmake" }
