@@ -79,10 +79,10 @@ function M.action(selected_option)
       local output_o = utils.os_path(output_dir .. filename .. ".o", true)
       file = utils.os_path(file, true)
       local task = { "shell", name = "- Build program → " .. file,
-        cmd = rm .. output .. ignore_err ..                                                    -- clean
-              " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                   -- mkdir
-              " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments  ..   -- compile
-              " && echo " .. file ..                                                           -- echo
+        cmd = rm .. output .. ignore_err ..                                                -- clean
+              " && " .. mkdir .. output_dir .. ignore_err ..                               -- mkdir
+              " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. arguments  ..   -- compile
+              " && echo " .. file ..                                                       -- echo
               " && echo \"" .. final_message .. "\"",
       components = { "default_extended" }
       }
@@ -200,20 +200,20 @@ function M.action(selected_option)
         entry_point = utils.os_path(entry_point)
         entry_point_dir = vim.fn.fnamemodify(entry_point, ":h")
         files = utils.find_files(entry_point_dir, "*.asm")
-        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
-        output = utils.os_path(output_dir .. "/program", true, true)                  -- entry_point/bin/program
+        output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin", true)  -- entry_point/bin
+        output = utils.os_path(output_dir .. "/program", true, true)                        -- entry_point/bin/program
 
         -- Build .asm files in parallel
         local tasks_compile = {}
         for _, file in pairs(files) do
           local filename = vim.fn.fnamemodify(file, ":t")
-          local output_o = output_dir .. filename .. ".o"
+          local output_o = utils.os_path(output_dir .. filename .. ".o", true)
           file = utils.os_path(file, true)
           local task = { "shell", name = "- Build program → " .. file,
-            cmd = rm .. output .. ignore_err ..                                                  -- clean
-                  " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                 -- mkdir
-                  " && nasm -f elf64 " .. file .. " -o \"" .. output_o .. "\" " .. arguments ..  -- compile
-                  " && echo " .. file ..                                                         -- echo
+            cmd = rm .. output .. ignore_err ..                                              -- clean
+                  " && " .. mkdir .. output_dir .. ignore_err ..                             -- mkdir
+                  " && nasm -f elf64 " .. file .. " -o " .. output_o .. " " .. arguments ..  -- compile
+                  " && echo " .. file ..                                                     -- echo
                   " && echo \"" .. final_message .. "\"",
             components = { "default_extended" }
           }
