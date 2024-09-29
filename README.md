@@ -225,6 +225,7 @@ If you want to help me, please star this repository to increase the visibility o
 ## Roadmap
 * Study adding support for justfiles/taskfiles.
 * Better Windows compatibility when not using WSL: The commands `rm -rf` and `mkdir -p` only exist on unix. To support Windows without WSL we should run the equivalent powershell command when Windows is detected.
-* We are gonna be adding common lisp support.
+* We are gonna be adding common LISP support.
+* We are gonna be adding COBOL support.
 * Aditionally, we will also have to compile for `asm` win64 architecture, if the detected OS is windows.
 * Aditionally, we will also have to add an option to compile for `Build for windows (flutter)`.
