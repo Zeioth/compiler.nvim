@@ -1,0 +1,11 @@
+# Regular comments
+[HelloWorld]
+entry_point = "./project1/src/main.nim"    # And also inline comments!
+output      = "./bin/hello_world1"   # Both are...
+executable  = "./bin/hello_world1"   # ...Accepted now.
+
+# Any entry containing a key with the word "executable" on it
+# will be executed directly in the terminal in parallel.
+[AnyNameWeWant]
+executable_1 = './bin/hello_world1'
+executable_2 = './bin/hello_world1'
