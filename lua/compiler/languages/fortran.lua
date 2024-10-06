@@ -16,20 +16,22 @@ function M.action(selected_option)
   local overseer = require("overseer")
   local current_file = utils.os_path(vim.fn.expand('%:p'), true)                           -- current file
   local output_dir = utils.os_path(vim.fn.stdpath("cache") .. "/compiler/fortran/")        -- working_directory/bin/
-  local output = output_dir .. "program"                                                   -- working_directory/bin/program
+  local output = utils.os_path(output_dir .. "program", true, true)                        -- working_directory/bin/program
   local arguments = ""                                                                     -- arguments can be overriden in .solution
   local final_message = "--task finished--"
+
+  local rm, mkdir, ignore_err = utils.get_commands()
 
   if selected_option == "option1" then
     local task = overseer.new_task({
       name = "- Fortran compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Run this file → " .. current_file,
-          cmd = "rm -f \"" .. output ..  "\" || true" ..                                   -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                 -- mkdir
+          cmd = rm .. output ..  ignore_err ..                                                 -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                 -- mkdir
                 " && gfortran " .. current_file .. " -o \"" .. output .. "\" " .. arguments .. -- compile
-                " && " .. output ..                                                        -- run
-                " && echo " .. current_file ..                                             -- echo
+                " && " .. output ..                                                            -- run
+                " && echo " .. current_file ..                                                 -- echo
                 " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         },},},})

@@ -18,7 +18,7 @@ function M.find_files(start_dir, file_name, surround)
   -- Create the find command with appropriate flags for recursive searching
   local find_command
   if string.sub(package.config, 1, 1) == "\\" then -- Windows
-    find_command = string.format('powershell.exe -Command "Get-ChildItem -Path \\"%s\\" -Recurse -Filter \\"%s\\" -File -Exclude \\".git\\" -ErrorAction SilentlyContinue"', start_dir, file_name)
+    find_command = string.format('powershell.exe -Command "Get-ChildItem -Path \\"%s\\" -Recurse -Filter \\"%s\\" -File -Exclude \\".git\\" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName"', start_dir, file_name, start_dir)
   else -- UNIX-like systems
     find_command = string.format('find "%s" -type d -name ".git" -prune -o -type f -name "%s" -print 2>/dev/null', start_dir, file_name)
   end
@@ -150,12 +150,22 @@ end
 ---This way the shell will be able to detect spaces in the path.
 ---@param path string A path string.
 ---@param surround boolean|nil If true, surround path by "". False by default.
+---@param exe boolean|nil If true, add .exe to path when on windows
 ---@return string|nil,nil path A path string formatted for the current OS.
-function M.os_path(path, surround)
+function M.os_path(path, surround, exe)
   if path == nil then return nil end
   if surround == nil then surround = false end
+  if exe == nil then exe = false end
+
+  path = path:gsub("\"", "") -- Remove all "
 
   local separator = string.sub(package.config, 1, 1)
+
+  if exe and string.sub(package.config, 1, 1) == "\\" then -- Windows
+    if path:sub(-4) ~= ".exe" then
+      path = path .. ".exe"
+    end
+  end
 
   if surround then
       path = '"' .. path .. '"'
@@ -170,6 +180,29 @@ end
 function M.get_tests_dir(path_to_append)
   local plugin_dir = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h:h:h")
   return M.os_path(plugin_dir .. "/tests/" .. path_to_append)
+end
+
+---Gives you the correct commands for `rm`, `mkdir` and ignoring errors (`|| true` on unix)
+---for the current OS.
+---@usage local rm, mkdir, ignore_error = get_commands()
+---@return string rm_file A command equivalent to `rm -f` for files
+---@return string mkdir A command equivalent to `mkdir -p`
+---@return string ignore_error The construct to ignore an error from the previous command
+function M.get_commands()
+  local commands = {}
+  -- Unix versions
+  commands.rm = "rm -f "
+  commands.mkdir = "mkdir -p "
+  commands.ignore_error = " || true"
+
+  if string.sub(package.config, 1, 1) == "\\" then -- Windows
+    commands.rm = "erase /f /q "
+    -- commands.rm_dir = "rd /s /q "
+    commands.mkdir = "mkdir "
+    commands.ignore_error = " > nul 2> nul & cd." -- rd and mkdir print errors, which we redirect to nul, so they don't show up and with '& cd.' we always get a success return code
+  end
+
+  return commands.rm, commands.mkdir, commands.ignore_error
 end
 
 return M

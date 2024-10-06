@@ -21,13 +21,20 @@ M.options = {
 function M.action(selected_option)
   local utils = require("compiler.utils")
   local overseer = require("overseer")
-  local entry_point = utils.os_path(vim.fn.getcwd() .. "/Main.java")         -- working_directory/Main.java
-  local files = utils.find_files_to_compile(entry_point, "*.java")           -- *.java files under entry_point_dir (recursively)
-  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
-  local output = utils.os_path(vim.fn.getcwd() .. "/bin/Main")               -- working_directory/bin/Main.class
-  local output_filename = "Main"                                             -- working_directory/bin/Main
-  local arguments = "-Xlint:all"                                             -- arguments can be overriden in .solution
+  local entry_point = utils.os_path(vim.fn.getcwd() .. "/Main.java")   -- working_directory/Main.java
+  local files = utils.find_files_to_compile(entry_point, "*.java")     -- *.java files under entry_point_dir (recursively)
+  local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")         -- working_directory/bin/
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/Main")         -- working_directory/bin/Main.class
+  local output_filename = "Main"                                       -- working_directory/bin/Main
+  local arguments = "-Xlint:all"                                       -- arguments can be overriden in .solution
   local final_message = "--task finished--"
+
+  -- HACK: I don't know why, but javac has problems backslashes '\' as path seperators, so we convert to '/'
+  output_dir = output_dir:gsub("\\", "/")
+  output = output:gsub("\\", "/")
+  files = files:gsub("\\", "/")
+
+  local rm_file, mkdir, ignore_err = utils.get_commands()
 
   --========================== Build as class ===============================--
   if selected_option == "option1" then
@@ -35,8 +42,8 @@ function M.action(selected_option)
       name = "- Java compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build & run program (class) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output_dir .. "*.class\"" .. " || true" ..                   -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                 -- mkdir
+          cmd = rm_file .. "\"" .. output_dir .. "*.class\"" .. ignore_err ..               -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..             -- mkdir
                 " && javac -d \"" .. output_dir .. "\" " .. arguments .. " " .. files ..   -- compile bytecode (.class)
                 " && java -cp \"" .. output_dir .. "\" " .. output_filename ..             -- run
                 " && echo \"" .. entry_point .. "\"" ..                                    -- echo
@@ -49,8 +56,8 @@ function M.action(selected_option)
       name = "- Java compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build program (class) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output_dir .. "/*.class\"" .. " || true" ..                  -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                 -- mkdir
+          cmd = rm_file .. "\"" .. output_dir .. "*.class\"" .. ignore_err ..             -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..             -- mkdir
                 " && javac -d \"" .. output_dir .. "\" " .. arguments .. " "  .. files ..  -- compile bytecode (.class)
                 " && echo \"" .. entry_point .. "\"" ..                                    -- echo
                 " && echo \"" .. final_message .. "\"",
@@ -83,12 +90,14 @@ function M.action(selected_option)
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
         files = utils.find_files_to_compile(entry_point, "*.java")
+        files = files:gsub("\\", "/")
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
+        output_dir = output_dir:gsub("\\", "/")
         arguments = variables.arguments or arguments -- optiona
         task = { name = "- Build program (class) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output_dir .. "/*.class\"" .. " || true" ..                  -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                 -- mkdir
+          cmd = rm_file .. "\"" .. output_dir .. "*.class\"" .. ignore_err ..                  -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..             -- mkdir
                 " && javac -d \"" .. output_dir .. "\" " .. arguments .. " "  .. files ..  -- compile bytecode
                 " && echo \"" .. entry_point .. "\""  ..                                   -- echo
                 " && echo \"" .. final_message .. "\"",
@@ -102,6 +111,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           output_dir = utils.os_path(executable:match("^(.-[/\\])[^/\\]*$"))
+          output_dir = output_dir:gsub("\\", "/")
           output_filename = vim.fn.fnamemodify(executable, ':t:r')
           task = { name = "- Run program (class) → \"" .. executable .. "\"",
             cmd = "java -cp \"" .. output_dir .. "\" " .. output_filename ..               -- run
@@ -128,10 +138,12 @@ function M.action(selected_option)
       for _, entry_point in ipairs(entry_points) do
         entry_point = utils.os_path(entry_point)
         files = utils.find_files_to_compile(entry_point, "*.java")
+        files = files:gsub("\\", "/")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")       -- entry_point/bin
+        output_dir = output_dir:gsub("\\", "/")
         task = { name = "- Build program (class) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output_dir .. "/*.class\"" .. " || true" ..                  -- clean
-                " && mkdir -p \"" .. output_dir .."\"" ..                                  -- mkdir
+          cmd = rm_file .. "\"" .. output_dir .. "*.class\"" .. ignore_err ..                  -- clean
+                " && " .. mkdir .. "\"" .. output_dir .."\"" .. ignore_err ..              -- mkdir
                 " && javac -d \"" .. output_dir .. "\" " .. arguments .. " "  .. files ..  -- compile bytecode
                 " && echo \"" .. entry_point .. "\"" ..                                    -- echo
                 " && echo \"" .. final_message .. "\"",
@@ -159,8 +171,8 @@ function M.action(selected_option)
       name = "- Java compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build & run program (jar) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. ".jar\"" .. " || true" ..                                           -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                                  -- mkdir
+          cmd = rm_file .. "\"" .. output .. ".jar\"" .. ignore_err ..                                      -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                              -- mkdir
                 " && jar cfe \"" .. output .. ".jar\" " .. output_filename .. " -C \"" .. output_dir .. "\" . " ..  -- compile bytecode (.jar)
                 " && java -jar \"" .. output .. ".jar\"" ..                                                 -- run
                 " && echo \"" .. entry_point .. "\"" ..                                                     -- echo
@@ -173,8 +185,8 @@ function M.action(selected_option)
       name = "- Java compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build program (jar) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. ".jar\"" .. " || true" ..                                           -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                                  -- mkdir
+          cmd = rm_file .. "\"" .. output .. ".jar\"" .. ignore_err ..                                      -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                              -- mkdir
                 " && jar cfe \"" .. output .. ".jar\" " .. output_filename .. " -C \"" .. output_dir .. "\" . " ..  -- compile bytecode (.jar)
                 " && echo \"" .. entry_point .. "\"" ..                                                     -- echo
                 " && echo \"" .. final_message .. "\"",
@@ -206,16 +218,20 @@ function M.action(selected_option)
       for entry, variables in pairs(config) do
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
+        entry_point = entry_point:gsub("\\", "/")
         files = utils.find_files_to_compile(entry_point, "*.java")
+        files = files:gsub("\\", "/")
         output = utils.os_path(variables.output)
+        output = output:gsub("\\", "/")
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
+        output_dir = output_dir:gsub("\\", "/")
         output_filename = vim.fn.fnamemodify(output, ':t:r')
         arguments = variables.arguments or arguments -- optional
         task = { name = "- Build program (jar) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. "\" || true" ..                                                     -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                                  -- mkdir
+          cmd = rm_file .. "\"" .. output .. "\"" .. ignore_err ..                                                   -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                                  -- mkdir
                 " && jar cfe \"" .. output .. "\" " .. output_filename .. " -C \"" .. output_dir .. "\" . " ..  -- compile bytecode (jar)
-                " && echo \"" .. entry_point .. "\"" ..                                                     -- echo
+                " && echo \"" .. entry_point .. "\"" ..                                                         -- echo
                 " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         }
@@ -254,10 +270,10 @@ function M.action(selected_option)
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")                            -- entry_point/bin
         output = utils.os_path(output_dir .. "/Main")                                                           -- entry_point/bin/Main.jar
         task = { name = "- Build program (jar) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. ".jar\" " .. " || true" ..                                              -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                                      -- mkdir
+          cmd = rm_file .. "\"" .. output .. ".jar\" " .. ignore_err ..                                             -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                                      -- mkdir
                 " && jar cfe \"" .. output .. ".jar\" " .. output_filename .. " -C \"" .. output_dir .. "\" . " ..  -- compile bytecode (jar)
-                " && echo \"" .. entry_point .. "\"" ..                                                         -- echo
+                " && echo \"" .. entry_point .. "\"" ..                                                             -- echo
                 " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         }
