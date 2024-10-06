@@ -8,7 +8,8 @@ local M = {}
 --- Frontend - options displayed on telescope
 M.options = {
   { text = "Zig build and run program", value = "option1" },
-  { text = "Zig build program", value = "option2" }
+  { text = "Zig build program", value = "option2" },
+  { text = "Zig build and test program", value = "option3" }
 }
 
 --- Backend - overseer tasks performed on option selected
@@ -27,12 +28,24 @@ function M.action(selected_option)
           components = { "default_extended" }
         },},},})
     task:start()
+
   elseif selected_option == "option2" then
     local task = overseer.new_task({
       name = "- Zig compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build program → \"./build.zig\"",
           cmd = "zig build " .. arguments ..                                 -- compile
+                " && echo \"" .. final_message .. "\"",
+          components = { "default_extended" }
+        },},},})
+    task:start()
+
+  elseif selected_option == "option3" then
+    local task = overseer.new_task({
+      name = "- Zig compiler",
+      strategy = { "orchestrator",
+        tasks = {{ name = "- Build & Test program → \"./build.zig\"",
+          cmd = "zig build test " .. arguments ..                            -- compile and test
                 " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         },},},})
