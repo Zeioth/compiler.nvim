@@ -5,7 +5,7 @@ local M = {}
 --- Frontend - options displayed on telescope
 M.options = {
   { text = "Build and run program (class)", value = "option1" },
-  { text = "Build progrm (class)", value = "option2" },
+  { text = "Build program (class)", value = "option2" },
   { text = "Run program (class)", value = "option3" },
   { text = "Build solution (class)", value = "option4" },
   { text = "", value = "separator" },
