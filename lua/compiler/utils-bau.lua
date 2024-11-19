@@ -292,6 +292,18 @@ local function get_nodejs_opts(path)
   return options
 end
 
+local function get_dioxus_opts(path)
+  local options = {}
+
+  local file = io.open(path, "r")
+
+  -- Just adds an option to build with dioxus cli
+  if file then
+    table.insert(options, { text = "Build Dioxus", value = "placeholder", bau = "dioxus" })
+  end
+
+  return options
+end
 
 -- FRONTEND
 -- Public functions to call from the frontend.
@@ -331,6 +343,11 @@ function M.get_bau_opts()
   -- nodejs
   vim.list_extend(options, get_nodejs_opts(
     working_dir .. utils.os_path("/package.json")
+  ))
+
+  -- dioxus
+  vim.list_extend(options, get_dioxus_opts(
+    working_dir .. utils.os_path("/Dioxus.toml")
   ))
 
   return options
