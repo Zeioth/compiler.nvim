@@ -79,6 +79,17 @@ local function get_cmake_opts(path)
         { text = "CMake " .. target, value = target, bau = "cmake" }
       )
     end
+
+    table.insert(
+        options,
+        { text = "CMake " .. "all", value = "all", bau = "cmake" }
+    )
+
+    table.insert(
+        options,
+        { text = "CMake " .. "clean", value = "clean", bau = "cmake" }
+    )
+
   end
 
   return options
