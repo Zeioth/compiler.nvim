@@ -51,6 +51,107 @@ local function get_makefile_opts(path)
   return options
 end
 
+--- put the variable to list
+---@param argument_list string argument list of set function
+---@param result table<string,string[]> variable list
+local function variable_handler(argument_list, result)
+	local index = 0
+	local _name = ""
+
+	for w in string.gmatch(argument_list, "%S+") do
+		if 0 == index then
+			_name = w
+			if result[_name] == nil then
+				result[_name] = {}
+			end
+		else
+			-- print(string.find(w, "%$") ,_name,w)
+			table.insert(result[_name], w)
+		end
+		index = index + 1
+	end
+end
+
+--- get all the variable in CMakeLists.txt
+---@param tsnode TSNode TSNode for cmake ast
+---@param content string source of CMakeLists.txt
+---@param result table<string,string[]> variable list in CMakeLists.txt at set function
+local function parse_variable(tsnode, content, result)
+
+	local query_set = [[
+        (normal_command
+        (identifier) @_function
+        (argument_list) @argument_list
+        (#match? @_function "\\c^set$"))
+    ]]
+
+	local query = vim.treesitter.query.parse("cmake", query_set)
+	if query then
+		for pattern, match, metadata in query:iter_matches(tsnode, content, 0, -1, { all = false }) do
+			-- print(vim.inspect(match))
+			-- local function_name = vim.treesitter.get_node_text(match[1], content, nil)
+			local argument_list = vim.treesitter.get_node_text(match[2], content, nil)
+			-- print(vim.inspect(argument_list))
+			variable_handler(argument_list, result)
+		end
+	end
+    -- print(vim.inspect(result))
+end
+
+--- parse target
+---@param tsnode TSNode TSNode of CMakeLists.txt
+---@param content string source of CMakeLists.txt
+---@param var_list table<string,string[]> variable list in CMakeLists.txt
+---@param result table<string> target list
+local function parse_target(tsnode, content, var_list, result)
+
+	local query_add_executable = [[
+        (normal_command
+        (identifier) @_function
+        (argument_list . (argument) @argument)
+        (#match? @_function "\\c^add_executable|add_custom_target$")
+        )
+    ]]
+
+	local query = vim.treesitter.query.parse("cmake", query_add_executable)
+	if query then
+        -- print(vim.inspect(query))
+		for pattern, match, metadata in query:iter_matches(tsnode, content, 0, -1, { all = false }) do
+			-- print(pattern, vim.inspect(match))
+			---@type TSNode
+			local argument_node = match[2]
+			local node_string = vim.treesitter.get_node_text(argument_node, content, nil)
+			local start, finish = string.find(node_string, "%${(.-)%}")
+			if start and finish then
+				local captured = string.sub(node_string, start + 2, finish - 1)
+				local target_name = var_list[captured][1]
+				table.insert(result, target_name)
+			else
+				local target_name = vim.treesitter.get_node_text(argument_node, content)
+				table.insert(result, target_name)
+			end
+		end
+	end
+end
+
+--- use nvim-treesitter-cmake parse all the targets
+--- @param content string source of CMakeLists.txt
+--- @return table<string> targets
+local function get_target_from_cmake_ast(content)
+
+	local parser = vim.treesitter.get_string_parser(content, "cmake", nil)
+	-- print(vim.inspect(parser))
+	local tree = parser:parse()[1]
+	-- print(tree:root())
+
+	local _var_list = {}
+	local _target_list = {}
+	parse_variable(tree:root(), content, _var_list)
+	parse_target(tree:root(), content, _var_list, _target_list)
+
+    return _target_list
+end
+
 ---Given a CMakeLists.txt file, parse all the targets,
 ---and return them as a table.
 ---@param path string Path to the CMakeLists.txt file.
@@ -64,20 +165,12 @@ local function get_cmake_opts(path)
     local content = file:read("*all")
     file:close()
 
-    -- Parse add_executable entries
-    for target in content:gmatch("add_executable%s*%(%s*([%w_-]+)") do
-      table.insert(
-        options,
-        { text = "CMake " .. target, value = target, bau = "cmake" }
-      )
-    end
-
-    -- Parse add_custom_target entries
-    for target in content:gmatch("add_custom_target%s*%(%s*([%w_-]+)") do
-      table.insert(
-        options,
-        { text = "CMake " .. target, value = target, bau = "cmake" }
-      )
+    local _targets = get_target_from_cmake_ast(content)
+    for _, value in ipairs(_targets) do
+        table.insert(
+            options,
+            { text = "CMake " .. value, value = value, bau = "cmake" }
+        )
     end
 
     table.insert(
