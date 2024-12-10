@@ -17,7 +17,7 @@ function M.action(selected_option)
   local entry_point = utils.os_path(vim.fn.getcwd() .. "/main.c")            -- working_directory/main.c
   local files = utils.find_files_to_compile(entry_point, "*.c", true)        -- *.c files under entry_point_dir (recursively)
   local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")               -- working_directory/bin/
-  local output = utils.os_path(vim.fn.getcwd() .. "/bin/program")            -- working_directory/bin/program
+  local output = utils.os_path(vim.fn.getcwd() .. "/program")            -- working_directory/bin/program
   local arguments = "-Wall -g"                                               -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
