@@ -22,17 +22,19 @@ function M.action(selected_option)
   local final_message = "--task finished--"
 
 
+  local rm, mkdir, ignore_error = utils.get_commands()
+
   if selected_option == "option1" then
     local task = overseer.new_task({
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build & run program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. "\" || true" ..                           -- clean
-              " && mkdir -p \"" .. output_dir .. "\"" ..                          -- mkdir
-              " && gcc " .. files .. " -o \"" .. output .. "\" " .. arguments ..  -- compile
-              " && \"" .. output .. "\"" ..                                       -- run
-              " && echo \"" .. entry_point .. "\"" ..                             -- echo
-              " && echo \"" .. final_message .. "\"",
+          cmd = rm .. "\"" .. output .. "\"" .. ignore_error ..                      -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_error ..     -- mkdir
+                " && gcc " .. files .. " -o \"" .. output .. "\" " .. arguments ..   -- compile
+                " && \"" .. output .. "\"" ..                                        -- run
+                " && echo \"" .. entry_point .. "\"" ..                              -- echo
+                " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         },},},})
     task:start()
@@ -41,11 +43,11 @@ function M.action(selected_option)
       name = "- C compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. "\" || true" ..                           -- clean
-              " && mkdir -p \"" .. output_dir .. "\"" ..                          -- mkdir
-              " && gcc " .. files .. " -o \"" .. output .. "\" " .. arguments ..  -- compile
-              " && echo \"" .. entry_point .. "\"" ..                             -- echo
-              " && echo \"" .. final_message .. "\"",
+          cmd = rm .. "\"" .. output .. "\"" ..  ignore_error ..                    -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_error ..    -- mkdir
+                " && gcc " .. files .. " -o \"" .. output .. "\" " .. arguments ..  -- compile
+                " && echo \"" .. entry_point .. "\"" ..                             -- echo
+                " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         },},},})
     task:start()
@@ -78,13 +80,13 @@ function M.action(selected_option)
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
+
         task = { name = "- Build program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. "\" || true" ..                           -- clean
-              " && mkdir -p \"" .. output_dir .. "\"" ..                          -- mkdir
-              " && gcc " .. files .. " -o \"" .. output .. "\" " .. arguments ..  -- compile
-              " && echo \"" .. entry_point .. "\"" ..                             -- echo
-              " && echo \"" .. final_message .. "\"",
-          components = { "default_extended" }
+          cmd = rm .. "\"" .. output .. "\"" ..  ignore_error ..                    -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_error ..    -- mkdir
+                " && gcc " .. files .. " -o \"" .. output .. "\" " .. arguments ..  -- compile
+                " && echo \"" .. entry_point .. "\"" ..                             -- echo
+                " && echo \"" .. final_message .. "\""
         }
         table.insert(tasks, task) -- store all the tasks we've created
         ::continue::
@@ -121,12 +123,13 @@ function M.action(selected_option)
         files = utils.find_files_to_compile(entry_point, "*.c")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")  -- entry_point/bin
         output = utils.os_path(output_dir .. "/program")                              -- entry_point/bin/program
+
         task = { name = "- Build program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. "\" || true" ..                          -- clean
-              " && mkdir -p \"" .. output_dir .. "\"" ..                         -- mkdir
-              " && gcc " .. files .. " -o \"" .. output .. "\" " .. arguments .. -- compile
-              " && echo \"" .. entry_point .. "\"" ..                            -- echo
-              " && echo \"" .. final_message .. "\"",
+          cmd = rm .. "\"" .. output .. "\"" ..  ignore_error ..                    -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_error ..    -- mkdir
+                " && gcc " .. files .. " -o \"" .. output .. "\" " .. arguments ..  -- compile
+                " && echo \"" .. entry_point .. "\"" ..                             -- echo
+                " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         }
         table.insert(tasks, task) -- store all the tasks we've created
