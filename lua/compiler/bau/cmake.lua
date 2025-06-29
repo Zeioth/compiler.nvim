@@ -1,4 +1,5 @@
 --- CMakeLists.txt bau actions
+local utils = require "compiler.utils"
 
 local M = {}
 
@@ -6,6 +7,8 @@ local M = {}
 function M.action(option)
   local overseer = require("overseer")
   local final_message = "--task finished--"
+
+  local rm, mkdir, ignore_err = utils.get_commands()
 
   -- Global: CMAKE_BUILD_DIR
   local success, build_dir = pcall(vim.api.nvim_get_var, 'CMAKE_BUILD_DIR')
@@ -27,10 +30,10 @@ function M.action(option)
     name = "- CMake interpreter",
     strategy = { "orchestrator",
       tasks = {{ name = "- Run CMake → " .. option,
-        cmd = "mkdir -p \"" .. build_dir .. "\"" ..
+        cmd = mkdir .. "\"" .. build_dir .. "\" " .. ignore_err ..
               " && " .. cmd_build ..                                         -- Build to 'build' directory.
               " && " .. cmd_target ..                                        -- Build target from the 'build' directory.
-              " && echo '" .. cmd_build .. " && " .. cmd_target .. "'" ..    -- echo
+              " && echo \"" .. cmd_build .. " && " .. cmd_target .. "\"" ..    -- echo
               " && echo \"" .. final_message .. "\"",
         components = { "default_extended" }
       },},},})
