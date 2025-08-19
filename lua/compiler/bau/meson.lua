@@ -1,4 +1,5 @@
 --- meson.build bau actions
+local utils = require "compiler.utils"
 
 local M = {}
 
@@ -6,6 +7,8 @@ local M = {}
 function M.action(option)
   local overseer = require("overseer")
   local final_message = "--task finished--"
+
+  local rm, mkdir, ignore_err = utils.get_commands()
 
   -- Global: MESON_BUILD_DIR
   local success, build_dir = pcall(vim.api.nvim_get_var, 'MESON_BUILD_DIR')
@@ -29,7 +32,7 @@ function M.action(option)
     name = "- Meson interpreter",
     strategy = { "orchestrator",
       tasks = {{ name = "- Run Meson → " .. option,
-        cmd = "mkdir -p \"" .. build_dir .. "\"" ..
+        cmd = mkdir .. "\"" .. build_dir .. "\"" .. ignore_err ..
               " && " .. cmd_setup ..                                         -- Setup
               " && " .. cmd_build ..                                         -- Build target from the 'build' directory.
               --" && " .. cmd_target ..                                      -- Run target

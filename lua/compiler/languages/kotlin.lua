@@ -29,14 +29,21 @@ function M.action(selected_option)
   local arguments = ""                                                       -- arguments can be overriden in .solution
   local final_message = "--task finished--"
 
+  local rm_file, mkdir, ignore_err = utils.get_commands()
+
+  -- HACK: I don't know why, but javac has problems backslashes '\' as path seperators, so we convert to '/'
+  output_dir = output_dir:gsub("\\", "/")
+  output = output:gsub("\\", "/")
+  files = files:gsub("\\", "/")
+
   --========================== Build as class ===============================--
   if selected_option == "option1" then
     local task = overseer.new_task({
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build & run program (class) → \"" .. entry_point .. "\"",
-           cmd = "rm -f \"" .. output_dir .. "/*.class\" " .. " || true" ..                    -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                     -- mkdir
+           cmd = rm_file .. "\"" .. output_dir .. "*.class\" " .. ignore_err ..                -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                 -- mkdir
                 " && kotlinc " .. files .. " -d \"" .. output_dir .. "\" " .. arguments  ..    -- compile bytecode
                 " && java -cp \"" .. output_dir .. "\" " .. output_filename ..                 -- run
                 " && echo \"" .. entry_point .. "\"" ..                                        -- echo
@@ -49,8 +56,8 @@ function M.action(selected_option)
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build program (class) → \"" .. entry_point .. "\"",
-           cmd = "rm -f \"" .. output_dir .. "/*.class\" " .. " || true" ..                    -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                     -- mkdir
+           cmd = rm_file .. "\"" .. output_dir .. "*.class\" " .. ignore_err ..                -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                 -- mkdir
                 " && kotlinc " .. files .. " -d \"" .. output_dir .. "\" " .. arguments  ..    -- compile bytecode
                 " && echo \"" .. entry_point .. "\"" ..                                        -- echo
                 " && echo \"" .. final_message .. "\"",
@@ -83,12 +90,14 @@ function M.action(selected_option)
         if entry == "executables" then goto continue end
         entry_point = utils.os_path(variables.entry_point)
         files = utils.find_files_to_compile(entry_point, "*.kt")
+        files = files:gsub("\\", "/")
         output = utils.os_path(variables.output)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
+        output_dir = output_dir:gsub("\\", "/")
         arguments = variables.arguments or arguments -- optional
         task = { name = "- Build program (class) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output_dir .. "/*.class\"" .. " || true" ..                          -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                         -- mkdir
+           cmd = rm_file .. "\"" .. output_dir .. "*.class\" " .. ignore_err ..                    -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                     -- mkdir
                 " && kotlinc " .. files .. " -d \"" .. output_dir .. "\" " .. arguments .. " "  .. -- compile bytecode
                 " && echo \"" .. entry_point .. "\"" ..                                            -- echo
                 " && echo \"" .. final_message .. "\"",
@@ -102,6 +111,7 @@ function M.action(selected_option)
       if solution_executables then
         for entry, executable in pairs(solution_executables) do
           output_dir = utils.os_path(executable:match("^(.-[/\\])[^/\\]*$"))
+          output_dir = output_dir:gsub("\\", "/")
           output_filename = vim.fn.fnamemodify(executable, ":t:r")
           task = { name = "- Run program (class) → \"" .. executable .. "\"",
             cmd = "java -cp \"" .. output_dir .. "\" " .. output_filename ..                       -- run
@@ -130,8 +140,8 @@ function M.action(selected_option)
         files = utils.find_files_to_compile(entry_point, "*.kt")
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")           -- entry_point/bin
         task = { name = "- Build program (class) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output_dir .. "/*.class\"" .. " || true" ..                      -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                     -- mkdir
+           cmd = rm_file .. "\"" .. output_dir .. "*.class\" " .. ignore_err ..                -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                 -- mkdir
                 " && kotlinc " .. files .. " -d \"" .. output_dir .. "\" " .. arguments  ..    -- compile bytecode
                 " && echo \"" .. entry_point .. "\"" ..                                        -- echo
                 " && echo \"" .. final_message .. "\"",
@@ -159,8 +169,8 @@ function M.action(selected_option)
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build & run program (jar) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. "\" || true " ..                                       -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                     -- mkdir
+           cmd = rm_file .. "\"" .. output .. "*.class\" " .. ignore_err ..                    -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                 -- mkdir
                 " && kotlinc " .. files .. " -include-runtime -d \"" .. output .. ".jar\" " .. arguments  ..  -- compile bytecode (jar)
                 " && java -jar \"" .. output .. ".jar\"" ..                                    -- run
                 " && echo \"" .. entry_point .. "\"" ..                                        -- echo
@@ -173,8 +183,8 @@ function M.action(selected_option)
       name = "- Kotlin compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build program (jar) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. "\" || true " ..                                       -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                     -- mkdir
+           cmd = rm_file .. "\"" .. output .. "*.class\" " .. ignore_err ..                    -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                 -- mkdir
                 " && kotlinc " .. files .. " -include-runtime -d \"" .. output .. ".jar\" " .. arguments  ..  -- compile bytecode (jar)
                 " && echo \"" .. entry_point .. "\"" ..                                        -- echo
                 " && echo \"" .. final_message .. "\"",
@@ -211,8 +221,8 @@ function M.action(selected_option)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         arguments = variables.arguments or arguments -- optional
         task = { name = "- Build program (jar) → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. "\" || true " ..                                                  -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                                -- mkdir
+           cmd = rm_file .. "\"" .. output .. "*.class\" " .. ignore_err ..                               -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                            -- mkdir
                 " && kotlinc " .. files .. " -include-runtime -d \"" .. output .. "\" " .. arguments  ..  -- compile bytecode (jar)
                 " && echo \"" .. entry_point .. "\"" ..                                                   -- echo
                 " && echo \"" .. final_message .. "\"",
@@ -254,8 +264,8 @@ function M.action(selected_option)
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "bin")        -- entry_point/bin
         output = utils.os_path(output_dir .. "/Main")                                       -- entry_point/bin/MainKt.jar
         task = { name = "- Build program → \"" .. entry_point .. "\"",
-          cmd = "rm -f \"" .. output .. "\" || true " ..                                                      -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                                    -- mkdir
+           cmd = rm_file .. "\"" .. output .. "*.class\" " .. ignore_err ..                                   -- clean
+                " && " .. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                            -- mkdir
                 " && kotlinc " .. files .. " -include-runtime -d \"" .. output .. ".jar\" " .. arguments  ..  -- compile bytecode (jar)
                 " && echo \"" .. entry_point .. "\"" ..                                                       -- echo
                 " && echo \"" .. final_message .. "\"",

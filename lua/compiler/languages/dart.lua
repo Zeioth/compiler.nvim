@@ -29,9 +29,10 @@ function M.action(selected_option)
   local current_file = utils.os_path(vim.fn.expand('%:p'), true)                -- current file
   local entry_point = utils.os_path(vim.fn.getcwd() .. "/lib/main.dart", true)  -- working_directory/lib/main.dart
   local output_dir = utils.os_path(vim.fn.getcwd() .. "/bin/")                  -- working_directory/bin/
-  local output = utils.os_path(vim.fn.getcwd() .. "/bin/main")                  -- working_directory/bin/main
+  local output = utils.os_path(vim.fn.getcwd() .. "/bin/main", false, true)     -- working_directory/bin/main
   local final_message = "--task finished--"
 
+  local rm, mkdir, ignore_err = utils.get_commands()
 
   --=========================== INTERPRETED =================================--
   if selected_option == "option1" then
@@ -142,11 +143,11 @@ function M.action(selected_option)
       name = "- Dart compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build & run program → " .. entry_point,
-          cmd = "rm -f \"" .. output .. "\" || true" ..                            -- clean
-              " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
+          cmd = rm .. "\"" .. output .. "\"" .. ignore_err ..                                       -- clean
+              " && ".. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                         -- mkdir
               " && dart compile exe " .. entry_point .. " -o \"" .. output .. "\" " .. arguments .. -- compile
-              " && \"" .. output .. "\"" ..                                        -- run
-              " && echo \"" .. entry_point .. "\"" ..                              -- echo
+              " && \"" .. output .. "\"" ..                                                         -- run
+              " && echo " .. entry_point ..                                                         -- echo
               " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         },},},})
@@ -157,10 +158,10 @@ function M.action(selected_option)
       name = "- Dart compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Build program → " .. entry_point,
-          cmd = "rm -f \"" .. output .. "\" || true" ..                            -- clean
-              " && mkdir -p \"" .. output_dir .. "\"" ..                           -- mkdir
+          cmd = rm .. "\"" .. output .. "\"" .. ignore_err ..                                       -- clean
+              " && ".. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                         -- mkdir
               " && dart compile exe " .. entry_point .. " -o \"" .. output .. "\" " .. arguments .. -- compile
-              " && echo \"" .. entry_point .. "\"" ..                              -- echo
+              " && echo " .. entry_point ..                                                         -- echo
               " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         },},},})
@@ -171,8 +172,8 @@ function M.action(selected_option)
       name = "- Dart compiler",
       strategy = { "orchestrator",
         tasks = {{ name = "- Run program → \"" .. output .. "\"",
-          cmd = "\"" .. output .. "\"" ..                                          -- run
-                " && echo \"" .. entry_point .. "\"" ..                            -- echo
+          cmd = "\"" .. output .. "\"" ..                                -- run
+                " && echo " .. entry_point ..                            -- echo
                 " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         },},},})
@@ -195,10 +196,10 @@ function M.action(selected_option)
         output_dir = utils.os_path(output:match("^(.-[/\\])[^/\\]*$"))
         local arguments = variables.arguments or "" -- optional
         task = { name = "- Run program → " .. entry_point,
-          cmd = "rm -f \"" .. output ..  "\" || true" ..                             -- clean
-                " && mkdir -p " .. output_dir ..                                     -- mkdir
+          cmd = rm .. "\"" .. output .. "\"" .. ignore_err ..                                         -- clean
+                " && ".. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                         -- mkdir
                 " && dart compile exe " .. entry_point .. " -o \"" .. output .. "\" " .. arguments .. -- compile
-                " && echo " .. entry_point ..                                        -- echo
+                " && echo " .. entry_point ..                                                         -- echo
                 " && echo \"" .. final_message .. "\"",
           components = { "default_extended" }
         }
@@ -237,8 +238,8 @@ function M.action(selected_option)
         output_dir = utils.os_path(entry_point:match("^(.-[/\\])[^/\\]*$") .. "../bin")                   -- entry_point/../bin
         output = utils.os_path(output_dir .. "/main")                                                     -- entry_point/bin/main
         task = { name = "- Build program → \"" .. entry_point .. "\"",
-          cmd ="rm -f \"" .. output ..  "\" || true" ..                                                   -- clean
-                " && mkdir -p \"" .. output_dir .. "\"" ..                                                -- mkdir
+          cmd = rm .. "\"" .. output .. "\"" .. ignore_err ..                                         -- clean
+                " && ".. mkdir .. "\"" .. output_dir .. "\"" .. ignore_err ..                         -- mkdir
                 " && dart compile exe \"" .. entry_point .. "\" -o \"" .. output .. "\" " .. arguments .. -- compile
                 " && echo \"" .. entry_point .. "\"" ..                                                   -- echo
                 " && echo \"" .. final_message .. "\"",
