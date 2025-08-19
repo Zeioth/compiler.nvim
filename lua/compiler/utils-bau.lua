@@ -8,7 +8,6 @@
 local M = {}
 local utils = require("compiler.utils")
 
-
 -- PARSERS
 -- Private functions to parse bau files.
 -- ============================================================================
@@ -30,7 +29,7 @@ local function get_makefile_opts(path)
     -- Iterate through each line in the Makefile
     for line in file:lines() do
       -- Check for lines starting with a target rule (e.g., "target: dependencies")
-      local target = line:match "^(.-):"
+      local target = line:match("^(.-):")
       if target then
         in_target = true
         -- Exclude the ":" and add the option to the list with text and value fields
@@ -117,6 +116,110 @@ local function get_meson_opts(path)
   return options
 end
 
+---Given an MSBuild sln file,
+---find all build targets and return them as a table.
+---@param paths table Table of file paths, like this: { "./a.sln", "./b.sln" }
+---@return table options A table like:
+--- { { text: "MSBuild Build (Debug)", value="-t:Build -p:Configuration=Debug", bau = "msbuild"}, { text: "MSBuild Clean (Release)", value="-t:Build -p:Configuration=Release", bau = "msbuild" } ...}
+function M.get_msbuild_opts(paths)
+  local options = {}
+
+  local multiple_sln = #paths > 1
+
+  -- find configurations in each sln and build the output table
+  for _, path in pairs(paths) do
+    -- open the sln for reading
+    local file = io.open(path, "r")
+
+    if file then
+      local in_configs = false
+      local configs = {}
+
+      -- iterate through each line in the sln
+      for line in file:lines() do
+        -- check if we are in the configuration section
+        if line:match("^\tGlobalSection%(SolutionConfigurationPlatforms%).*") then
+          -- check if we've exited the section containing the configurations
+          in_configs = true
+          goto nextline
+        elseif line:match("^\tEndGlobalSection$") then
+          -- we've read all configurations
+          in_configs = false
+          goto finish
+        end
+
+        -- stop if we aren't reading configurations
+        if not in_configs then
+          goto nextline
+        end
+
+        -- get the configuration name from the current line
+        local config = line:gsub("^\t\t([a-zA-Z]+).*$", "%1")
+
+        -- add to configs in a way that deduplicates the results
+        configs[config] = 1
+
+        ::nextline::
+      end
+      ::finish::
+      -- close the sln
+      file:close()
+
+      -- copy out the keys from the table, we don't care about the values (they're all 1)
+      configs = vim.tbl_keys(configs)
+
+      ---returns an entry table, given the parameters to generate it
+      ---@param projname string A string (needs to be surrounded by spaces)
+      ---@param target table A table of strings that are the target names (eg. { "Build", "Run" })
+      ---@param config string The name of the configuration to build
+      ---@return table option An entry in an options table
+      local format_entry = function (projname, target, config)
+        local targetflags = '-t:' .. target[1]
+        local targetname = target[1]
+        -- handle multiple targets
+        for i = 2, #target do
+          local t = target[i]
+          targetflags = targetflags .. ' -t:' .. t
+          targetname = targetname .. ' and ' .. t
+        end
+
+        return {
+          text = "MSBuild: " .. targetname .. projname .. "(" .. config .. ")",
+          value = targetflags .. " -p:Configuration=" .. config,
+          bau = "msbuild",
+        }
+      end
+
+      -- remove release configs if there are others
+      if #configs > 1 then
+        for idx, config in pairs(configs) do
+          if config == "Release" then
+            table.remove(configs, idx)
+          end
+        end
+      end
+
+      -- include project name if there are multiple sln files
+      local projname = ' '
+      if multiple_sln then
+        projname = " " .. vim.fs.basename(path):gsub("%.sln$", "") .. " "
+      end
+
+      -- Every MSBuild project gets these targets automatically
+      local targets = { { "Build" }, { "Run" }, { "Build", "Run" }, { "Clean" } }
+
+      -- Append each option to the table
+      for _,config in pairs(configs) do
+        for _,target in pairs(targets) do
+          table.insert(options, format_entry(projname, target, config))
+        end
+      end
+    end
+  end
+
+  return options
+end
+
 ---If a gradle.build.kts or gradle.build  file exists,
 ---parse the result of the command `gradle tasks`.
 ---
@@ -128,13 +231,18 @@ end
 local function get_gradle_cmd_opts(path)
   -- guard clause
   local gradle_kts_file_exists = vim.fn.filereadable(path) == 1
-  local gradle_file_exists = vim.fn.filereadable(vim.fn.fnamemodify(path, ':t:r')) == 1
+  local gradle_file_exists = vim.fn.filereadable(
+    vim.fn.fnamemodify(path, ":t:r")
+  ) == 1
   if not gradle_kts_file_exists and not gradle_file_exists then return {} end
 
   -- parse
   local GRADLE_CMD = "gradle tasks"
-  local UNIX_CMD = GRADLE_CMD .. " | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
-  local WINDOWS_CMD = "powershell -c \"" .. GRADLE_CMD .. [[ | Out-String | Select-String -Pattern '(?sm)Application tasks(.*?)(?:\r?\n){2}' | ForEach-Object { $_.Matches.Groups[1].Value -split '\r?\n' | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split '\s+', 2)[0] } $skip = $false } | Where-Object { $_ -notmatch '--' -and $_.Trim() -ne '' } }"]]
+  local UNIX_CMD = GRADLE_CMD
+    .. " | awk '/Application tasks/,/^$/{if (!/^$/) print}' | awk 'NR > 2' | awk '!/--/ && NF {gsub(/ .*/, \"\", $0); print}' | sed '/^$/d'"
+  local WINDOWS_CMD = 'powershell -c "'
+    .. GRADLE_CMD
+    .. [[ | Out-String | Select-String -Pattern '(?sm)Application tasks(.*?)(?:\r?\n){2}' | ForEach-Object { $_.Matches.Groups[1].Value -split '\r?\n' | ForEach-Object -Begin { $skip = $true } { if (-not $skip) { ($_ -split '\s+', 2)[0] } $skip = $false } | Where-Object { $_ -notmatch '--' -and $_.Trim() -ne '' } }"]]
   local options = {}
   local cmd_output = ""
   local is_windows = os.getenv("OS") == "Windows_NT"
@@ -157,7 +265,6 @@ local function get_gradle_cmd_opts(path)
 
   return options
 end
-
 
 ---Given a build.gradle.kts file, parse all the tasks,
 ---and return them as a table.
@@ -203,10 +310,11 @@ local function get_gradle_opts(path)
         if task_match then
           in_task = true
           task_name = task_match
-          table.insert(
-            options,
-            { text = "Gradle " .. task_name, value = task_name, bau = "gradle" }
-          )
+          table.insert(options, {
+            text = "Gradle " .. task_name,
+            value = task_name,
+            bau = "gradle",
+          })
         elseif in_task then
           local task_end = line:match("}")
           if task_end then
@@ -236,7 +344,7 @@ local function get_nodejs_opts(path)
   local file = io.open(path, "r")
 
   if file then
-    local content = file:read "*all"
+    local content = file:read("*all")
     file:close()
 
     -- parse package.json
@@ -252,30 +360,24 @@ local function get_nodejs_opts(path)
 
     -- Global: NODEJS_PACKAGE_MANAGER
     local success, package_manager =
-        pcall(vim.api.nvim_get_var, "NODEJS_PACKAGE_MANAGER")
+      pcall(vim.api.nvim_get_var, "NODEJS_PACKAGE_MANAGER")
     if not success or package_manager == "" then package_manager = "npm" end
 
     -- Add parsed options to table "options"
     local scripts = package_json.scripts
     if scripts then
       -- Hardcode install/uninstall scripts
-      table.insert(
-        options,
-        {
-          text = package_manager:upper() .. " install",
-          value = package_manager .. " install",
-          bau = "nodejs",
-        }
-      )
+      table.insert(options, {
+        text = package_manager:upper() .. " install",
+        value = package_manager .. " install",
+        bau = "nodejs",
+      })
       if package_manager == "npm" then
-        table.insert(
-          options,
-          {
-            text = package_manager:upper() .. " uninstall *",
-            value = package_manager .. " uninstall *",
-            bau = "nodejs",
-          }
-        )
+        table.insert(options, {
+          text = package_manager:upper() .. " uninstall *",
+          value = package_manager .. " uninstall *",
+          bau = "nodejs",
+        })
       end
 
       -- Afterwards, add the scripts from package.json
@@ -291,7 +393,6 @@ local function get_nodejs_opts(path)
 
   return options
 end
-
 
 -- FRONTEND
 -- Public functions to call from the frontend.
@@ -320,6 +421,11 @@ function M.get_bau_opts()
     working_dir .. utils.os_path("/meson.build")
   ))
 
+  -- msbuild
+  vim.list_extend(options, M.get_msbuild_opts(
+    vim.fn.globpath(working_dir, "*.sln", true, true, true)
+  ))
+
   -- gradle
   vim.list_extend(options, get_gradle_cmd_opts(
     working_dir .. utils.os_path("/build.gradle.kts")
@@ -343,14 +449,15 @@ end
 function M.require_bau(bau)
   local local_path = debug.getinfo(1, "S").source:sub(2)
   local local_path_dir = local_path:match("(.*[/\\])")
-  local module_file_path = utils.os_path(local_path_dir .. "bau/" .. bau .. ".lua")
+  local module_file_path =
+    utils.os_path(local_path_dir .. "bau/" .. bau .. ".lua")
   local success, bau = pcall(dofile, module_file_path)
 
   if success then
     return bau
   else
     -- local error = "Build automation utilities \"" .. bau .. "\" not supported by the compiler."
-    -- vim.notify(error, vim.log.levels.INFO, { title = "Build automation utilities unsupported" })
+    -- vim.notify(error, vim.log.levels.INFO,  title = "Build automation utilities unsupported" )
     return nil
   end
 end
