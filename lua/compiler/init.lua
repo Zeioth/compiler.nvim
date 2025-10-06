@@ -8,7 +8,7 @@ local M = {}
 
 M.setup = function(opts)
   cmd("CompilerOpen", function()
-    require("compiler.telescope").show()
+    require("compiler.picker").show()
   end, { desc = "Open the compiler" })
 
   cmd("CompilerToggleResults", function()
