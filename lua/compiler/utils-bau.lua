@@ -98,7 +98,7 @@ local function get_meson_opts(path)
     file:close()
 
     -- Parse executable entries
-    for target in content:gmatch("executable%s*%(.-['\"]([%w_]+)['\"]") do
+    for target in content:gmatch("executable%s*%(.-['\"]([%w_-]+)['\"]") do
       table.insert(
         options,
         { text = "Meson " .. target, value = target, bau = "meson" }
@@ -106,7 +106,7 @@ local function get_meson_opts(path)
     end
 
     -- Parse custom_target entries
-    for target in content:gmatch("custom_target%s*%(%s*'([^']+)'") do
+    for target in content:gmatch("custom_target%s*%(.-['\"]([%w_-]+)['\"]") do
       table.insert(
         options,
         { text = "Meson " .. target, value = target, bau = "meson" }
